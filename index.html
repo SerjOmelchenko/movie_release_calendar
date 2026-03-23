@@ -225,6 +225,41 @@
       pointer-events: none;
     }
 
+    .cell-snippets {
+      display: flex;
+      gap: 2px;
+      margin-top: 3px;
+      align-items: stretch;
+    }
+
+    .cell-snippet-thumb {
+      flex: 1;
+      min-width: 0;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      border-radius: 2px;
+      display: block;
+    }
+
+    .cell-snippet-placeholder {
+      flex: 1;
+      min-width: 0;
+      aspect-ratio: 2/3;
+      background: #1e1e1e;
+      border-radius: 2px;
+    }
+
+    .cell-snippet-more {
+      flex: 0 0 auto;
+      font-size: 0.62rem;
+      color: #e94560;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      padding: 0 2px;
+      white-space: nowrap;
+    }
+
     /* Day picker modal (multiple movies on same day) */
     #day-modal-overlay {
       display: none;
@@ -547,6 +582,25 @@
   const searchInput = document.getElementById('search-input');
   const regionSelect = document.getElementById('region-select');
 
+  // Priority scoring for hero poster selection.
+  // Factors (descending importance):
+  //   1. Has a poster image (visual quality)
+  //   2. Popularity (TMDB score, log-scaled to reduce extreme outliers)
+  //   3. Vote count  (established audience, log-scaled)
+  //   4. Vote average (rating)
+  function scoreMovie(m) {
+    let score = 0;
+    if (m.poster_path) score += 1000;
+    score += Math.log1p(m.popularity   || 0) * 100;
+    score += Math.log1p(m.vote_count   || 0) * 10;
+    score += (m.vote_average || 0) * 5;
+    return score;
+  }
+
+  function sortMoviesByPriority(movies) {
+    return [...movies].sort((a, b) => scoreMovie(b) - scoreMovie(a));
+  }
+
   async function fetchGenres() {
     try {
       const res = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`);
@@ -650,14 +704,34 @@
       html += `<div class="day-number">${d}</div>`;
 
       if (movies.length >= 1) {
-        const m = movies[0];
-        if (m.poster_path) {
-          html += `<img class="poster-thumb" src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`;
+        const sorted = sortMoviesByPriority(movies);
+        const hero = sorted[0];
+        const rest = sorted.slice(1);
+
+        // Hero (big) poster
+        if (hero.poster_path) {
+          html += `<img class="poster-thumb" src="${IMG_BASE}w185${hero.poster_path}" alt="${escHtml(hero.title)}" loading="lazy" />`;
         } else {
-          html += `<div class="poster-placeholder">${escHtml(m.title)}</div>`;
+          html += `<div class="poster-placeholder">${escHtml(hero.title)}</div>`;
         }
-        if (movies.length > 1) {
-          html += `<div class="movie-count-badge">+${movies.length - 1}</div>`;
+
+        // Snippet row for remaining movies
+        if (rest.length > 0) {
+          const MAX_SNIPPETS = 3;
+          const snippets = rest.slice(0, MAX_SNIPPETS);
+          const overflow = rest.length - MAX_SNIPPETS;
+          html += '<div class="cell-snippets">';
+          snippets.forEach(m => {
+            if (m.poster_path) {
+              html += `<img class="cell-snippet-thumb" src="${IMG_BASE}w92${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" title="${escHtml(m.title)}" />`;
+            } else {
+              html += `<div class="cell-snippet-placeholder" title="${escHtml(m.title)}"></div>`;
+            }
+          });
+          if (overflow > 0) {
+            html += `<div class="cell-snippet-more">+${overflow}</div>`;
+          }
+          html += '</div>';
         }
       }
 
