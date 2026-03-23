@@ -19,29 +19,81 @@
 
     header {
       background: #0d0d0d;
-      padding: 2.2rem 2rem 1.8rem;
-      text-align: center;
+      padding: 1.4rem 2rem;
       border-bottom: 1px solid #1e1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .site-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+    }
+
+    .brand-icon .sweep-group {
+      transform-origin: 22px 22px;
+      animation: radar-spin 3s linear infinite;
+    }
+
+    @keyframes radar-spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
     }
 
     header h1 {
-      font-size: 1.9rem;
-      font-weight: 700;
+      font-size: 1.45rem;
+      font-weight: 800;
       color: #fff;
-      letter-spacing: -0.01em;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
 
     header h1 span {
       color: #e94560;
     }
 
-    header p {
-      color: #444;
-      margin-top: 0.35rem;
-      font-size: 0.8rem;
-      letter-spacing: 0.03em;
+    footer {
+      border-top: 1px solid #1e1e1e;
+      margin-top: 2rem;
+      padding: 1.4rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #333;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
     }
+
+    .footer-attr {
+      font-size: 0.75rem;
+      color: #3a3a3a;
+    }
+
+    footer a { color: #e94560; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
 
     .controls {
       display: flex;
@@ -455,18 +507,6 @@
 
     #modal-close:hover { background: #e94560; }
 
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      color: #555;
-      font-size: 0.8rem;
-      border-top: 1px solid #1e1e1e;
-      margin-top: 1rem;
-    }
-
-    footer a { color: #e94560; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-
     @media (max-width: 700px) {
       .calendar-container { padding: 0.5rem; }
       .day-cell { min-height: 80px; padding: 0.3rem; }
@@ -477,8 +517,21 @@
 <body>
 
 <header>
-  <h1>Movie Release <span>Calendar</span></h1>
-  <p>Powered by TMDB</p>
+  <div class="site-brand">
+    <svg class="brand-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="22" cy="22" r="20"   stroke="#2a2a2a" stroke-width="1.2"/>
+      <circle cx="22" cy="22" r="13.5" stroke="#2a2a2a" stroke-width="1.2"/>
+      <circle cx="22" cy="22" r="7"    stroke="#2a2a2a" stroke-width="1.2"/>
+      <line x1="22" y1="2"  x2="22" y2="42" stroke="#1e1e1e" stroke-width="1"/>
+      <line x1="2"  y1="22" x2="42" y2="22" stroke="#1e1e1e" stroke-width="1"/>
+      <g class="sweep-group">
+        <line x1="22" y1="22" x2="42" y2="22" stroke="#e94560" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+        <circle cx="36" cy="22" r="2" fill="#e94560" opacity="0.85"/>
+      </g>
+      <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
+    </svg>
+    <h1>Movie Release <span>Radar</span></h1>
+  </div>
 </header>
 
 <div class="controls">
@@ -563,8 +616,12 @@
 </div>
 
 <footer>
-  Data provided by <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a>.
-  This product uses the TMDB API but is not endorsed or certified by TMDB.
+  <div class="footer-inner">
+    <div class="footer-brand">🎬 Movie Release Radar</div>
+    <div class="footer-attr">
+      Data by <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a> &mdash; not endorsed or certified by TMDB.
+    </div>
+  </div>
 </footer>
 
 <script>
