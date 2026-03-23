@@ -6,14 +6,34 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     (function(){
-      var c = localStorage.getItem('cookie_consent');
-      var granted = c === 'accepted';
-      gtag('consent', 'default', {
-        analytics_storage:    granted ? 'granted' : 'denied',
-        ad_storage:           granted ? 'granted' : 'denied',
-        ad_user_data:         granted ? 'granted' : 'denied',
-        ad_personalization:   granted ? 'granted' : 'denied'
-      });
+      var c;
+      try { c = localStorage.getItem('cookie_consent'); } catch(e) {}
+      if (c === 'accepted') {
+        // Returning visitor who already accepted — grant immediately
+        gtag('consent', 'default', {
+          analytics_storage:  'granted',
+          ad_storage:         'granted',
+          ad_user_data:       'granted',
+          ad_personalization: 'granted'
+        });
+      } else if (c === 'declined') {
+        // Returning visitor who declined — deny immediately
+        gtag('consent', 'default', {
+          analytics_storage:  'denied',
+          ad_storage:         'denied',
+          ad_user_data:       'denied',
+          ad_personalization: 'denied'
+        });
+      } else {
+        // First visit — deny but wait up to 2 s for banner interaction
+        gtag('consent', 'default', {
+          analytics_storage:  'denied',
+          ad_storage:         'denied',
+          ad_user_data:       'denied',
+          ad_personalization: 'denied',
+          wait_for_update:    2000
+        });
+      }
     })();
   </script>
   <!-- Google Tag Manager -->
@@ -976,10 +996,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   // Cookie consent banner
   (function() {
     var banner = document.getElementById('cookie-banner');
-    if (!localStorage.getItem('cookie_consent')) banner.style.display = 'flex';
+    var stored;
+    try { stored = localStorage.getItem('cookie_consent'); } catch(e) {}
+    if (!stored) banner.style.display = 'flex';
 
     document.getElementById('cookie-accept').addEventListener('click', function() {
-      localStorage.setItem('cookie_consent', 'accepted');
+      try { localStorage.setItem('cookie_consent', 'accepted'); } catch(e) {}
       gtag('consent', 'update', {
         analytics_storage:  'granted',
         ad_storage:         'granted',
@@ -991,7 +1013,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
 
     document.getElementById('cookie-decline').addEventListener('click', function() {
-      localStorage.setItem('cookie_consent', 'declined');
+      try { localStorage.setItem('cookie_consent', 'declined'); } catch(e) {}
       banner.style.display = 'none';
     });
   })();
