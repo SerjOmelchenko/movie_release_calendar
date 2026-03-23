@@ -225,6 +225,40 @@
       pointer-events: none;
     }
 
+    .cell-bars {
+      display: flex;
+      gap: 2px;
+      margin-top: 4px;
+    }
+
+    .cell-bar {
+      flex: 1;
+      height: 44px;
+      border-radius: 3px;
+      background-size: cover;
+      background-position: center top;
+      background-color: #1e1e1e;
+      transition: transform 0.1s, outline 0.1s;
+      outline: 1px solid transparent;
+    }
+
+    .cell-bar:hover {
+      transform: scaleY(1.06);
+      outline-color: #e94560;
+    }
+
+    .cell-bar-overflow {
+      flex: 0 0 auto;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0 3px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: #e94560;
+      white-space: nowrap;
+    }
+
     /* Day picker modal (multiple movies on same day) */
     #day-modal-overlay {
       display: none;
@@ -657,7 +691,21 @@
           html += `<div class="poster-placeholder">${escHtml(m.title)}</div>`;
         }
         if (movies.length > 1) {
-          html += `<div class="movie-count-badge">+${movies.length - 1}</div>`;
+          const rest = movies.slice(1);
+          const MAX_BARS = 6;
+          const bars = rest.slice(0, MAX_BARS);
+          const overflow = rest.length - MAX_BARS;
+          html += '<div class="cell-bars">';
+          bars.forEach(b => {
+            const style = b.poster_path
+              ? ` style="background-image:url('${IMG_BASE}w92${b.poster_path}')"`
+              : '';
+            html += `<div class="cell-bar"${style} title="${escHtml(b.title)}" data-id="${b.id}"></div>`;
+          });
+          if (overflow > 0) {
+            html += `<div class="cell-bar-overflow">+${overflow}</div>`;
+          }
+          html += '</div>';
         }
       }
 
@@ -673,6 +721,16 @@
 
     html += '</div>';
     calendarEl.innerHTML = html;
+
+    calendarEl.querySelectorAll('.cell-bar[data-id]').forEach(bar => {
+      bar.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = parseInt(bar.dataset.id, 10);
+        const dateStr = bar.closest('.day-cell').dataset.date;
+        const movie = (filtered[dateStr] || []).find(m => m.id === id);
+        if (movie) openMovieModal(movie);
+      });
+    });
 
     calendarEl.querySelectorAll('.day-cell.has-movies').forEach(cell => {
       cell.addEventListener('click', () => {
