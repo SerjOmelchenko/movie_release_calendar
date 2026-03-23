@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Consent Mode Defaults (must run before GTM) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    (function(){
+      var c = localStorage.getItem('cookie_consent');
+      var granted = c === 'accepted';
+      gtag('consent', 'default', {
+        analytics_storage:    granted ? 'granted' : 'denied',
+        ad_storage:           granted ? 'granted' : 'denied',
+        ad_user_data:         granted ? 'granted' : 'denied',
+        ad_personalization:   granted ? 'granted' : 'denied'
+      });
+    })();
+  </script>
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -514,6 +529,36 @@
 
     #modal-close:hover { background: #e94560; }
 
+    /* Cookie banner */
+    #cookie-banner {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: #161616;
+      border-top: 1px solid #2a2a2a;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+      z-index: 9999;
+      font-size: 0.9rem;
+      color: #b0b0b0;
+    }
+    #cookie-banner p { flex: 1; min-width: 200px; margin: 0; }
+    #cookie-banner .cookie-actions { display: flex; gap: 0.6rem; }
+    #cookie-accept, #cookie-decline {
+      padding: 0.45rem 1.1rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    #cookie-accept { background: #e94560; color: #fff; }
+    #cookie-accept:hover { background: #c73450; }
+    #cookie-decline { background: #2a2a2a; color: #b0b0b0; }
+    #cookie-decline:hover { background: #333; }
+
     @media (max-width: 700px) {
       .calendar-container { padding: 0.5rem; }
       .day-cell { min-height: 80px; padding: 0.3rem; }
@@ -526,6 +571,14 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+
+<div id="cookie-banner" style="display:none">
+  <p>We use cookies to analyze site traffic and improve your experience.</p>
+  <div class="cookie-actions">
+    <button id="cookie-accept">Accept</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
 
 <header>
   <div class="site-brand">
@@ -919,6 +972,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   fetchGenres().then(() => fetchMoviesForMonth(currentYear, currentMonth));
+
+  // Cookie consent banner
+  (function() {
+    var banner = document.getElementById('cookie-banner');
+    if (!localStorage.getItem('cookie_consent')) banner.style.display = 'flex';
+
+    document.getElementById('cookie-accept').addEventListener('click', function() {
+      localStorage.setItem('cookie_consent', 'accepted');
+      gtag('consent', 'update', {
+        analytics_storage:  'granted',
+        ad_storage:         'granted',
+        ad_user_data:       'granted',
+        ad_personalization: 'granted'
+      });
+      dataLayer.push({ event: 'cookie_consent_accepted' });
+      banner.style.display = 'none';
+    });
+
+    document.getElementById('cookie-decline').addEventListener('click', function() {
+      localStorage.setItem('cookie_consent', 'declined');
+      banner.style.display = 'none';
+    });
+  })();
 </script>
 </body>
 </html>
