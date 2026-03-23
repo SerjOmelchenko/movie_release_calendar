@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Upcoming Movie Releases</title>
+  <title>Movie Release Calendar</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -37,16 +37,45 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 1rem;
-      padding: 1.5rem 2rem;
+      gap: 1.5rem;
+      padding: 1.2rem 2rem;
       background: #111;
       flex-wrap: wrap;
+      border-bottom: 1px solid #1e1e1e;
     }
 
-    .controls label {
-      font-size: 0.9rem;
-      color: #aaa;
+    .month-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
     }
+
+    .month-nav button {
+      background: #1e1e1e;
+      color: #e0e0e0;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 0.4rem 0.9rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .month-nav button:hover {
+      background: #e94560;
+      border-color: #e94560;
+      color: #fff;
+    }
+
+    .month-nav .month-label {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #fff;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .controls label { font-size: 0.9rem; color: #aaa; }
 
     .controls select, .controls input[type="text"] {
       background: #1e1e1e;
@@ -63,8 +92,13 @@
       border-color: #e94560;
     }
 
-    #search-input {
-      width: 220px;
+    #search-input { width: 200px; }
+
+    /* Calendar */
+    .calendar-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
     }
 
     #status {
@@ -86,139 +120,216 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    #movies-grid {
+    .calendar-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .movie-card {
-      background: #1a1a1a;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      background: #222;
+      border: 1px solid #222;
       border-radius: 10px;
       overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .day-header {
+      background: #111;
+      padding: 0.6rem;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #666;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .day-cell {
+      background: #141414;
+      min-height: 150px;
+      padding: 0.5rem;
+      position: relative;
+    }
+
+    .day-cell.other-month {
+      background: #0f0f0f;
+    }
+
+    .day-cell.other-month .day-number { color: #333; }
+
+    .day-cell.today {
+      background: #13132a;
+      outline: 2px solid #e94560;
+      outline-offset: -2px;
+    }
+
+    .day-cell.today .day-number { color: #e94560; }
+
+    .day-cell.has-movies {
       cursor: pointer;
-      border: 1px solid #222;
     }
 
-    .movie-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(233, 69, 96, 0.25);
-      border-color: #e94560;
+    .day-cell.has-movies:hover {
+      background: #1c1c30;
     }
 
-    .movie-card img {
+    .day-cell.other-month.has-movies:hover {
+      background: #151520;
+    }
+
+    .day-number {
+      font-size: 0.78rem;
+      color: #555;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      line-height: 1;
+    }
+
+    .poster-thumb {
       width: 100%;
       aspect-ratio: 2/3;
       object-fit: cover;
+      border-radius: 4px;
       display: block;
-      background: #222;
     }
 
-    .movie-card .no-poster {
+    .poster-placeholder {
       width: 100%;
       aspect-ratio: 2/3;
-      background: #222;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #555;
-      font-size: 0.8rem;
-      text-align: center;
-      padding: 1rem;
-    }
-
-    .movie-card .info {
-      padding: 0.8rem;
-    }
-
-    .movie-card .title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #fff;
-      line-height: 1.3;
-      margin-bottom: 0.4rem;
-    }
-
-    .movie-card .release-date {
-      font-size: 0.8rem;
-      color: #e94560;
-      font-weight: 500;
-    }
-
-    .movie-card .rating {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.8rem;
-      color: #f5c518;
-      margin-top: 0.3rem;
-    }
-
-    .movie-card .overview {
-      font-size: 0.78rem;
-      color: #888;
-      margin-top: 0.4rem;
-      line-height: 1.4;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      padding: 2rem;
-    }
-
-    .pagination button {
       background: #1e1e1e;
-      color: #e0e0e0;
-      border: 1px solid #333;
-      border-radius: 6px;
-      padding: 0.5rem 1.2rem;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      color: #555;
+      text-align: center;
+      padding: 0.4rem;
+      line-height: 1.3;
     }
 
-    .pagination button:hover:not(:disabled) {
+    .movie-count-badge {
+      position: absolute;
+      bottom: 0.5rem;
+      right: 0.5rem;
       background: #e94560;
-      border-color: #e94560;
       color: #fff;
+      border-radius: 12px;
+      padding: 0.2rem 0.55rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      pointer-events: none;
     }
 
-    .pagination button:disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-    }
-
-    .pagination .page-info {
-      color: #777;
-      font-size: 0.9rem;
-    }
-
-    /* Modal */
-    #modal-overlay {
+    /* Day picker modal (multiple movies on same day) */
+    #day-modal-overlay {
       display: none;
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.85);
+      z-index: 900;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    #day-modal-overlay.open { display: flex; }
+
+    #day-modal {
+      background: #1a1a1a;
+      border-radius: 12px;
+      max-width: 720px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      border: 1px solid #333;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    #day-modal h2 {
+      font-size: 1.15rem;
+      color: #fff;
+      margin-bottom: 1.2rem;
+      padding-right: 2rem;
+    }
+
+    #day-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #day-modal-close:hover { background: #e94560; }
+
+    .day-movie-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 1rem;
+    }
+
+    .day-movie-item {
+      cursor: pointer;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #222;
+      transition: transform 0.15s, border-color 0.15s;
+      background: #111;
+    }
+
+    .day-movie-item:hover {
+      transform: translateY(-3px);
+      border-color: #e94560;
+    }
+
+    .day-movie-item img {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      display: block;
+    }
+
+    .day-movie-item .dm-no-poster {
+      width: 100%;
+      aspect-ratio: 2/3;
+      background: #1e1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      color: #555;
+      text-align: center;
+      padding: 0.5rem;
+    }
+
+    .day-movie-item .dm-title {
+      padding: 0.5rem;
+      font-size: 0.78rem;
+      color: #ccc;
+      line-height: 1.3;
+    }
+
+    /* Movie detail modal */
+    #modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
       z-index: 1000;
       align-items: center;
       justify-content: center;
       padding: 1rem;
     }
 
-    #modal-overlay.open {
-      display: flex;
-    }
+    #modal-overlay.open { display: flex; }
 
     #modal {
       background: #1a1a1a;
@@ -241,9 +352,7 @@
       background: #222;
     }
 
-    #modal .modal-body {
-      padding: 1.5rem;
-    }
+    #modal .modal-body { padding: 1.5rem; }
 
     #modal .modal-title {
       font-size: 1.5rem;
@@ -259,12 +368,6 @@
       margin-bottom: 1rem;
       font-size: 0.85rem;
       color: #aaa;
-    }
-
-    #modal .modal-meta span {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
     }
 
     #modal .modal-overview {
@@ -314,30 +417,32 @@
       color: #555;
       font-size: 0.8rem;
       border-top: 1px solid #1e1e1e;
+      margin-top: 1rem;
     }
 
     footer a { color: #e94560; text-decoration: none; }
     footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 700px) {
+      .calendar-container { padding: 0.5rem; }
+      .day-cell { min-height: 80px; padding: 0.3rem; }
+      .day-number { font-size: 0.7rem; }
+    }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Upcoming Movie Releases</h1>
+  <h1>Movie Release Calendar</h1>
   <p>Powered by The Movie Database (TMDB)</p>
 </header>
 
 <div class="controls">
-  <label for="search-input">Search:</label>
-  <input type="text" id="search-input" placeholder="Filter by title..." />
-
-  <label for="sort-select">Sort by:</label>
-  <select id="sort-select">
-    <option value="release_date">Release Date</option>
-    <option value="popularity">Popularity</option>
-    <option value="vote_average">Rating</option>
-    <option value="title">Title</option>
-  </select>
+  <div class="month-nav">
+    <button id="prev-month">&#8592;</button>
+    <span class="month-label" id="month-label"></span>
+    <button id="next-month">&#8594;</button>
+  </div>
 
   <label for="region-select">Region:</label>
   <select id="region-select">
@@ -352,21 +457,29 @@
     <option value="KR">South Korea</option>
     <option value="IN">India</option>
   </select>
+
+  <label for="search-input">Filter:</label>
+  <input type="text" id="search-input" placeholder="Search movies..." />
 </div>
 
-<div id="status">
-  <div class="spinner"></div>
-  Loading upcoming movies...
+<div class="calendar-container">
+  <div id="status">
+    <div class="spinner"></div>
+    Loading movies...
+  </div>
+  <div id="calendar" style="display:none;"></div>
 </div>
 
-<div id="movies-grid" style="display:none;"></div>
-
-<div class="pagination" id="pagination" style="display:none;">
-  <button id="prev-btn" disabled>&#8592; Previous</button>
-  <span class="page-info" id="page-info"></span>
-  <button id="next-btn">Next &#8594;</button>
+<!-- Day picker modal (multiple movies on same day) -->
+<div id="day-modal-overlay">
+  <div id="day-modal">
+    <button id="day-modal-close" title="Close">&#x2715;</button>
+    <h2 id="day-modal-title"></h2>
+    <div class="day-movie-list" id="day-movie-list"></div>
+  </div>
 </div>
 
+<!-- Movie detail modal -->
 <div id="modal-overlay">
   <div id="modal">
     <button id="modal-close" title="Close">&#x2715;</button>
@@ -390,128 +503,189 @@
   const BASE_URL = 'https://api.themoviedb.org/3';
   const IMG_BASE = 'https://image.tmdb.org/t/p/';
 
-  let currentPage = 1;
-  let totalPages = 1;
-  let allMovies = [];
+  const today = new Date();
+  let currentYear = today.getFullYear();
+  let currentMonth = today.getMonth(); // 0-indexed
+  let moviesByDate = {}; // { 'YYYY-MM-DD': [movie, ...] }
   let genres = {};
 
-  const grid = document.getElementById('movies-grid');
-  const status = document.getElementById('status');
-  const pagination = document.getElementById('pagination');
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
-  const pageInfo = document.getElementById('page-info');
+  const statusEl = document.getElementById('status');
+  const calendarEl = document.getElementById('calendar');
+  const monthLabel = document.getElementById('month-label');
   const searchInput = document.getElementById('search-input');
-  const sortSelect = document.getElementById('sort-select');
   const regionSelect = document.getElementById('region-select');
-  const modalOverlay = document.getElementById('modal-overlay');
 
   async function fetchGenres() {
     try {
       const res = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`);
       const data = await res.json();
-      if (data.genres) {
-        data.genres.forEach(g => { genres[g.id] = g.name; });
-      }
-    } catch (e) {
-      console.warn('Could not load genres', e);
-    }
+      if (data.genres) data.genres.forEach(g => { genres[g.id] = g.name; });
+    } catch (e) {}
   }
 
-  async function fetchMovies(page = 1) {
-    status.innerHTML = '<div class="spinner"></div>Loading upcoming movies...';
-    status.style.display = 'block';
-    grid.style.display = 'none';
-    pagination.style.display = 'none';
+  async function fetchMoviesForMonth(year, month) {
+    statusEl.innerHTML = '<div class="spinner"></div>Loading movies...';
+    statusEl.style.display = 'block';
+    calendarEl.style.display = 'none';
+
+    const pad = n => String(n).padStart(2, '0');
+    const firstDay = `${year}-${pad(month + 1)}-01`;
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const lastDay = `${year}-${pad(month + 1)}-${pad(daysInMonth)}`;
 
     const region = regionSelect.value;
     const regionParam = region ? `&region=${region}` : '';
 
+    moviesByDate = {};
+
     try {
-      const res = await fetch(
-        `${BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=en-US&page=${page}${regionParam}`
-      );
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
+      let page = 1;
+      let totalPages = 1;
 
-      allMovies = data.results || [];
-      totalPages = Math.min(data.total_pages || 1, 20); // cap at 20 pages
-      currentPage = data.page || page;
+      do {
+        const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US` +
+          `&primary_release_date.gte=${firstDay}&primary_release_date.lte=${lastDay}` +
+          `&sort_by=popularity.desc&page=${page}${regionParam}`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
 
-      renderMovies();
+        totalPages = Math.min(data.total_pages || 1, 5);
+        (data.results || []).forEach(m => {
+          if (!m.release_date) return;
+          if (!moviesByDate[m.release_date]) moviesByDate[m.release_date] = [];
+          moviesByDate[m.release_date].push(m);
+        });
+        page++;
+      } while (page <= totalPages);
+
+      statusEl.style.display = 'none';
+      calendarEl.style.display = 'block';
+      renderCalendar();
     } catch (err) {
-      status.innerHTML = `<p style="color:#e94560;">Failed to load movies: ${err.message}</p>`;
-      status.style.display = 'block';
+      statusEl.innerHTML = `<p style="color:#e94560;">Failed to load movies: ${err.message}</p>`;
     }
   }
 
-  function renderMovies() {
+  function getFilteredMoviesByDate() {
     const query = searchInput.value.trim().toLowerCase();
-    const sort = sortSelect.value;
+    if (!query) return moviesByDate;
+    const filtered = {};
+    for (const [date, movies] of Object.entries(moviesByDate)) {
+      const matches = movies.filter(m => m.title.toLowerCase().includes(query));
+      if (matches.length) filtered[date] = matches;
+    }
+    return filtered;
+  }
 
-    let movies = allMovies.filter(m =>
-      !query || m.title.toLowerCase().includes(query)
-    );
+  const MONTH_NAMES = ['January','February','March','April','May','June',
+                       'July','August','September','October','November','December'];
+  const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
-    movies.sort((a, b) => {
-      if (sort === 'release_date') return (a.release_date || '').localeCompare(b.release_date || '');
-      if (sort === 'popularity') return b.popularity - a.popularity;
-      if (sort === 'vote_average') return b.vote_average - a.vote_average;
-      if (sort === 'title') return a.title.localeCompare(b.title);
-      return 0;
-    });
+  function renderCalendar() {
+    const filtered = getFilteredMoviesByDate();
+    const pad = n => String(n).padStart(2, '0');
 
-    if (!movies.length) {
-      status.innerHTML = '<p>No upcoming movies found.</p>';
-      status.style.display = 'block';
-      grid.style.display = 'none';
-      pagination.style.display = 'none';
-      return;
+    monthLabel.textContent = `${MONTH_NAMES[currentMonth]} ${currentYear}`;
+
+    const firstDow = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
+    const todayStr = `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
+
+    let html = '<div class="calendar-grid">';
+
+    // Day name headers
+    DAY_NAMES.forEach(d => { html += `<div class="day-header">${d}</div>`; });
+
+    // Leading cells from previous month
+    for (let i = 0; i < firstDow; i++) {
+      const day = daysInPrevMonth - firstDow + 1 + i;
+      html += `<div class="day-cell other-month"><div class="day-number">${day}</div></div>`;
     }
 
-    status.style.display = 'none';
-    grid.style.display = 'grid';
-    pagination.style.display = 'flex';
+    // Current month days
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dateStr = `${currentYear}-${pad(currentMonth+1)}-${pad(d)}`;
+      const movies = filtered[dateStr] || [];
+      const isToday = dateStr === todayStr;
 
-    grid.innerHTML = movies.map(movie => {
-      const poster = movie.poster_path
-        ? `<img src="${IMG_BASE}w300${movie.poster_path}" alt="${escHtml(movie.title)}" loading="lazy" />`
-        : `<div class="no-poster">No poster available</div>`;
+      let cls = 'day-cell';
+      if (isToday) cls += ' today';
+      if (movies.length > 0) cls += ' has-movies';
 
-      const date = movie.release_date
-        ? new Date(movie.release_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
-        : 'TBA';
+      html += `<div class="${cls}" data-date="${dateStr}">`;
+      html += `<div class="day-number">${d}</div>`;
 
-      const rating = movie.vote_count > 0
-        ? `<span class="rating">&#9733; ${movie.vote_average.toFixed(1)}</span>`
-        : '';
+      if (movies.length >= 1) {
+        const m = movies[0];
+        if (m.poster_path) {
+          html += `<img class="poster-thumb" src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`;
+        } else {
+          html += `<div class="poster-placeholder">${escHtml(m.title)}</div>`;
+        }
+        if (movies.length > 1) {
+          html += `<div class="movie-count-badge">+${movies.length - 1}</div>`;
+        }
+      }
 
-      return `
-        <div class="movie-card" data-id="${movie.id}" title="${escHtml(movie.title)}">
-          ${poster}
-          <div class="info">
-            <div class="title">${escHtml(movie.title)}</div>
-            <div class="release-date">${date}</div>
-            ${rating}
-            <div class="overview">${escHtml(movie.overview || '')}</div>
-          </div>
-        </div>`;
-    }).join('');
+      html += '</div>';
+    }
 
-    prevBtn.disabled = currentPage <= 1;
-    nextBtn.disabled = currentPage >= totalPages;
-    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    // Trailing cells for next month
+    const totalCells = firstDow + daysInMonth;
+    const trailing = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+    for (let i = 1; i <= trailing; i++) {
+      html += `<div class="day-cell other-month"><div class="day-number">${i}</div></div>`;
+    }
 
-    grid.querySelectorAll('.movie-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const id = card.dataset.id;
-        const movie = allMovies.find(m => String(m.id) === id);
-        if (movie) openModal(movie);
+    html += '</div>';
+    calendarEl.innerHTML = html;
+
+    calendarEl.querySelectorAll('.day-cell.has-movies').forEach(cell => {
+      cell.addEventListener('click', () => {
+        const movies = filtered[cell.dataset.date] || [];
+        if (movies.length === 1) {
+          openMovieModal(movies[0]);
+        } else {
+          openDayModal(cell.dataset.date, movies);
+        }
       });
     });
   }
 
-  function openModal(movie) {
+  function openDayModal(dateStr, movies) {
+    const date = new Date(dateStr + 'T00:00:00');
+    const label = date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    document.getElementById('day-modal-title').textContent = `Releases — ${label}`;
+
+    document.getElementById('day-movie-list').innerHTML = movies.map(m => `
+      <div class="day-movie-item" data-id="${m.id}">
+        ${m.poster_path
+          ? `<img src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`
+          : `<div class="dm-no-poster">${escHtml(m.title)}</div>`
+        }
+        <div class="dm-title">${escHtml(m.title)}</div>
+      </div>
+    `).join('');
+
+    document.getElementById('day-modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    document.querySelectorAll('.day-movie-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const movie = movies.find(m => String(m.id) === item.dataset.id);
+        if (movie) { closeDayModal(); openMovieModal(movie); }
+      });
+    });
+  }
+
+  function closeDayModal() {
+    document.getElementById('day-modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function openMovieModal(movie) {
     const backdrop = movie.backdrop_path
       ? `${IMG_BASE}w1280${movie.backdrop_path}`
       : (movie.poster_path ? `${IMG_BASE}w780${movie.poster_path}` : '');
@@ -523,7 +697,7 @@
     document.getElementById('modal-title').textContent = movie.title;
 
     const date = movie.release_date
-      ? new Date(movie.release_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+      ? new Date(movie.release_date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
       : 'TBA';
 
     const rating = movie.vote_count > 0
@@ -543,36 +717,45 @@
       .map(g => `<span class="genre-tag">${escHtml(g)}</span>`)
       .join('');
 
-    modalOverlay.classList.add('open');
+    document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
-  function closeModal() {
-    modalOverlay.classList.remove('open');
+  function closeMovieModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
     document.body.style.overflow = '';
   }
 
-  document.getElementById('modal-close').addEventListener('click', closeModal);
-  modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  document.getElementById('modal-close').addEventListener('click', closeMovieModal);
+  document.getElementById('modal-overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('modal-overlay')) closeMovieModal();
+  });
+  document.getElementById('day-modal-close').addEventListener('click', closeDayModal);
+  document.getElementById('day-modal-overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('day-modal-overlay')) closeDayModal();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMovieModal(); closeDayModal(); } });
 
-  prevBtn.addEventListener('click', () => { if (currentPage > 1) fetchMovies(currentPage - 1); });
-  nextBtn.addEventListener('click', () => { if (currentPage < totalPages) fetchMovies(currentPage + 1); });
+  document.getElementById('prev-month').addEventListener('click', () => {
+    if (--currentMonth < 0) { currentMonth = 11; currentYear--; }
+    fetchMoviesForMonth(currentYear, currentMonth);
+  });
 
-  searchInput.addEventListener('input', renderMovies);
-  sortSelect.addEventListener('change', renderMovies);
-  regionSelect.addEventListener('change', () => { currentPage = 1; fetchMovies(1); });
+  document.getElementById('next-month').addEventListener('click', () => {
+    if (++currentMonth > 11) { currentMonth = 0; currentYear++; }
+    fetchMoviesForMonth(currentYear, currentMonth);
+  });
+
+  regionSelect.addEventListener('change', () => fetchMoviesForMonth(currentYear, currentMonth));
+  searchInput.addEventListener('input', renderCalendar);
 
   function escHtml(str) {
     return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  // Init
-  fetchGenres().then(() => fetchMovies(1));
+  fetchGenres().then(() => fetchMoviesForMonth(currentYear, currentMonth));
 </script>
 </body>
 </html>
