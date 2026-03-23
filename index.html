@@ -25,13 +25,12 @@
           ad_personalization: 'denied'
         });
       } else {
-        // First visit — deny but wait up to 2 s for banner interaction
+        // First visit — deny until explicit acceptance
         gtag('consent', 'default', {
           analytics_storage:  'denied',
           ad_storage:         'denied',
           ad_user_data:       'denied',
-          ad_personalization: 'denied',
-          wait_for_update:    2000
+          ad_personalization: 'denied'
         });
       }
     })();
