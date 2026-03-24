@@ -1646,8 +1646,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }).join('');
       }
 
+      released.sort((a, b) => (b.release_date || '').localeCompare(a.release_date || ''));
+
       let html = '';
-      if (upcoming.length) html += renderItems(upcoming);
+      if (upcoming.length) {
+        html += `<div class="watchlist-section-heading">Coming Soon</div>`;
+        html += renderItems(upcoming);
+      }
       if (released.length) {
         html += `<div class="watchlist-section-heading">Released</div>`;
         html += renderItems(released);
