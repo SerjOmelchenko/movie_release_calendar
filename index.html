@@ -605,17 +605,30 @@
       position: absolute;
       top: 4px;
       right: 4px;
-      background: rgba(233, 69, 96, 0.9);
+      background: rgba(0,0,0,0.55);
       color: #fff;
       border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      font-size: 0.6rem;
+      width: 22px;
+      height: 22px;
+      font-size: 0.7rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      pointer-events: none;
+      cursor: pointer;
       line-height: 1;
+      opacity: 0;
+      transition: opacity 0.15s, background 0.15s, transform 0.1s;
+    }
+    .poster-wrap:hover .heart-badge {
+      opacity: 1;
+    }
+    .poster-wrap .heart-badge.watchlisted {
+      background: rgba(233, 69, 96, 0.9);
+      opacity: 1;
+    }
+    .poster-wrap .heart-badge:hover {
+      transform: scale(1.2);
+      background: #e94560;
     }
 
     /* Heart dot on watchlisted cell-bars */
@@ -1088,7 +1101,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           const inWl = watchlist.includes(m.id);
           html += `<div class="poster-wrap">`;
           html += `<img class="poster-thumb" src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`;
-          if (inWl) html += `<div class="heart-badge">&#9829;</div>`;
+          html += `<div class="heart-badge${inWl ? ' watchlisted' : ''}" data-id="${m.id}" title="${inWl ? 'Remove from watchlist' : 'Add to watchlist'}">${inWl ? '&#9829;' : '&#9825;'}</div>`;
           html += `</div>`;
         } else {
           html += `<div class="poster-placeholder">${escHtml(m.title)}</div>`;
@@ -1125,6 +1138,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     html += '</div>';
     calendarEl.innerHTML = html;
+
+    calendarEl.querySelectorAll('.heart-badge[data-id]').forEach(badge => {
+      badge.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = parseInt(badge.dataset.id, 10);
+        const added = toggleWatchlist(id);
+        badge.classList.toggle('watchlisted', added);
+        badge.innerHTML = added ? '&#9829;' : '&#9825;';
+        badge.title = added ? 'Remove from watchlist' : 'Add to watchlist';
+      });
+    });
 
     calendarEl.querySelectorAll('.cell-bar[data-id]').forEach(bar => {
       bar.addEventListener('click', e => {
