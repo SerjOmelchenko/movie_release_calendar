@@ -991,6 +991,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const monthLabel = document.getElementById('month-label');
   const searchInput = document.getElementById('search-input');
   const regionSelect = document.getElementById('region-select');
+  try { const r = localStorage.getItem('region'); if (r !== null) regionSelect.value = r; } catch(e) {}
 
   async function fetchGenres() {
     try {
@@ -1270,7 +1271,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     fetchMoviesForMonth(currentYear, currentMonth);
   });
 
-  regionSelect.addEventListener('change', () => fetchMoviesForMonth(currentYear, currentMonth));
+  regionSelect.addEventListener('change', () => {
+    try { localStorage.setItem('region', regionSelect.value); } catch(e) {}
+    fetchMoviesForMonth(currentYear, currentMonth);
+  });
   searchInput.addEventListener('input', renderCalendar);
 
   // Heart button in movie detail modal
