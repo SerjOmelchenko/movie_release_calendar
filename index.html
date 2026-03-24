@@ -518,6 +518,9 @@
     }
 
     #modal .modal-director {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
       font-size: 0.85rem;
       color: #aaa;
       margin-bottom: 0.6rem;
@@ -1419,9 +1422,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       .then(data => {
         if (!document.getElementById('modal-overlay').classList.contains('open')) return;
         const directors = (data.crew || []).filter(c => c.job === 'Director').map(c => escHtml(c.name));
+        const lines = [];
         if (directors.length) {
-          document.getElementById('modal-director').innerHTML = `<span>&#127916; Directed by <strong style="color:#ddd">${directors.join(', ')}</strong></span>`;
+          lines.push(`&#127916; Directed by <strong style="color:#ddd">${directors.join(', ')}</strong>`);
         }
+        const cast = (data.cast || []).slice(0, 5).map(c => escHtml(c.name));
+        if (cast.length) {
+          lines.push(`&#127775; ${cast.join(', ')}`);
+        }
+        document.getElementById('modal-director').innerHTML = lines.map(l => `<span>${l}</span>`).join('');
       })
       .catch(() => {});
 
