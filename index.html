@@ -594,7 +594,7 @@
     #onboarding-modal {
       pointer-events: all;
       position: absolute;
-      bottom: 1.5rem;
+      bottom: var(--ob-bottom, 1.5rem);
       right: 1.5rem;
       width: 320px;
       background: #1a1a1a;
@@ -614,7 +614,7 @@
 
     @media (max-width: 480px) {
       #onboarding-modal {
-        bottom: 0;
+        bottom: var(--ob-bottom, 0px);
         right: 0;
         left: 0;
         width: 100%;
@@ -1641,6 +1641,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       overlay.classList.remove('open');
       try { localStorage.setItem('onboarding_seen', '1'); } catch(e) {}
     }
+
+    const modal = document.getElementById('onboarding-modal');
+    const cookieBanner = document.getElementById('cookie-banner');
+
+    function positionAboveBanner() {
+      const bannerH = cookieBanner.offsetParent !== null ? cookieBanner.offsetHeight : 0;
+      const gap = 12;
+      overlay.style.setProperty('--ob-bottom', (bannerH + gap) + 'px');
+    }
+
+    positionAboveBanner();
+    window.addEventListener('resize', positionAboveBanner);
+
+    // Re-position when cookie banner is dismissed
+    const origClose = cookieBanner.style.display;
+    new MutationObserver(positionAboveBanner)
+      .observe(cookieBanner, { attributes: true, attributeFilter: ['style'] });
 
     overlay.classList.add('open');
 
