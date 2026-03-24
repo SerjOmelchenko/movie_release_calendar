@@ -517,6 +517,20 @@
       color: #aaa;
     }
 
+    #modal-back {
+      display: none;
+      background: none;
+      border: none;
+      color: #e94560;
+      font-size: 0.83rem;
+      cursor: pointer;
+      padding: 0 0 0.8rem;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    #modal-back.visible { display: inline-flex; }
+    #modal-back:hover { text-decoration: underline; }
+
     #modal .modal-director {
       display: flex;
       flex-direction: column;
@@ -1043,6 +1057,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <button id="modal-close" title="Close">&#x2715;</button>
     <img id="modal-backdrop" class="modal-backdrop" src="" alt="" />
     <div class="modal-body">
+      <button id="modal-back">&#8592; Back to list</button>
       <div class="modal-title" id="modal-title"></div>
       <div class="modal-meta" id="modal-meta"></div>
       <div class="modal-director" id="modal-director"></div>
@@ -1371,7 +1386,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.querySelectorAll('.day-movie-item').forEach(item => {
       item.addEventListener('click', () => {
         const movie = movies.find(m => String(m.id) === item.dataset.id);
-        if (movie) { closeDayModal(); openMovieModal(movie); }
+        if (movie) { closeDayModal(); openMovieModal(movie, { dateStr, movies }); }
       });
     });
   }
@@ -1381,7 +1396,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.body.style.overflow = '';
   }
 
-  function openMovieModal(movie) {
+  function openMovieModal(movie, backContext) {
     const backdrop = movie.backdrop_path
       ? `${IMG_BASE}w1280${movie.backdrop_path}`
       : (movie.poster_path ? `${IMG_BASE}w780${movie.poster_path}` : '');
@@ -1414,6 +1429,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       .join('');
 
     document.getElementById('modal-director').innerHTML = '';
+
+    const backBtn = document.getElementById('modal-back');
+    backBtn.classList.toggle('visible', !!backContext);
+    backBtn.onclick = backContext
+      ? () => { closeMovieModal(); openDayModal(backContext.dateStr, backContext.movies); }
+      : null;
+
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
 
