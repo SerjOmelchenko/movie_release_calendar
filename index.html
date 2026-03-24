@@ -857,6 +857,18 @@
       padding: 1rem;
     }
 
+    .watchlist-section-heading {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #555;
+      padding: 0.6rem 0.2rem 0.3rem;
+      margin-top: 0.5rem;
+      border-top: 1px solid #222;
+    }
+    .watchlist-section-heading:first-child { border-top: none; margin-top: 0; }
+
     .watchlist-empty {
       color: #666;
       text-align: center;
@@ -1597,35 +1609,50 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           .catch(() => null)
       ));
 
-      const movies = results.filter(Boolean).sort((a, b) =>
+      const allMovies = results.filter(Boolean).sort((a, b) =>
         (a.release_date || '').localeCompare(b.release_date || '')
       );
 
-      if (movies.length === 0) {
+      if (allMovies.length === 0) {
         content.innerHTML = '<p class="watchlist-empty">Could not load watchlist movies.</p>';
         return;
       }
 
-      content.innerHTML = movies.map(m => {
-        const date = m.release_date
-          ? new Date(m.release_date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
-          : 'TBA';
-        return `
-          <div class="watchlist-item" data-id="${m.id}">
-            <div class="watchlist-item-poster">
-              ${m.poster_path
-                ? `<img src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`
-                : `<div class="watchlist-no-poster">${escHtml(m.title)}</div>`
-              }
-            </div>
-            <div class="watchlist-item-info">
-              <div class="watchlist-item-title">${escHtml(m.title)}</div>
-              <div class="watchlist-item-date">&#128197; ${date}</div>
-              ${m.overview ? `<div class="watchlist-item-overview">${escHtml(m.overview)}</div>` : ''}
-            </div>
-            <button class="watchlist-remove-btn" data-id="${m.id}" title="Remove from watchlist">&#9829;</button>
-          </div>`;
-      }).join('');
+      const today = new Date().toISOString().slice(0, 10);
+      const upcoming = allMovies.filter(m => !m.release_date || m.release_date >= today);
+      const released = allMovies.filter(m => m.release_date && m.release_date < today);
+      const movies = allMovies; // keep reference for event listeners
+
+      function renderItems(list) {
+        return list.map(m => {
+          const date = m.release_date
+            ? new Date(m.release_date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+            : 'TBA';
+          return `
+            <div class="watchlist-item" data-id="${m.id}">
+              <div class="watchlist-item-poster">
+                ${m.poster_path
+                  ? `<img src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`
+                  : `<div class="watchlist-no-poster">${escHtml(m.title)}</div>`
+                }
+              </div>
+              <div class="watchlist-item-info">
+                <div class="watchlist-item-title">${escHtml(m.title)}</div>
+                <div class="watchlist-item-date">&#128197; ${date}</div>
+                ${m.overview ? `<div class="watchlist-item-overview">${escHtml(m.overview)}</div>` : ''}
+              </div>
+              <button class="watchlist-remove-btn" data-id="${m.id}" title="Remove from watchlist">&#9829;</button>
+            </div>`;
+        }).join('');
+      }
+
+      let html = '';
+      if (upcoming.length) html += renderItems(upcoming);
+      if (released.length) {
+        html += `<div class="watchlist-section-heading">Released</div>`;
+        html += renderItems(released);
+      }
+      content.innerHTML = html;
 
       content.querySelectorAll('.watchlist-item').forEach(item => {
         item.addEventListener('click', e => {
