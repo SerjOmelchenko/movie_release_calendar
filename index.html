@@ -979,6 +979,23 @@
       .calendar-container { padding: 0.5rem; }
       .day-cell { min-height: 80px; padding: 0.3rem; }
       .day-number { font-size: 0.7rem; }
+
+      .controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+        padding: 1rem;
+      }
+      .month-nav { justify-content: center; }
+      .control-group {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .control-group label { white-space: nowrap; }
+      .control-group select,
+      .control-group input { flex: 1; }
+      #watchlist-btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -1023,6 +1040,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <button id="next-month">&#8594;</button>
   </div>
 
+  <div class="control-group">
   <label for="region-select">Region:</label>
   <select id="region-select">
     <option value="">🌍 All</option>
@@ -1061,9 +1079,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <option value="GB">🇬🇧 United Kingdom</option>
     <option value="US">🇺🇸 United States</option>
   </select>
+  </div>
 
+  <div class="control-group">
   <label for="search-input">Filter:</label>
   <input type="text" id="search-input" placeholder="Search movies..." />
+  </div>
 
   <button id="watchlist-btn" class="watchlist-toggle-btn">&#9825; Watchlist (<span id="watchlist-count">0</span>)</button>
 </div>
