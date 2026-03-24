@@ -558,6 +558,119 @@
 
     #modal-close:hover { background: #e94560; }
 
+    /* ── Onboarding modal ──────────────────────────────────────────────────── */
+    #onboarding-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    #onboarding-overlay.open { display: flex; }
+
+    #onboarding-modal {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      max-width: 500px;
+      width: 100%;
+      padding: 2.2rem 2rem 1.8rem;
+      position: relative;
+      text-align: center;
+    }
+
+    #onboarding-skip {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: #555;
+      font-size: 0.8rem;
+      cursor: pointer;
+      padding: 0.3rem 0.5rem;
+      transition: color 0.15s;
+    }
+    #onboarding-skip:hover { color: #aaa; }
+
+    .ob-step { display: none; }
+    .ob-step.active { display: block; }
+
+    .ob-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+
+    .ob-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .ob-desc {
+      font-size: 0.92rem;
+      color: #999;
+      line-height: 1.65;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+    .ob-desc strong { color: #ddd; }
+
+    .ob-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1.8rem 0 1.4rem;
+    }
+    .ob-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #333;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .ob-dot.active {
+      background: #e94560;
+      transform: scale(1.3);
+    }
+
+    .ob-actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .ob-btn-back {
+      background: #222;
+      color: #aaa;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 0.55rem 1.3rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .ob-btn-back:hover { background: #2a2a2a; }
+
+    .ob-btn-next {
+      background: #e94560;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.55rem 1.6rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .ob-btn-next:hover { background: #c73450; }
+    /* ────────────────────────────────────────────────────────────────────────── */
+
     /* Watchlist toggle button in controls */
     .watchlist-toggle-btn {
       background: #1e1e1e;
@@ -926,6 +1039,60 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="modal-overview" id="modal-overview"></p>
       <div class="modal-genres" id="modal-genres"></div>
       <button id="modal-watchlist-btn" class="modal-heart-btn" data-movie-id="">&#9825; Add to Watchlist</button>
+    </div>
+  </div>
+</div>
+
+<!-- First-visit onboarding modal -->
+<div id="onboarding-overlay">
+  <div id="onboarding-modal">
+    <button id="onboarding-skip">Skip</button>
+
+    <!-- Step 1: Welcome -->
+    <div class="ob-step active">
+      <div class="ob-icon">🎬</div>
+      <div class="ob-title">Welcome to Movie Release Radar</div>
+      <p class="ob-desc">Your personal calendar for upcoming movie releases worldwide. Here's a quick tour of what you can do.</p>
+    </div>
+
+    <!-- Step 2: Calendar -->
+    <div class="ob-step">
+      <div class="ob-icon">📅</div>
+      <div class="ob-title">Browse the Release Calendar</div>
+      <p class="ob-desc">
+        Navigate months with the <strong>← →</strong> arrows.<br><br>
+        <strong>Click any day</strong> with movies to see what's releasing. If a day has more than one release you'll get a picker — choose a title to read its synopsis, rating, and genres.
+      </p>
+    </div>
+
+    <!-- Step 3: Region -->
+    <div class="ob-step">
+      <div class="ob-icon">🌍</div>
+      <div class="ob-title">Filter by Country</div>
+      <p class="ob-desc">
+        Use the <strong>Region</strong> dropdown to see only movies releasing in your country. Your choice is remembered the next time you visit.
+      </p>
+    </div>
+
+    <!-- Step 4: Watchlist -->
+    <div class="ob-step">
+      <div class="ob-icon">♥</div>
+      <div class="ob-title">Save Movies to Your Watchlist</div>
+      <p class="ob-desc">
+        Hover over any movie poster and click <strong>♡</strong> to save it. Open your <strong>Watchlist</strong> anytime from the top bar to review saved titles sorted by release date. Everything is stored locally in your browser.
+      </p>
+    </div>
+
+    <div class="ob-dots">
+      <div class="ob-dot active"></div>
+      <div class="ob-dot"></div>
+      <div class="ob-dot"></div>
+      <div class="ob-dot"></div>
+    </div>
+
+    <div class="ob-actions">
+      <button class="ob-btn-back" id="ob-back" style="display:none">Back</button>
+      <button class="ob-btn-next" id="ob-next">Next</button>
     </div>
   </div>
 </div>
@@ -1379,6 +1546,51 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   updateWatchlistCount();
   fetchGenres().then(() => fetchMoviesForMonth(currentYear, currentMonth));
+
+  // Onboarding modal (first visit only)
+  (function() {
+    try { if (localStorage.getItem('onboarding_seen')) return; } catch(e) { return; }
+
+    const overlay = document.getElementById('onboarding-overlay');
+    const steps   = Array.from(overlay.querySelectorAll('.ob-step'));
+    const dots    = Array.from(overlay.querySelectorAll('.ob-dot'));
+    const btnBack = document.getElementById('ob-back');
+    const btnNext = document.getElementById('ob-next');
+    let current = 0;
+
+    function goTo(n) {
+      steps[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = n;
+      steps[current].classList.add('active');
+      dots[current].classList.add('active');
+      btnBack.style.display = current === 0 ? 'none' : '';
+      btnNext.textContent   = current === steps.length - 1 ? 'Start Exploring' : 'Next';
+    }
+
+    function closeOnboarding() {
+      overlay.classList.remove('open');
+      try { localStorage.setItem('onboarding_seen', '1'); } catch(e) {}
+    }
+
+    overlay.classList.add('open');
+
+    btnNext.addEventListener('click', () => {
+      if (current < steps.length - 1) goTo(current + 1);
+      else closeOnboarding();
+    });
+
+    btnBack.addEventListener('click', () => {
+      if (current > 0) goTo(current - 1);
+    });
+
+    document.getElementById('onboarding-skip').addEventListener('click', closeOnboarding);
+
+    dots.forEach((dot, i) => {
+      dot.style.cursor = 'pointer';
+      dot.addEventListener('click', () => goTo(i));
+    });
+  })();
 
   // Cookie consent banner
   (function() {
