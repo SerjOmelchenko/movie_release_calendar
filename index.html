@@ -586,28 +586,35 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.88);
       z-index: 2000;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
+      pointer-events: none;
     }
-    #onboarding-overlay.open { display: flex; }
+    #onboarding-overlay.open { display: block; }
 
     #onboarding-modal {
+      pointer-events: all;
+      position: absolute;
+      top: 5rem;
+      right: 1.5rem;
+      width: 320px;
       background: #1a1a1a;
       border: 1px solid #2a2a2a;
       border-radius: 16px;
-      max-width: 500px;
-      width: 100%;
-      padding: 2.2rem 2rem 1.8rem;
-      position: relative;
+      padding: 1.8rem 1.6rem 1.5rem;
       text-align: center;
+      box-shadow: -4px 4px 32px rgba(0,0,0,0.6);
+      transform: translateX(calc(100% + 2rem));
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s ease;
+    }
+    #onboarding-overlay.open #onboarding-modal {
+      transform: translateX(0);
+      opacity: 1;
     }
 
     #onboarding-skip {
       position: absolute;
-      top: 1rem;
+      top: 0.9rem;
       right: 1rem;
       background: none;
       border: none;
