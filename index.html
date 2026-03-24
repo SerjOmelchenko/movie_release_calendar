@@ -741,8 +741,7 @@
       margin-top: 1.2rem;
       flex-wrap: wrap;
     }
-    .modal-heart-btn,
-    .modal-share-btn {
+    .modal-heart-btn {
       background: transparent;
       color: #aaa;
       border: 1.5px solid #444;
@@ -759,37 +758,6 @@
     .modal-heart-btn.watchlisted {
       border-color: #e94560;
       color: #e94560;
-    }
-    .modal-share-btn:hover { border-color: #aaa; color: #fff; }
-    .modal-share-btn.copied { border-color: #4caf50; color: #4caf50; }
-
-    /* Share badge on poster (top-left, mirrors heart badge) */
-    .poster-wrap .share-badge {
-      position: absolute;
-      top: 4px;
-      left: 4px;
-      background: rgba(0,0,0,0.55);
-      color: #fff;
-      border-radius: 50%;
-      width: 22px;
-      height: 22px;
-      font-size: 0.72rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      line-height: 1;
-      opacity: 0;
-      transition: opacity 0.15s, background 0.15s, transform 0.1s;
-    }
-    .poster-wrap:hover .share-badge { opacity: 1; }
-    .poster-wrap .share-badge:hover {
-      transform: scale(1.2);
-      background: rgba(0,0,0,0.8);
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-      .share-badge, #modal-share-btn { display: none; }
     }
 
     /* Poster wrapper for heart badge overlay on calendar */
@@ -1131,7 +1099,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="modal-genres" id="modal-genres"></div>
       <div class="modal-actions">
         <button id="modal-watchlist-btn" class="modal-heart-btn" data-movie-id="">&#9825; Add to Watchlist</button>
-        <button id="modal-share-btn" class="modal-share-btn">&#8679; Share</button>
       </div>
     </div>
   </div>
@@ -1224,27 +1191,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   let moviesByDate = {}; // { 'YYYY-MM-DD': [movie, ...] }
   let genres = {};
 
-  // ── Share ───────────────────────────────────────────────────────────────────
-  function shareMovie(movie, feedbackEl) {
-    const date = movie.release_date
-      ? new Date(movie.release_date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-      : 'coming soon';
-    const text = `${movie.title} — releasing ${date}`;
-    const url  = 'https://moviereleaseradar.com/';
-
-    if (navigator.share) {
-      navigator.share({ title: movie.title, text, url }).catch(() => {});
-    } else {
-      navigator.clipboard.writeText(`${text}\n${url}`).then(() => {
-        if (!feedbackEl) return;
-        const orig = feedbackEl.innerHTML;
-        feedbackEl.innerHTML = '&#10003; Copied';
-        feedbackEl.classList.add('copied');
-        setTimeout(() => { feedbackEl.innerHTML = orig; feedbackEl.classList.remove('copied'); }, 2000);
-      }).catch(() => {});
-    }
-  }
-  // ────────────────────────────────────────────────────────────────────────────
 
   // ── Watchlist (localStorage) ────────────────────────────────────────────────
   function getWatchlist() {
@@ -1386,7 +1332,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           html += `<div class="poster-wrap">`;
           html += `<img class="poster-thumb" src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`;
           html += `<div class="heart-badge${inWl ? ' watchlisted' : ''}" data-id="${m.id}" title="${inWl ? 'Remove from watchlist' : 'Add to watchlist'}">${inWl ? '&#9829;' : '&#9825;'}</div>`;
-          html += `<div class="share-badge" data-id="${m.id}" title="Share">&#8679;</div>`;
           html += `</div>`;
         } else {
           html += `<div class="poster-placeholder">${escHtml(m.title)}</div>`;
@@ -1435,15 +1380,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       });
     });
 
-    calendarEl.querySelectorAll('.share-badge[data-id]').forEach(badge => {
-      badge.addEventListener('click', e => {
-        e.stopPropagation();
-        const id = parseInt(badge.dataset.id, 10);
-        const dateStr = badge.closest('.day-cell').dataset.date;
-        const movie = (filtered[dateStr] || []).find(m => m.id === id);
-        if (movie) shareMovie(movie, badge);
-      });
-    });
 
     calendarEl.querySelectorAll('.cell-bar[data-id]').forEach(bar => {
       bar.addEventListener('click', e => {
@@ -1563,9 +1499,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     heartBtn.dataset.movieId = movie.id;
     heartBtn.className = 'modal-heart-btn' + (inWl ? ' watchlisted' : '');
     heartBtn.innerHTML = inWl ? '&#9829; In Watchlist' : '&#9825; Add to Watchlist';
-
-    const shareBtn = document.getElementById('modal-share-btn');
-    shareBtn.onclick = () => shareMovie(movie, shareBtn);
   }
 
   function closeMovieModal() {
