@@ -594,7 +594,7 @@
     #onboarding-modal {
       pointer-events: all;
       position: absolute;
-      top: 5rem;
+      bottom: 1.5rem;
       right: 1.5rem;
       width: 320px;
       background: #1a1a1a;
@@ -602,14 +602,26 @@
       border-radius: 16px;
       padding: 1.8rem 1.6rem 1.5rem;
       text-align: center;
-      box-shadow: -4px 4px 32px rgba(0,0,0,0.6);
-      transform: translateX(calc(100% + 2rem));
+      box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+      transform: translateY(calc(100% + 2rem));
       opacity: 0;
       transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s ease;
     }
     #onboarding-overlay.open #onboarding-modal {
-      transform: translateX(0);
+      transform: translateY(0);
       opacity: 1;
+    }
+
+    @media (max-width: 480px) {
+      #onboarding-modal {
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        border-radius: 16px 16px 0 0;
+        padding: 1.5rem 1.2rem 1.8rem;
+        transform: translateY(100%);
+      }
     }
 
     #onboarding-skip {
