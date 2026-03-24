@@ -517,6 +517,12 @@
       color: #aaa;
     }
 
+    #modal .modal-director {
+      font-size: 0.85rem;
+      color: #aaa;
+      margin-bottom: 0.6rem;
+    }
+
     #modal .modal-overview {
       font-size: 0.95rem;
       color: #ccc;
@@ -1036,6 +1042,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="modal-body">
       <div class="modal-title" id="modal-title"></div>
       <div class="modal-meta" id="modal-meta"></div>
+      <div class="modal-director" id="modal-director"></div>
       <p class="modal-overview" id="modal-overview"></p>
       <div class="modal-genres" id="modal-genres"></div>
       <button id="modal-watchlist-btn" class="modal-heart-btn" data-movie-id="">&#9825; Add to Watchlist</button>
@@ -1403,8 +1410,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       .map(g => `<span class="genre-tag">${escHtml(g)}</span>`)
       .join('');
 
+    document.getElementById('modal-director').innerHTML = '';
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
+
+    fetch(`${BASE_URL}/movie/${movie.id}/credits?api_key=${API_KEY}&language=en-US`)
+      .then(r => r.json())
+      .then(data => {
+        if (!document.getElementById('modal-overlay').classList.contains('open')) return;
+        const directors = (data.crew || []).filter(c => c.job === 'Director').map(c => escHtml(c.name));
+        if (directors.length) {
+          document.getElementById('modal-director').innerHTML = `<span>&#127916; Directed by <strong style="color:#ddd">${directors.join(', ')}</strong></span>`;
+        }
+      })
+      .catch(() => {});
 
     const heartBtn = document.getElementById('modal-watchlist-btn');
     const inWl = isWatchlisted(movie.id);
