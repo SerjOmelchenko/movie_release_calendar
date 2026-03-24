@@ -345,6 +345,7 @@
       background-color: #1e1e1e;
       transition: transform 0.1s, outline 0.1s;
       outline: 1px solid transparent;
+      position: relative;
     }
 
     .cell-bar:hover {
@@ -557,6 +558,210 @@
 
     #modal-close:hover { background: #e94560; }
 
+    /* Watchlist toggle button in controls */
+    .watchlist-toggle-btn {
+      background: #1e1e1e;
+      color: #ccc;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .watchlist-toggle-btn:hover,
+    .watchlist-toggle-btn.has-items {
+      border-color: #e94560;
+      color: #e94560;
+    }
+
+    /* Heart button inside movie detail modal */
+    .modal-heart-btn {
+      margin-top: 1.2rem;
+      background: transparent;
+      color: #aaa;
+      border: 1.5px solid #444;
+      border-radius: 8px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .modal-heart-btn:hover,
+    .modal-heart-btn.watchlisted {
+      border-color: #e94560;
+      color: #e94560;
+    }
+
+    /* Poster wrapper for heart badge overlay on calendar */
+    .poster-wrap { position: relative; }
+    .poster-wrap .heart-badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background: rgba(233, 69, 96, 0.9);
+      color: #fff;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    /* Heart dot on watchlisted cell-bars */
+    .cell-bar.wl::after {
+      content: '\2665';
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      font-size: 0.55rem;
+      color: #e94560;
+      line-height: 1;
+      text-shadow: 0 0 3px rgba(0,0,0,0.9);
+    }
+
+    /* Watchlist side panel */
+    #watchlist-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 1100;
+      justify-content: flex-end;
+    }
+    #watchlist-overlay.open { display: flex; }
+
+    #watchlist-panel {
+      background: #1a1a1a;
+      width: 420px;
+      max-width: 100vw;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid #2a2a2a;
+      overflow: hidden;
+    }
+
+    #watchlist-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 1.5rem;
+      border-bottom: 1px solid #2a2a2a;
+      flex-shrink: 0;
+    }
+    #watchlist-header h2 { font-size: 1.1rem; color: #fff; }
+
+    #watchlist-close {
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #watchlist-close:hover { background: #e94560; }
+
+    #watchlist-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+
+    .watchlist-empty {
+      color: #666;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .watchlist-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      position: relative;
+      border: 1px solid #222;
+      margin-bottom: 0.7rem;
+    }
+    .watchlist-item:hover { background: #222; }
+
+    .watchlist-item-poster { flex-shrink: 0; width: 60px; }
+    .watchlist-item-poster img {
+      width: 60px;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+    }
+    .watchlist-no-poster {
+      width: 60px;
+      aspect-ratio: 2/3;
+      background: #2a2a2a;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.55rem;
+      color: #555;
+      text-align: center;
+      padding: 0.3rem;
+    }
+
+    .watchlist-item-info { flex: 1; min-width: 0; }
+    .watchlist-item-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #e0e0e0;
+      margin-bottom: 0.25rem;
+      line-height: 1.3;
+    }
+    .watchlist-item-date { font-size: 0.78rem; color: #888; margin-bottom: 0.3rem; }
+    .watchlist-item-overview {
+      font-size: 0.75rem;
+      color: #666;
+      line-height: 1.4;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .watchlist-remove-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: transparent;
+      border: none;
+      color: #e94560;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0.2rem;
+      opacity: 0.6;
+      transition: opacity 0.15s;
+      line-height: 1;
+    }
+    .watchlist-remove-btn:hover { opacity: 1; }
+
     /* Cookie banner */
     #cookie-banner {
       position: fixed;
@@ -676,6 +881,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <label for="search-input">Filter:</label>
   <input type="text" id="search-input" placeholder="Search movies..." />
+
+  <button id="watchlist-btn" class="watchlist-toggle-btn">&#9825; Watchlist (<span id="watchlist-count">0</span>)</button>
 </div>
 
 <div class="calendar-container">
@@ -705,7 +912,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="modal-meta" id="modal-meta"></div>
       <p class="modal-overview" id="modal-overview"></p>
       <div class="modal-genres" id="modal-genres"></div>
+      <button id="modal-watchlist-btn" class="modal-heart-btn" data-movie-id="">&#9825; Add to Watchlist</button>
     </div>
+  </div>
+</div>
+
+<!-- Watchlist side panel -->
+<div id="watchlist-overlay">
+  <div id="watchlist-panel">
+    <div id="watchlist-header">
+      <h2>&#9825; My Watchlist</h2>
+      <button id="watchlist-close" title="Close">&#x2715;</button>
+    </div>
+    <div id="watchlist-content"></div>
   </div>
 </div>
 
@@ -730,6 +949,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   let currentMonth = today.getMonth(); // 0-indexed
   let moviesByDate = {}; // { 'YYYY-MM-DD': [movie, ...] }
   let genres = {};
+
+  // ── Watchlist (localStorage) ────────────────────────────────────────────────
+  function getWatchlist() {
+    try { return JSON.parse(localStorage.getItem('watchlist') || '[]'); } catch(e) { return []; }
+  }
+  function saveWatchlist(list) {
+    try { localStorage.setItem('watchlist', JSON.stringify(list)); } catch(e) {}
+  }
+  function isWatchlisted(id) { return getWatchlist().includes(id); }
+  function toggleWatchlist(id) {
+    const list = getWatchlist();
+    const idx = list.indexOf(id);
+    if (idx === -1) list.push(id); else list.splice(idx, 1);
+    saveWatchlist(list);
+    updateWatchlistCount();
+    return idx === -1; // true = added
+  }
+  function updateWatchlistCount() {
+    const count = getWatchlist().length;
+    document.getElementById('watchlist-count').textContent = count;
+    document.getElementById('watchlist-btn').classList.toggle('has-items', count > 0);
+  }
+  // ────────────────────────────────────────────────────────────────────────────
 
   const statusEl = document.getElementById('status');
   const calendarEl = document.getElementById('calendar');
@@ -806,6 +1048,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   function renderCalendar() {
     const filtered = getFilteredMoviesByDate();
+    const watchlist = getWatchlist();
     const pad = n => String(n).padStart(2, '0');
 
     monthLabel.textContent = `${MONTH_NAMES[currentMonth]} ${currentYear}`;
@@ -842,7 +1085,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if (movies.length >= 1) {
         const m = movies[0];
         if (m.poster_path) {
+          const inWl = watchlist.includes(m.id);
+          html += `<div class="poster-wrap">`;
           html += `<img class="poster-thumb" src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`;
+          if (inWl) html += `<div class="heart-badge">&#9829;</div>`;
+          html += `</div>`;
         } else {
           html += `<div class="poster-placeholder">${escHtml(m.title)}</div>`;
         }
@@ -856,7 +1103,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const style = b.poster_path
               ? ` style="background-image:url('${IMG_BASE}w92${b.poster_path}')"`
               : '';
-            html += `<div class="cell-bar"${style} title="${escHtml(b.title)}" data-id="${b.id}"></div>`;
+            const wlClass = watchlist.includes(b.id) ? ' wl' : '';
+            html += `<div class="cell-bar${wlClass}"${style} title="${escHtml(b.title)}" data-id="${b.id}"></div>`;
           });
           if (overflow > 0) {
             html += `<div class="cell-bar-overflow">+${overflow}</div>`;
@@ -965,6 +1213,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
+
+    const heartBtn = document.getElementById('modal-watchlist-btn');
+    const inWl = isWatchlisted(movie.id);
+    heartBtn.dataset.movieId = movie.id;
+    heartBtn.className = 'modal-heart-btn' + (inWl ? ' watchlisted' : '');
+    heartBtn.innerHTML = inWl ? '&#9829; In Watchlist' : '&#9825; Add to Watchlist';
   }
 
   function closeMovieModal() {
@@ -980,7 +1234,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   document.getElementById('day-modal-overlay').addEventListener('click', e => {
     if (e.target === document.getElementById('day-modal-overlay')) closeDayModal();
   });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMovieModal(); closeDayModal(); } });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMovieModal(); closeDayModal(); closeWatchlistPanel(); } });
 
   document.getElementById('prev-month').addEventListener('click', () => {
     if (--currentMonth < 0) { currentMonth = 11; currentYear--; }
@@ -995,12 +1249,107 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   regionSelect.addEventListener('change', () => fetchMoviesForMonth(currentYear, currentMonth));
   searchInput.addEventListener('input', renderCalendar);
 
+  // Heart button in movie detail modal
+  document.getElementById('modal-watchlist-btn').addEventListener('click', () => {
+    const btn = document.getElementById('modal-watchlist-btn');
+    const id = parseInt(btn.dataset.movieId, 10);
+    if (!id) return;
+    const added = toggleWatchlist(id);
+    btn.classList.toggle('watchlisted', added);
+    btn.innerHTML = added ? '&#9829; In Watchlist' : '&#9825; Add to Watchlist';
+    renderCalendar();
+  });
+
+  // Watchlist panel open/close
+  document.getElementById('watchlist-btn').addEventListener('click', openWatchlistPanel);
+  document.getElementById('watchlist-close').addEventListener('click', closeWatchlistPanel);
+  document.getElementById('watchlist-overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('watchlist-overlay')) closeWatchlistPanel();
+  });
+
+  function closeWatchlistPanel() {
+    document.getElementById('watchlist-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  async function openWatchlistPanel() {
+    document.getElementById('watchlist-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    const content = document.getElementById('watchlist-content');
+    const ids = getWatchlist();
+
+    if (ids.length === 0) {
+      content.innerHTML = '<p class="watchlist-empty">No movies saved yet.<br>Click &#9825; on any movie to add it here.</p>';
+      return;
+    }
+
+    content.innerHTML = '<div class="spinner" style="margin:2rem auto;"></div>';
+
+    try {
+      const results = await Promise.all(ids.map(id =>
+        fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`)
+          .then(r => r.ok ? r.json() : null)
+          .catch(() => null)
+      ));
+
+      const movies = results.filter(Boolean).sort((a, b) =>
+        (a.release_date || '').localeCompare(b.release_date || '')
+      );
+
+      if (movies.length === 0) {
+        content.innerHTML = '<p class="watchlist-empty">Could not load watchlist movies.</p>';
+        return;
+      }
+
+      content.innerHTML = movies.map(m => {
+        const date = m.release_date
+          ? new Date(m.release_date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+          : 'TBA';
+        return `
+          <div class="watchlist-item" data-id="${m.id}">
+            <div class="watchlist-item-poster">
+              ${m.poster_path
+                ? `<img src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`
+                : `<div class="watchlist-no-poster">${escHtml(m.title)}</div>`
+              }
+            </div>
+            <div class="watchlist-item-info">
+              <div class="watchlist-item-title">${escHtml(m.title)}</div>
+              <div class="watchlist-item-date">&#128197; ${date}</div>
+              ${m.overview ? `<div class="watchlist-item-overview">${escHtml(m.overview)}</div>` : ''}
+            </div>
+            <button class="watchlist-remove-btn" data-id="${m.id}" title="Remove from watchlist">&#9829;</button>
+          </div>`;
+      }).join('');
+
+      content.querySelectorAll('.watchlist-item').forEach(item => {
+        item.addEventListener('click', e => {
+          if (e.target.closest('.watchlist-remove-btn')) return;
+          const movie = movies.find(m => String(m.id) === item.dataset.id);
+          if (movie) { closeWatchlistPanel(); openMovieModal(movie); }
+        });
+      });
+
+      content.querySelectorAll('.watchlist-remove-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          toggleWatchlist(parseInt(btn.dataset.id, 10));
+          openWatchlistPanel();
+          renderCalendar();
+        });
+      });
+    } catch(err) {
+      content.innerHTML = `<p style="color:#e94560;text-align:center;padding:2rem;">Failed to load watchlist.</p>`;
+    }
+  }
+
   function escHtml(str) {
     return String(str)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;')
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
+  updateWatchlistCount();
   fetchGenres().then(() => fetchMoviesForMonth(currentYear, currentMonth));
 
   // Cookie consent banner
