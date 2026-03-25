@@ -94,11 +94,14 @@ async function fetchMovieDetails(id) {
 
   const cast = (credits.cast || []).slice(0, 5).map(c => c.name);
 
-  // type 3 = Theatrical release
+  // type 3 = Theatrical; fall back to earliest available date if no theatrical entry
+  const TYPE_PRIORITY = [3, 4, 5, 6, 1, 2]; // theatrical → digital → physical → TV → premiere → limited
   const countryReleases = {};
   (releaseDates.results || []).forEach(r => {
-    const theatrical = r.release_dates.find(d => d.type === 3);
-    if (theatrical) countryReleases[r.iso_3166_1] = theatrical.release_date.slice(0, 10);
+    for (const type of TYPE_PRIORITY) {
+      const entry = r.release_dates.find(d => d.type === type && d.release_date);
+      if (entry) { countryReleases[r.iso_3166_1] = entry.release_date.slice(0, 10); break; }
+    }
   });
 
   return {
@@ -232,11 +235,16 @@ function buildMoviePage(movie) {
   const directors = (movie.directors || []).map(d => escHtml(d)).join(', ');
   const cast       = (movie.cast      || []).map(c => escHtml(c)).join(', ');
 
-  const countryEntries = Object.entries(movie.countryReleases || {})
+  let countryEntries = Object.entries(movie.countryReleases || {})
     .sort(([, a], [, b]) => a.localeCompare(b));
 
+  // No per-country entries but we have a primary release date — show it as Worldwide
+  if (countryEntries.length === 0 && movie.release_date) {
+    countryEntries = [['WW', movie.release_date]];
+  }
+
   const releasesHtml = countryEntries.map(([code, date]) => {
-    const name      = escHtml(COUNTRY_NAMES[code] || code);
+    const name      = escHtml(code === 'WW' ? 'Worldwide' : (COUNTRY_NAMES[code] || code));
     const formatted = new Date(date + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
     return `<div class="release-item"><span class="release-country">${name}</span><span class="release-date">${formatted}</span></div>`;
   }).join('');
