@@ -793,6 +793,25 @@
       transform: scale(1.2);
       background: #e94560;
     }
+    .poster-wrap .rating-badge {
+      position: absolute;
+      bottom: 4px;
+      left: 4px;
+      background: rgba(0,0,0,0.72);
+      color: #ffd700;
+      border-radius: 3px;
+      padding: 1px 4px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      line-height: 1.5;
+      pointer-events: none;
+    }
+    .day-movie-item .dm-rating {
+      padding: 0 0.5rem 0.4rem;
+      font-size: 0.7rem;
+      color: #ffd700;
+      line-height: 1;
+    }
 
     /* Heart dot on watchlisted cell-bars */
     .cell-bar.wl::after {
@@ -1403,6 +1422,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           html += `<div class="poster-wrap">`;
           html += `<img class="poster-thumb" src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`;
           html += `<div class="heart-badge${inWl ? ' watchlisted' : ''}" data-id="${m.id}" title="${inWl ? 'Remove from watchlist' : 'Add to watchlist'}">${inWl ? '&#9829;' : '&#9825;'}</div>`;
+          if (m.vote_count > 0) html += `<div class="rating-badge">&#9733; ${m.vote_average.toFixed(1)}</div>`;
           html += `</div>`;
         } else {
           html += `<div class="poster-placeholder">${escHtml(m.title)}</div>`;
@@ -1486,6 +1506,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           : `<div class="dm-no-poster">${escHtml(m.title)}</div>`
         }
         <div class="dm-title">${escHtml(m.title)}</div>
+        ${m.vote_count > 0 ? `<div class="dm-rating">&#9733; ${m.vote_average.toFixed(1)}</div>` : ''}
       </div>
     `).join('');
 
