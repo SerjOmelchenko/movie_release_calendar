@@ -36,8 +36,8 @@
     .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
     .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
     @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    header h1 { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
-    header h1 span { color: #e94560; }
+    .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
+    .brand-name span { color: #e94560; }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -82,6 +82,7 @@
       .movie-title { font-size: 1.5rem; }
       .movie-hero img { height: 200px; }
     }
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Movie","name":"The Four Gates of Death","url":"https://moviereleaseradar.com/movie/the-four-gates-of-death/","description":"A graveyard rendezvous that isn’t just about love, but about fulfilling a promise – and facing its consequences.  A family weekend that digs up buried secrets – secrets that perhaps should have stayed underground forever.  A legendary VHS tape, worth killing for – or maybe someone already has.  And a childhood tale that proves, years later: sometimes the scariest things are the ones we believed were true as kids.  From Horrorszkóp and Cruel World Team comes four dark and unsettling stories in this chilling horror anthology.  Each one steeped in the shadow of death, human weakness, and the grim truth that the ending is never what you expect.  Four stories. Four secrets. Four inevitable ends.","datePublished":"2026-02-03","image":"https://image.tmdb.org/t/p/w500/dLw6aWlLr0cDWpqQjOjnFIOeHEX.jpg","genre":["Comedy","Horror"],"duration":"PT1H18M","director":[{"@type":"Person","name":"Zsolt Bernáth"},{"@type":"Person","name":"Lajos Kiss"}],"aggregateRating":{"@type":"AggregateRating","ratingValue":"3.0","ratingCount":1,"bestRating":10,"worstRating":1}}</script>
   </style>
 </head>
 <body>
@@ -101,7 +102,7 @@
       </g>
       <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
     </svg>
-    <h1>Movie Release <span>Radar</span></h1>
+    <span class="brand-name">Movie Release <span>Radar</span></span>
   </a>
 </header>
 

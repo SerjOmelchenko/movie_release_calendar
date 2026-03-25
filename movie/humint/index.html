@@ -36,8 +36,8 @@
     .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
     .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
     @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    header h1 { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
-    header h1 span { color: #e94560; }
+    .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
+    .brand-name span { color: #e94560; }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -82,6 +82,7 @@
       .movie-title { font-size: 1.5rem; }
       .movie-hero img { height: 200px; }
     }
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Movie","name":"HUMINT","url":"https://moviereleaseradar.com/movie/humint/","description":"Manager Zo, an agent of the South Korean National Intelligence Service (NIS) discovers crucial information while collecting intel on North Korea's movements. While dispatched in Southeast Asia, his North Korean informant (HUMINT) provides him with intel that leads him to Vladivostok. However, she faces an untimely death, only leaving him with clues. Coincidentally, North Korean Ministry of State Security dispatches Captain Park Geon to investigate a missing person case in Vladivostok. However, the North Korean Consul General of Vladivostok, Hwang Chi-seong feels threatened by Geon's investigation. He looks for dirt in hopes to get rid of Geon and discovers that his former lover, Chae Seon-hwa, is an informant to the South Korean NIS Agent, Manager Zo. Chi-seong uses this information to corner Geon. An unlikely joint operation ensues to take down Consul Chi-seong, who is willing to protect his kingdom at all cost.","datePublished":"2026-02-11","image":"https://image.tmdb.org/t/p/w500/82bX2GK4PhaJQtfkTnfmd2P7erG.jpg","genre":["Action","Drama"],"duration":"PT2H0M","director":[{"@type":"Person","name":"Ryoo Seung-wan"}],"actor":[{"@type":"Person","name":"Zo In-sung"},{"@type":"Person","name":"Park Jeong-min"},{"@type":"Person","name":"Park Hae-joon"},{"@type":"Person","name":"Shin Sae-kyeong"},{"@type":"Person","name":"Robert Maaser"}],"aggregateRating":{"@type":"AggregateRating","ratingValue":"6.5","ratingCount":4,"bestRating":10,"worstRating":1}}</script>
   </style>
 </head>
 <body>
@@ -101,7 +102,7 @@
       </g>
       <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
     </svg>
-    <h1>Movie Release <span>Radar</span></h1>
+    <span class="brand-name">Movie Release <span>Radar</span></span>
   </a>
 </header>
 

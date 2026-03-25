@@ -36,8 +36,8 @@
     .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
     .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
     @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    header h1 { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
-    header h1 span { color: #e94560; }
+    .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
+    .brand-name span { color: #e94560; }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -82,6 +82,7 @@
       .movie-title { font-size: 1.5rem; }
       .movie-hero img { height: 200px; }
     }
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Movie","name":"The Dresden Sun","url":"https://moviereleaseradar.com/movie/the-dresden-sun/","description":"A brilliant, principled mercenary with a traumatic past works with an insider to steal a valued asset from Peredor Corporation called “the sphere”. The C & Earth corporation, vying for global dominance, seeks to find a solution to an otherworldly technology via a scientist’s project. Meanwhile, a financial analyst, who despises his job at the powerful investment firm Mutual One, finds himself caught between deadly corporate rivals, financial fraud, and technological espionage, and is ultimately forced to run from a psychopathic military contractor.","datePublished":"2026-02-06","image":"https://image.tmdb.org/t/p/w500/cwBA8R171aQb2M3Iax80BYvYS1i.jpg","genre":["Science Fiction","Action","Thriller"],"duration":"PT2H9M","director":[{"@type":"Person","name":"Michael Ryan"}],"actor":[{"@type":"Person","name":"Christina Ricci"},{"@type":"Person","name":"Mena Suvari"},{"@type":"Person","name":"Linus Roache"},{"@type":"Person","name":"Steven Ogg"},{"@type":"Person","name":"Leigh McCloskey"}],"aggregateRating":{"@type":"AggregateRating","ratingValue":"3.9","ratingCount":7,"bestRating":10,"worstRating":1}}</script>
   </style>
 </head>
 <body>
@@ -101,7 +102,7 @@
       </g>
       <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
     </svg>
-    <h1>Movie Release <span>Radar</span></h1>
+    <span class="brand-name">Movie Release <span>Radar</span></span>
   </a>
 </header>
 

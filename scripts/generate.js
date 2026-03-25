@@ -208,6 +208,36 @@ function escHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
+function buildSchema(movie, canonicalUrl) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Movie',
+    name: movie.title,
+    url: canonicalUrl,
+  };
+  if (movie.overview)        schema.description   = movie.overview;
+  if (movie.release_date)    schema.datePublished = movie.release_date;
+  if (movie.poster_path)     schema.image         = `${IMG_BASE}w500${movie.poster_path}`;
+  if (movie.genres?.length)  schema.genre         = movie.genres;
+  if (movie.runtime)         schema.duration      = `PT${Math.floor(movie.runtime / 60)}H${movie.runtime % 60}M`;
+  if (movie.directors?.length) {
+    schema.director = movie.directors.map(n => ({ '@type': 'Person', name: n }));
+  }
+  if (movie.cast?.length) {
+    schema.actor = movie.cast.map(n => ({ '@type': 'Person', name: n }));
+  }
+  if (movie.vote_count > 0) {
+    schema.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: movie.vote_average.toFixed(1),
+      ratingCount: movie.vote_count,
+      bestRating: 10,
+      worstRating: 1,
+    };
+  }
+  return JSON.stringify(schema);
+}
+
 function buildMoviePage(movie) {
   const year        = (movie.release_date || '').slice(0, 4);
   const title       = escHtml(movie.title);
@@ -288,6 +318,7 @@ function buildMoviePage(movie) {
   <meta property="og:title"       content="${title}${year ? ` (${year})` : ''}" />
   <meta property="og:description" content="${metaDesc}" />
   ${ogImage ? `<meta property="og:image" content="${escHtml(ogImage)}" />` : ''}
+  <script type="application/ld+json">${buildSchema(movie, canonicalUrl)}</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0d0d0d; color: #e0e0e0; min-height: 100vh; }
@@ -297,8 +328,8 @@ function buildMoviePage(movie) {
     .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
     .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
     @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    header h1 { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
-    header h1 span { color: #e94560; }
+    .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
+    .brand-name span { color: #e94560; }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -362,7 +393,7 @@ function buildMoviePage(movie) {
       </g>
       <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
     </svg>
-    <h1>Movie Release <span>Radar</span></h1>
+    <span class="brand-name">Movie Release <span>Radar</span></span>
   </a>
 </header>
 

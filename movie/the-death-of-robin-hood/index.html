@@ -36,8 +36,8 @@
     .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
     .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
     @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    header h1 { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
-    header h1 span { color: #e94560; }
+    .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
+    .brand-name span { color: #e94560; }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -82,6 +82,7 @@
       .movie-title { font-size: 1.5rem; }
       .movie-hero img { height: 200px; }
     }
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Movie","name":"The Death of Robin Hood","url":"https://moviereleaseradar.com/movie/the-death-of-robin-hood/","description":"Grappling with his past after a life of crime and murder, Robin Hood finds himself gravely injured after a battle he thought would be his last. In the hands of a mysterious woman, he is offered a chance at salvation.","datePublished":"2026-05-28","image":"https://image.tmdb.org/t/p/w500/4cD7KeABHyzeJmzdA6QKe36fp2d.jpg","genre":["Drama","Thriller"],"director":[{"@type":"Person","name":"Michael Sarnoski"}],"actor":[{"@type":"Person","name":"Hugh Jackman"},{"@type":"Person","name":"Jodie Comer"},{"@type":"Person","name":"Bill Skarsgård"},{"@type":"Person","name":"Murray Bartlett"},{"@type":"Person","name":"Noah Jupe"}]}</script>
   </style>
 </head>
 <body>
@@ -101,7 +102,7 @@
       </g>
       <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
     </svg>
-    <h1>Movie Release <span>Radar</span></h1>
+    <span class="brand-name">Movie Release <span>Radar</span></span>
   </a>
 </header>
 

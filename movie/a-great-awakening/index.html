@@ -36,8 +36,8 @@
     .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
     .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
     @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    header h1 { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
-    header h1 span { color: #e94560; }
+    .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
+    .brand-name span { color: #e94560; }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -82,6 +82,7 @@
       .movie-title { font-size: 1.5rem; }
       .movie-hero img { height: 200px; }
     }
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Movie","name":"A Great Awakening","url":"https://moviereleaseradar.com/movie/a-great-awakening/","description":"A GREAT AWAKENING tells the true story of an unlikely friendship between the Reverend George Whitefield and Benjamin Franklin that resulted in one of the most defining moments in American history. With the colonies on the brink of collapse, the Reverend George Whitefield ignites the first Great Awakening, uniting an entire generation with his thundering and faithful sermons and proclamations of liberty. In a miraculous turn of events, one of Whitefield’s closest friends and greatest promoters becomes none other than Benjamin Franklin. With the nation’s freedom hanging in the balance, the founders discover true liberty cannot only be written into law - it must be awakened in the hearts of the people.","datePublished":"2026-04-03","image":"https://image.tmdb.org/t/p/w500/rd7BsFaHO7JaYlz3WHUvqHjgm60.jpg","genre":["Drama","History"],"duration":"PT2H9M","director":[{"@type":"Person","name":"Joshua Enck"}],"actor":[{"@type":"Person","name":"John Paul Sneed"},{"@type":"Person","name":"Jonathan Blair"},{"@type":"Person","name":"Josh Bates"},{"@type":"Person","name":"Joe Dignoti"},{"@type":"Person","name":"Stephen Foster Harris"}]}</script>
   </style>
 </head>
 <body>
@@ -101,7 +102,7 @@
       </g>
       <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
     </svg>
-    <h1>Movie Release <span>Radar</span></h1>
+    <span class="brand-name">Movie Release <span>Radar</span></span>
   </a>
 </header>
 

@@ -36,8 +36,8 @@
     .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
     .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
     @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    header h1 { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
-    header h1 span { color: #e94560; }
+    .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
+    .brand-name span { color: #e94560; }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -82,6 +82,7 @@
       .movie-title { font-size: 1.5rem; }
       .movie-hero img { height: 200px; }
     }
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Movie","name":"Fjord","url":"https://moviereleaseradar.com/movie/fjord/","description":"The Gheorghius – Catholic and Romanian - settle in a Norwegian village, the mother’s birthplace. They quickly bond with the Halbergs, who live in the neighbouring house near the bay. Despite their very different upbringings, the children of both families soon become close friends. Until the Gheorghius are suspected of hurting their own children…","datePublished":"2026-08-19","image":"https://image.tmdb.org/t/p/w500/aJ5U8xJ63aWRFXxpJPGwj6wYX69.jpg","genre":["Drama"],"director":[{"@type":"Person","name":"Cristian Mungiu"}],"actor":[{"@type":"Person","name":"Sebastian Stan"},{"@type":"Person","name":"Renate Reinsve"},{"@type":"Person","name":"Lisa Loven Kongsli"},{"@type":"Person","name":"Giulia Nahmany"},{"@type":"Person","name":"Ingvild Lien"}]}</script>
   </style>
 </head>
 <body>
@@ -101,7 +102,7 @@
       </g>
       <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
     </svg>
-    <h1>Movie Release <span>Radar</span></h1>
+    <span class="brand-name">Movie Release <span>Radar</span></span>
   </a>
 </header>
 

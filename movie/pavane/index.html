@@ -36,8 +36,8 @@
     .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
     .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
     @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    header h1 { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
-    header h1 span { color: #e94560; }
+    .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
+    .brand-name span { color: #e94560; }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -82,6 +82,7 @@
       .movie-title { font-size: 1.5rem; }
       .movie-hero img { height: 200px; }
     }
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Movie","name":"Pavane","url":"https://moviereleaseradar.com/movie/pavane/","description":"Three lonely strangers meet at their department store jobs and find solace in each other's company while they explore connection and the nature of love.","datePublished":"2026-02-19","image":"https://image.tmdb.org/t/p/w500/wOXc8stx1CLvM6GC0ABKfWOkbYw.jpg","genre":["Romance","Drama"],"duration":"PT1H53M","director":[{"@type":"Person","name":"Lee Jong-pil"}],"actor":[{"@type":"Person","name":"Ko A-sung"},{"@type":"Person","name":"Moon Sang-min"},{"@type":"Person","name":"Byun Yo-han"},{"@type":"Person","name":"Lee E-dam"},{"@type":"Person","name":"Han Yu-eun"}],"aggregateRating":{"@type":"AggregateRating","ratingValue":"6.7","ratingCount":34,"bestRating":10,"worstRating":1}}</script>
   </style>
 </head>
 <body>
@@ -101,7 +102,7 @@
       </g>
       <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
     </svg>
-    <h1>Movie Release <span>Radar</span></h1>
+    <span class="brand-name">Movie Release <span>Radar</span></span>
   </a>
 </header>
 

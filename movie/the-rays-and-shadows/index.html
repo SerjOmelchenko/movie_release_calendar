@@ -36,8 +36,8 @@
     .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
     .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
     @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    header h1 { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
-    header h1 span { color: #e94560; }
+    .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
+    .brand-name span { color: #e94560; }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -82,6 +82,7 @@
       .movie-title { font-size: 1.5rem; }
       .movie-hero img { height: 200px; }
     }
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Movie","name":"The Rays and Shadows","url":"https://moviereleaseradar.com/movie/the-rays-and-shadows/","description":"Jean and Otto, a French newspaperman and a young German Francophile, are fighting for peace in Europe. Jean’s daughter, Corinne, is launching a brilliant acting career in the film world, but war breaks out and France is occupied. The two friends have a major role to play in this new France. Jean becomes a big press baron and an ardent advocate of collaboration with the occupying forces, while Otto becomes the Reich’s ambassador in Paris. Corinne, meanwhile, finds herself thrown into the lion’s pit.","datePublished":"2026-03-18","image":"https://image.tmdb.org/t/p/w500/uROOJRTrrkpe7F33Y54OcRXsQOu.jpg","genre":["Drama","History"],"duration":"PT3H19M","director":[{"@type":"Person","name":"Xavier Giannoli"}],"actor":[{"@type":"Person","name":"Jean Dujardin"},{"@type":"Person","name":"Nastya Golubeva Carax"},{"@type":"Person","name":"August Diehl"},{"@type":"Person","name":"Olivier Chantreau"},{"@type":"Person","name":"Anna Próchniak"}],"aggregateRating":{"@type":"AggregateRating","ratingValue":"7.5","ratingCount":25,"bestRating":10,"worstRating":1}}</script>
   </style>
 </head>
 <body>
@@ -101,7 +102,7 @@
       </g>
       <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
     </svg>
-    <h1>Movie Release <span>Radar</span></h1>
+    <span class="brand-name">Movie Release <span>Radar</span></span>
   </a>
 </header>
 

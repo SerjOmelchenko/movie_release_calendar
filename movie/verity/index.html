@@ -36,8 +36,8 @@
     .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
     .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
     @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    header h1 { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
-    header h1 span { color: #e94560; }
+    .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
+    .brand-name span { color: #e94560; }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -82,6 +82,7 @@
       .movie-title { font-size: 1.5rem; }
       .movie-hero img { height: 200px; }
     }
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Movie","name":"Verity","url":"https://moviereleaseradar.com/movie/verity/","description":"Struggling writer Lowen Ashleigh is on the brink of financial ruin when she accepts the job offer of a lifetime: she's been hired to complete the remaining books in a successful series that bestselling thriller author Verity Crawford is unable to finish after a mysterious accident. Upon arrival at the lavish Crawford estate, Ashleigh slowly learns that things are not exactly as they seem.","datePublished":"2026-09-30","genre":["Mystery","Thriller"],"director":[{"@type":"Person","name":"Michael Showalter"}],"actor":[{"@type":"Person","name":"Dakota Johnson"},{"@type":"Person","name":"Anne Hathaway"},{"@type":"Person","name":"Josh Hartnett"},{"@type":"Person","name":"Ismael Cruz Cordova"},{"@type":"Person","name":"Brady Wagner"}]}</script>
   </style>
 </head>
 <body>
@@ -101,7 +102,7 @@
       </g>
       <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
     </svg>
-    <h1>Movie Release <span>Radar</span></h1>
+    <span class="brand-name">Movie Release <span>Radar</span></span>
   </a>
 </header>
 

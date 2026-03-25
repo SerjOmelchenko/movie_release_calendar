@@ -36,8 +36,8 @@
     .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
     .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
     @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    header h1 { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
-    header h1 span { color: #e94560; }
+    .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
+    .brand-name span { color: #e94560; }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -82,6 +82,7 @@
       .movie-title { font-size: 1.5rem; }
       .movie-hero img { height: 200px; }
     }
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Movie","name":"Aag Lagay Basti Mein","url":"https://moviereleaseradar.com/movie/aag-lagay-basti-mein/","description":"Barkat is an honest, hard-working man struggling to make ends meet alongside his wife, Almaas, who has grown tired of their modest life. Working as cleaners, the couple decides to turn to petty crime in hopes of improving their financial situation. What begins as small, calculated risks soon spirals into something far bigger, drawing the couple into the world of seasoned criminals. As guns, chases, and escalating chaos enter their lives, Barkat and Almaas find their domestic relationship increasingly entangled with crime and danger. Blending dark comedy with crime drama, the story explores ambition, greed, and the unintended consequences of trying to take shortcuts to a better life","datePublished":"2026-03-21","image":"https://image.tmdb.org/t/p/w500/gAvQELcI17z2YKnqOmuukfaFGg9.jpg","genre":["Action","Crime","Comedy"],"duration":"PT2H20M","director":[{"@type":"Person","name":"Bilal Atif Khan"}],"actor":[{"@type":"Person","name":"Fahad Mustafa"},{"@type":"Person","name":"Mahira Khan"},{"@type":"Person","name":"Javed Sheikh"},{"@type":"Person","name":"Tabish Hashmi"},{"@type":"Person","name":"Salahuddin Tunio"}]}</script>
   </style>
 </head>
 <body>
@@ -101,7 +102,7 @@
       </g>
       <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
     </svg>
-    <h1>Movie Release <span>Radar</span></h1>
+    <span class="brand-name">Movie Release <span>Radar</span></span>
   </a>
 </header>
 
