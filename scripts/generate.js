@@ -497,6 +497,31 @@ function generatePages(movies, manifest) {
   if (redirects > 0) console.log(`Redirect stubs written: ${redirects}`);
 }
 
+// ── Sitemap ───────────────────────────────────────────────────────────────────
+
+function generateSitemap(movies) {
+  const today = new Date().toISOString().slice(0, 10);
+
+  const movieUrls = movies.map(m => {
+    const lastmod = m.release_date || today;
+    return `  <url>\n    <loc>${SITE_BASE}/movie/${m.slug}/</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`;
+  }).join('\n');
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${SITE_BASE}/</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+${movieUrls}
+</urlset>`;
+
+  fs.writeFileSync(path.join(__dirname, '..', 'sitemap.xml'), xml);
+  console.log(`sitemap.xml written (${movies.length + 1} URLs)`);
+}
+
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -543,6 +568,9 @@ async function main() {
 
   // Generate static pages
   generatePages(detailedMovies, manifest);
+
+  // Generate sitemap
+  generateSitemap(detailedMovies);
 }
 
 main().catch(err => { console.error(err); process.exit(1); });
