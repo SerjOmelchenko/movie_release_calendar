@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    (function(){
+      var c; try { c = localStorage.getItem('cookie_consent'); } catch(e) {}
+      var granted = c === 'accepted';
+      gtag('consent', 'default', {
+        analytics_storage:  granted ? 'granted' : 'denied',
+        ad_storage:         granted ? 'granted' : 'denied',
+        ad_user_data:       granted ? 'granted' : 'denied',
+        ad_personalization: granted ? 'granted' : 'denied',
+      });
+    })();
+  </script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T3BJFZSV');</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 &mdash; Page Not Found | Movie Release Radar</title>
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0d0d0d; color: #e0e0e0; min-height: 100vh; display: flex; flex-direction: column; }
+
+    header { background: #0d0d0d; padding: 1.4rem 2rem; border-bottom: 1px solid #1e1e1e; display: flex; align-items: center; justify-content: center; }
+    .site-brand { display: flex; align-items: center; gap: 0.85rem; text-decoration: none; }
+    .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
+    .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
+    @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    header h1 { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
+    header h1 span { color: #e94560; }
+
+    main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem 2rem; }
+    .error-box { text-align: center; max-width: 480px; }
+    .error-code { font-size: 7rem; font-weight: 900; line-height: 1; color: #1a1a1a; letter-spacing: -0.02em; user-select: none; }
+    .error-code span { color: #e94560; }
+    .error-title { font-size: 1.4rem; font-weight: 700; color: #fff; margin-top: 0.5rem; margin-bottom: 0.75rem; }
+    .error-desc { font-size: 0.95rem; color: #777; line-height: 1.6; margin-bottom: 2rem; }
+    .home-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: #e94560; color: #fff; text-decoration: none;
+      padding: 0.65rem 1.4rem; border-radius: 8px;
+      font-size: 0.9rem; font-weight: 600; letter-spacing: 0.02em;
+      transition: background 0.15s;
+    }
+    .home-link:hover { background: #c73652; }
+
+    footer { border-top: 1px solid #1e1e1e; padding: 1.4rem 2rem; }
+    .footer-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .footer-brand { font-size: 0.78rem; font-weight: 700; color: #333; letter-spacing: 0.1em; text-transform: uppercase; }
+    .footer-attr { font-size: 0.75rem; color: #3a3a3a; }
+    footer a { color: #e94560; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header>
+  <a href="/" class="site-brand">
+    <svg class="brand-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="22" cy="22" r="20"   stroke="#2a2a2a" stroke-width="1.2"/>
+      <circle cx="22" cy="22" r="13.5" stroke="#2a2a2a" stroke-width="1.2"/>
+      <circle cx="22" cy="22" r="7"    stroke="#2a2a2a" stroke-width="1.2"/>
+      <line x1="22" y1="2"  x2="22" y2="42" stroke="#1e1e1e" stroke-width="1"/>
+      <line x1="2"  y1="22" x2="42" y2="22" stroke="#1e1e1e" stroke-width="1"/>
+      <g class="sweep-group">
+        <line x1="22" y1="22" x2="42" y2="22" stroke="#e94560" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+        <circle cx="36" cy="22" r="2" fill="#e94560" opacity="0.85"/>
+      </g>
+      <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
+    </svg>
+    <h1>Movie Release <span>Radar</span></h1>
+  </a>
+</header>
+
+<main>
+  <div class="error-box">
+    <div class="error-code">4<span>0</span>4</div>
+    <h2 class="error-title">Page not found</h2>
+    <p class="error-desc">This movie must have been pulled from release. The page you're looking for doesn't exist or may have moved.</p>
+    <a href="/" class="home-link">&#8592; Back to calendar</a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">🎬 Movie Release Radar</div>
+    <div class="footer-attr">
+      Created by <a href="https://serhiiomelchenko.com/" target="_blank" rel="noopener">Serhii Omelchenko</a>
+      &nbsp;&middot;&nbsp;
+      Data by <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a> &mdash; not endorsed or certified by TMDB.
+    </div>
+  </div>
+</footer>
+</body>
+</html>
