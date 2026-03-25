@@ -209,25 +209,26 @@ function escHtml(str) {
 }
 
 function buildSchema(movie, canonicalUrl) {
-  const schema = {
-    '@context': 'https://schema.org',
+  const year = (movie.release_date || '').slice(0, 4);
+
+  const movieSchema = {
     '@type': 'Movie',
     name: movie.title,
     url: canonicalUrl,
   };
-  if (movie.overview)        schema.description   = movie.overview;
-  if (movie.release_date)    schema.datePublished = movie.release_date;
-  if (movie.poster_path)     schema.image         = `${IMG_BASE}w500${movie.poster_path}`;
-  if (movie.genres?.length)  schema.genre         = movie.genres;
-  if (movie.runtime)         schema.duration      = `PT${Math.floor(movie.runtime / 60)}H${movie.runtime % 60}M`;
+  if (movie.overview)        movieSchema.description   = movie.overview;
+  if (movie.release_date)    movieSchema.datePublished = movie.release_date;
+  if (movie.poster_path)     movieSchema.image         = `${IMG_BASE}w500${movie.poster_path}`;
+  if (movie.genres?.length)  movieSchema.genre         = movie.genres;
+  if (movie.runtime)         movieSchema.duration      = `PT${Math.floor(movie.runtime / 60)}H${movie.runtime % 60}M`;
   if (movie.directors?.length) {
-    schema.director = movie.directors.map(n => ({ '@type': 'Person', name: n }));
+    movieSchema.director = movie.directors.map(n => ({ '@type': 'Person', name: n }));
   }
   if (movie.cast?.length) {
-    schema.actor = movie.cast.map(n => ({ '@type': 'Person', name: n }));
+    movieSchema.actor = movie.cast.map(n => ({ '@type': 'Person', name: n }));
   }
   if (movie.vote_count > 0) {
-    schema.aggregateRating = {
+    movieSchema.aggregateRating = {
       '@type': 'AggregateRating',
       ratingValue: movie.vote_average.toFixed(1),
       ratingCount: movie.vote_count,
@@ -235,7 +236,16 @@ function buildSchema(movie, canonicalUrl) {
       worstRating: 1,
     };
   }
-  return JSON.stringify(schema);
+
+  const breadcrumbSchema = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_BASE}/` },
+      { '@type': 'ListItem', position: 2, name: `${movie.title}${year ? ` (${year})` : ''}`, item: canonicalUrl },
+    ],
+  };
+
+  return JSON.stringify({ '@context': 'https://schema.org', '@graph': [movieSchema, breadcrumbSchema] });
 }
 
 function buildMoviePage(movie) {
