@@ -139,13 +139,14 @@ function assignSlugs(movies, manifest) {
 
       // Title changed → assign new slug
       if (manifest[id].title !== movie.title) {
-        let newSlug = baseSlug;
+        // Fall back to TMDB id when title produces an empty slug (e.g. CJK-only titles)
+        let newSlug = baseSlug || `movie-${id}`;
         if (slugToId[newSlug] && slugToId[newSlug] !== id) {
-          newSlug = `${baseSlug}-${year}`;
+          newSlug = `${newSlug}-${year}`;
         }
         // Last resort: append TMDB id
         if (slugToId[newSlug] && slugToId[newSlug] !== id) {
-          newSlug = `${baseSlug}-${id}`;
+          newSlug = `${baseSlug || 'movie'}-${id}`;
         }
 
         console.log(`  Slug changed: "${manifest[id].title}" → "${movie.title}" (${oldSlug} → ${newSlug})`);
@@ -161,9 +162,10 @@ function assignSlugs(movies, manifest) {
       }
     } else {
       // New movie — pick a collision-free slug
-      let slug = baseSlug;
-      if (slugToId[slug]) slug = `${baseSlug}-${year}`;
-      if (slugToId[slug] && slugToId[slug] !== id) slug = `${baseSlug}-${id}`;
+      // Fall back to TMDB id when title produces an empty slug (e.g. CJK-only titles)
+      let slug = baseSlug || `movie-${id}`;
+      if (slugToId[slug]) slug = `${slug}-${year}`;
+      if (slugToId[slug] && slugToId[slug] !== id) slug = `${baseSlug || 'movie'}-${id}`;
 
       manifest[id] = { title: movie.title, slug, previousSlugs: [] };
       slugToId[slug] = id;
