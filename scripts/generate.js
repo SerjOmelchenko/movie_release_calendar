@@ -359,7 +359,20 @@ function buildMoviePage(movie) {
 </header>
 
 <main class="movie-page">
-  <a href="/" class="back-link">&#8592; Back to calendar</a>
+  <a href="/" class="back-link" id="back-link">&#8592; Back to calendar</a>
+  <script>
+    (function(){
+      try {
+        var s = sessionStorage.getItem('calendarMonth');
+        if (s) {
+          var parts = s.split('-').map(Number);
+          if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+            document.getElementById('back-link').href = '/?m=' + s;
+          }
+        }
+      } catch(e) {}
+    })();
+  </script>
 
   ${backdrop ? `<div class="movie-hero"><img src="${backdrop}" alt="${title} backdrop" /></div>` : ''}
 

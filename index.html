@@ -1221,6 +1221,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const today = new Date();
   let currentYear = today.getFullYear();
   let currentMonth = today.getMonth(); // 0-indexed
+  // Restore month if returning from a movie page (URL param takes priority over sessionStorage)
+  try {
+    const urlM = new URLSearchParams(location.search).get('m');
+    if (urlM) {
+      const [y, m] = urlM.split('-').map(Number);
+      if (!isNaN(y) && !isNaN(m)) { currentYear = y; currentMonth = m; }
+      history.replaceState(null, '', location.pathname); // clean up the URL
+    } else {
+      const saved = sessionStorage.getItem('calendarMonth');
+      if (saved) {
+        const [y, m] = saved.split('-').map(Number);
+        if (!isNaN(y) && !isNaN(m)) { currentYear = y; currentMonth = m; }
+      }
+    }
+  } catch(e) {}
   let moviesByDate = {}; // { 'YYYY-MM-DD': [movie, ...] }
   let genres = {};
   let slugMap = {}; // movieId (string) → slug, for movies that have a static page
@@ -1570,13 +1585,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMovieModal(); closeDayModal(); closeWatchlistPanel(); } });
 
+  function saveCalendarMonth() {
+    try { sessionStorage.setItem('calendarMonth', `${currentYear}-${currentMonth}`); } catch(e) {}
+  }
+
   document.getElementById('prev-month').addEventListener('click', () => {
     if (--currentMonth < 0) { currentMonth = 11; currentYear--; }
+    saveCalendarMonth();
     fetchMoviesForMonth(currentYear, currentMonth);
   });
 
   document.getElementById('next-month').addEventListener('click', () => {
     if (++currentMonth > 11) { currentMonth = 0; currentYear++; }
+    saveCalendarMonth();
     fetchMoviesForMonth(currentYear, currentMonth);
   });
 

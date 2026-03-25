@@ -96,7 +96,20 @@
   </a>
 </header>
 <main class="movie-page">
-  <a href="/" class="back-link">&#8592; Back to calendar</a>
+  <a href="/" class="back-link" id="back-link">&#8592; Back to calendar</a>
+  <script>
+    (function(){
+      try {
+        var s = sessionStorage.getItem('calendarMonth');
+        if (s) {
+          var parts = s.split('-').map(Number);
+          if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+            document.getElementById('back-link').href = '/?m=' + s;
+          }
+        }
+      } catch(e) {}
+    })();
+  </script>
   <div class="movie-hero"><img src="https://image.tmdb.org/t/p/w1280/g5n1jTrfhhTf40iBKYp4prMK1Gn.jpg" alt="斗破苍穹剧场版 双帝之战 backdrop" /></div>
   <div class="movie-main">
     <div class="movie-poster">
