@@ -312,6 +312,7 @@ function buildMoviePage(movie) {
   <meta name="description" content="${metaDesc}" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="${canonicalUrl}" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="${canonicalUrl}" />
