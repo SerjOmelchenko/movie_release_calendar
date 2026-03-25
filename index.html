@@ -1223,6 +1223,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   let currentMonth = today.getMonth(); // 0-indexed
   let moviesByDate = {}; // { 'YYYY-MM-DD': [movie, ...] }
   let genres = {};
+  let slugMap = {}; // movieId (string) → slug, for movies that have a static page
 
 
   // ── Watchlist (localStorage) ────────────────────────────────────────────────
@@ -1261,6 +1262,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const data = await res.json();
       if (data.genres) data.genres.forEach(g => { genres[g.id] = g.name; });
     } catch (e) {}
+  }
+
+  async function loadManifest() {
+    try {
+      const res = await fetch('/data/manifest.json');
+      if (!res.ok) return;
+      const manifest = await res.json();
+      for (const [id, entry] of Object.entries(manifest)) {
+        if (entry.slug) slugMap[id] = entry.slug;
+      }
+    } catch (e) {}
+  }
+
+  function openOrNavigateMovie(movie, backContext) {
+    const slug = slugMap[String(movie.id)];
+    if (slug) {
+      window.location.href = `/movie/${slug}`;
+    } else {
+      openMovieModal(movie, backContext);
+    }
   }
 
   async function fetchMoviesForMonth(year, month) {
@@ -1420,7 +1441,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         const id = parseInt(bar.dataset.id, 10);
         const dateStr = bar.closest('.day-cell').dataset.date;
         const movie = (filtered[dateStr] || []).find(m => m.id === id);
-        if (movie) openMovieModal(movie);
+        if (movie) openOrNavigateMovie(movie);
       });
     });
 
@@ -1428,7 +1449,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       cell.addEventListener('click', () => {
         const movies = filtered[cell.dataset.date] || [];
         if (movies.length === 1) {
-          openMovieModal(movies[0]);
+          openOrNavigateMovie(movies[0]);
         } else {
           openDayModal(cell.dataset.date, movies);
         }
@@ -1457,7 +1478,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.querySelectorAll('.day-movie-item').forEach(item => {
       item.addEventListener('click', () => {
         const movie = movies.find(m => String(m.id) === item.dataset.id);
-        if (movie) { closeDayModal(); openMovieModal(movie, { dateStr, movies }); }
+        if (movie) { closeDayModal(); openOrNavigateMovie(movie, { dateStr, movies }); }
       });
     });
   }
@@ -1663,7 +1684,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         item.addEventListener('click', e => {
           if (e.target.closest('.watchlist-remove-btn')) return;
           const movie = movies.find(m => String(m.id) === item.dataset.id);
-          if (movie) { closeWatchlistPanel(); openMovieModal(movie); }
+          if (movie) { closeWatchlistPanel(); openOrNavigateMovie(movie); }
         });
       });
 
@@ -1686,7 +1707,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   updateWatchlistCount();
-  fetchGenres().then(() => fetchMoviesForMonth(currentYear, currentMonth));
+  Promise.all([fetchGenres(), loadManifest()]).then(() => fetchMoviesForMonth(currentYear, currentMonth));
 
   // Onboarding modal (first visit only)
   (function() {
