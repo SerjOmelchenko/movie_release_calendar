@@ -82,11 +82,20 @@ async function fetchAllMovies(fromDate, toDate) {
 }
 
 async function fetchMovieDetails(id) {
-  const [details, credits, releaseDates] = await Promise.all([
+  const [details, credits, releaseDates, videos] = await Promise.all([
     fetchJSON(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`),
     fetchJSON(`${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}&language=en-US`),
     fetchJSON(`${BASE_URL}/movie/${id}/release_dates?api_key=${API_KEY}`),
+    fetchJSON(`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}&language=en-US`),
   ]);
+
+  const trailerKey = ((videos.results || []).find(
+    v => v.site === 'YouTube' && v.type === 'Trailer' && v.official
+  ) || (videos.results || []).find(
+    v => v.site === 'YouTube' && v.type === 'Trailer'
+  ) || (videos.results || []).find(
+    v => v.site === 'YouTube' && v.type === 'Teaser'
+  ))?.key || null;
 
   const directors = (credits.crew || [])
     .filter(c => c.job === 'Director')
@@ -127,6 +136,7 @@ async function fetchMovieDetails(id) {
     cast,
     countryReleases,
     certification,
+    trailerKey,
   };
 }
 
@@ -377,6 +387,9 @@ function buildMoviePage(movie) {
     .wl-btn:hover { border-color: #e94560; color: #e94560; }
     .wl-btn.wl-active { background: #e94560; border-color: #e94560; color: #fff; }
 
+    .trailer-section { margin-top: 2.5rem; }
+    .trailer-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; background: #111; }
+    .trailer-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .releases-section { margin-top: 2.5rem; }
     .section-heading { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #555; margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid #222; }
     .releases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.5rem; }
@@ -485,6 +498,14 @@ function buildMoviePage(movie) {
       render();
     })();
   </script>
+
+  ${movie.trailerKey ? `
+  <section class="trailer-section">
+    <div class="section-heading">Trailer</div>
+    <div class="trailer-wrap">
+      <iframe src="https://www.youtube.com/embed/${movie.trailerKey}?rel=0" allowfullscreen loading="lazy" title="${title} trailer"></iframe>
+    </div>
+  </section>` : ''}
 
   ${releasesHtml ? `
   <section class="releases-section">
