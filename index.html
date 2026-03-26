@@ -1613,6 +1613,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     try {
       let page = 1;
       let totalPages = 1;
+      const seenIds = new Set();
 
       do {
         const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US` +
@@ -1625,6 +1626,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         totalPages = Math.min(data.total_pages || 1, 5);
         (data.results || []).forEach(m => {
           if (!m.release_date) return;
+          if (seenIds.has(m.id)) return;
+          seenIds.add(m.id);
           if (!moviesByDate[m.release_date]) moviesByDate[m.release_date] = [];
           moviesByDate[m.release_date].push(m);
         });
