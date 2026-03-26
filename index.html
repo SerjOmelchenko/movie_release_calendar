@@ -1934,19 +1934,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     monthLabel.textContent = `${MONTH_NAMES[currentMonth]} ${currentYear}`;
 
     const allDates = Object.keys(filtered).sort();
+    const isCurrentMonth = currentYear === today.getFullYear() && currentMonth === today.getMonth();
     const pastDates = allDates.filter(d => d < todayStr);
     const futureDates = allDates.filter(d => d >= todayStr);
-    const datesToShow = showEarlier ? allDates : futureDates;
+    const datesToShow = (!isCurrentMonth || showEarlier) ? allDates : futureDates;
 
     let html = '';
 
-    if (pastDates.length > 0 && !showEarlier) {
+    if (isCurrentMonth && pastDates.length > 0 && !showEarlier) {
       const n = pastDates.reduce((sum, d) => sum + filtered[d].length, 0);
       html += `<button id="show-earlier-btn" class="show-earlier-btn">&#8593; Show ${n} earlier release${n !== 1 ? 's' : ''} this month</button>`;
     }
 
     if (datesToShow.length === 0) {
-      html += `<p class="list-empty">No upcoming releases this month.<br><span style="font-size:0.82rem;color:#333;">Use the arrows to browse other months.</span></p>`;
+      const msg = isCurrentMonth ? 'No upcoming releases this month.' : 'No releases this month.';
+      html += `<p class="list-empty">${msg}<br><span style="font-size:0.82rem;color:#333;">Use the arrows to browse other months.</span></p>`;
     } else {
       datesToShow.forEach(dateStr => {
         const movies = filtered[dateStr];
