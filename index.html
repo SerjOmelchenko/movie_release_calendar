@@ -224,6 +224,14 @@
 
     #search-input { width: 180px; }
 
+    .rating-info {
+      cursor: help;
+      color: #555;
+      font-size: 0.85em;
+      vertical-align: middle;
+    }
+    .rating-info:hover { color: #aaa; }
+
     #watchlist-btn { position: absolute; right: 2rem; }
 
     /* Calendar */
@@ -1146,14 +1154,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <div class="control-group">
-  <label for="rating-select">Rating:</label>
+  <label for="rating-select">Rating: <span class="rating-info" title="US MPAA ratings only. Movies without a US rating will not appear when this filter is active.">&#9432;</span></label>
   <select id="rating-select">
     <option value="">All</option>
-    <option value="G">G</option>
-    <option value="PG">PG</option>
-    <option value="PG-13">PG-13</option>
-    <option value="R">R</option>
-    <option value="NC-17">NC-17</option>
+    <option value="G">G — General Audiences</option>
+    <option value="PG">PG — Parental Guidance</option>
+    <option value="PG-13">PG-13 — Parents Strongly Cautioned</option>
+    <option value="R">R — Restricted (17+)</option>
+    <option value="NC-17">NC-17 — Adults Only (18+)</option>
   </select>
   </div>
 </div>
