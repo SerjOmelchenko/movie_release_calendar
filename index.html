@@ -680,6 +680,22 @@
       white-space: nowrap;
     }
 
+    .view-all-btn {
+      display: block;
+      width: 100%;
+      margin-top: 4px;
+      padding: 3px 0;
+      background: transparent;
+      border: 1px solid #2a2a2a;
+      border-radius: 4px;
+      color: #555;
+      font-size: 0.68rem;
+      cursor: pointer;
+      text-align: center;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .view-all-btn:hover { border-color: #e94560; color: #e94560; }
+
     /* Day picker modal (multiple movies on same day) */
     #day-modal-overlay {
       display: none;
@@ -1814,6 +1830,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             html += `<div class="cell-bar-overflow">+${overflow}</div>`;
           }
           html += '</div>';
+          html += `<button class="view-all-btn" data-date="${dateStr}">View all ${movies.length}</button>`;
         }
       }
 
@@ -1842,6 +1859,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
 
 
+    calendarEl.querySelectorAll('.poster-wrap[data-id]').forEach(wrap => {
+      wrap.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = parseInt(wrap.dataset.id, 10);
+        const movie = (filtered[wrap.dataset.date] || []).find(m => m.id === id);
+        if (movie) openOrNavigateMovie(movie);
+      });
+    });
+
+    calendarEl.querySelectorAll('.poster-placeholder').forEach(el => {
+      el.addEventListener('click', e => {
+        e.stopPropagation();
+        const dateStr = el.closest('.day-cell').dataset.date;
+        const movies = filtered[dateStr] || [];
+        if (movies.length >= 1) openOrNavigateMovie(movies[0]);
+      });
+    });
+
     calendarEl.querySelectorAll('.cell-bar[data-id]').forEach(bar => {
       bar.addEventListener('click', e => {
         e.stopPropagation();
@@ -1852,14 +1887,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       });
     });
 
-    calendarEl.querySelectorAll('.day-cell.has-movies').forEach(cell => {
-      cell.addEventListener('click', () => {
-        const movies = filtered[cell.dataset.date] || [];
-        if (movies.length === 1) {
-          openOrNavigateMovie(movies[0]);
-        } else {
-          openDayModal(cell.dataset.date, movies);
-        }
+    calendarEl.querySelectorAll('.view-all-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        openDayModal(btn.dataset.date, filtered[btn.dataset.date] || []);
       });
     });
 
