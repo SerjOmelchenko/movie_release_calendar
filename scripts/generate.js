@@ -350,19 +350,17 @@ function buildMoviePage(movie) {
     .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
     .brand-name span { color: #e94560; }
 
-    .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
+    .movie-page { max-width: 960px; margin: 0 auto; padding: 1.5rem 2rem 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
     .back-link:hover { text-decoration: underline; }
 
-    .movie-hero { border-radius: 12px; overflow: hidden; margin-bottom: 2rem; background: #111; }
-    .movie-hero img { width: 100%; height: 320px; object-fit: cover; object-position: center top; display: block; }
+    .movie-main { display: flex; gap: 0; align-items: stretch; min-height: 55vh; margin: 0 -2rem; border-radius: 12px; overflow: hidden; }
+    .movie-poster { flex-shrink: 0; width: 45%; position: relative; overflow: hidden; background: #111; }
+    .movie-poster img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .movie-poster::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent 40%, #0d0d0d 93%), linear-gradient(to bottom, transparent 60%, #0d0d0d 100%); }
+    .movie-poster-placeholder { width: 100%; height: 100%; min-height: 360px; background: #111; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #555; text-align: center; padding: 1rem; line-height: 1.4; }
 
-    .movie-main { display: flex; gap: 2rem; align-items: flex-start; }
-    .movie-poster { flex-shrink: 0; width: 200px; }
-    .movie-poster img { width: 100%; border-radius: 10px; display: block; box-shadow: 0 8px 32px rgba(0,0,0,0.6); }
-    .movie-poster-placeholder { width: 100%; aspect-ratio: 2/3; background: #1e1e1e; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #555; text-align: center; padding: 1rem; line-height: 1.4; }
-
-    .movie-info { flex: 1; min-width: 0; }
+    .movie-info { flex: 1; min-width: 0; background: #0d0d0d; padding: 2.5rem 2rem 2.5rem 1.5rem; display: flex; flex-direction: column; justify-content: center; }
     .movie-title { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 0.75rem; }
     .movie-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.9rem; color: #aaa; align-items: center; }
     .cert-badge { border: 1px solid #555; color: #ccc; border-radius: 4px; padding: 0.1rem 0.45rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; cursor: help; }
@@ -389,10 +387,11 @@ function buildMoviePage(movie) {
 
     @media (max-width: 640px) {
       .movie-page { padding: 1rem; }
-      .movie-main { flex-direction: column; }
-      .movie-poster { width: 140px; }
+      .movie-main { flex-direction: column; min-height: auto; margin: 0 -1rem; border-radius: 0; }
+      .movie-poster { width: 100%; height: 58vw; }
+      .movie-poster::after { background: linear-gradient(to bottom, transparent 50%, #0d0d0d 100%); }
+      .movie-info { padding: 1.5rem 1rem 1.5rem; justify-content: flex-start; }
       .movie-title { font-size: 1.5rem; }
-      .movie-hero img { height: 200px; }
     }
   </style>
 </head>
@@ -432,8 +431,6 @@ function buildMoviePage(movie) {
       } catch(e) {}
     })();
   </script>
-
-  ${backdrop ? `<div class="movie-hero"><img src="${backdrop}" alt="${title} backdrop" /></div>` : ''}
 
   <div class="movie-main">
     <div class="movie-poster">
