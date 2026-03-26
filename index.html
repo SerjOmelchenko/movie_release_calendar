@@ -379,17 +379,22 @@
 
     .list-card-heart {
       flex-shrink: 0;
-      background: transparent;
-      border: none;
-      color: #3a3a3a;
-      font-size: 1.05rem;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #aaa;
+      font-size: 0.95rem;
       cursor: pointer;
-      padding: 0.4rem;
-      transition: color 0.12s, transform 0.1s;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, color 0.15s, transform 0.1s;
       line-height: 1;
     }
-    .list-card-heart:hover { color: #e94560; transform: scale(1.2); }
-    .list-card-heart.watchlisted { color: #e94560; }
+    .list-card-heart:hover { background: #e94560; border-color: #e94560; color: #fff; transform: scale(1.1); }
+    .list-card-heart.watchlisted { background: #e94560; border-color: #e94560; color: #fff; }
 
     .show-earlier-btn {
       display: block;
