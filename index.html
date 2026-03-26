@@ -154,7 +154,9 @@
       align-items: center;
       padding: 1.2rem 2rem 0.7rem;
       background: #111;
-      position: relative;
+      position: sticky;
+      top: 0;
+      z-index: 200;
     }
 
     .filters-bar {
@@ -166,6 +168,9 @@
       background: #0d0d0d;
       border-bottom: 1px solid #1e1e1e;
       flex-wrap: wrap;
+      position: sticky;
+      top: 62px;
+      z-index: 199;
     }
 
     .month-nav {
