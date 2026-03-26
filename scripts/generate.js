@@ -364,7 +364,8 @@ function buildMoviePage(movie) {
 
     .movie-info { flex: 1; min-width: 0; }
     .movie-title { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 0.75rem; }
-    .movie-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.9rem; color: #aaa; }
+    .movie-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.9rem; color: #aaa; align-items: center; }
+    .cert-badge { border: 1px solid #555; color: #ccc; border-radius: 4px; padding: 0.1rem 0.45rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; cursor: help; }
     .vote-count { color: #777; font-size: 0.85em; }
     .movie-genres { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
     .genre-tag { background: #0f3460; color: #90caf9; border-radius: 20px; padding: 0.25rem 0.75rem; font-size: 0.78rem; }
@@ -447,6 +448,7 @@ function buildMoviePage(movie) {
         ${rating  ? `<span>${rating}</span>`                                         : ''}
         ${runtime ? `<span>&#128336; ${runtime}</span>`                              : ''}
         ${movie.original_language ? `<span>&#127758; ${escHtml(movie.original_language.toUpperCase())}</span>` : ''}
+        ${movie.certification ? `<span class="cert-badge" title="US MPAA Rating">${escHtml(movie.certification)}</span>` : ''}
       </div>
       ${genreTagsHtml ? `<div class="movie-genres">${genreTagsHtml}</div>` : ''}
       <div class="movie-crew">
