@@ -293,31 +293,52 @@
     }
 
     .list-card {
+      position: relative;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      padding: 0.45rem 0.5rem;
+      height: 72px;
       border-radius: 6px;
       cursor: pointer;
-      transition: background 0.12s;
+      overflow: hidden;
       border-bottom: 1px solid #161616;
+      background: #0d0d0d;
     }
     .list-card:last-child { border-bottom: none; }
-    .list-card:hover { background: #141414; }
+    .list-card:hover .list-card-overlay { background: rgba(255,255,255,0.025); }
 
-    .list-card-poster {
-      flex-shrink: 0;
-      width: 40px;
-      height: 58px;
-      border-radius: 4px;
-      overflow: hidden;
-      background: #1e1e1e;
-    }
-    .list-card-poster img {
-      width: 40px;
-      height: 58px;
+    .list-card-bg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 50%;
+      height: 100%;
       object-fit: cover;
+      object-position: center;
       display: block;
+    }
+    .list-card-fade {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 65%;
+      height: 100%;
+      background: linear-gradient(to right, transparent 20%, #0d0d0d 62%);
+      pointer-events: none;
+    }
+    .list-card-overlay {
+      position: absolute;
+      inset: 0;
+      transition: background 0.12s;
+      pointer-events: none;
+    }
+    .list-card-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 0 0.75rem 0 1rem;
+      gap: 0.75rem;
     }
 
     .list-card-info {
@@ -1776,12 +1797,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           const metaParts = [...genreNames.map(g => escHtml(g))];
           if (starRating) metaParts.push(starRating);
 
+          const bgPath = m.backdrop_path || m.poster_path;
+          const bgUrl = bgPath ? `${IMG_BASE}${m.backdrop_path ? 'w780' : 'w300'}${bgPath}` : '';
+
           html += `<div class="list-card" data-id="${m.id}" data-date="${escHtml(dateStr)}">`;
-          html += `<div class="list-card-poster">`;
-          if (m.poster_path) {
-            html += `<img src="${IMG_BASE}w92${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`;
-          }
-          html += `</div>`;
+          if (bgUrl) html += `<img class="list-card-bg" src="${bgUrl}" alt="" loading="lazy" />`;
+          if (bgUrl) html += `<div class="list-card-fade"></div>`;
+          html += `<div class="list-card-overlay"></div>`;
+          html += `<div class="list-card-content">`;
           html += `<div class="list-card-info">`;
           html += `<div class="list-card-title">${escHtml(m.title)}</div>`;
           html += `<div class="list-card-meta">`;
@@ -1790,6 +1813,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           html += `</div>`;
           html += `</div>`;
           html += `<button class="list-card-heart${inWl ? ' watchlisted' : ''}" data-id="${m.id}" title="${inWl ? 'Remove from watchlist' : 'Add to watchlist'}">${inWl ? '&#9829;' : '&#9825;'}</button>`;
+          html += `</div>`;
           html += `</div>`;
         });
 
