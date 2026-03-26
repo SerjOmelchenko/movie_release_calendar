@@ -234,36 +234,35 @@
 
     #watchlist-btn { position: absolute; right: 2rem; }
 
-    /* View toggle */
+    /* View toggle — iOS segmented control style */
     .view-toggle {
       position: absolute;
       left: 2rem;
       display: flex;
-      gap: 2px;
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      border-radius: 7px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 9px;
       padding: 3px;
+      gap: 0;
     }
     .view-toggle-btn {
       background: transparent;
       border: none;
       color: #777;
-      border-radius: 5px;
-      padding: 0.3rem 0.75rem;
+      border-radius: 7px;
+      padding: 0.32rem 1.1rem;
       font-size: 0.82rem;
+      font-weight: 500;
       cursor: pointer;
-      transition: background 0.15s, color 0.15s;
+      transition: color 0.2s;
       white-space: nowrap;
+      letter-spacing: 0.01em;
     }
     .view-toggle-btn.active {
-      background: #e94560;
-      color: #fff;
+      background: #fff;
+      color: #111;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.45);
     }
-    .view-toggle-btn:not(.active):hover {
-      background: #252525;
-      color: #ddd;
-    }
+    .view-toggle-btn:not(.active):hover { color: #ccc; }
 
     /* List view */
     .list-date-group { margin-bottom: 0.5rem; }
