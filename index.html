@@ -1146,12 +1146,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <div class="control-group">
-  <label for="rating-select">Age Rating:</label>
+  <label for="rating-select">Rating:</label>
   <select id="rating-select">
-    <option value="">All Ages</option>
-    <option value="12">12+</option>
-    <option value="16">16+</option>
-    <option value="18">18+</option>
+    <option value="">All</option>
+    <option value="G">G</option>
+    <option value="PG">PG</option>
+    <option value="PG-13">PG-13</option>
+    <option value="R">R</option>
+    <option value="NC-17">NC-17</option>
   </select>
   </div>
 </div>
@@ -1294,7 +1296,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   let moviesByDate = {}; // { 'YYYY-MM-DD': [movie, ...] }
   let genres = {};
   let slugMap = {}; // movieId (string) → slug, for movies that have a static page
-  let certMap = {}; // movieId (string) → min_age (number|null)
+  let certMap = {}; // movieId (string) → US MPAA certification string
 
 
   // ── Watchlist (localStorage) ────────────────────────────────────────────────
@@ -1354,7 +1356,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const manifest = await res.json();
       for (const [id, entry] of Object.entries(manifest)) {
         if (entry.slug) slugMap[id] = entry.slug;
-        if (entry.min_age != null) certMap[id] = entry.min_age;
+        if (entry.certification) certMap[id] = entry.certification;
       }
     } catch (e) {}
   }
@@ -1415,17 +1417,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function getFilteredMoviesByDate() {
     const query   = searchInput.value.trim().toLowerCase();
     const genreId = genreSelect.value ? parseInt(genreSelect.value, 10) : null;
-    const minAge  = ratingSelect.value ? parseInt(ratingSelect.value, 10) : null;
-    if (!query && !genreId && minAge === null) return moviesByDate;
+    const cert    = ratingSelect.value;
+    if (!query && !genreId && !cert) return moviesByDate;
     const filtered = {};
     for (const [date, movies] of Object.entries(moviesByDate)) {
       const matches = movies.filter(m => {
         if (query && !m.title.toLowerCase().includes(query)) return false;
         if (genreId && !(m.genre_ids || []).includes(genreId)) return false;
-        if (minAge !== null) {
-          const age = certMap[String(m.id)];
-          if (age == null || age < minAge) return false;
-        }
+        if (cert && certMap[String(m.id)] !== cert) return false;
         return true;
       });
       if (matches.length) filtered[date] = matches;

@@ -51,47 +51,6 @@ async function fetchJSON(url, attempt = 0) {
   }
 }
 
-// ── Certification helpers ─────────────────────────────────────────────────────
-
-const CERT_AGE_MAP = {
-  // US MPAA
-  'G': 0, 'PG': 7, 'PG-13': 13, 'R': 16, 'NC-17': 18, 'NR': null, 'Not Rated': null,
-  // UK BBFC
-  'U': 0, '12A': 12, '12': 12, '15': 15, '18': 18, 'R18': 18,
-  // Australia
-  'E': 0, 'M': 15, 'MA 15+': 15, 'MA15+': 15, 'R 18+': 18, 'R18+': 18, 'X 18+': 18,
-  // Germany FSK
-  'FSK 0': 0, 'FSK 6': 6, 'FSK 12': 12, 'FSK 16': 16, 'FSK 18': 18,
-  '0': 0, '6': 6, '16': 16,
-  // PEGI / generic numeric
-  '3': 3, '7': 7, '10': 10,
-};
-
-const CERT_COUNTRY_PRIORITY = ['US', 'GB', 'AU', 'DE', 'FR', 'NL'];
-
-function extractCertAndAge(results) {
-  const byCountry = {};
-  (results || []).forEach(r => {
-    for (const type of [3, 4, 5, 6, 1, 2]) {
-      const entry = r.release_dates.find(d => d.type === type && d.certification?.trim());
-      if (entry) { byCountry[r.iso_3166_1] = entry.certification.trim(); break; }
-    }
-  });
-
-  for (const cc of CERT_COUNTRY_PRIORITY) {
-    if (byCountry[cc]) {
-      const cert = byCountry[cc];
-      return { certification: cert, min_age: CERT_AGE_MAP[cert] ?? null };
-    }
-  }
-
-  for (const cert of Object.values(byCountry)) {
-    if (cert in CERT_AGE_MAP) return { certification: cert, min_age: CERT_AGE_MAP[cert] };
-  }
-
-  return { certification: null, min_age: null };
-}
-
 // ── TMDB fetching ─────────────────────────────────────────────────────────────
 
 async function fetchAllMovies(fromDate, toDate) {
@@ -145,7 +104,11 @@ async function fetchMovieDetails(id) {
     }
   });
 
-  const { certification, min_age } = extractCertAndAge(releaseDates.results);
+  const usEntry = (releaseDates.results || []).find(r => r.iso_3166_1 === 'US');
+  const certification = usEntry
+    ? (usEntry.release_dates.find(d => d.type === 3 && d.certification)?.certification?.trim() ||
+       usEntry.release_dates.find(d => d.certification)?.certification?.trim() || null)
+    : null;
 
   return {
     id:                details.id,
@@ -164,7 +127,6 @@ async function fetchMovieDetails(id) {
     cast,
     countryReleases,
     certification,
-    min_age,
   };
 }
 
@@ -208,7 +170,7 @@ function assignSlugs(movies, manifest) {
         manifest[id].title = movie.title;
         manifest[id].slug  = newSlug;
       }
-      manifest[id].min_age = movie.min_age ?? null;
+      manifest[id].certification = movie.certification || null;
     } else {
       // New movie — pick a collision-free slug
       // Fall back to TMDB id when title produces an empty slug (e.g. CJK-only titles)
@@ -216,7 +178,7 @@ function assignSlugs(movies, manifest) {
       if (slugToId[slug]) slug = `${slug}-${year}`;
       if (slugToId[slug] && slugToId[slug] !== id) slug = `${baseSlug || 'movie'}-${id}`;
 
-      manifest[id] = { title: movie.title, slug, previousSlugs: [], min_age: movie.min_age ?? null };
+      manifest[id] = { title: movie.title, slug, previousSlugs: [], certification: movie.certification || null };
       slugToId[slug] = id;
     }
 
