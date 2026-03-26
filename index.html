@@ -1776,7 +1776,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         const m = movies[0];
         if (m.poster_path) {
           const inWl = watchlist.includes(m.id);
-          html += `<div class="poster-wrap">`;
+          html += `<div class="poster-wrap" data-id="${m.id}" data-date="${dateStr}">`;
           html += `<img class="poster-thumb" src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`;
           html += `<div class="heart-badge${inWl ? ' watchlisted' : ''}" data-id="${m.id}" title="${inWl ? 'Remove from watchlist' : 'Add to watchlist'}">${inWl ? '&#9829;' : '&#9825;'}</div>`;
           if (m.vote_count > 0) html += `<div class="rating-badge">&#9733; ${m.vote_average.toFixed(1)}</div>`;
@@ -1849,6 +1849,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
       });
     });
+
+    if (!('ontouchstart' in window)) {
+      calendarEl.querySelectorAll('.poster-wrap[data-id]').forEach(wrap => {
+        wrap.addEventListener('mouseenter', e => {
+          const id = parseInt(wrap.dataset.id, 10);
+          const dateStr = wrap.dataset.date;
+          const movie = (filtered[dateStr] || []).find(m => m.id === id);
+          if (!movie) return;
+          clearTimeout(hoverTimeout);
+          hoverTimeout = setTimeout(() => showListHoverPopup(movie, e), 120);
+        });
+        wrap.addEventListener('mousemove', e => {
+          if (listHoverPopup.classList.contains('visible')) positionListHoverPopup(e);
+        });
+        wrap.addEventListener('mouseleave', () => {
+          clearTimeout(hoverTimeout);
+          listHoverPopup.classList.remove('visible');
+        });
+      });
+
+      calendarEl.querySelectorAll('.cell-bar[data-id]').forEach(bar => {
+        bar.addEventListener('mouseenter', e => {
+          const id = parseInt(bar.dataset.id, 10);
+          const dateStr = bar.closest('.day-cell').dataset.date;
+          const movie = (filtered[dateStr] || []).find(m => m.id === id);
+          if (!movie) return;
+          clearTimeout(hoverTimeout);
+          hoverTimeout = setTimeout(() => showListHoverPopup(movie, e), 120);
+        });
+        bar.addEventListener('mousemove', e => {
+          if (listHoverPopup.classList.contains('visible')) positionListHoverPopup(e);
+        });
+        bar.addEventListener('mouseleave', () => {
+          clearTimeout(hoverTimeout);
+          listHoverPopup.classList.remove('visible');
+        });
+      });
+    }
   }
 
   function positionListHoverPopup(event) {
