@@ -144,19 +144,33 @@
       font-size: 0.85rem;
       color: #888;
       max-width: 680px;
-      margin: 0.75rem auto 0;
+      margin: 0.75rem auto 1.5rem;
       line-height: 1.5;
     }
 
-    .controls {
+    .controls-bar {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 1.5rem;
-      padding: 1.2rem 2rem;
+      padding: 1rem 2rem;
       background: #111;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    .filters-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 2rem;
+      background: #0d0d0d;
+      border-bottom: 1px solid #1a1a1a;
       flex-wrap: wrap;
-      border-bottom: 1px solid #1e1e1e;
+      position: sticky;
+      top: 61px;
+      z-index: 199;
     }
 
     .month-nav {
@@ -190,30 +204,328 @@
       text-align: center;
     }
 
-    .controls label { font-size: 0.9rem; color: #aaa; }
-
-    .controls select, .controls input[type="text"] {
-      background: #1e1e1e;
-      color: #e0e0e0;
-      border: 1px solid #333;
-      border-radius: 6px;
-      padding: 0.4rem 0.8rem;
-      font-size: 0.9rem;
-      cursor: pointer;
+    .filter-item {
+      flex: 1;
+      min-width: 130px;
+      max-width: 210px;
+      position: relative;
+      display: flex;
+      align-items: center;
     }
 
-    .controls select:focus, .controls input[type="text"]:focus {
+    .filters-bar select,
+    .filters-bar input[type="text"] {
+      width: 100%;
+      height: 34px;
+      background: #161616;
+      color: #bbb;
+      border: 1px solid #242424;
+      border-radius: 8px;
+      padding: 0 2rem 0 0.7rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='5'%3E%3Cpath d='M0 0l5 5 5-5z' fill='%23444'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.6rem center;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .filters-bar input[type="text"] {
+      background-image: none;
+      padding-right: 0.7rem;
+    }
+
+    .filters-bar select:focus,
+    .filters-bar input[type="text"]:focus {
       outline: none;
       border-color: #e94560;
+      color: #e0e0e0;
     }
 
-    #search-input { width: 200px; }
+    .filter-info {
+      position: absolute;
+      right: 1.8rem;
+      font-size: 0.7rem;
+      color: #3a3a3a;
+      cursor: help;
+      z-index: 1;
+      pointer-events: auto;
+      user-select: none;
+    }
+    .filter-info:hover { color: #777; }
+
+    #watchlist-btn { position: absolute; right: 2rem; }
+
+    /* View toggle — iOS switch style */
+    .view-toggle {
+      position: absolute;
+      left: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      user-select: none;
+    }
+    .toggle-label {
+      font-size: 0.8rem;
+      color: #444;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .toggle-label.active { color: #e0e0e0; font-weight: 500; }
+    .toggle-track {
+      width: 46px;
+      height: 27px;
+      background: #2a2a2a;
+      border-radius: 14px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.25s;
+      flex-shrink: 0;
+      border: 1px solid #333;
+    }
+    .toggle-track.on { background: #e94560; border-color: #e94560; }
+    .toggle-knob {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 19px;
+      height: 19px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 1px 5px rgba(0,0,0,0.5);
+    }
+    .toggle-track.on .toggle-knob { transform: translateX(19px); }
+
+    /* List view */
+    .list-date-group { margin-bottom: 0.5rem; }
+
+    .list-date-heading {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #555;
+      padding: 1.1rem 0 0.4rem;
+      border-bottom: 1px solid #1e1e1e;
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .list-date-heading.is-today { color: #e94560; border-color: rgba(233,69,96,0.4); }
+    .today-pill {
+      background: #e94560;
+      color: #fff;
+      font-size: 0.6rem;
+      border-radius: 3px;
+      padding: 0.1rem 0.4rem;
+      letter-spacing: 0.04em;
+      font-weight: 700;
+    }
+
+    .list-card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 72px;
+      border-radius: 6px;
+      cursor: pointer;
+      overflow: hidden;
+      border-bottom: 1px solid #161616;
+      background: #0d0d0d;
+    }
+    .list-card:last-child { border-bottom: none; }
+    .list-card:hover .list-card-overlay { background: rgba(255,255,255,0.025); }
+
+    .list-card-bg {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .list-card-fade {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 65%;
+      height: 100%;
+      background: linear-gradient(to left, transparent 20%, #0d0d0d 62%);
+      pointer-events: none;
+    }
+    .list-card-overlay {
+      position: absolute;
+      inset: 0;
+      transition: background 0.12s;
+      pointer-events: none;
+    }
+    .list-card-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 0 0.75rem 0 1rem;
+      gap: 0.75rem;
+    }
+
+    .list-card-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .list-card-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #e0e0e0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0.2rem;
+      line-height: 1.3;
+    }
+    .list-card-meta {
+      font-size: 0.75rem;
+      color: #5a5a5a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .list-card-meta .meta-dot { color: #2e2e2e; }
+    .list-card-cert {
+      border: 1px solid #333;
+      color: #666;
+      border-radius: 3px;
+      padding: 0 3px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      line-height: 1.5;
+    }
+
+    .list-card-heart {
+      flex-shrink: 0;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #aaa;
+      font-size: 0.95rem;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, color 0.15s, transform 0.1s;
+      line-height: 1;
+    }
+    .list-card-heart:hover { background: #e94560; border-color: #e94560; color: #fff; transform: scale(1.1); }
+    .list-card-heart.watchlisted { background: #e94560; border-color: #e94560; color: #fff; }
+
+    #list-hover-popup {
+      position: fixed;
+      width: 220px;
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.85);
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0.95) translateY(4px);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      z-index: 500;
+    }
+    #list-hover-popup.visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    #list-hover-popup .lhp-poster {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      display: block;
+    }
+    #list-hover-popup .lhp-poster-placeholder {
+      width: 100%;
+      aspect-ratio: 2/3;
+      background: #1a1a1a;
+    }
+    #list-hover-popup .lhp-body {
+      padding: 10px 12px 12px;
+    }
+    #list-hover-popup .lhp-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #eee;
+      margin-bottom: 5px;
+      line-height: 1.3;
+    }
+    #list-hover-popup .lhp-meta {
+      font-size: 0.7rem;
+      color: #555;
+      margin-bottom: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+    }
+    #list-hover-popup .lhp-cert {
+      border: 1px solid #333;
+      color: #666;
+      border-radius: 3px;
+      padding: 0 3px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+    #list-hover-popup .lhp-overview {
+      font-size: 0.73rem;
+      color: #777;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .show-earlier-btn {
+      display: block;
+      width: 100%;
+      background: transparent;
+      border: 1px dashed #2a2a2a;
+      color: #555;
+      border-radius: 6px;
+      padding: 0.65rem;
+      font-size: 0.82rem;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+      transition: border-color 0.15s, color 0.15s;
+      text-align: center;
+    }
+    .show-earlier-btn:hover { border-color: #e94560; color: #e94560; }
+
+    .list-empty {
+      text-align: center;
+      color: #444;
+      padding: 3rem 1rem;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
 
     /* Calendar */
     .calendar-container {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 1.5rem 2rem;
+      padding: 2rem 2rem;
     }
 
     #status {
@@ -367,6 +679,22 @@
       color: #e94560;
       white-space: nowrap;
     }
+
+    .view-all-btn {
+      display: block;
+      width: 100%;
+      margin-top: 4px;
+      padding: 3px 0;
+      background: transparent;
+      border: 1px solid #2a2a2a;
+      border-radius: 4px;
+      color: #555;
+      font-size: 0.68rem;
+      cursor: pointer;
+      text-align: center;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .view-all-btn:hover { border-color: #e94560; color: #e94560; }
 
     /* Day picker modal (multiple movies on same day) */
     #day-modal-overlay {
@@ -1013,22 +1341,23 @@
       .day-cell { min-height: 80px; padding: 0.3rem; }
       .day-number { font-size: 0.7rem; }
 
-      .controls {
+      .controls-bar {
         flex-direction: column;
-        align-items: stretch;
-        gap: 0.75rem;
-        padding: 1rem;
-      }
-      .month-nav { justify-content: center; }
-      .control-group {
-        display: flex;
         align-items: center;
-        gap: 0.6rem;
+        gap: 0.5rem;
+        padding: 0.8rem 1rem;
       }
-      .control-group label { white-space: nowrap; }
-      .control-group select,
-      .control-group input { flex: 1; }
-      #watchlist-btn { width: 100%; justify-content: center; }
+      .view-toggle { position: static; align-self: center; }
+      #watchlist-btn { position: static; align-self: stretch; justify-content: center; }
+      .filters-bar {
+        gap: 0.4rem;
+        padding: 0.5rem 1rem;
+        justify-content: stretch;
+      }
+      .filter-item { min-width: calc(50% - 0.2rem); max-width: none; }
+      .month-nav { justify-content: center; }
+      .list-card-title { font-size: 0.88rem; }
+      .list-date-heading { padding-top: 0.9rem; }
     }
   </style>
 </head>
@@ -1066,20 +1395,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <p class="seo-intro">Your up-to-date movie release calendar - browse upcoming movies by release date, filter by region, and never miss a new film in theaters or streaming. Updated daily with the latest new movie releases and coming soon titles worldwide.</p>
 
-<div class="controls">
+<div class="controls-bar">
+  <div class="view-toggle" id="view-toggle-wrap">
+    <span class="toggle-label active" id="toggle-label-cal">Calendar</span>
+    <div class="toggle-track" id="view-toggle-track"><div class="toggle-knob"></div></div>
+    <span class="toggle-label" id="toggle-label-list">List</span>
+  </div>
   <div class="month-nav">
     <button id="prev-month">&#8592;</button>
     <span class="month-label" id="month-label"></span>
     <button id="next-month">&#8594;</button>
   </div>
+  <button id="watchlist-btn" class="watchlist-toggle-btn">&#9825; Watchlist (<span id="watchlist-count">0</span>)</button>
+</div>
 
-  <div class="control-group">
-  <label for="region-select">Region:</label>
+<div class="filters-bar">
+  <div class="filter-item">
   <select id="region-select">
-    <option value="">🌍 All</option>
+    <option value="">🌍 All Regions</option>
     <option value="AU">🇦🇺 Australia</option>
     <option value="AT">🇦🇹 Austria</option>
     <option value="BE">🇧🇪 Belgium</option>
+    <option value="BR">🇧🇷 Brazil</option>
     <option value="BG">🇧🇬 Bulgaria</option>
     <option value="CA">🇨🇦 Canada</option>
     <option value="CN">🇨🇳 China</option>
@@ -1111,16 +1448,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <option value="ES">🇪🇸 Spain</option>
     <option value="SE">🇸🇪 Sweden</option>
     <option value="GB">🇬🇧 United Kingdom</option>
+    <option value="UA">🇺🇦 Ukraine</option>
     <option value="US">🇺🇸 United States</option>
   </select>
   </div>
 
-  <div class="control-group">
-  <label for="search-input">Filter:</label>
+  <div class="filter-item">
   <input type="text" id="search-input" placeholder="Search movies..." />
   </div>
 
-  <button id="watchlist-btn" class="watchlist-toggle-btn">&#9825; Watchlist (<span id="watchlist-count">0</span>)</button>
+  <div class="filter-item">
+  <select id="genre-select">
+    <option value="">All Genres</option>
+  </select>
+  </div>
+
+  <div class="filter-item">
+  <span class="filter-info" title="US MPAA ratings only. Movies without a US rating will not appear when this filter is active.">&#9432;</span>
+  <select id="rating-select">
+    <option value="">All Ratings</option>
+    <option value="G">G — General Audiences</option>
+    <option value="PG">PG — Parental Guidance</option>
+    <option value="PG-13">PG-13 — Parents Strongly Cautioned</option>
+    <option value="R">R — Restricted (17+)</option>
+    <option value="NC-17">NC-17 — Adults Only (18+)</option>
+  </select>
+  </div>
 </div>
 
 <div class="calendar-container">
@@ -1132,6 +1485,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- Day picker modal (multiple movies on same day) -->
+<div id="list-hover-popup"></div>
+
 <div id="day-modal-overlay">
   <div id="day-modal">
     <button id="day-modal-close" title="Close">&#x2715;</button>
@@ -1261,6 +1616,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   let moviesByDate = {}; // { 'YYYY-MM-DD': [movie, ...] }
   let genres = {};
   let slugMap = {}; // movieId (string) → slug, for movies that have a static page
+  let certMap = {}; // movieId (string) → US MPAA certification string
+  let viewMode = 'calendar'; // 'calendar' | 'list'
+  let showEarlier = false;
+  let hoverTimeout = null;
+  const listHoverPopup = document.getElementById('list-hover-popup');
+  try { const v = localStorage.getItem('viewMode'); if (v === 'list' || v === 'calendar') viewMode = v; } catch(e) {}
 
 
   // ── Watchlist (localStorage) ────────────────────────────────────────────────
@@ -1291,7 +1652,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const monthLabel = document.getElementById('month-label');
   const searchInput = document.getElementById('search-input');
   const regionSelect = document.getElementById('region-select');
+  const genreSelect  = document.getElementById('genre-select');
+  const ratingSelect = document.getElementById('rating-select');
   try { const r = localStorage.getItem('region'); if (r !== null) regionSelect.value = r; } catch(e) {}
+
+  function populateGenreSelect() {
+    const sorted = Object.entries(genres).sort((a, b) => a[1].localeCompare(b[1]));
+    sorted.forEach(([id, name]) => {
+      const opt = document.createElement('option');
+      opt.value = id;
+      opt.textContent = name;
+      genreSelect.appendChild(opt);
+    });
+  }
 
   async function fetchGenres() {
     try {
@@ -1308,6 +1681,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const manifest = await res.json();
       for (const [id, entry] of Object.entries(manifest)) {
         if (entry.slug) slugMap[id] = entry.slug;
+        if (entry.certification) certMap[id] = entry.certification;
       }
     } catch (e) {}
   }
@@ -1339,6 +1713,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     try {
       let page = 1;
       let totalPages = 1;
+      const seenIds = new Set();
 
       do {
         const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US` +
@@ -1351,6 +1726,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         totalPages = Math.min(data.total_pages || 1, 5);
         (data.results || []).forEach(m => {
           if (!m.release_date) return;
+          if (seenIds.has(m.id)) return;
+          seenIds.add(m.id);
           if (!moviesByDate[m.release_date]) moviesByDate[m.release_date] = [];
           moviesByDate[m.release_date].push(m);
         });
@@ -1366,11 +1743,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   function getFilteredMoviesByDate() {
-    const query = searchInput.value.trim().toLowerCase();
-    if (!query) return moviesByDate;
+    const query   = searchInput.value.trim().toLowerCase();
+    const genreId = genreSelect.value ? parseInt(genreSelect.value, 10) : null;
+    const cert    = ratingSelect.value;
+    if (!query && !genreId && !cert) return moviesByDate;
     const filtered = {};
     for (const [date, movies] of Object.entries(moviesByDate)) {
-      const matches = movies.filter(m => m.title.toLowerCase().includes(query));
+      const matches = movies.filter(m => {
+        if (query && !m.title.toLowerCase().includes(query)) return false;
+        if (genreId && !(m.genre_ids || []).includes(genreId)) return false;
+        if (cert && certMap[String(m.id)] !== cert) return false;
+        return true;
+      });
       if (matches.length) filtered[date] = matches;
     }
     return filtered;
@@ -1381,6 +1765,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
   function renderCalendar() {
+    if (viewMode === 'list') { renderListView(); return; }
     const filtered = getFilteredMoviesByDate();
     const watchlist = getWatchlist();
     const pad = n => String(n).padStart(2, '0');
@@ -1420,7 +1805,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         const m = movies[0];
         if (m.poster_path) {
           const inWl = watchlist.includes(m.id);
-          html += `<div class="poster-wrap">`;
+          html += `<div class="poster-wrap" data-id="${m.id}" data-date="${dateStr}">`;
           html += `<img class="poster-thumb" src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`;
           html += `<div class="heart-badge${inWl ? ' watchlisted' : ''}" data-id="${m.id}" title="${inWl ? 'Remove from watchlist' : 'Add to watchlist'}">${inWl ? '&#9829;' : '&#9825;'}</div>`;
           if (m.vote_count > 0) html += `<div class="rating-badge">&#9733; ${m.vote_average.toFixed(1)}</div>`;
@@ -1445,6 +1830,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             html += `<div class="cell-bar-overflow">+${overflow}</div>`;
           }
           html += '</div>';
+          html += `<button class="view-all-btn" data-date="${dateStr}">View all ${movies.length}</button>`;
         }
       }
 
@@ -1473,6 +1859,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
 
 
+    calendarEl.querySelectorAll('.poster-wrap[data-id]').forEach(wrap => {
+      wrap.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = parseInt(wrap.dataset.id, 10);
+        const movie = (filtered[wrap.dataset.date] || []).find(m => m.id === id);
+        if (movie) openOrNavigateMovie(movie);
+      });
+    });
+
+    calendarEl.querySelectorAll('.poster-placeholder').forEach(el => {
+      el.addEventListener('click', e => {
+        e.stopPropagation();
+        const dateStr = el.closest('.day-cell').dataset.date;
+        const movies = filtered[dateStr] || [];
+        if (movies.length >= 1) openOrNavigateMovie(movies[0]);
+      });
+    });
+
     calendarEl.querySelectorAll('.cell-bar[data-id]').forEach(bar => {
       bar.addEventListener('click', e => {
         e.stopPropagation();
@@ -1483,16 +1887,202 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       });
     });
 
-    calendarEl.querySelectorAll('.day-cell.has-movies').forEach(cell => {
-      cell.addEventListener('click', () => {
-        const movies = filtered[cell.dataset.date] || [];
-        if (movies.length === 1) {
-          openOrNavigateMovie(movies[0]);
-        } else {
-          openDayModal(cell.dataset.date, movies);
-        }
+    calendarEl.querySelectorAll('.view-all-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        openDayModal(btn.dataset.date, filtered[btn.dataset.date] || []);
       });
     });
+
+    if (!('ontouchstart' in window)) {
+      calendarEl.querySelectorAll('.poster-wrap[data-id]').forEach(wrap => {
+        wrap.addEventListener('mouseenter', e => {
+          const id = parseInt(wrap.dataset.id, 10);
+          const dateStr = wrap.dataset.date;
+          const movie = (filtered[dateStr] || []).find(m => m.id === id);
+          if (!movie) return;
+          clearTimeout(hoverTimeout);
+          hoverTimeout = setTimeout(() => showListHoverPopup(movie, e), 120);
+        });
+        wrap.addEventListener('mousemove', e => {
+          if (listHoverPopup.classList.contains('visible')) positionListHoverPopup(e);
+        });
+        wrap.addEventListener('mouseleave', () => {
+          clearTimeout(hoverTimeout);
+          listHoverPopup.classList.remove('visible');
+        });
+      });
+
+      calendarEl.querySelectorAll('.cell-bar[data-id]').forEach(bar => {
+        bar.addEventListener('mouseenter', e => {
+          const id = parseInt(bar.dataset.id, 10);
+          const dateStr = bar.closest('.day-cell').dataset.date;
+          const movie = (filtered[dateStr] || []).find(m => m.id === id);
+          if (!movie) return;
+          clearTimeout(hoverTimeout);
+          hoverTimeout = setTimeout(() => showListHoverPopup(movie, e), 120);
+        });
+        bar.addEventListener('mousemove', e => {
+          if (listHoverPopup.classList.contains('visible')) positionListHoverPopup(e);
+        });
+        bar.addEventListener('mouseleave', () => {
+          clearTimeout(hoverTimeout);
+          listHoverPopup.classList.remove('visible');
+        });
+      });
+    }
+  }
+
+  function positionListHoverPopup(event) {
+    const popupW = 220;
+    const popupH = listHoverPopup.offsetHeight || 420;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    let x = event.clientX + 20;
+    let y = event.clientY - popupH / 2;
+    if (x + popupW > vw - 8) x = event.clientX - popupW - 20;
+    if (y < 8) y = 8;
+    if (y + popupH > vh - 8) y = vh - popupH - 8;
+    listHoverPopup.style.left = `${x}px`;
+    listHoverPopup.style.top = `${y}px`;
+  }
+
+  function showListHoverPopup(movie, event) {
+    const poster = movie.poster_path ? `${IMG_BASE}w342${movie.poster_path}` : '';
+    const cert = certMap[String(movie.id)] || '';
+    const genreNames = (movie.genre_ids || []).slice(0, 3).map(id => genres[id]).filter(Boolean);
+    const rating = movie.vote_count > 0 ? `&#9733; ${movie.vote_average.toFixed(1)}` : '';
+
+    let metaHtml = genreNames.map(g => escHtml(g)).join(' &middot; ');
+    if (rating) metaHtml += (metaHtml ? ' &middot; ' : '') + rating;
+    const certHtml = cert ? `<span class="lhp-cert">${escHtml(cert)}</span>` : '';
+
+    listHoverPopup.innerHTML =
+      (poster ? `<img class="lhp-poster" src="${escHtml(poster)}" alt="" />` : '<div class="lhp-poster-placeholder"></div>') +
+      `<div class="lhp-body">` +
+        `<div class="lhp-title">${escHtml(movie.title)}</div>` +
+        `<div class="lhp-meta">${metaHtml}${certHtml ? (metaHtml ? ' ' : '') + certHtml : ''}</div>` +
+        (movie.overview ? `<div class="lhp-overview">${escHtml(movie.overview)}</div>` : '') +
+      `</div>`;
+
+    positionListHoverPopup(event);
+    listHoverPopup.classList.add('visible');
+  }
+
+  function renderListView() {
+    const filtered = getFilteredMoviesByDate();
+    const watchlist = getWatchlist();
+    const pad = n => String(n).padStart(2, '0');
+    const todayStr = `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
+
+    monthLabel.textContent = `${MONTH_NAMES[currentMonth]} ${currentYear}`;
+
+    const allDates = Object.keys(filtered).sort();
+    const isCurrentMonth = currentYear === today.getFullYear() && currentMonth === today.getMonth();
+    const pastDates = allDates.filter(d => d < todayStr);
+    const futureDates = allDates.filter(d => d >= todayStr);
+    const datesToShow = (!isCurrentMonth || showEarlier) ? allDates : futureDates;
+
+    let html = '';
+
+    if (isCurrentMonth && pastDates.length > 0 && !showEarlier) {
+      const n = pastDates.reduce((sum, d) => sum + filtered[d].length, 0);
+      html += `<button id="show-earlier-btn" class="show-earlier-btn">&#8593; Show ${n} earlier release${n !== 1 ? 's' : ''} this month</button>`;
+    }
+
+    if (datesToShow.length === 0) {
+      const msg = isCurrentMonth ? 'No upcoming releases this month.' : 'No releases this month.';
+      html += `<p class="list-empty">${msg}<br><span style="font-size:0.82rem;color:#333;">Use the arrows to browse other months.</span></p>`;
+    } else {
+      datesToShow.forEach(dateStr => {
+        const movies = filtered[dateStr];
+        const isToday = dateStr === todayStr;
+        const dateObj = new Date(dateStr + 'T00:00:00');
+        const dateLabel = dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+        html += `<div class="list-date-group">`;
+        html += `<div class="list-date-heading${isToday ? ' is-today' : ''}">${escHtml(dateLabel)}${isToday ? ' <span class="today-pill">Today</span>' : ''}</div>`;
+
+        movies.forEach(m => {
+          const inWl = watchlist.includes(m.id);
+          const genreNames = (m.genre_ids || []).slice(0, 2).map(id => genres[id]).filter(Boolean);
+          const cert = certMap[String(m.id)] || '';
+          const starRating = m.vote_count > 0 ? `&#9733; ${m.vote_average.toFixed(1)}` : '';
+
+          const metaParts = [...genreNames.map(g => escHtml(g))];
+          if (starRating) metaParts.push(starRating);
+
+          const bgPath = m.backdrop_path || m.poster_path;
+          const bgUrl = bgPath ? `${IMG_BASE}${m.backdrop_path ? 'w780' : 'w300'}${bgPath}` : '';
+
+          html += `<div class="list-card" data-id="${m.id}" data-date="${escHtml(dateStr)}">`;
+          if (bgUrl) html += `<img class="list-card-bg" src="${bgUrl}" alt="" loading="lazy" />`;
+          if (bgUrl) html += `<div class="list-card-fade"></div>`;
+          html += `<div class="list-card-overlay"></div>`;
+          html += `<div class="list-card-content">`;
+          html += `<div class="list-card-info">`;
+          html += `<div class="list-card-title">${escHtml(m.title)}</div>`;
+          html += `<div class="list-card-meta">`;
+          html += metaParts.join('<span class="meta-dot"> · </span>');
+          if (cert) html += `${metaParts.length ? '<span class="meta-dot"> · </span>' : ''}<span class="list-card-cert">${escHtml(cert)}</span>`;
+          html += `</div>`;
+          html += `</div>`;
+          html += `<button class="list-card-heart${inWl ? ' watchlisted' : ''}" data-id="${m.id}" title="${inWl ? 'Remove from watchlist' : 'Add to watchlist'}">${inWl ? '&#9829;' : '&#9825;'}</button>`;
+          html += `</div>`;
+          html += `</div>`;
+        });
+
+        html += `</div>`;
+      });
+    }
+
+    calendarEl.innerHTML = html;
+
+    const showEarlierBtn = document.getElementById('show-earlier-btn');
+    if (showEarlierBtn) {
+      showEarlierBtn.addEventListener('click', () => { showEarlier = true; renderListView(); });
+    }
+
+    calendarEl.querySelectorAll('.list-card').forEach(card => {
+      card.addEventListener('click', e => {
+        if (e.target.closest('.list-card-heart')) return;
+        const id = parseInt(card.dataset.id, 10);
+        const dateStr = card.dataset.date;
+        const movie = (filtered[dateStr] || []).find(m => m.id === id);
+        if (movie) openOrNavigateMovie(movie);
+      });
+    });
+
+    calendarEl.querySelectorAll('.list-card-heart').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = parseInt(btn.dataset.id, 10);
+        const added = toggleWatchlist(id);
+        btn.classList.toggle('watchlisted', added);
+        btn.innerHTML = added ? '&#9829;' : '&#9825;';
+        btn.title = added ? 'Remove from watchlist' : 'Add to watchlist';
+      });
+    });
+
+    if (!('ontouchstart' in window)) {
+      calendarEl.querySelectorAll('.list-card').forEach(card => {
+        card.addEventListener('mouseenter', e => {
+          const id = parseInt(card.dataset.id, 10);
+          const dateStr = card.dataset.date;
+          const movie = (filtered[dateStr] || []).find(m => m.id === id);
+          if (!movie) return;
+          clearTimeout(hoverTimeout);
+          hoverTimeout = setTimeout(() => showListHoverPopup(movie, e), 120);
+        });
+        card.addEventListener('mousemove', e => {
+          if (listHoverPopup.classList.contains('visible')) positionListHoverPopup(e);
+        });
+        card.addEventListener('mouseleave', () => {
+          clearTimeout(hoverTimeout);
+          listHoverPopup.classList.remove('visible');
+        });
+      });
+    }
   }
 
   function openDayModal(dateStr, movies) {
@@ -1615,12 +2205,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   document.getElementById('prev-month').addEventListener('click', () => {
     if (--currentMonth < 0) { currentMonth = 11; currentYear--; }
+    showEarlier = false;
     saveCalendarMonth();
     fetchMoviesForMonth(currentYear, currentMonth);
   });
 
   document.getElementById('next-month').addEventListener('click', () => {
     if (++currentMonth > 11) { currentMonth = 0; currentYear++; }
+    showEarlier = false;
     saveCalendarMonth();
     fetchMoviesForMonth(currentYear, currentMonth);
   });
@@ -1630,6 +2222,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     fetchMoviesForMonth(currentYear, currentMonth);
   });
   searchInput.addEventListener('input', renderCalendar);
+  genreSelect.addEventListener('change', renderCalendar);
+  ratingSelect.addEventListener('change', renderCalendar);
+
+  function setViewMode(mode) {
+    viewMode = mode;
+    showEarlier = false;
+    try { localStorage.setItem('viewMode', mode); } catch(e) {}
+    const isList = mode === 'list';
+    document.getElementById('view-toggle-track').classList.toggle('on', isList);
+    document.getElementById('toggle-label-cal').classList.toggle('active', !isList);
+    document.getElementById('toggle-label-list').classList.toggle('active', isList);
+    renderCalendar();
+  }
+  document.getElementById('view-toggle-track').addEventListener('click', () => {
+    setViewMode(viewMode === 'calendar' ? 'list' : 'calendar');
+  });
+
+  // Apply persisted view mode on load
+  setViewMode(viewMode);
 
   // Heart button in movie detail modal
   document.getElementById('modal-watchlist-btn').addEventListener('click', () => {
@@ -1752,7 +2363,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   updateWatchlistCount();
-  Promise.all([fetchGenres(), loadManifest()]).then(() => fetchMoviesForMonth(currentYear, currentMonth));
+  Promise.all([fetchGenres(), loadManifest()]).then(() => {
+    populateGenreSelect();
+    fetchMoviesForMonth(currentYear, currentMonth);
+  });
 
   // Onboarding modal (first visit only)
   (function() {

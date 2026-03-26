@@ -55,13 +55,18 @@
 
     .movie-info { flex: 1; min-width: 0; }
     .movie-title { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 0.75rem; }
-    .movie-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.9rem; color: #aaa; }
+    .movie-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.9rem; color: #aaa; align-items: center; }
+    .cert-badge { border: 1px solid #555; color: #ccc; border-radius: 4px; padding: 0.1rem 0.45rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; cursor: help; }
     .vote-count { color: #777; font-size: 0.85em; }
     .movie-genres { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
     .genre-tag { background: #0f3460; color: #90caf9; border-radius: 20px; padding: 0.25rem 0.75rem; font-size: 0.78rem; }
     .movie-crew { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.875rem; color: #aaa; margin-bottom: 1rem; }
     .movie-crew strong { color: #ddd; }
     .movie-overview { font-size: 1rem; color: #ccc; line-height: 1.7; }
+
+    .wl-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem; padding: 0.55rem 1.2rem; background: transparent; border: 1px solid #333; border-radius: 8px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
+    .wl-btn:hover { border-color: #e94560; color: #e94560; }
+    .wl-btn.wl-active { background: #e94560; border-color: #e94560; color: #fff; }
 
     .releases-section { margin-top: 2.5rem; }
     .section-heading { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #555; margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid #222; }
@@ -136,6 +141,7 @@
         <span>&#9733; 8.0 / 10 <span class="vote-count">(2 votes)</span></span>
         <span>&#128336; 1h 45m</span>
         <span>&#127758; EN</span>
+        
       </div>
       <div class="movie-genres"><span class="genre-tag">Drama</span></div>
       <div class="movie-crew">
@@ -143,8 +149,31 @@
         <span>&#127775; Wanda Sykes, Bentley Green, Berto Colon, Danny Pardo, Arischa Conner</span>
       </div>
       <p class="movie-overview">After abandoning her son, a female boxing trainer rises from the ashes to coach him in the biggest fight of his career.</p>
+      <button class="wl-btn" id="wl-btn" data-id="1245084">&#9825; Add to Watchlist</button>
     </div>
   </div>
+  <script>
+    (function(){
+      var btn = document.getElementById('wl-btn');
+      var id = 1245084;
+      var KEY = 'watchlist';
+      function getWl(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ return []; } }
+      function setWl(a){ try{ localStorage.setItem(KEY, JSON.stringify(a)); }catch(e){} }
+      function render(){
+        var inWl = getWl().indexOf(id) !== -1;
+        btn.innerHTML = inWl ? '&#9829; In Watchlist' : '&#9825; Add to Watchlist';
+        btn.classList.toggle('wl-active', inWl);
+      }
+      btn.addEventListener('click', function(){
+        var wl = getWl();
+        var idx = wl.indexOf(id);
+        if(idx === -1){ wl.push(id); } else { wl.splice(idx,1); }
+        setWl(wl);
+        render();
+      });
+      render();
+    })();
+  </script>
 
   
   <section class="releases-section">

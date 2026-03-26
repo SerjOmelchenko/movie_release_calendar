@@ -82,11 +82,20 @@ async function fetchAllMovies(fromDate, toDate) {
 }
 
 async function fetchMovieDetails(id) {
-  const [details, credits, releaseDates] = await Promise.all([
+  const [details, credits, releaseDates, videos] = await Promise.all([
     fetchJSON(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`),
     fetchJSON(`${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}&language=en-US`),
     fetchJSON(`${BASE_URL}/movie/${id}/release_dates?api_key=${API_KEY}`),
+    fetchJSON(`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}&language=en-US`),
   ]);
+
+  const trailerKey = ((videos.results || []).find(
+    v => v.site === 'YouTube' && v.type === 'Trailer' && v.official
+  ) || (videos.results || []).find(
+    v => v.site === 'YouTube' && v.type === 'Trailer'
+  ) || (videos.results || []).find(
+    v => v.site === 'YouTube' && v.type === 'Teaser'
+  ))?.key || null;
 
   const directors = (credits.crew || [])
     .filter(c => c.job === 'Director')
@@ -104,6 +113,12 @@ async function fetchMovieDetails(id) {
     }
   });
 
+  const usEntry = (releaseDates.results || []).find(r => r.iso_3166_1 === 'US');
+  const certification = usEntry
+    ? (usEntry.release_dates.find(d => d.type === 3 && d.certification)?.certification?.trim() ||
+       usEntry.release_dates.find(d => d.certification)?.certification?.trim() || null)
+    : null;
+
   return {
     id:                details.id,
     title:             details.title,
@@ -120,6 +135,8 @@ async function fetchMovieDetails(id) {
     directors,
     cast,
     countryReleases,
+    certification,
+    trailerKey,
   };
 }
 
@@ -163,6 +180,7 @@ function assignSlugs(movies, manifest) {
         manifest[id].title = movie.title;
         manifest[id].slug  = newSlug;
       }
+      manifest[id].certification = movie.certification || null;
     } else {
       // New movie — pick a collision-free slug
       // Fall back to TMDB id when title produces an empty slug (e.g. CJK-only titles)
@@ -170,7 +188,7 @@ function assignSlugs(movies, manifest) {
       if (slugToId[slug]) slug = `${slug}-${year}`;
       if (slugToId[slug] && slugToId[slug] !== id) slug = `${baseSlug || 'movie'}-${id}`;
 
-      manifest[id] = { title: movie.title, slug, previousSlugs: [] };
+      manifest[id] = { title: movie.title, slug, previousSlugs: [], certification: movie.certification || null };
       slugToId[slug] = id;
     }
 
@@ -356,7 +374,8 @@ function buildMoviePage(movie) {
 
     .movie-info { flex: 1; min-width: 0; }
     .movie-title { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 0.75rem; }
-    .movie-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.9rem; color: #aaa; }
+    .movie-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.9rem; color: #aaa; align-items: center; }
+    .cert-badge { border: 1px solid #555; color: #ccc; border-radius: 4px; padding: 0.1rem 0.45rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; cursor: help; }
     .vote-count { color: #777; font-size: 0.85em; }
     .movie-genres { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
     .genre-tag { background: #0f3460; color: #90caf9; border-radius: 20px; padding: 0.25rem 0.75rem; font-size: 0.78rem; }
@@ -364,6 +383,13 @@ function buildMoviePage(movie) {
     .movie-crew strong { color: #ddd; }
     .movie-overview { font-size: 1rem; color: #ccc; line-height: 1.7; }
 
+    .wl-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem; padding: 0.55rem 1.2rem; background: transparent; border: 1px solid #333; border-radius: 8px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
+    .wl-btn:hover { border-color: #e94560; color: #e94560; }
+    .wl-btn.wl-active { background: #e94560; border-color: #e94560; color: #fff; }
+
+    .trailer-section { margin-top: 2.5rem; }
+    .trailer-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; background: #111; }
+    .trailer-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .releases-section { margin-top: 2.5rem; }
     .section-heading { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #555; margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid #222; }
     .releases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.5rem; }
@@ -439,6 +465,7 @@ function buildMoviePage(movie) {
         ${rating  ? `<span>${rating}</span>`                                         : ''}
         ${runtime ? `<span>&#128336; ${runtime}</span>`                              : ''}
         ${movie.original_language ? `<span>&#127758; ${escHtml(movie.original_language.toUpperCase())}</span>` : ''}
+        ${movie.certification ? `<span class="cert-badge" title="US MPAA Rating">${escHtml(movie.certification)}</span>` : ''}
       </div>
       ${genreTagsHtml ? `<div class="movie-genres">${genreTagsHtml}</div>` : ''}
       <div class="movie-crew">
@@ -446,8 +473,39 @@ function buildMoviePage(movie) {
         ${cast      ? `<span>&#127775; ${cast}</span>`                                   : ''}
       </div>
       <p class="movie-overview">${overview}</p>
+      <button class="wl-btn" id="wl-btn" data-id="${movie.id}">&#9825; Add to Watchlist</button>
     </div>
   </div>
+  <script>
+    (function(){
+      var btn = document.getElementById('wl-btn');
+      var id = ${movie.id};
+      var KEY = 'watchlist';
+      function getWl(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ return []; } }
+      function setWl(a){ try{ localStorage.setItem(KEY, JSON.stringify(a)); }catch(e){} }
+      function render(){
+        var inWl = getWl().indexOf(id) !== -1;
+        btn.innerHTML = inWl ? '&#9829; In Watchlist' : '&#9825; Add to Watchlist';
+        btn.classList.toggle('wl-active', inWl);
+      }
+      btn.addEventListener('click', function(){
+        var wl = getWl();
+        var idx = wl.indexOf(id);
+        if(idx === -1){ wl.push(id); } else { wl.splice(idx,1); }
+        setWl(wl);
+        render();
+      });
+      render();
+    })();
+  </script>
+
+  ${movie.trailerKey ? `
+  <section class="trailer-section">
+    <div class="section-heading">Trailer</div>
+    <div class="trailer-wrap">
+      <iframe src="https://www.youtube.com/embed/${movie.trailerKey}?rel=0" allowfullscreen loading="lazy" title="${title} trailer"></iframe>
+    </div>
+  </section>` : ''}
 
   ${releasesHtml ? `
   <section class="releases-section">
