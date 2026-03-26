@@ -598,48 +598,67 @@ async function main() {
 
   const manifest = loadJSON(MANIFEST_PATH, {});
 
-  // 1 month back → 12 months forward
-  const now = new Date();
-  const pad = n => String(n).padStart(2, '0');
-  const from = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-  const to   = new Date(now.getFullYear(), now.getMonth() + 13, 0);
-  const fromStr = `${from.getFullYear()}-${pad(from.getMonth() + 1)}-01`;
-  const toStr   = `${to.getFullYear()}-${pad(to.getMonth() + 1)}-${pad(to.getDate())}`;
+  let detailedMovies;
 
-  console.log(`Fetching movies: ${fromStr} → ${toStr}`);
-  const rawMovies = await fetchAllMovies(fromStr, toStr);
-  console.log(`Found ${rawMovies.length} movies — fetching details...`);
+  if (process.env.REGEN_ONLY === '1') {
+    // Skip API fetch — regenerate pages from existing data
+    detailedMovies = loadJSON(MOVIES_PATH, []);
+    const filterFrom = process.env.DATE_FROM || null;
+    const filterTo   = process.env.DATE_TO   || null;
+    if (filterFrom || filterTo) {
+      const before = detailedMovies.length;
+      detailedMovies = detailedMovies.filter(m => {
+        const d = m.release_date || '';
+        return (!filterFrom || d >= filterFrom) && (!filterTo || d <= filterTo);
+      });
+      console.log(`Filtered to ${detailedMovies.length} / ${before} movies (${filterFrom} → ${filterTo})`);
+    }
+    console.log(`Loaded ${detailedMovies.length} movies from existing data — skipping API fetch`);
+  } else {
+    // 1 month back → 12 months forward
+    const now = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    const from = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const to   = new Date(now.getFullYear(), now.getMonth() + 13, 0);
+    const fromStr = `${from.getFullYear()}-${pad(from.getMonth() + 1)}-01`;
+    const toStr   = `${to.getFullYear()}-${pad(to.getMonth() + 1)}-${pad(to.getDate())}`;
 
-  // Fetch details in batches of 10 (30 concurrent TMDB requests)
-  const detailedMovies = [];
-  const BATCH = 10;
-  for (let i = 0; i < rawMovies.length; i += BATCH) {
-    const batch = rawMovies.slice(i, i + BATCH);
-    process.stdout.write(`  ${i + 1}–${Math.min(i + BATCH, rawMovies.length)} / ${rawMovies.length}\r`);
+    console.log(`Fetching movies: ${fromStr} → ${toStr}`);
+    const rawMovies = await fetchAllMovies(fromStr, toStr);
+    console.log(`Found ${rawMovies.length} movies — fetching details...`);
 
-    const results = await Promise.allSettled(batch.map(m => fetchMovieDetails(m.id)));
-    results.forEach((r, idx) => {
-      if (r.status === 'fulfilled') detailedMovies.push(r.value);
-      else console.error(`\n  Failed movie ${batch[idx].id}: ${r.reason.message}`);
-    });
+    // Fetch details in batches of 10 (30 concurrent TMDB requests)
+    detailedMovies = [];
+    const BATCH = 10;
+    for (let i = 0; i < rawMovies.length; i += BATCH) {
+      const batch = rawMovies.slice(i, i + BATCH);
+      process.stdout.write(`  ${i + 1}–${Math.min(i + BATCH, rawMovies.length)} / ${rawMovies.length}\r`);
 
-    if (i + BATCH < rawMovies.length) await sleep(300);
+      const results = await Promise.allSettled(batch.map(m => fetchMovieDetails(m.id)));
+      results.forEach((r, idx) => {
+        if (r.status === 'fulfilled') detailedMovies.push(r.value);
+        else console.error(`\n  Failed movie ${batch[idx].id}: ${r.reason.message}`);
+      });
+
+      if (i + BATCH < rawMovies.length) await sleep(300);
+    }
+    console.log(`\nFetched details for ${detailedMovies.length} movies`);
+
+    // Assign slugs and update manifest
+    assignSlugs(detailedMovies, manifest);
+    fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2));
+    console.log('manifest.json saved');
+
+    fs.writeFileSync(MOVIES_PATH, JSON.stringify(detailedMovies, null, 2));
+    console.log(`movies.json saved (${detailedMovies.length} movies)`);
   }
-  console.log(`\nFetched details for ${detailedMovies.length} movies`);
-
-  // Assign slugs and update manifest
-  assignSlugs(detailedMovies, manifest);
-  fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2));
-  console.log('manifest.json saved');
-
-  fs.writeFileSync(MOVIES_PATH, JSON.stringify(detailedMovies, null, 2));
-  console.log(`movies.json saved (${detailedMovies.length} movies)`);
 
   // Generate static pages
   generatePages(detailedMovies, manifest);
 
-  // Generate sitemap
-  generateSitemap(detailedMovies);
+  // Generate sitemap (always uses full movies.json for complete sitemap)
+  const allMovies = process.env.REGEN_ONLY === '1' ? loadJSON(MOVIES_PATH, []) : detailedMovies;
+  generateSitemap(allMovies);
 }
 
 main().catch(err => { console.error(err); process.exit(1); });
