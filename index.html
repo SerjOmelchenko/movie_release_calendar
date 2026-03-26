@@ -163,10 +163,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 1rem;
-      padding: 0.6rem 2rem 1rem;
+      gap: 0.5rem;
+      padding: 0.55rem 2rem;
       background: #0d0d0d;
-      border-bottom: 1px solid #1e1e1e;
+      border-bottom: 1px solid #1a1a1a;
       flex-wrap: wrap;
       position: sticky;
       top: 62px;
@@ -204,38 +204,57 @@
       text-align: center;
     }
 
-    .filters-bar label { font-size: 0.85rem; color: #aaa; white-space: nowrap; }
-
-    .control-group {
+    .filter-item {
+      flex: 1;
+      min-width: 130px;
+      max-width: 210px;
+      position: relative;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
     }
 
-    .filters-bar select, .filters-bar input[type="text"] {
-      background: #1e1e1e;
-      color: #e0e0e0;
-      border: 1px solid #333;
-      border-radius: 6px;
-      padding: 0.4rem 0.8rem;
-      font-size: 0.9rem;
+    .filters-bar select,
+    .filters-bar input[type="text"] {
+      width: 100%;
+      height: 34px;
+      background: #161616;
+      color: #bbb;
+      border: 1px solid #242424;
+      border-radius: 8px;
+      padding: 0 2rem 0 0.7rem;
+      font-size: 0.8rem;
       cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='5'%3E%3Cpath d='M0 0l5 5 5-5z' fill='%23444'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.6rem center;
+      transition: border-color 0.15s, color 0.15s;
     }
 
-    .filters-bar select:focus, .filters-bar input[type="text"]:focus {
+    .filters-bar input[type="text"] {
+      background-image: none;
+      padding-right: 0.7rem;
+    }
+
+    .filters-bar select:focus,
+    .filters-bar input[type="text"]:focus {
       outline: none;
       border-color: #e94560;
+      color: #e0e0e0;
     }
 
-    #search-input { width: 180px; }
-
-    .rating-info {
+    .filter-info {
+      position: absolute;
+      right: 1.8rem;
+      font-size: 0.7rem;
+      color: #3a3a3a;
       cursor: help;
-      color: #555;
-      font-size: 0.85em;
-      vertical-align: middle;
+      z-index: 1;
+      pointer-events: auto;
+      user-select: none;
     }
-    .rating-info:hover { color: #aaa; }
+    .filter-info:hover { color: #777; }
 
     #watchlist-btn { position: absolute; right: 2rem; }
 
@@ -1315,15 +1334,12 @@
       .view-toggle { position: static; align-self: center; }
       #watchlist-btn { position: static; align-self: stretch; justify-content: center; }
       .filters-bar {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.6rem;
-        padding: 0.6rem 1rem 1rem;
+        gap: 0.4rem;
+        padding: 0.5rem 1rem;
+        justify-content: stretch;
       }
+      .filter-item { min-width: calc(50% - 0.2rem); max-width: none; }
       .month-nav { justify-content: center; }
-      .control-group { gap: 0.6rem; }
-      .control-group select,
-      .control-group input { flex: 1; }
       .list-card-title { font-size: 0.88rem; }
       .list-date-heading { padding-top: 0.9rem; }
     }
@@ -1378,10 +1394,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <div class="filters-bar">
-  <div class="control-group">
-  <label for="region-select">Region:</label>
+  <div class="filter-item">
   <select id="region-select">
-    <option value="">🌍 All</option>
+    <option value="">🌍 All Regions</option>
     <option value="AU">🇦🇺 Australia</option>
     <option value="AT">🇦🇹 Austria</option>
     <option value="BE">🇧🇪 Belgium</option>
@@ -1422,22 +1437,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </select>
   </div>
 
-  <div class="control-group">
-  <label for="search-input">Search:</label>
-  <input type="text" id="search-input" placeholder="Movie title..." />
+  <div class="filter-item">
+  <input type="text" id="search-input" placeholder="Search movies..." />
   </div>
 
-  <div class="control-group">
-  <label for="genre-select">Genre:</label>
+  <div class="filter-item">
   <select id="genre-select">
     <option value="">All Genres</option>
   </select>
   </div>
 
-  <div class="control-group">
-  <label for="rating-select">Rating: <span class="rating-info" title="US MPAA ratings only. Movies without a US rating will not appear when this filter is active.">&#9432;</span></label>
+  <div class="filter-item">
+  <span class="filter-info" title="US MPAA ratings only. Movies without a US rating will not appear when this filter is active.">&#9432;</span>
   <select id="rating-select">
-    <option value="">All</option>
+    <option value="">All Ratings</option>
     <option value="G">G — General Audiences</option>
     <option value="PG">PG — Parental Guidance</option>
     <option value="PG-13">PG-13 — Parents Strongly Cautioned</option>
