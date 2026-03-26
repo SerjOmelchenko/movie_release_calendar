@@ -1146,12 +1146,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <div class="control-group">
-  <label for="rating-select">Rating:</label>
+  <label for="rating-select">Age Rating:</label>
   <select id="rating-select">
-    <option value="">Any</option>
-    <option value="6">6+</option>
-    <option value="7">7+</option>
-    <option value="8">8+</option>
+    <option value="">All Ages</option>
+    <option value="12">12+</option>
+    <option value="16">16+</option>
+    <option value="18">18+</option>
   </select>
   </div>
 </div>
@@ -1294,6 +1294,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   let moviesByDate = {}; // { 'YYYY-MM-DD': [movie, ...] }
   let genres = {};
   let slugMap = {}; // movieId (string) → slug, for movies that have a static page
+  let certMap = {}; // movieId (string) → min_age (number|null)
 
 
   // ── Watchlist (localStorage) ────────────────────────────────────────────────
@@ -1324,7 +1325,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const monthLabel = document.getElementById('month-label');
   const searchInput = document.getElementById('search-input');
   const regionSelect = document.getElementById('region-select');
-  const genreSelect = document.getElementById('genre-select');
+  const genreSelect  = document.getElementById('genre-select');
   const ratingSelect = document.getElementById('rating-select');
   try { const r = localStorage.getItem('region'); if (r !== null) regionSelect.value = r; } catch(e) {}
 
@@ -1353,6 +1354,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const manifest = await res.json();
       for (const [id, entry] of Object.entries(manifest)) {
         if (entry.slug) slugMap[id] = entry.slug;
+        if (entry.min_age != null) certMap[id] = entry.min_age;
       }
     } catch (e) {}
   }
@@ -1411,16 +1413,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   function getFilteredMoviesByDate() {
-    const query = searchInput.value.trim().toLowerCase();
+    const query   = searchInput.value.trim().toLowerCase();
     const genreId = genreSelect.value ? parseInt(genreSelect.value, 10) : null;
-    const minRating = ratingSelect.value ? parseFloat(ratingSelect.value) : null;
-    if (!query && !genreId && !minRating) return moviesByDate;
+    const minAge  = ratingSelect.value ? parseInt(ratingSelect.value, 10) : null;
+    if (!query && !genreId && minAge === null) return moviesByDate;
     const filtered = {};
     for (const [date, movies] of Object.entries(moviesByDate)) {
       const matches = movies.filter(m => {
         if (query && !m.title.toLowerCase().includes(query)) return false;
         if (genreId && !(m.genre_ids || []).includes(genreId)) return false;
-        if (minRating && (m.vote_average || 0) < minRating) return false;
+        if (minAge !== null) {
+          const age = certMap[String(m.id)];
+          if (age == null || age < minAge) return false;
+        }
         return true;
       });
       if (matches.length) filtered[date] = matches;
