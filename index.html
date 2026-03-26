@@ -411,6 +411,73 @@
     .list-card-heart:hover { background: #e94560; border-color: #e94560; color: #fff; transform: scale(1.1); }
     .list-card-heart.watchlisted { background: #e94560; border-color: #e94560; color: #fff; }
 
+    #list-hover-popup {
+      position: fixed;
+      width: 220px;
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.85);
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0.95) translateY(4px);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      z-index: 500;
+    }
+    #list-hover-popup.visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    #list-hover-popup .lhp-poster {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      display: block;
+    }
+    #list-hover-popup .lhp-poster-placeholder {
+      width: 100%;
+      aspect-ratio: 2/3;
+      background: #1a1a1a;
+    }
+    #list-hover-popup .lhp-body {
+      padding: 10px 12px 12px;
+    }
+    #list-hover-popup .lhp-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #eee;
+      margin-bottom: 5px;
+      line-height: 1.3;
+    }
+    #list-hover-popup .lhp-meta {
+      font-size: 0.7rem;
+      color: #555;
+      margin-bottom: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+    }
+    #list-hover-popup .lhp-cert {
+      border: 1px solid #333;
+      color: #666;
+      border-radius: 3px;
+      padding: 0 3px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+    #list-hover-popup .lhp-overview {
+      font-size: 0.73rem;
+      color: #777;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
     .show-earlier-btn {
       display: block;
       width: 100%;
@@ -1389,6 +1456,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- Day picker modal (multiple movies on same day) -->
+<div id="list-hover-popup"></div>
+
 <div id="day-modal-overlay">
   <div id="day-modal">
     <button id="day-modal-close" title="Close">&#x2715;</button>
@@ -1521,6 +1590,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   let certMap = {}; // movieId (string) → US MPAA certification string
   let viewMode = 'calendar'; // 'calendar' | 'list'
   let showEarlier = false;
+  let hoverTimeout = null;
+  const listHoverPopup = document.getElementById('list-hover-popup');
   try { const v = localStorage.getItem('viewMode'); if (v === 'list' || v === 'calendar') viewMode = v; } catch(e) {}
 
 
@@ -1780,6 +1851,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
   }
 
+  function positionListHoverPopup(event) {
+    const popupW = 220;
+    const popupH = listHoverPopup.offsetHeight || 420;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    let x = event.clientX + 20;
+    let y = event.clientY - popupH / 2;
+    if (x + popupW > vw - 8) x = event.clientX - popupW - 20;
+    if (y < 8) y = 8;
+    if (y + popupH > vh - 8) y = vh - popupH - 8;
+    listHoverPopup.style.left = `${x}px`;
+    listHoverPopup.style.top = `${y}px`;
+  }
+
+  function showListHoverPopup(movie, event) {
+    const poster = movie.poster_path ? `${IMG_BASE}w342${movie.poster_path}` : '';
+    const cert = certMap[String(movie.id)] || '';
+    const genreNames = (movie.genre_ids || []).slice(0, 3).map(id => genres[id]).filter(Boolean);
+    const rating = movie.vote_count > 0 ? `&#9733; ${movie.vote_average.toFixed(1)}` : '';
+
+    let metaHtml = genreNames.map(g => escHtml(g)).join(' &middot; ');
+    if (rating) metaHtml += (metaHtml ? ' &middot; ' : '') + rating;
+    const certHtml = cert ? `<span class="lhp-cert">${escHtml(cert)}</span>` : '';
+
+    listHoverPopup.innerHTML =
+      (poster ? `<img class="lhp-poster" src="${escHtml(poster)}" alt="" />` : '<div class="lhp-poster-placeholder"></div>') +
+      `<div class="lhp-body">` +
+        `<div class="lhp-title">${escHtml(movie.title)}</div>` +
+        `<div class="lhp-meta">${metaHtml}${certHtml ? (metaHtml ? ' ' : '') + certHtml : ''}</div>` +
+        (movie.overview ? `<div class="lhp-overview">${escHtml(movie.overview)}</div>` : '') +
+      `</div>`;
+
+    positionListHoverPopup(event);
+    listHoverPopup.classList.add('visible');
+  }
+
   function renderListView() {
     const filtered = getFilteredMoviesByDate();
     const watchlist = getWatchlist();
@@ -1872,6 +1979,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         btn.title = added ? 'Remove from watchlist' : 'Add to watchlist';
       });
     });
+
+    if (!('ontouchstart' in window)) {
+      calendarEl.querySelectorAll('.list-card').forEach(card => {
+        card.addEventListener('mouseenter', e => {
+          const id = parseInt(card.dataset.id, 10);
+          const dateStr = card.dataset.date;
+          const movie = (filtered[dateStr] || []).find(m => m.id === id);
+          if (!movie) return;
+          clearTimeout(hoverTimeout);
+          hoverTimeout = setTimeout(() => showListHoverPopup(movie, e), 120);
+        });
+        card.addEventListener('mousemove', e => {
+          if (listHoverPopup.classList.contains('visible')) positionListHoverPopup(e);
+        });
+        card.addEventListener('mouseleave', () => {
+          clearTimeout(hoverTimeout);
+          listHoverPopup.classList.remove('visible');
+        });
+      });
+    }
   }
 
   function openDayModal(dateStr, movies) {
