@@ -1393,6 +1393,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </header>
 
+<div id="maintenance-banner" style="background:#e94560;color:#fff;text-align:center;padding:0.75rem 1rem;font-size:0.95rem;font-weight:600;">
+  🔧 Site under maintenance — calendar data is being updated. Come back in 30 minutes.
+</div>
+
 <p class="seo-intro">Your up-to-date movie release calendar - browse upcoming movies by release date, filter by region, and never miss a new film in theaters or streaming. Updated daily with the latest new movie releases and coming soon titles worldwide.</p>
 
 <div class="controls-bar">
@@ -1591,8 +1595,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </footer>
 
 <script>
-  const API_KEY = '4f7d293bf1cfe06bba0a0638fcd20905';
-  const BASE_URL = 'https://api.themoviedb.org/3';
   const IMG_BASE = 'https://image.tmdb.org/t/p/';
 
   const today = new Date();
@@ -1666,12 +1668,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
   }
 
-  async function fetchGenres() {
-    try {
-      const res = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`);
-      const data = await res.json();
-      if (data.genres) data.genres.forEach(g => { genres[g.id] = g.name; });
-    } catch (e) {}
+  function loadGenres() {
+    const TMDB_GENRES = {
+      28:'Action', 12:'Adventure', 16:'Animation', 35:'Comedy', 80:'Crime',
+      99:'Documentary', 18:'Drama', 10751:'Family', 14:'Fantasy', 36:'History',
+      27:'Horror', 10402:'Music', 9648:'Mystery', 10749:'Romance',
+      878:'Science Fiction', 10770:'TV Movie', 53:'Thriller', 10752:'War', 37:'Western',
+    };
+    Object.assign(genres, TMDB_GENRES);
   }
 
   async function loadManifest() {
@@ -1701,39 +1705,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     calendarEl.style.display = 'none';
 
     const pad = n => String(n).padStart(2, '0');
-    const firstDay = `${year}-${pad(month + 1)}-01`;
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const lastDay = `${year}-${pad(month + 1)}-${pad(daysInMonth)}`;
-
-    const region = regionSelect.value;
-    const regionParam = region ? `&region=${region}` : '';
+    const ym     = `${year}-${pad(month + 1)}`;
+    const region = regionSelect.value || 'WW';
 
     moviesByDate = {};
 
     try {
-      let page = 1;
-      let totalPages = 1;
-      const seenIds = new Set();
-
-      do {
-        const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US` +
-          `&primary_release_date.gte=${firstDay}&primary_release_date.lte=${lastDay}` +
-          `&sort_by=popularity.desc&page=${page}${regionParam}`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-
-        totalPages = Math.min(data.total_pages || 1, 5);
-        (data.results || []).forEach(m => {
-          if (!m.release_date) return;
-          if (seenIds.has(m.id)) return;
-          seenIds.add(m.id);
-          if (!moviesByDate[m.release_date]) moviesByDate[m.release_date] = [];
-          moviesByDate[m.release_date].push(m);
-        });
-        page++;
-      } while (page <= totalPages);
-
+      const res = await fetch(`/data/calendar/${ym}/${region}.json`);
+      if (!res.ok) {
+        // No pre-built data for this month/region yet — show empty calendar
+        statusEl.style.display = 'none';
+        calendarEl.style.display = 'block';
+        renderCalendar();
+        return;
+      }
+      const movies = await res.json();
+      movies.forEach(m => {
+        if (!m.release_date) return;
+        if (!moviesByDate[m.release_date]) moviesByDate[m.release_date] = [];
+        moviesByDate[m.release_date].push(m);
+      });
       statusEl.style.display = 'none';
       calendarEl.style.display = 'block';
       renderCalendar();
@@ -2160,23 +2151,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
 
-    fetch(`${BASE_URL}/movie/${movie.id}/credits?api_key=${API_KEY}&language=en-US`)
-      .then(r => r.json())
-      .then(data => {
-        if (!document.getElementById('modal-overlay').classList.contains('open')) return;
-        const directors = (data.crew || []).filter(c => c.job === 'Director').map(c => escHtml(c.name));
-        const lines = [];
-        if (directors.length) {
-          lines.push(`&#127916; Directed by <strong style="color:#ddd">${directors.join(', ')}</strong>`);
-        }
-        const cast = (data.cast || []).slice(0, 5).map(c => escHtml(c.name));
-        if (cast.length) {
-          lines.push(`&#127775; ${cast.join(', ')}`);
-        }
-        document.getElementById('modal-director').innerHTML = lines.map(l => `<span>${l}</span>`).join('');
-      })
-      .catch(() => {});
-
     const heartBtn = document.getElementById('modal-watchlist-btn');
     const inWl = isWatchlisted(movie.id);
     heartBtn.dataset.movieId = movie.id;
@@ -2280,15 +2254,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     content.innerHTML = '<div class="spinner" style="margin:2rem auto;"></div>';
 
     try {
-      const results = await Promise.all(ids.map(id =>
-        fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`)
-          .then(r => r.ok ? r.json() : null)
-          .catch(() => null)
-      ));
+      const moviesRes = await fetch('/data/movies.json');
+      const moviesData = moviesRes.ok ? await moviesRes.json() : [];
+      const movieMap = {};
+      moviesData.forEach(m => { movieMap[m.id] = m; });
 
-      const allMovies = results.filter(Boolean).sort((a, b) =>
-        (a.release_date || '').localeCompare(b.release_date || '')
-      );
+      const allMovies = ids.map(id => movieMap[id]).filter(Boolean)
+        .sort((a, b) => (a.release_date || '').localeCompare(b.release_date || ''));
 
       if (allMovies.length === 0) {
         content.innerHTML = '<p class="watchlist-empty">Could not load watchlist movies.</p>';
@@ -2363,8 +2335,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   updateWatchlistCount();
-  Promise.all([fetchGenres(), loadManifest()]).then(() => {
-    populateGenreSelect();
+  loadGenres();
+  populateGenreSelect();
+  loadManifest().then(() => {
     fetchMoviesForMonth(currentYear, currentMonth);
   });
 
