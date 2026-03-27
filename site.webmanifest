@@ -1,0 +1,21 @@
+{
+  "name": "Movie Release Radar",
+  "short_name": "Movie Radar",
+  "description": "Browse upcoming movie release dates by country and month.",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#0d0d0d",
+  "background_color": "#0d0d0d",
+  "display": "browser",
+  "start_url": "/"
+}
