@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://moviereleaseradar.com/</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -847,6 +847,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/backrooms/</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/bodycam/</loc>
     <lastmod>2026-03-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -871,6 +877,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/animal-friends/</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/the-beekeeper-2/</loc>
     <lastmod>2027-01-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -879,12 +891,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/pegasus-3/</loc>
     <lastmod>2026-02-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/terrifier-4/</loc>
-    <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -943,7 +949,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/domm/</loc>
+    <loc>https://moviereleaseradar.com/movie/domm-until-the-last-breath/</loc>
     <lastmod>2026-03-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1033,6 +1039,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/tunggu-aku-sukses-nanti/</loc>
+    <lastmod>2026-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/paw-patrol-the-dino-movie/</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
@@ -1081,6 +1093,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/peddi/</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/pinocchio-unstrung/</loc>
     <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -1089,12 +1107,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/mars/</loc>
     <lastmod>2026-03-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/the-end-of-oak-street/</loc>
-    <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1111,14 +1123,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/tom-clancy-s-jack-ryan-ghost-war/</loc>
-    <lastmod>2026-05-20</lastmod>
+    <loc>https://moviereleaseradar.com/movie/scare-out/</loc>
+    <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/scare-out/</loc>
-    <lastmod>2026-02-17</lastmod>
+    <loc>https://moviereleaseradar.com/movie/tom-clancy-s-jack-ryan-ghost-war/</loc>
+    <lastmod>2026-05-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1149,12 +1161,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/order-of-the-dragon/</loc>
     <lastmod>2026-12-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/tunggu-aku-sukses-nanti/</loc>
-    <lastmod>2026-03-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1239,12 +1245,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/mickey/</loc>
     <lastmod>2026-03-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/peddi/</loc>
-    <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
