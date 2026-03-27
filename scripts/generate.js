@@ -10,6 +10,7 @@ const DATA_DIR      = path.join(__dirname, '..', 'data');
 const MANIFEST_PATH = path.join(DATA_DIR, 'manifest.json');
 const MOVIES_PATH   = path.join(DATA_DIR, 'movies.json');
 const MOVIE_DIR     = path.join(__dirname, '..', 'movie');
+const CALENDAR_DIR  = path.join(DATA_DIR, 'calendar');
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -31,8 +32,26 @@ function loadJSON(filepath, fallback) {
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
+// Rate limiter: max 40 requests per 10 seconds (sliding window)
+const rateLimiter = (() => {
+  const times = [];
+  return {
+    async throttle() {
+      const now = Date.now();
+      while (times.length && now - times[0] >= 10000) times.shift();
+      if (times.length >= 40) {
+        const wait = 10000 - (now - times[0]) + 10;
+        await sleep(wait);
+        return this.throttle();
+      }
+      times.push(Date.now());
+    },
+  };
+})();
+
 async function fetchJSON(url, attempt = 0) {
   try {
+    await rateLimiter.throttle();
     const res = await fetch(url);
     if (res.status === 429) {
       const wait = (attempt + 1) * 2000;
@@ -53,7 +72,7 @@ async function fetchJSON(url, attempt = 0) {
 
 // ── TMDB fetching ─────────────────────────────────────────────────────────────
 
-async function fetchAllMovies(fromDate, toDate) {
+async function fetchAllMoviesGlobal(fromDate, toDate) {
   const firstPage = await fetchJSON(
     `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US` +
     `&primary_release_date.gte=${fromDate}&primary_release_date.lte=${toDate}` +
@@ -81,11 +100,34 @@ async function fetchAllMovies(fromDate, toDate) {
   return movies.filter(m => m.release_date);
 }
 
+async function fetchMoviesForRegion(region, fromDate, toDate) {
+  const base = `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US` +
+    `&primary_release_date.gte=${fromDate}&primary_release_date.lte=${toDate}` +
+    `&region=${region}&sort_by=popularity.desc`;
+
+  const first = await fetchJSON(`${base}&page=1`);
+  const totalPages = Math.min(first.total_pages || 1, 20);
+
+  if (totalPages === 20 && (first.total_results || 0) >= 400) {
+    console.warn(`\n  WARNING: ${region} ${fromDate.slice(0, 7)} may have hit the 500-movie cap`);
+  }
+
+  const movies = [...(first.results || [])];
+
+  for (let i = 2; i <= totalPages; i += 5) {
+    const batch = [];
+    for (let p = i; p <= Math.min(i + 4, totalPages); p++) batch.push(p);
+    const pages = await Promise.all(batch.map(p => fetchJSON(`${base}&page=${p}`)));
+    pages.forEach(r => movies.push(...(r.results || [])));
+  }
+
+  return movies.filter(m => m.release_date);
+}
+
 async function fetchMovieDetails(id) {
-  const [details, credits, releaseDates, videos] = await Promise.all([
+  const [details, credits, videos] = await Promise.all([
     fetchJSON(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`),
     fetchJSON(`${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}&language=en-US`),
-    fetchJSON(`${BASE_URL}/movie/${id}/release_dates?api_key=${API_KEY}`),
     fetchJSON(`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}&language=en-US`),
   ]);
 
@@ -107,22 +149,6 @@ async function fetchMovieDetails(id) {
 
   const cast = (credits.cast || []).slice(0, 5).map(c => c.name);
 
-  // type 3 = Theatrical; fall back to earliest available date if no theatrical entry
-  const TYPE_PRIORITY = [3, 4, 5, 6, 1, 2]; // theatrical → digital → physical → TV → premiere → limited
-  const countryReleases = {};
-  (releaseDates.results || []).forEach(r => {
-    for (const type of TYPE_PRIORITY) {
-      const entry = r.release_dates.find(d => d.type === type && d.release_date);
-      if (entry) { countryReleases[r.iso_3166_1] = entry.release_date.slice(0, 10); break; }
-    }
-  });
-
-  const usEntry = (releaseDates.results || []).find(r => r.iso_3166_1 === 'US');
-  const certification = usEntry
-    ? (usEntry.release_dates.find(d => d.type === 3 && d.certification)?.certification?.trim() ||
-       usEntry.release_dates.find(d => d.certification)?.certification?.trim() || null)
-    : null;
-
   return {
     id:                details.id,
     title:             details.title,
@@ -138,8 +164,6 @@ async function fetchMovieDetails(id) {
     genre_ids:         (details.genres || []).map(g => g.id),
     directors,
     cast,
-    countryReleases,
-    certification,
     trailerKey,
     trailerName,
     trailerPublishedAt,
@@ -208,6 +232,13 @@ function assignSlugs(movies, manifest) {
 
 const IMG_BASE = 'https://image.tmdb.org/t/p/';
 const SITE_BASE = 'https://moviereleaseradar.com';
+
+// Countries shown in the UI region selector — calendar files are generated for these + WW
+const SUPPORTED_COUNTRIES = [
+  'AU','AT','BE','BR','BG','CA','CN','HR','CY','CZ','DK','EE','FI','FR',
+  'DE','GR','HU','IN','IE','IT','JP','LV','LT','LU','MT','NL','PL','PT',
+  'RO','SK','SI','KR','ES','SE','GB','UA','US',
+];
 
 const COUNTRY_NAMES = {
   AR:'Argentina', AU:'Australia', AT:'Austria', BE:'Belgium', BR:'Brazil',
@@ -617,17 +648,57 @@ ${movieUrls}
   console.log(`sitemap.xml written (${movies.length + 1} URLs)`);
 }
 
+// ── Calendar file builder ─────────────────────────────────────────────────────
+
+function buildCalendarFiles(calendarData, detailsMap) {
+  let written = 0;
+  for (const [ym, byCountry] of Object.entries(calendarData)) {
+    const monthDir = path.join(CALENDAR_DIR, ym);
+    fs.mkdirSync(monthDir, { recursive: true });
+
+    for (const [country, rawMovies] of Object.entries(byCountry)) {
+      const slim = rawMovies
+        .filter(m => detailsMap[m.id])
+        .map(m => {
+          const d = detailsMap[m.id];
+          return {
+            id:                m.id,
+            title:             d.title,
+            release_date:      m.release_date,   // country-specific date from discover
+            poster_path:       d.poster_path,
+            backdrop_path:     d.backdrop_path,
+            vote_average:      d.vote_average,
+            vote_count:        d.vote_count,
+            genre_ids:         d.genre_ids,
+            overview:          d.overview,
+            original_language: d.original_language,
+            slug:              d.slug,
+          };
+        })
+        .sort((a, b) => a.release_date.localeCompare(b.release_date));
+
+      // Atomic write: write to temp file then rename
+      const outPath  = path.join(monthDir, `${country}.json`);
+      const tmpPath  = `${outPath}.tmp`;
+      fs.writeFileSync(tmpPath, JSON.stringify(slim));
+      fs.renameSync(tmpPath, outPath);
+      written++;
+    }
+  }
+  console.log(`Calendar files written: ${written}`);
+}
+
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 async function main() {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+  fs.mkdirSync(DATA_DIR,     { recursive: true });
+  fs.mkdirSync(CALENDAR_DIR, { recursive: true });
 
   const manifest = loadJSON(MANIFEST_PATH, {});
 
   let detailedMovies;
 
   if (process.env.REGEN_ONLY === '1') {
-    // Skip API fetch — regenerate pages from existing data
     detailedMovies = loadJSON(MOVIES_PATH, []);
     const filterFrom = process.env.DATE_FROM || null;
     const filterTo   = process.env.DATE_TO   || null;
@@ -641,37 +712,90 @@ async function main() {
     }
     console.log(`Loaded ${detailedMovies.length} movies from existing data — skipping API fetch`);
   } else {
-    // 1 month back → 12 months forward
+    // Build month range: 1 month back → 12 months forward
     const now = new Date();
     const pad = n => String(n).padStart(2, '0');
-    const from = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-    const to   = new Date(now.getFullYear(), now.getMonth() + 13, 0);
-    const fromStr = `${from.getFullYear()}-${pad(from.getMonth() + 1)}-01`;
-    const toStr   = `${to.getFullYear()}-${pad(to.getMonth() + 1)}-${pad(to.getDate())}`;
 
-    console.log(`Fetching movies: ${fromStr} → ${toStr}`);
-    const rawMovies = await fetchAllMovies(fromStr, toStr);
-    console.log(`Found ${rawMovies.length} movies — fetching details...`);
+    const months = [];
+    for (let offset = -1; offset <= 12; offset++) {
+      const d = new Date(now.getFullYear(), now.getMonth() + offset, 1);
+      months.push(`${d.getFullYear()}-${pad(d.getMonth() + 1)}`);
+    }
 
-    // Fetch details in batches of 10 (30 concurrent TMDB requests)
-    detailedMovies = [];
+    // calendarData[ym][country|'WW'] = array of raw discover results for that month+region
+    // movieCountryReleases[id][country] = release_date string (country-specific)
+    const calendarData          = {};
+    const movieCountryReleases  = {};
+    const allMovieIds           = new Set();
+
+    // Fetch for each supported country + 'WW' (worldwide / All Regions)
+    const fetchTargets = [...SUPPORTED_COUNTRIES, 'WW'];
+    const totalFetches = fetchTargets.length * months.length;
+    let   doneFetches  = 0;
+
+    for (const country of fetchTargets) {
+      for (const ym of months) {
+        const [yr, mo] = ym.split('-').map(Number);
+        const daysInMonth = new Date(yr, mo, 0).getDate();
+        const fromDate    = `${ym}-01`;
+        const toDate      = `${ym}-${pad(daysInMonth)}`;
+
+        doneFetches++;
+        process.stdout.write(`  [${doneFetches}/${totalFetches}] discover ${country} ${ym}\r`);
+
+        const movies = country === 'WW'
+          ? await fetchAllMoviesGlobal(fromDate, toDate)
+          : await fetchMoviesForRegion(country, fromDate, toDate);
+
+        if (!calendarData[ym]) calendarData[ym] = {};
+        calendarData[ym][country] = movies;
+
+        for (const m of movies) {
+          allMovieIds.add(m.id);
+          if (country !== 'WW') {
+            if (!movieCountryReleases[m.id]) movieCountryReleases[m.id] = {};
+            movieCountryReleases[m.id][country] = m.release_date;
+          }
+        }
+      }
+    }
+
+    console.log(`\nFound ${allMovieIds.size} unique movies — fetching details...`);
+
+    // Fetch details for every unique movie (no /release_dates — dates come from discover)
+    const movieIdArr = [...allMovieIds];
+    const detailsMap = {};
     const BATCH = 10;
-    for (let i = 0; i < rawMovies.length; i += BATCH) {
-      const batch = rawMovies.slice(i, i + BATCH);
-      process.stdout.write(`  ${i + 1}–${Math.min(i + BATCH, rawMovies.length)} / ${rawMovies.length}\r`);
 
-      const results = await Promise.allSettled(batch.map(m => fetchMovieDetails(m.id)));
+    for (let i = 0; i < movieIdArr.length; i += BATCH) {
+      const batch = movieIdArr.slice(i, i + BATCH);
+      process.stdout.write(`  details ${i + 1}–${Math.min(i + BATCH, movieIdArr.length)} / ${movieIdArr.length}\r`);
+
+      const results = await Promise.allSettled(batch.map(id => fetchMovieDetails(id)));
       results.forEach((r, idx) => {
-        if (r.status === 'fulfilled') detailedMovies.push(r.value);
-        else console.error(`\n  Failed movie ${batch[idx].id}: ${r.reason.message}`);
+        if (r.status === 'fulfilled') {
+          const movie = r.value;
+          movie.countryReleases = movieCountryReleases[movie.id] || {};
+          detailsMap[movie.id] = movie;
+        } else {
+          console.error(`\n  Failed movie ${batch[idx]}: ${r.reason.message}`);
+        }
       });
 
-      if (i + BATCH < rawMovies.length) await sleep(300);
+      if (i + BATCH < movieIdArr.length) await sleep(300);
     }
-    console.log(`\nFetched details for ${detailedMovies.length} movies`);
 
-    // Assign slugs and update manifest
+    console.log(`\nFetched details for ${Object.keys(detailsMap).length} movies`);
+
+    detailedMovies = Object.values(detailsMap);
+
+    // Assign slugs first so buildCalendarFiles can embed them
     assignSlugs(detailedMovies, manifest);
+
+    // Write per-country per-month calendar JSON files
+    buildCalendarFiles(calendarData, detailsMap);
+
+    // Persist manifest and full movie data
     fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2));
     console.log('manifest.json saved');
 
@@ -679,10 +803,7 @@ async function main() {
     console.log(`movies.json saved (${detailedMovies.length} movies)`);
   }
 
-  // Generate static pages
   generatePages(detailedMovies, manifest);
-
-  // Generate sitemap (always uses full movies.json for complete sitemap)
   const allMovies = process.env.REGEN_ONLY === '1' ? loadJSON(MOVIES_PATH, []) : detailedMovies;
   generateSitemap(allMovies);
 }
