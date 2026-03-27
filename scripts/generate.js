@@ -89,13 +89,17 @@ async function fetchMovieDetails(id) {
     fetchJSON(`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}&language=en-US`),
   ]);
 
-  const trailerKey = ((videos.results || []).find(
+  const trailerVideo = (videos.results || []).find(
     v => v.site === 'YouTube' && v.type === 'Trailer' && v.official
   ) || (videos.results || []).find(
     v => v.site === 'YouTube' && v.type === 'Trailer'
   ) || (videos.results || []).find(
     v => v.site === 'YouTube' && v.type === 'Teaser'
-  ))?.key || null;
+  ) || null;
+
+  const trailerKey         = trailerVideo?.key         || null;
+  const trailerName        = trailerVideo?.name        || null;
+  const trailerPublishedAt = trailerVideo?.published_at || null;
 
   const directors = (credits.crew || [])
     .filter(c => c.job === 'Director')
@@ -137,6 +141,8 @@ async function fetchMovieDetails(id) {
     countryReleases,
     certification,
     trailerKey,
+    trailerName,
+    trailerPublishedAt,
   };
 }
 
@@ -263,7 +269,24 @@ function buildSchema(movie, canonicalUrl) {
     ],
   };
 
-  return JSON.stringify({ '@context': 'https://schema.org', '@graph': [movieSchema, breadcrumbSchema] });
+  const graph = [movieSchema, breadcrumbSchema];
+
+  if (movie.trailerKey) {
+    const videoSchema = {
+      '@type':        'VideoObject',
+      name:           movie.trailerName || `${movie.title} – Official Trailer`,
+      description:    movie.overview || movie.title,
+      thumbnailUrl:   `https://img.youtube.com/vi/${movie.trailerKey}/maxresdefault.jpg`,
+      embedUrl:       `https://www.youtube.com/embed/${movie.trailerKey}`,
+      url:            `https://www.youtube.com/watch?v=${movie.trailerKey}`,
+    };
+    if (movie.trailerPublishedAt) {
+      videoSchema.uploadDate = movie.trailerPublishedAt.slice(0, 10);
+    }
+    graph.push(videoSchema);
+  }
+
+  return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
 }
 
 function buildMoviePage(movie) {
