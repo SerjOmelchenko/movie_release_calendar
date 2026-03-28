@@ -330,14 +330,14 @@
       position: relative;
       display: flex;
       align-items: center;
-      height: 72px;
+      min-height: 72px;
       border-radius: 6px;
       cursor: pointer;
       overflow: hidden;
-      border-bottom: 1px solid #161616;
+      margin-bottom: 6px;
       background: #0d0d0d;
     }
-    .list-card:last-child { border-bottom: none; }
+    .list-card:last-child { margin-bottom: 0; }
     .list-card:hover .list-card-overlay { background: rgba(255,255,255,0.025); }
 
     .list-card-bg {
@@ -371,7 +371,7 @@
       display: flex;
       align-items: center;
       width: 100%;
-      padding: 0 0.75rem 0 1rem;
+      padding: 0.6rem 0.75rem 0.6rem 1rem;
       gap: 0.75rem;
     }
 
@@ -400,6 +400,14 @@
       gap: 0.4rem;
     }
     .list-card-meta .meta-dot { color: #2e2e2e; }
+    .list-card-director, .list-card-cast {
+      font-size: 0.75rem;
+      color: #5a5a5a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
     .list-card-cert {
       border: 1px solid #333;
       color: #666;
@@ -2024,12 +2032,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           if (bgUrl) html += `<div class="list-card-fade"></div>`;
           html += `<div class="list-card-overlay"></div>`;
           html += `<div class="list-card-content">`;
+          const directors = Array.isArray(m.directors) && m.directors.length > 0 ? m.directors : [];
+          const cast = Array.isArray(m.cast) && m.cast.length > 0 ? m.cast.slice(0, 3) : [];
+
           html += `<div class="list-card-info">`;
           html += `<div class="list-card-title">${escHtml(m.title)}</div>`;
           html += `<div class="list-card-meta">`;
           html += metaParts.join('<span class="meta-dot"> · </span>');
           if (cert) html += `${metaParts.length ? '<span class="meta-dot"> · </span>' : ''}<span class="list-card-cert">${escHtml(cert)}</span>`;
           html += `</div>`;
+          if (directors.length > 0) html += `<div class="list-card-director">🎬 ${directors.map(d => escHtml(d)).join(', ')}</div>`;
+          if (cast.length > 0) html += `<div class="list-card-cast">🎭 ${cast.map(c => escHtml(c)).join(', ')}</div>`;
           html += `</div>`;
           html += `<button class="list-card-heart${inWl ? ' watchlisted' : ''}" data-id="${m.id}" title="${inWl ? 'Remove from watchlist' : 'Add to watchlist'}">${inWl ? '&#9829;' : '&#9825;'}</button>`;
           html += `</div>`;
