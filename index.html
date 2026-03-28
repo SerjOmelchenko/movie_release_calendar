@@ -2145,7 +2145,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       .map(g => `<span class="genre-tag">${escHtml(g)}</span>`)
       .join('');
 
-    document.getElementById('modal-director').innerHTML = '';
+    const modalDirectors = Array.isArray(movie.directors) && movie.directors.length > 0
+      ? movie.directors : [];
+    document.getElementById('modal-director').innerHTML = modalDirectors.length > 0
+      ? `<span>Dir. ${modalDirectors.map(d => escHtml(d)).join(', ')}</span>`
+      : '';
 
     const backBtn = document.getElementById('modal-back');
     backBtn.classList.toggle('visible', !!backContext);
