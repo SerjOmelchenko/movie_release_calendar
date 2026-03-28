@@ -305,7 +305,7 @@ function buildSchema(movie, canonicalUrl) {
   if (movie.trailerKey) {
     const videoSchema = {
       '@type':        'VideoObject',
-      name:           movie.trailerName || `${movie.title} – Official Trailer`,
+      name:           `${movie.title} – Official Trailer`,
       description:    movie.overview || movie.title,
       thumbnailUrl:   `https://img.youtube.com/vi/${movie.trailerKey}/maxresdefault.jpg`,
       embedUrl:       `https://www.youtube.com/embed/${movie.trailerKey}`,
