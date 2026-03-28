@@ -1964,8 +1964,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       `<div class="lhp-body">` +
         `<div class="lhp-title">${escHtml(movie.title)}</div>` +
         `<div class="lhp-meta">${metaHtml}${certHtml ? (metaHtml ? ' ' : '') + certHtml : ''}</div>` +
-        (directors.length > 0 ? `<div class="lhp-director">Dir. ${directors.map(d => escHtml(d)).join(', ')}</div>` : '') +
-        (cast.length > 0 ? `<div class="lhp-cast">&#9733; ${cast.map(c => escHtml(c)).join(', ')}</div>` : '') +
+        (directors.length > 0 ? `<div class="lhp-director">🎬 ${directors.map(d => escHtml(d)).join(', ')}</div>` : '') +
+        (cast.length > 0 ? `<div class="lhp-cast">🎭 ${cast.map(c => escHtml(c)).join(', ')}</div>` : '') +
         (movie.overview ? `<div class="lhp-overview">${escHtml(movie.overview)}</div>` : '') +
       `</div>`;
 
