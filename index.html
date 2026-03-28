@@ -1736,6 +1736,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const movies = await res.json();
       movies.forEach(m => {
         if (!m.release_date) return;
+        if (!m.release_date.startsWith(ym)) return;
         if (!moviesByDate[m.release_date]) moviesByDate[m.release_date] = [];
         moviesByDate[m.release_date].push(m);
       });
