@@ -330,14 +330,14 @@
       position: relative;
       display: flex;
       align-items: center;
-      height: 72px;
+      min-height: 72px;
       border-radius: 6px;
       cursor: pointer;
       overflow: hidden;
-      border-bottom: 1px solid #161616;
+      margin-bottom: 6px;
       background: #0d0d0d;
     }
-    .list-card:last-child { border-bottom: none; }
+    .list-card:last-child { margin-bottom: 0; }
     .list-card:hover .list-card-overlay { background: rgba(255,255,255,0.025); }
 
     .list-card-bg {
@@ -371,7 +371,7 @@
       display: flex;
       align-items: center;
       width: 100%;
-      padding: 0 0.75rem 0 1rem;
+      padding: 0.6rem 0.75rem 0.6rem 1rem;
       gap: 0.75rem;
     }
 
