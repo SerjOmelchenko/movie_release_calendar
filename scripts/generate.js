@@ -528,7 +528,7 @@ function buildMoviePage(movie) {
         ${movie.release_date ? `<div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">${releaseDate}</div></div>` : ''}
         ${movie.vote_count > 0 ? `<div class="tile tile-rating"><div class="tile-label">Score</div><div class="tile-value">${movie.vote_average.toFixed(1)} <span class="tile-sub">/ 10</span></div></div>` : ''}
         ${runtime ? `<div class="tile"><div class="tile-label">Length</div><div class="tile-value">${runtime}</div></div>` : ''}
-        ${movie.original_language ? `<div class="tile"><div class="tile-label">Original</div><div class="tile-value">${escHtml(movie.original_language.toUpperCase())}</div></div>` : ''}
+        ${movie.original_language ? `<div class="tile"><div class="tile-label">Language</div><div class="tile-value">${escHtml(movie.original_language.toUpperCase())}</div></div>` : ''}
         ${movie.certification ? `<div class="tile tile-cert"><div class="tile-label">US Rating</div><div class="tile-value">${escHtml(movie.certification)}</div></div>` : ''}
       </div>
       ${genreTagsHtml ? `<div class="movie-genres">${genreTagsHtml}</div>` : ''}
