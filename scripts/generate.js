@@ -102,7 +102,7 @@ async function fetchAllMoviesGlobal(fromDate, toDate) {
 
 async function fetchMoviesForRegion(region, fromDate, toDate) {
   const base = `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US` +
-    `&primary_release_date.gte=${fromDate}&primary_release_date.lte=${toDate}` +
+    `&release_date.gte=${fromDate}&release_date.lte=${toDate}` +
     `&region=${region}&sort_by=popularity.desc`;
 
   const first = await fetchJSON(`${base}&page=1`);
@@ -741,6 +741,7 @@ async function main() {
     const fetchTargets = [...SUPPORTED_COUNTRIES, 'WW'];
     const totalFetches = fetchTargets.length * months.length;
     let   doneFetches  = 0;
+    const monthsSet    = new Set(months);
 
     for (const country of fetchTargets) {
       for (const ym of months) {
@@ -756,10 +757,21 @@ async function main() {
           ? await fetchAllMoviesGlobal(fromDate, toDate)
           : await fetchMoviesForRegion(country, fromDate, toDate);
 
-        if (!calendarData[ym]) calendarData[ym] = {};
-        calendarData[ym][country] = movies;
-
         for (const m of movies) {
+          // File each movie under its actual release month (country-specific date from discover).
+          // If that month isn't in our query window, fall back to the query month so the movie
+          // isn't silently dropped.
+          const movieYm = (m.release_date && monthsSet.has(m.release_date.slice(0, 7)))
+            ? m.release_date.slice(0, 7)
+            : ym;
+          if (!calendarData[movieYm])          calendarData[movieYm] = {};
+          if (!calendarData[movieYm][country]) calendarData[movieYm][country] = [];
+          // Deduplicate: a movie can appear in multiple month queries (e.g. primary date in
+          // March but country-specific date in April, so it shows up in both fetches).
+          if (!calendarData[movieYm][country].some(x => x.id === m.id)) {
+            calendarData[movieYm][country].push(m);
+          }
+
           allMovieIds.add(m.id);
           if (country !== 'WW') {
             if (!movieCountryReleases[m.id]) movieCountryReleases[m.id] = {};
