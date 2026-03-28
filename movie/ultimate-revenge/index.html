@@ -48,38 +48,44 @@
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
     .back-link:hover { text-decoration: underline; }
 
-    .movie-hero { border-radius: 12px; overflow: hidden; margin-bottom: 2rem; background: #111; }
+    .movie-hero { border-radius: 16px; overflow: hidden; margin-bottom: 2rem; background: #111; }
     .movie-hero img { width: 100%; height: 320px; object-fit: cover; object-position: center top; display: block; }
 
     .movie-main { display: flex; gap: 2rem; align-items: flex-start; }
     .movie-poster { flex-shrink: 0; width: 200px; }
-    .movie-poster img { width: 100%; border-radius: 10px; display: block; box-shadow: 0 8px 32px rgba(0,0,0,0.6); }
-    .movie-poster-placeholder { width: 100%; aspect-ratio: 2/3; background: #1e1e1e; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #555; text-align: center; padding: 1rem; line-height: 1.4; }
+    .movie-poster img { width: 100%; border-radius: 14px; display: block; box-shadow: 0 10px 40px rgba(0,0,0,0.7); }
+    .movie-poster-placeholder { width: 100%; aspect-ratio: 2/3; background: #1e1e1e; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #555; text-align: center; padding: 1rem; line-height: 1.4; }
 
     .movie-info { flex: 1; min-width: 0; }
-    .movie-title { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 0.75rem; }
-    .movie-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.9rem; color: #aaa; align-items: center; }
-    .cert-badge { border: 1px solid #555; color: #ccc; border-radius: 4px; padding: 0.1rem 0.45rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; cursor: help; }
-    .vote-count { color: #777; font-size: 0.85em; }
+    .movie-title { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 1rem; }
+
+    .info-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.65rem; margin-bottom: 1.25rem; }
+    .tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 0.85rem 0.9rem; display: flex; flex-direction: column; gap: 0.3rem; }
+    .tile-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #555; }
+    .tile-value { font-size: 1rem; font-weight: 600; color: #f0f0f0; line-height: 1.25; }
+    .tile-sub { font-size: 0.72rem; color: #555; font-weight: 400; }
+    .tile-rating .tile-value { color: #f5c518; }
+    .tile-cert .tile-value { display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid #555; border-radius: 5px; padding: 0.1rem 0.45rem; font-size: 0.82rem; letter-spacing: 0.04em; color: #ccc; width: fit-content; }
+
     .movie-genres { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
-    .genre-tag { background: #0f3460; color: #90caf9; border-radius: 20px; padding: 0.25rem 0.75rem; font-size: 0.78rem; }
+    .genre-tag { background: rgba(15,52,96,0.8); color: #90caf9; border: 1px solid rgba(144,202,249,0.12); border-radius: 20px; padding: 0.28rem 0.8rem; font-size: 0.78rem; font-weight: 500; }
     .movie-crew { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.875rem; color: #aaa; margin-bottom: 1rem; }
     .movie-crew strong { color: #ddd; }
-    .movie-overview { font-size: 1rem; color: #ccc; line-height: 1.7; }
+    .movie-overview { font-size: 0.975rem; color: #bbb; line-height: 1.75; }
 
-    .wl-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem; padding: 0.55rem 1.2rem; background: transparent; border: 1px solid #333; border-radius: 8px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
-    .wl-btn:hover { border-color: #e94560; color: #e94560; }
+    .wl-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem; padding: 0.6rem 1.3rem; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
+    .wl-btn:hover { border-color: #e94560; color: #e94560; background: rgba(233,69,96,0.07); }
     .wl-btn.wl-active { background: #e94560; border-color: #e94560; color: #fff; }
 
     .trailer-section { margin-top: 2.5rem; }
-    .trailer-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; background: #111; }
+    .trailer-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 14px; overflow: hidden; background: #111; }
     .trailer-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .releases-section { margin-top: 2.5rem; }
-    .section-heading { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #555; margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid #222; }
-    .releases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.5rem; }
-    .release-item { background: #141414; border: 1px solid #222; border-radius: 8px; padding: 0.6rem 0.9rem; display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; font-size: 0.85rem; }
-    .release-country { color: #ccc; font-weight: 500; }
-    .release-date { color: #888; font-size: 0.8rem; white-space: nowrap; }
+    .section-heading { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #555; margin-bottom: 0.9rem; padding-bottom: 0.5rem; border-bottom: 1px solid #1e1e1e; }
+    .releases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.65rem; }
+    .release-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 13px; padding: 0.85rem 1rem; display: flex; flex-direction: column; gap: 0.25rem; }
+    .release-country { color: #e0e0e0; font-weight: 600; font-size: 0.85rem; }
+    .release-date { color: #666; font-size: 0.78rem; font-weight: 500; }
 
     footer { border-top: 1px solid #1e1e1e; margin-top: 3rem; padding: 1.4rem 2rem; }
     .footer-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
@@ -94,6 +100,7 @@
       .movie-poster { width: 140px; }
       .movie-title { font-size: 1.5rem; }
       .movie-hero img { height: 200px; }
+      .info-tiles { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.5rem; }
     }
   </style>
 </head>
@@ -142,11 +149,11 @@
     </div>
     <div class="movie-info">
       <h1 class="movie-title">Ultimate Revenge</h1>
-      <div class="movie-meta">
-        <span>&#128197; March 5, 2026</span>
-        <span>&#9733; 6.5 / 10 <span class="vote-count">(2 votes)</span></span>
-        <span>&#128336; 1h 50m</span>
-        <span>&#127758; CN</span>
+      <div class="info-tiles">
+        <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">March 5, 2026</div></div>
+        <div class="tile tile-rating"><div class="tile-label">Score</div><div class="tile-value">6.5 <span class="tile-sub">/ 10</span></div></div>
+        <div class="tile"><div class="tile-label">Runtime</div><div class="tile-value">1h 50m</div></div>
+        <div class="tile"><div class="tile-label">Language</div><div class="tile-value">CN</div></div>
         
       </div>
       <div class="movie-genres"><span class="genre-tag">Action</span><span class="genre-tag">Crime</span><span class="genre-tag">Thriller</span></div>
