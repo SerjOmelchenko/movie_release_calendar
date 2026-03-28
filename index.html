@@ -490,6 +490,11 @@
     #list-hover-popup .lhp-director {
       font-size: 0.73rem;
       color: #aaa;
+      margin-bottom: 2px;
+    }
+    #list-hover-popup .lhp-cast {
+      font-size: 0.73rem;
+      color: #aaa;
       margin-bottom: 4px;
     }
     #list-hover-popup .lhp-overview {
@@ -1951,6 +1956,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     const directors = Array.isArray(movie.directors) && movie.directors.length > 0
       ? movie.directors : [];
+    const cast = Array.isArray(movie.cast) && movie.cast.length > 0
+      ? movie.cast.slice(0, 3) : [];
 
     listHoverPopup.innerHTML =
       (poster ? `<img class="lhp-poster" src="${escHtml(poster)}" alt="" />` : '<div class="lhp-poster-placeholder"></div>') +
@@ -1958,6 +1965,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         `<div class="lhp-title">${escHtml(movie.title)}</div>` +
         `<div class="lhp-meta">${metaHtml}${certHtml ? (metaHtml ? ' ' : '') + certHtml : ''}</div>` +
         (directors.length > 0 ? `<div class="lhp-director">Dir. ${directors.map(d => escHtml(d)).join(', ')}</div>` : '') +
+        (cast.length > 0 ? `<div class="lhp-cast">&#9733; ${cast.map(c => escHtml(c)).join(', ')}</div>` : '') +
         (movie.overview ? `<div class="lhp-overview">${escHtml(movie.overview)}</div>` : '') +
       `</div>`;
 
