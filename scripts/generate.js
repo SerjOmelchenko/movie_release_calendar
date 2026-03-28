@@ -672,6 +672,7 @@ function buildCalendarFiles(calendarData, detailsMap) {
             genre_ids:         d.genre_ids,
             overview:          d.overview,
             original_language: d.original_language,
+            directors:         d.directors,
             slug:              d.slug,
           };
         })
