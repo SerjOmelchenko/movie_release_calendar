@@ -312,7 +312,7 @@ function buildSchema(movie, canonicalUrl) {
       url:            `https://www.youtube.com/watch?v=${movie.trailerKey}`,
     };
     if (movie.trailerPublishedAt) {
-      videoSchema.uploadDate = movie.trailerPublishedAt.slice(0, 10);
+      videoSchema.uploadDate = new Date(movie.trailerPublishedAt).toISOString();
     }
     graph.push(videoSchema);
   }
