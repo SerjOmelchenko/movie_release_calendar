@@ -962,7 +962,7 @@ function buildTopMoviesIndexPage(allMonths, detailedMovies) {
     moviesByMonth[ym].push(m);
   }
 
-  const monthCardsHtml = allMonths.map(ym => {
+  const monthCardsHtml = [...allMonths].reverse().map(ym => {
     const label   = monthLabel(ym);
     const topThree = (moviesByMonth[ym] || [])
       .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
