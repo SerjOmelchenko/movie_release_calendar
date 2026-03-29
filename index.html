@@ -1813,7 +1813,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           html += `<div class="poster-wrap" data-id="${m.id}" data-date="${dateStr}">`;
           html += `<img class="poster-thumb" src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`;
           html += `<div class="heart-badge${inWl ? ' watchlisted' : ''}" data-id="${m.id}" title="${inWl ? 'Remove from watchlist' : 'Add to watchlist'}">${inWl ? '&#9829;' : '&#9825;'}</div>`;
-          if (m.vote_count > 0) html += `<div class="rating-badge">&#9733; ${m.vote_average.toFixed(1)}</div>`;
+          if (m.vote_count > 0 && m.vote_average >= 1) html += `<div class="rating-badge">&#9733; ${m.vote_average.toFixed(1)}</div>`;
           html += `</div>`;
         } else {
           html += `<div class="poster-placeholder">${escHtml(m.title)}</div>`;
@@ -1956,7 +1956,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const poster = movie.poster_path ? `${IMG_BASE}w342${movie.poster_path}` : '';
     const cert = certMap[String(movie.id)] || '';
     const genreNames = (movie.genre_ids || []).slice(0, 3).map(id => genres[id]).filter(Boolean);
-    const rating = movie.vote_count > 0 ? `&#9733; ${movie.vote_average.toFixed(1)}` : '';
+    const rating = movie.vote_count > 0 && movie.vote_average >= 1 ? `&#9733; ${movie.vote_average.toFixed(1)}` : '';
 
     let metaHtml = genreNames.map(g => escHtml(g)).join(' &middot; ');
     if (rating) metaHtml += (metaHtml ? ' &middot; ' : '') + rating;
@@ -2019,7 +2019,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           const inWl = watchlist.includes(m.id);
           const genreNames = (m.genre_ids || []).slice(0, 2).map(id => genres[id]).filter(Boolean);
           const cert = certMap[String(m.id)] || '';
-          const starRating = m.vote_count > 0 ? `&#9733; ${m.vote_average.toFixed(1)}` : '';
+          const starRating = m.vote_count > 0 && m.vote_average >= 1 ? `&#9733; ${m.vote_average.toFixed(1)}` : '';
 
           const metaParts = [...genreNames.map(g => escHtml(g))];
           if (starRating) metaParts.push(starRating);
@@ -2114,7 +2114,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           : `<div class="dm-no-poster">${escHtml(m.title)}</div>`
         }
         <div class="dm-title">${escHtml(m.title)}</div>
-        ${m.vote_count > 0 ? `<div class="dm-rating">&#9733; ${m.vote_average.toFixed(1)}</div>` : ''}
+        ${m.vote_count > 0 && m.vote_average >= 1 ? `<div class="dm-rating">&#9733; ${m.vote_average.toFixed(1)}</div>` : ''}
       </div>
     `).join('');
 
@@ -2149,9 +2149,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       ? new Date(movie.release_date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
       : 'TBA';
 
-    const rating = movie.vote_count > 0
+    const rating = movie.vote_count > 0 && movie.vote_average >= 1
       ? `<span>&#9733; ${movie.vote_average.toFixed(1)} / 10 (${movie.vote_count.toLocaleString()} votes)</span>`
-      : '<span>Not yet rated</span>';
+      : '';
 
     document.getElementById('modal-meta').innerHTML = `
       <span>&#128197; ${date}</span>
