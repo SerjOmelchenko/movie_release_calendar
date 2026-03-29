@@ -14,7 +14,7 @@ const CALENDAR_DIR    = path.join(DATA_DIR, 'calendar');
 const TOP_MOVIES_DIR  = path.join(__dirname, '..', 'top-movies');
 
 // First month tracked by the Top Movies series
-const TOP_MOVIES_START = '2026-01';
+const TOP_MOVIES_START = '2026-02';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -1153,7 +1153,11 @@ function buildCalendarFiles(calendarData, detailsMap) {
             slug:              d.slug,
           };
         })
-        .sort((a, b) => a.release_date.localeCompare(b.release_date));
+        .sort((a, b) => {
+          const dateOrder = a.release_date.localeCompare(b.release_date);
+          if (dateOrder !== 0) return dateOrder;
+          return (b.popularity || 0) - (a.popularity || 0);
+        });
 
       // Atomic write: write to temp file then rename
       const outPath  = path.join(monthDir, `${country}.json`);
