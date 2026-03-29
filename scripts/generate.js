@@ -282,7 +282,7 @@ function buildSchema(movie, canonicalUrl) {
   if (movie.cast?.length) {
     movieSchema.actor = movie.cast.map(n => ({ '@type': 'Person', name: n }));
   }
-  if (movie.vote_count > 0) {
+  if (movie.vote_count > 0 && movie.vote_average >= 1) {
     movieSchema.aggregateRating = {
       '@type': 'AggregateRating',
       ratingValue: movie.vote_average.toFixed(1),
@@ -332,7 +332,7 @@ function buildMoviePage(movie) {
     ? new Date(movie.release_date + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' })
     : 'TBA';
 
-  const rating = movie.vote_count > 0
+  const rating = movie.vote_count > 0 && movie.vote_average >= 1
     ? `&#9733; ${movie.vote_average.toFixed(1)} / 10 <span class="vote-count">(${movie.vote_count.toLocaleString()} votes)</span>`
     : '';
 
@@ -526,7 +526,7 @@ function buildMoviePage(movie) {
       <h1 class="movie-title">${title}</h1>
       <div class="info-tiles">
         ${movie.release_date ? `<div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">${releaseDate}</div></div>` : ''}
-        ${movie.vote_count > 0 ? `<div class="tile tile-rating"><div class="tile-label">Score</div><div class="tile-value">${movie.vote_average.toFixed(1)} <span class="tile-sub">/ 10</span></div></div>` : ''}
+        ${movie.vote_count > 0 && movie.vote_average >= 1 ? `<div class="tile tile-rating"><div class="tile-label">Score</div><div class="tile-value">${movie.vote_average.toFixed(1)} <span class="tile-sub">/ 10</span></div></div>` : ''}
         ${runtime ? `<div class="tile"><div class="tile-label">Length</div><div class="tile-value">${runtime}</div></div>` : ''}
         ${movie.original_language ? `<div class="tile"><div class="tile-label">Language</div><div class="tile-value">${escHtml(movie.original_language.toUpperCase())}</div></div>` : ''}
         ${movie.certification ? `<div class="tile tile-cert"><div class="tile-label">US Rating</div><div class="tile-value">${escHtml(movie.certification)}</div></div>` : ''}
