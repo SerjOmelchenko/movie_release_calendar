@@ -1153,11 +1153,7 @@ function buildCalendarFiles(calendarData, detailsMap) {
             slug:              d.slug,
           };
         })
-        .sort((a, b) => {
-          const dateOrder = a.release_date.localeCompare(b.release_date);
-          if (dateOrder !== 0) return dateOrder;
-          return (b.popularity || 0) - (a.popularity || 0);
-        });
+        .sort((a, b) => a.release_date.localeCompare(b.release_date));
 
       // Atomic write: write to temp file then rename
       const outPath  = path.join(monthDir, `${country}.json`);
