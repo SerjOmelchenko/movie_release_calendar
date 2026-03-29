@@ -102,7 +102,7 @@ async function fetchAllMoviesGlobal(fromDate, toDate) {
 
 async function fetchMoviesForRegion(region, fromDate, toDate) {
   const base = `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US` +
-    `&release_date.gte=${fromDate}&release_date.lte=${toDate}` +
+    `&primary_release_date.gte=${fromDate}&primary_release_date.lte=${toDate}` +
     `&region=${region}&sort_by=popularity.desc`;
 
   const first = await fetchJSON(`${base}&page=1`);
