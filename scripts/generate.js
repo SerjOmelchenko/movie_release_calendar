@@ -11,6 +11,10 @@ const MANIFEST_PATH = path.join(DATA_DIR, 'manifest.json');
 const MOVIES_PATH   = path.join(DATA_DIR, 'movies.json');
 const MOVIE_DIR     = path.join(__dirname, '..', 'movie');
 const CALENDAR_DIR  = path.join(DATA_DIR, 'calendar');
+const TOP_MOVIES_DIR = path.join(__dirname, '..', 'top-movies');
+
+// First month tracked by the Top Movies series
+const TOP_MOVIES_START = '2026-02';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -158,6 +162,7 @@ async function fetchMovieDetails(id) {
     backdrop_path:     details.backdrop_path,
     vote_average:      details.vote_average,
     vote_count:        details.vote_count,
+    popularity:        details.popularity,
     original_language: details.original_language,
     runtime:           details.runtime,
     genres:            (details.genres || []).map(g => g.name),
@@ -261,6 +266,16 @@ function escHtml(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+// Fingerprint of fields that affect the generated movie page.
+// dataUpdatedAt is only bumped when this changes between runs.
+function movieFingerprint(m) {
+  return [
+    m.title, m.overview, m.release_date, m.poster_path, m.backdrop_path,
+    m.vote_average, m.vote_count, m.runtime, m.trailerKey,
+    JSON.stringify(m.genres), JSON.stringify(m.directors), JSON.stringify(m.cast),
+  ].join('\0');
 }
 
 function buildSchema(movie, canonicalUrl) {
@@ -409,13 +424,18 @@ function buildMoviePage(movie) {
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0d0d0d; color: #e0e0e0; min-height: 100vh; }
 
-    header { background: #0d0d0d; padding: 1.4rem 2rem; border-bottom: 1px solid #1e1e1e; display: flex; align-items: center; justify-content: center; }
+    header { background: #0d0d0d; padding: 1.4rem 2rem; border-bottom: 1px solid #1e1e1e; }
+    .header-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
     .site-brand { display: flex; align-items: center; gap: 0.85rem; text-decoration: none; }
     .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
     .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
     @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
     .brand-name span { color: #e94560; }
+    .header-nav { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
+    .nav-link:hover { color: #fff; }
+    .nav-link.active { color: #fff; }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -481,21 +501,27 @@ function buildMoviePage(movie) {
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <header>
-  <a href="/" class="site-brand">
-    <svg class="brand-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="22" cy="22" r="20"   stroke="#2a2a2a" stroke-width="1.2"/>
-      <circle cx="22" cy="22" r="13.5" stroke="#2a2a2a" stroke-width="1.2"/>
-      <circle cx="22" cy="22" r="7"    stroke="#2a2a2a" stroke-width="1.2"/>
-      <line x1="22" y1="2"  x2="22" y2="42" stroke="#1e1e1e" stroke-width="1"/>
-      <line x1="2"  y1="22" x2="42" y2="22" stroke="#1e1e1e" stroke-width="1"/>
-      <g class="sweep-group">
-        <line x1="22" y1="22" x2="42" y2="22" stroke="#e94560" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
-        <circle cx="36" cy="22" r="2" fill="#e94560" opacity="0.85"/>
-      </g>
-      <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
-    </svg>
-    <span class="brand-name">Movie Release <span>Radar</span></span>
-  </a>
+  <div class="header-inner">
+    <a href="/" class="site-brand">
+      <svg class="brand-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="22" cy="22" r="20"   stroke="#2a2a2a" stroke-width="1.2"/>
+        <circle cx="22" cy="22" r="13.5" stroke="#2a2a2a" stroke-width="1.2"/>
+        <circle cx="22" cy="22" r="7"    stroke="#2a2a2a" stroke-width="1.2"/>
+        <line x1="22" y1="2"  x2="22" y2="42" stroke="#1e1e1e" stroke-width="1"/>
+        <line x1="2"  y1="22" x2="42" y2="22" stroke="#1e1e1e" stroke-width="1"/>
+        <g class="sweep-group">
+          <line x1="22" y1="22" x2="42" y2="22" stroke="#e94560" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+          <circle cx="36" cy="22" r="2" fill="#e94560" opacity="0.85"/>
+        </g>
+        <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
+      </svg>
+      <span class="brand-name">Movie Release <span>Radar</span></span>
+    </a>
+    <nav class="header-nav">
+      <a href="/" class="nav-link">Calendar</a>
+      <a href="/top-movies/" class="nav-link">Top Movies</a>
+    </nav>
+  </div>
 </header>
 
 <main class="movie-page">
@@ -630,15 +656,424 @@ function generatePages(movies, manifest) {
   if (redirects > 0) console.log(`Redirect stubs written: ${redirects}`);
 }
 
+// ── Top Movies pages ──────────────────────────────────────────────────────────
+
+const RADAR_SVG = `<svg class="brand-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="22" cy="22" r="20"   stroke="#2a2a2a" stroke-width="1.2"/>
+      <circle cx="22" cy="22" r="13.5" stroke="#2a2a2a" stroke-width="1.2"/>
+      <circle cx="22" cy="22" r="7"    stroke="#2a2a2a" stroke-width="1.2"/>
+      <line x1="22" y1="2"  x2="22" y2="42" stroke="#1e1e1e" stroke-width="1"/>
+      <line x1="2"  y1="22" x2="42" y2="22" stroke="#1e1e1e" stroke-width="1"/>
+      <g class="sweep-group">
+        <line x1="22" y1="22" x2="42" y2="22" stroke="#e94560" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+        <circle cx="36" cy="22" r="2" fill="#e94560" opacity="0.85"/>
+      </g>
+      <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
+    </svg>`;
+
+const GTM_CONSENT_JS = `window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    (function(){
+      var c; try { c = localStorage.getItem('cookie_consent'); } catch(e) {}
+      var granted = c === 'accepted';
+      gtag('consent', 'default', {
+        analytics_storage:  granted ? 'granted' : 'denied',
+        ad_storage:         granted ? 'granted' : 'denied',
+        ad_user_data:       granted ? 'granted' : 'denied',
+        ad_personalization: granted ? 'granted' : 'denied',
+      });
+    })();`;
+
+const GTM_TAG = `<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T3BJFZSV');<\/script>`;
+
+const TOP_SHARED_CSS = `
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0d0d0d; color: #e0e0e0; min-height: 100vh; }
+    header { background: #0d0d0d; padding: 1.4rem 2rem; border-bottom: 1px solid #1e1e1e; }
+    .header-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .site-brand { display: flex; align-items: center; gap: 0.85rem; text-decoration: none; }
+    .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
+    .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
+    @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
+    .brand-name span { color: #e94560; }
+    .header-nav { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
+    .nav-link:hover { color: #fff; }
+    .nav-link.active { color: #fff; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
+    .back-link:hover { text-decoration: underline; }
+    .genre-tag { background: rgba(15,52,96,0.8); color: #90caf9; border: 1px solid rgba(144,202,249,0.12); border-radius: 20px; padding: 0.28rem 0.8rem; font-size: 0.78rem; font-weight: 500; }
+    footer { border-top: 1px solid #1e1e1e; margin-top: 3rem; padding: 1.4rem 2rem; }
+    .footer-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .footer-brand { font-size: 0.78rem; font-weight: 700; color: #333; letter-spacing: 0.1em; text-transform: uppercase; }
+    .footer-attr { font-size: 0.75rem; color: #888; }
+    footer a { color: #e94560; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }`;
+
+const TOP_PAGE_HEADER = `
+<header>
+  <div class="header-inner">
+    <a href="/" class="site-brand">
+      ${RADAR_SVG}
+      <span class="brand-name">Movie Release <span>Radar</span></span>
+    </a>
+    <nav class="header-nav">
+      <a href="/" class="nav-link">Calendar</a>
+      <a href="/top-movies/" class="nav-link active">Top Movies</a>
+    </nav>
+  </div>
+</header>`;
+
+const TOP_PAGE_FOOTER = `
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">&#127916; Movie Release Radar</div>
+    <div class="footer-attr">
+      Created by <a href="https://serhiiomelchenko.com/" target="_blank" rel="noopener">Serhii Omelchenko</a>
+      &nbsp;&middot;&nbsp;
+      This product uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.&nbsp;<a href="https://www.themoviedb.org/" target="_blank" rel="noopener"><img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" alt="The Movie Database (TMDB)" style="height:1.2rem;vertical-align:middle;" /></a>
+    </div>
+  </div>
+</footer>`;
+
+function monthLabel(ym) {
+  const [y, m] = ym.split('-').map(Number);
+  return new Date(y, m - 1, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+}
+
+function addMonths(ym, n) {
+  const pad = x => String(x).padStart(2, '0');
+  const [y, m] = ym.split('-').map(Number);
+  const d = new Date(y, m - 1 + n, 1);
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}`;
+}
+
+function buildTopMoviesPage(ym, topMovies) {
+  const label        = monthLabel(ym);
+  const canonicalUrl = `${SITE_BASE}/top-movies/${ym}/`;
+  const pageTitle    = `Top 10 Movies in ${label}`;
+  const today        = new Date().toISOString().slice(0, 10);
+  const previewTitles = topMovies.slice(0, 3).map(m => m.title).join(', ');
+  const metaDesc = escHtml(
+    `The 10 most anticipated movies releasing in ${label}: ${previewTitles}` +
+    (topMovies.length > 3 ? ', and more.' : '.')
+  );
+  const ogImage = topMovies[0]?.poster_path ? escHtml(`${IMG_BASE}w500${topMovies[0].poster_path}`) : '';
+
+  const schema = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ItemList',
+        name: pageTitle,
+        url: canonicalUrl,
+        numberOfItems: topMovies.length,
+        itemListElement: topMovies.map((m, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          item: {
+            '@type': 'Movie',
+            name: m.title,
+            url: `${SITE_BASE}/movie/${m.slug}/`,
+            ...(m.poster_path  ? { image: `${IMG_BASE}w500${m.poster_path}` } : {}),
+            ...(m.release_date ? { datePublished: m.release_date }            : {}),
+            ...(m.genres?.length ? { genre: m.genres }                        : {}),
+          },
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home',                 item: `${SITE_BASE}/`            },
+          { '@type': 'ListItem', position: 2, name: 'Top Movies by Month',  item: `${SITE_BASE}/top-movies/` },
+          { '@type': 'ListItem', position: 3, name: pageTitle,              item: canonicalUrl               },
+        ],
+      },
+    ],
+  });
+
+  const moviesHtml = topMovies.map((m, i) => {
+    const poster    = m.poster_path ? `${IMG_BASE}w342${m.poster_path}` : '';
+    const t         = escHtml(m.title);
+    const overview  = escHtml((m.overview || '').slice(0, 200));
+    const truncated = (m.overview || '').length > 200;
+    const genresHtml = (m.genres || []).map(g => `<span class="genre-tag">${escHtml(g)}</span>`).join('');
+    const directors  = (m.directors || []).map(d => escHtml(d)).join(', ');
+    const relDate    = m.release_date
+      ? new Date(m.release_date + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+      : 'TBA';
+    const ratingHtml = m.vote_count > 0 && m.vote_average >= 1
+      ? `<span class="score">&#9733; ${m.vote_average.toFixed(1)}<span class="score-denom">&thinsp;/ 10</span></span>`
+      : '';
+    return `
+    <article class="top-item">
+      <div class="rank">${i + 1}</div>
+      <div class="poster-wrap">
+        ${poster
+          ? `<a href="/movie/${m.slug}/"><img src="${poster}" alt="${t} poster" loading="lazy" width="100" height="150" /></a>`
+          : `<div class="poster-placeholder"><span>${t}</span></div>`}
+      </div>
+      <div class="movie-info">
+        <h2><a href="/movie/${m.slug}/">${t}</a></h2>
+        <div class="meta-row">
+          <span class="rel-date">&#128197; ${escHtml(relDate)}</span>
+          ${ratingHtml}
+        </div>
+        ${genresHtml ? `<div class="genres">${genresHtml}</div>` : ''}
+        ${directors  ? `<div class="crew">&#127916; <strong>${directors}</strong></div>` : ''}
+        ${overview   ? `<p class="overview">${overview}${truncated ? '&hellip;' : ''}</p>` : ''}
+      </div>
+    </article>`;
+  }).join('\n');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>${GTM_CONSENT_JS}</script>
+  ${GTM_TAG}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${escHtml(pageTitle)} | Movie Release Radar</title>
+  <meta name="description" content="${metaDesc}" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="${canonicalUrl}" />
+  <link rel="icon" href="/favicon.ico" sizes="96x96" />
+  <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="${canonicalUrl}" />
+  <meta property="og:title"       content="${escHtml(pageTitle)}" />
+  <meta property="og:description" content="${metaDesc}" />
+  ${ogImage ? `<meta property="og:image" content="${ogImage}" />` : ''}
+  <script type="application/ld+json">${schema}</script>
+  <style>${TOP_SHARED_CSS}
+    .top-page { max-width: 860px; margin: 0 auto; padding: 2rem; }
+    .page-header { margin-bottom: 2rem; }
+    .page-header h1 { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; }
+    .page-header .subtitle { margin-top: 0.5rem; font-size: 0.85rem; color: #555; }
+    .page-header .subtitle a { color: #e94560; text-decoration: none; }
+    .page-header .subtitle a:hover { text-decoration: underline; }
+    .top-list { display: flex; flex-direction: column; gap: 1.25rem; }
+    .top-item { display: flex; gap: 1.25rem; align-items: flex-start; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 1.25rem; position: relative; transition: border-color 0.15s; }
+    .top-item:hover { border-color: rgba(233,69,96,0.3); }
+    .rank { position: absolute; top: -10px; left: -10px; width: 32px; height: 32px; background: #e94560; color: #fff; font-weight: 800; font-size: 0.9rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(233,69,96,0.5); }
+    .top-item:first-child .rank { width: 36px; height: 36px; font-size: 1rem; top: -12px; left: -12px; }
+    .poster-wrap { flex-shrink: 0; width: 100px; }
+    .poster-wrap img { width: 100%; border-radius: 10px; display: block; box-shadow: 0 6px 24px rgba(0,0,0,0.6); }
+    .poster-wrap a { display: block; }
+    .poster-placeholder { width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
+    .poster-placeholder span { font-size: 0.7rem; color: #444; text-align: center; line-height: 1.3; }
+    .movie-info { flex: 1; min-width: 0; }
+    .movie-info h2 { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; line-height: 1.3; }
+    .movie-info h2 a { color: inherit; text-decoration: none; }
+    .movie-info h2 a:hover { color: #e94560; }
+    .meta-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+    .rel-date { font-size: 0.8rem; color: #666; }
+    .score { font-size: 0.88rem; font-weight: 600; color: #f5c518; }
+    .score-denom { font-weight: 400; color: #555; }
+    .genres { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; }
+    .crew { font-size: 0.82rem; color: #888; margin-bottom: 0.5rem; }
+    .crew strong { color: #bbb; }
+    .overview { font-size: 0.875rem; color: #888; line-height: 1.65; }
+    .updated-note { margin-top: 2rem; font-size: 0.78rem; color: #444; text-align: center; }
+    @media (max-width: 600px) {
+      .top-page { padding: 1rem; }
+      .page-header h1 { font-size: 1.5rem; }
+      .poster-wrap { width: 72px; }
+      .movie-info h2 { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+${TOP_PAGE_HEADER}
+<main class="top-page">
+  <a href="/top-movies/" class="back-link">&#8592; Top Movies by Month</a>
+  <div class="page-header">
+    <h1>${escHtml(pageTitle)}</h1>
+    <p class="subtitle">Ranked by TMDB popularity &middot; <a href="/?m=${ym}">View full ${label} calendar</a></p>
+  </div>
+  <div class="top-list">
+    ${moviesHtml}
+  </div>
+  <p class="updated-note">Last updated: ${today} &middot; Data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></p>
+</main>
+${TOP_PAGE_FOOTER}
+</body>
+</html>`;
+}
+
+function buildTopMoviesIndexPage(allMonths, detailedMovies) {
+  const canonicalUrl = `${SITE_BASE}/top-movies/`;
+  const pageTitle    = 'Top Movies by Month';
+  const metaDesc     = escHtml('Browse the top 10 most anticipated movies for each month, ranked by popularity. Updated daily.');
+  const today        = new Date().toISOString().slice(0, 10);
+
+  const moviesByMonth = {};
+  for (const m of detailedMovies) {
+    if (!m.release_date || !m.slug) continue;
+    const ym = m.release_date.slice(0, 7);
+    if (!moviesByMonth[ym]) moviesByMonth[ym] = [];
+    moviesByMonth[ym].push(m);
+  }
+
+  const cardsHtml = [...allMonths].reverse().map(ym => {
+    const label    = monthLabel(ym);
+    const topThree = (moviesByMonth[ym] || [])
+      .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+      .slice(0, 3);
+    const thumbsHtml = topThree
+      .filter(m => m.poster_path)
+      .map(m => `<img src="${escHtml(`${IMG_BASE}w154${m.poster_path}`)}" alt="${escHtml(m.title)} poster" loading="lazy" width="60" height="90" />`)
+      .join('');
+    return `
+    <a href="/top-movies/${ym}/" class="month-card">
+      <div class="month-name">${escHtml(label)}</div>
+      ${thumbsHtml ? `<div class="month-thumbs">${thumbsHtml}</div>` : ''}
+      <div class="view-label">View Top 10 &#8594;</div>
+    </a>`;
+  }).join('\n');
+
+  const schema = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ItemList',
+        name: pageTitle,
+        url: canonicalUrl,
+        description: 'Monthly top 10 movie rankings by popularity.',
+        itemListElement: allMonths.map((ym, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: `Top 10 Movies in ${monthLabel(ym)}`,
+          url: `${SITE_BASE}/top-movies/${ym}/`,
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home',                item: `${SITE_BASE}/`            },
+          { '@type': 'ListItem', position: 2, name: 'Top Movies by Month', item: canonicalUrl               },
+        ],
+      },
+    ],
+  });
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>${GTM_CONSENT_JS}</script>
+  ${GTM_TAG}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${escHtml(pageTitle)} | Movie Release Radar</title>
+  <meta name="description" content="${metaDesc}" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="${canonicalUrl}" />
+  <link rel="icon" href="/favicon.ico" sizes="96x96" />
+  <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="${canonicalUrl}" />
+  <meta property="og:title"       content="${escHtml(pageTitle)}" />
+  <meta property="og:description" content="${metaDesc}" />
+  <script type="application/ld+json">${schema}</script>
+  <style>${TOP_SHARED_CSS}
+    .index-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
+    .page-header { margin-bottom: 2.5rem; text-align: center; }
+    .page-header h1 { font-size: 2.2rem; font-weight: 800; color: #fff; }
+    .page-header p { margin-top: 0.6rem; font-size: 0.9rem; color: #666; }
+    .months-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .month-card { display: flex; flex-direction: column; gap: 0.75rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 1.25rem 1rem; text-decoration: none; color: inherit; transition: border-color 0.15s, background 0.15s; }
+    .month-card:hover { border-color: rgba(233,69,96,0.4); background: rgba(233,69,96,0.05); }
+    .month-name { font-size: 1.05rem; font-weight: 700; color: #fff; }
+    .month-thumbs { display: flex; gap: 0.35rem; }
+    .month-thumbs img { width: 54px; height: 81px; object-fit: cover; border-radius: 6px; }
+    .view-label { font-size: 0.8rem; color: #e94560; font-weight: 600; }
+    .updated-note { margin-top: 2.5rem; font-size: 0.78rem; color: #444; text-align: center; }
+    .updated-note a { color: #e94560; }
+    @media (max-width: 600px) {
+      .index-page { padding: 1rem; }
+      .page-header h1 { font-size: 1.6rem; }
+      .months-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+${TOP_PAGE_HEADER}
+<main class="index-page">
+  <div class="page-header">
+    <h1>${escHtml(pageTitle)}</h1>
+    <p>The most anticipated movies for each month, ranked by popularity. Updated daily.</p>
+  </div>
+  <div class="months-grid">
+    ${cardsHtml}
+  </div>
+  <p class="updated-note">Last updated: ${today} &middot; Data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></p>
+</main>
+${TOP_PAGE_FOOTER}
+</body>
+</html>`;
+}
+
+function generateTopMoviesPages(detailedMovies) {
+  const pad = n => String(n).padStart(2, '0');
+  const now = new Date();
+  const currentYm = `${now.getFullYear()}-${pad(now.getMonth() + 1)}`;
+  const nextYm    = addMonths(currentYm, 1);
+
+  const allMonths = [];
+  let cursor = TOP_MOVIES_START;
+  while (cursor <= nextYm) {
+    allMonths.push(cursor);
+    cursor = addMonths(cursor, 1);
+  }
+
+  fs.mkdirSync(TOP_MOVIES_DIR, { recursive: true });
+
+  let written = 0, skipped = 0;
+  for (const ym of allMonths) {
+    const outPath = path.join(TOP_MOVIES_DIR, ym, 'index.html');
+    // Past months: generate once, then freeze
+    if (ym < currentYm && fs.existsSync(outPath)) { skipped++; continue; }
+
+    const topMovies = detailedMovies
+      .filter(m => m.release_date && m.release_date.startsWith(ym) && m.slug)
+      .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+      .slice(0, 10);
+
+    if (topMovies.length === 0) continue;
+    fs.mkdirSync(path.join(TOP_MOVIES_DIR, ym), { recursive: true });
+    fs.writeFileSync(outPath, buildTopMoviesPage(ym, topMovies));
+    written++;
+  }
+
+  fs.writeFileSync(path.join(TOP_MOVIES_DIR, 'index.html'), buildTopMoviesIndexPage(allMonths, detailedMovies));
+  console.log(`Top movies pages: ${written} written, ${skipped} past-month(s) frozen`);
+  return allMonths;
+}
+
 // ── Sitemap ───────────────────────────────────────────────────────────────────
 
-function generateSitemap(movies) {
+function generateSitemap(movies, topMonths = []) {
   const today = new Date().toISOString().slice(0, 10);
 
   const movieUrls = movies.map(m => {
-    const lastmod = m.release_date || today;
+    const lastmod = m.dataUpdatedAt || today;
     return `  <url>\n    <loc>${SITE_BASE}/movie/${m.slug}/</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`;
   }).join('\n');
+
+  const topIndexUrl = `  <url>\n    <loc>${SITE_BASE}/top-movies/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.9</priority>\n  </url>`;
+
+  const topMonthUrls = topMonths.map(ym =>
+    `  <url>\n    <loc>${SITE_BASE}/top-movies/${ym}/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.85</priority>\n  </url>`
+  ).join('\n');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -649,10 +1084,13 @@ function generateSitemap(movies) {
     <priority>1.0</priority>
   </url>
 ${movieUrls}
+${topIndexUrl}
+${topMonthUrls}
 </urlset>`;
 
   fs.writeFileSync(path.join(__dirname, '..', 'sitemap.xml'), xml);
-  console.log(`sitemap.xml written (${movies.length + 1} URLs)`);
+  const totalUrls = movies.length + 1 + 1 + topMonths.length;
+  console.log(`sitemap.xml written (${totalUrls} URLs)`);
 }
 
 // ── Calendar file builder ─────────────────────────────────────────────────────
@@ -676,6 +1114,7 @@ function buildCalendarFiles(calendarData, detailsMap) {
             backdrop_path:     d.backdrop_path,
             vote_average:      d.vote_average,
             vote_count:        d.vote_count,
+            popularity:        d.popularity,
             genre_ids:         d.genre_ids,
             overview:          d.overview,
             original_language: d.original_language,
@@ -720,6 +1159,9 @@ async function main() {
       console.log(`Filtered to ${detailedMovies.length} / ${before} movies (${filterFrom} → ${filterTo})`);
     }
     console.log(`Loaded ${detailedMovies.length} movies from existing data — skipping API fetch`);
+    // Bootstrap dataUpdatedAt for any movie that doesn't have it yet
+    const todayBoot = new Date().toISOString().slice(0, 10);
+    for (const m of detailedMovies) { if (!m.dataUpdatedAt) m.dataUpdatedAt = todayBoot; }
   } else {
     // Build month range: 1 month back → 12 months forward
     const now = new Date();
@@ -810,6 +1252,19 @@ async function main() {
 
     detailedMovies = Object.values(detailsMap);
 
+    // Stamp dataUpdatedAt — only advance when page-relevant data actually changed
+    const today = new Date().toISOString().slice(0, 10);
+    const existingMovieMap = {};
+    for (const m of loadJSON(MOVIES_PATH, [])) existingMovieMap[m.id] = m;
+    for (const movie of detailedMovies) {
+      const prev = existingMovieMap[movie.id];
+      if (!prev || movieFingerprint(movie) !== movieFingerprint(prev)) {
+        movie.dataUpdatedAt = today;
+      } else {
+        movie.dataUpdatedAt = prev.dataUpdatedAt || today;
+      }
+    }
+
     // Assign slugs first so buildCalendarFiles can embed them
     assignSlugs(detailedMovies, manifest);
 
@@ -826,7 +1281,8 @@ async function main() {
 
   generatePages(detailedMovies, manifest);
   const allMovies = process.env.REGEN_ONLY === '1' ? loadJSON(MOVIES_PATH, []) : detailedMovies;
-  generateSitemap(allMovies);
+  const topMonths = generateTopMoviesPages(allMovies);
+  generateSitemap(allMovies, topMonths);
 }
 
 main().catch(err => { console.error(err); process.exit(1); });

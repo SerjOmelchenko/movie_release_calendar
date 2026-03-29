@@ -65,9 +65,14 @@
       background: #0d0d0d;
       padding: 1.4rem 2rem;
       border-bottom: 1px solid #1e1e1e;
+    }
+
+    .header-inner {
+      max-width: 1300px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
     }
 
     .site-brand {
@@ -75,6 +80,25 @@
       align-items: center;
       gap: 0.85rem;
     }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-link {
+      color: #666;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.15s;
+    }
+
+    .nav-link:hover { color: #fff; }
+    .nav-link.active { color: #fff; }
 
     .brand-icon {
       width: 38px;
@@ -1394,20 +1418,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <header>
-  <div class="site-brand">
-    <svg class="brand-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="22" cy="22" r="20"   stroke="#2a2a2a" stroke-width="1.2"/>
-      <circle cx="22" cy="22" r="13.5" stroke="#2a2a2a" stroke-width="1.2"/>
-      <circle cx="22" cy="22" r="7"    stroke="#2a2a2a" stroke-width="1.2"/>
-      <line x1="22" y1="2"  x2="22" y2="42" stroke="#1e1e1e" stroke-width="1"/>
-      <line x1="2"  y1="22" x2="42" y2="22" stroke="#1e1e1e" stroke-width="1"/>
-      <g class="sweep-group">
-        <line x1="22" y1="22" x2="42" y2="22" stroke="#e94560" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
-        <circle cx="36" cy="22" r="2" fill="#e94560" opacity="0.85"/>
-      </g>
-      <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
-    </svg>
-    <h1>Movie Release <span>Radar</span></h1>
+  <div class="header-inner">
+    <div class="site-brand">
+      <svg class="brand-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="22" cy="22" r="20"   stroke="#2a2a2a" stroke-width="1.2"/>
+        <circle cx="22" cy="22" r="13.5" stroke="#2a2a2a" stroke-width="1.2"/>
+        <circle cx="22" cy="22" r="7"    stroke="#2a2a2a" stroke-width="1.2"/>
+        <line x1="22" y1="2"  x2="22" y2="42" stroke="#1e1e1e" stroke-width="1"/>
+        <line x1="2"  y1="22" x2="42" y2="22" stroke="#1e1e1e" stroke-width="1"/>
+        <g class="sweep-group">
+          <line x1="22" y1="22" x2="42" y2="22" stroke="#e94560" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+          <circle cx="36" cy="22" r="2" fill="#e94560" opacity="0.85"/>
+        </g>
+        <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
+      </svg>
+      <h1>Movie Release <span>Radar</span></h1>
+    </div>
+    <nav class="header-nav">
+      <a href="/" class="nav-link active">Calendar</a>
+      <a href="/top-movies/" class="nav-link">Top Movies</a>
+    </nav>
   </div>
 </header>
 
