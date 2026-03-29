@@ -268,6 +268,25 @@ function escHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
+// Fingerprint of fields that meaningfully affect the generated movie page.
+// If this changes between runs, dataUpdatedAt is bumped.
+function movieFingerprint(m) {
+  return [
+    m.title,
+    m.overview,
+    m.release_date,
+    m.poster_path,
+    m.backdrop_path,
+    m.vote_average,
+    m.vote_count,
+    m.runtime,
+    m.trailerKey,
+    JSON.stringify(m.genres),
+    JSON.stringify(m.directors),
+    JSON.stringify(m.cast),
+  ].join('\0');
+}
+
 function buildSchema(movie, canonicalUrl) {
   const year = (movie.release_date || '').slice(0, 4);
 
@@ -652,7 +671,7 @@ function generateSitemap(movies, topMonths = []) {
   const today = new Date().toISOString().slice(0, 10);
 
   const movieUrls = movies.map(m => {
-    const lastmod = m.release_date || today;
+    const lastmod = m.dataUpdatedAt || today;
     return `  <url>\n    <loc>${SITE_BASE}/movie/${m.slug}/</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`;
   }).join('\n');
 
@@ -1189,6 +1208,11 @@ async function main() {
       console.log(`Filtered to ${detailedMovies.length} / ${before} movies (${filterFrom} → ${filterTo})`);
     }
     console.log(`Loaded ${detailedMovies.length} movies from existing data — skipping API fetch`);
+    // Bootstrap dataUpdatedAt for any movie that doesn't have it yet
+    const todayRegen = new Date().toISOString().slice(0, 10);
+    for (const m of detailedMovies) {
+      if (!m.dataUpdatedAt) m.dataUpdatedAt = todayRegen;
+    }
   } else {
     // Build month range: 1 month back → 12 months forward
     const now = new Date();
@@ -1278,6 +1302,19 @@ async function main() {
     console.log(`\nFetched details for ${Object.keys(detailsMap).length} movies`);
 
     detailedMovies = Object.values(detailsMap);
+
+    // Stamp dataUpdatedAt — only advance the date when page-relevant data changed
+    const today = new Date().toISOString().slice(0, 10);
+    const existingMovieMap = {};
+    for (const m of loadJSON(MOVIES_PATH, [])) existingMovieMap[m.id] = m;
+    for (const movie of detailedMovies) {
+      const prev = existingMovieMap[movie.id];
+      if (!prev || movieFingerprint(movie) !== movieFingerprint(prev)) {
+        movie.dataUpdatedAt = today;
+      } else {
+        movie.dataUpdatedAt = prev.dataUpdatedAt || today;
+      }
+    }
 
     // Assign slugs first so buildCalendarFiles can embed them
     assignSlugs(detailedMovies, manifest);
