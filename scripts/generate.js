@@ -342,6 +342,8 @@ function buildMoviePage(movie) {
   const backdrop    = movie.backdrop_path ? `${IMG_BASE}w1280${movie.backdrop_path}` : '';
   const poster      = movie.poster_path   ? `${IMG_BASE}w500${movie.poster_path}`   : '';
   const canonicalUrl = `${SITE_BASE}/movie/${movie.slug}/`;
+  const today       = new Date().toISOString().slice(0, 10);
+  const isFuture    = !!movie.release_date && movie.release_date >= today;
 
   const releaseDate = movie.release_date
     ? new Date(movie.release_date + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' })
@@ -466,9 +468,18 @@ function buildMoviePage(movie) {
     .movie-crew strong { color: #ddd; }
     .movie-overview { font-size: 0.975rem; color: #bbb; line-height: 1.75; }
 
-    .wl-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem; padding: 0.6rem 1.3rem; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
+    .movie-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: 1.25rem; }
+    .wl-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.3rem; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
     .wl-btn:hover { border-color: #e94560; color: #e94560; background: rgba(233,69,96,0.07); }
     .wl-btn.wl-active { background: #e94560; border-color: #e94560; color: #fff; }
+
+    .cal-wrap { position: relative; display: inline-block; }
+    .cal-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.3rem; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
+    .cal-btn:hover, .cal-btn.open { border-color: #4a9eff; color: #4a9eff; background: rgba(74,158,255,0.07); }
+    .cal-menu { display: none; position: absolute; top: calc(100% + 6px); left: 0; min-width: 180px; background: #1a1a1a; border: 1px solid #2e2e2e; border-radius: 10px; overflow: hidden; z-index: 100; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+    .cal-menu.open { display: block; }
+    .cal-menu a { display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 1rem; color: #ccc; text-decoration: none; font-size: 0.85rem; transition: background 0.12s, color 0.12s; }
+    .cal-menu a:hover { background: rgba(74,158,255,0.1); color: #4a9eff; }
 
     .trailer-section { margin-top: 2.5rem; }
     .trailer-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 14px; overflow: hidden; background: #111; }
@@ -563,7 +574,17 @@ function buildMoviePage(movie) {
         ${cast      ? `<span>&#127775; ${cast}</span>`                                   : ''}
       </div>
       <p class="movie-overview">${overview}</p>
-      <button class="wl-btn" id="wl-btn" data-id="${movie.id}">&#9825; Add to Watchlist</button>
+      <div class="movie-actions">
+        <button class="wl-btn" id="wl-btn" data-id="${movie.id}">&#9825; Add to Watchlist</button>
+        ${isFuture ? `
+        <div class="cal-wrap" id="cal-wrap">
+          <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
+          <div class="cal-menu" id="cal-menu">
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" id="cal-ics">&#127822; Apple Calendar (.ics)</a>
+          </div>
+        </div>` : ''}
+      </div>
     </div>
   </div>
   <script>
@@ -588,6 +609,81 @@ function buildMoviePage(movie) {
       render();
     })();
   </script>
+
+  ${isFuture ? `
+  <script>
+    (function(){
+      var calBtn  = document.getElementById('cal-btn');
+      var calMenu = document.getElementById('cal-menu');
+      var calWrap = document.getElementById('cal-wrap');
+      if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = ${JSON.stringify(movie.countryReleases || {})};
+      var globalDate   = ${JSON.stringify(movie.release_date)};
+      var calTitle     = ${JSON.stringify(movie.title + (year ? ' (' + year + ')' : ''))};
+      var calDesc      = ${JSON.stringify((movie.overview || '').slice(0, 500) + '\n\nMore info: ' + canonicalUrl)};
+      var icsSummary   = ${JSON.stringify((movie.title + (year ? ' (' + year + ')' : '')).replace(/[,;\\]/g, function(c){ return '\\' + c; }))};
+      var icsDescBody  = ${JSON.stringify(((movie.overview || '').slice(0, 500) + '\n\nMore info: ' + canonicalUrl).replace(/[\n,;\\]/g, function(c){ return c === '\n' ? '\\n' : '\\' + c; }))};
+      var icsUid       = ${JSON.stringify('movie-' + movie.id + '@moviereleasecalendar.com')};
+      var icsCanonical = ${JSON.stringify(canonicalUrl)};
+      var icsFile      = ${JSON.stringify((movie.title + (year ? ' (' + year + ')' : '')).replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '.ics')};
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      // ICS download
+      document.getElementById('cal-ics').addEventListener('click', function(e){
+        e.preventDefault();
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\\r\\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = icsFile;
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
+        calMenu.classList.remove('open'); calBtn.classList.remove('open');
+      });
+
+      // Toggle dropdown
+      calBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var open = calMenu.classList.toggle('open');
+        calBtn.classList.toggle('open', open);
+      });
+      document.addEventListener('click', function(e){
+        if (!calWrap.contains(e.target)){
+          calMenu.classList.remove('open'); calBtn.classList.remove('open');
+        }
+      });
+    })();
+  </script>` : ''}
 
   ${movie.trailerKey ? `
   <section class="trailer-section">
