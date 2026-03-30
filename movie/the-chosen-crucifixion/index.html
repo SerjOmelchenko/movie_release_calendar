@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Chosen%3A%20Crucifixion%20(2027)&amp;dates=20270312/20270313&amp;details=The%20sixth%20season%20finale%20of%20the%20popular%20Biblical%20television%20series%2C%20following%20Jesus'%20arrest%20and%20trial%20leading%20up%20to%20His%20crucifixion.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-chosen-crucifixion%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Chosen%3A%20Crucifixion%20(2027)&amp;startdt=2027-03-12&amp;enddt=2027-03-13&amp;allday=true&amp;body=The%20sixth%20season%20finale%20of%20the%20popular%20Biblical%20television%20series%2C%20following%20Jesus'%20arrest%20and%20trial%20leading%20up%20to%20His%20crucifixion.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-chosen-crucifixion%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Chosen%3A%20Crucifixion%20(2027)&amp;ST=20270312&amp;ET=20270313&amp;in_loc=&amp;DESC=The%20sixth%20season%20finale%20of%20the%20popular%20Biblical%20television%20series%2C%20following%20Jesus'%20arrest%20and%20trial%20leading%20up%20to%20His%20crucifixion.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-chosen-crucifixion%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-03-12","AT":"2027-03-12","BE":"2027-03-12","BR":"2027-03-12","BG":"2027-03-12","CA":"2027-03-12","CN":"2027-03-12","HR":"2027-03-12","CY":"2027-03-12","CZ":"2027-03-12","DK":"2027-03-12","EE":"2027-03-12","FI":"2027-03-12","FR":"2027-03-12","DE":"2027-03-12","GR":"2027-03-12","HU":"2027-03-12","IN":"2027-03-12","IE":"2027-03-12","IT":"2027-03-12","JP":"2027-03-12","LV":"2027-03-12","LT":"2027-03-12","LU":"2027-03-12","MT":"2027-03-12","NL":"2027-03-12","PL":"2027-03-12","PT":"2027-03-12","RO":"2027-03-12","SK":"2027-03-12","SI":"2027-03-12","KR":"2027-03-12","ES":"2027-03-12","SE":"2027-03-12","GB":"2027-03-12","UA":"2027-03-12","US":"2027-03-12"};
+      var globalDate   = "2027-03-12";
+      var calTitle     = "The Chosen: Crucifixion (2027)";
+      var calDesc      = "The sixth season finale of the popular Biblical television series, following Jesus' arrest and trial leading up to His crucifixion.\n\nMore info: https://moviereleaseradar.com/movie/the-chosen-crucifixion/";
+      var icsSummary   = "The Chosen: Crucifixion (2027)";
+      var icsDescBody  = "The sixth season finale of the popular Biblical television series\\, following Jesus' arrest and trial leading up to His crucifixion.\\n\\nMore info: https://moviereleaseradar.com/movie/the-chosen-crucifixion/";
+      var icsUid       = "movie-1487395@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/the-chosen-crucifixion/";
+      var icsFile      = "the-chosen-crucifixion-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1487395@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270312\r\nDTEND;VALUE=DATE:20270313\r\nSUMMARY:The Chosen: Crucifixion (2027)\r\nDESCRIPTION:The sixth season finale of the popular Biblical television series\\, following Jesus' arrest and trial leading up to His crucifixion.\\n\\nMore info: https://moviereleaseradar.com/movie/the-chosen-crucifixion/\r\nURL:https://moviereleaseradar.com/movie/the-chosen-crucifixion/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "the-chosen-crucifixion-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Nicol%C3%A1s%20de%20Jes%C3%BAs'%20Now%20You%20See%20Me...%20(2026)&amp;dates=20260626/20260627&amp;details=Struggling%20fair%20owner%20Kesselring%20(Nicol%C3%A1s%20de%20Jes%C3%BAs)%20is%20given%20a%20unique%20opportunity%20to%20restore%20the%20fair%20to%20its%20former%20glory%20when%20his%20friend%20Dr.%20Goodkat%20(Fredy%20Roque)%20introduces%20him%20to%20Marcus%20Kelevra%20(Alexis%20Adri%C3%A1n)%2C%20a%20man%20whose%20mysterious%20act%20will%20draw%20people%20back%20to%20the%20fair%2C%20at%20a%20deadly%20cost%2C%20and%20even%20sparking%20interest%20among%20his%20fellow%20fairgoers.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fnicolas-de-jesus-now-you-see-me%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Nicol%C3%A1s%20de%20Jes%C3%BAs'%20Now%20You%20See%20Me...%20(2026)&amp;startdt=2026-06-26&amp;enddt=2026-06-27&amp;allday=true&amp;body=Struggling%20fair%20owner%20Kesselring%20(Nicol%C3%A1s%20de%20Jes%C3%BAs)%20is%20given%20a%20unique%20opportunity%20to%20restore%20the%20fair%20to%20its%20former%20glory%20when%20his%20friend%20Dr.%20Goodkat%20(Fredy%20Roque)%20introduces%20him%20to%20Marcus%20Kelevra%20(Alexis%20Adri%C3%A1n)%2C%20a%20man%20whose%20mysterious%20act%20will%20draw%20people%20back%20to%20the%20fair%2C%20at%20a%20deadly%20cost%2C%20and%20even%20sparking%20interest%20among%20his%20fellow%20fairgoers.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fnicolas-de-jesus-now-you-see-me%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Nicol%C3%A1s%20de%20Jes%C3%BAs'%20Now%20You%20See%20Me...%20(2026)&amp;ST=20260626&amp;ET=20260627&amp;in_loc=&amp;DESC=Struggling%20fair%20owner%20Kesselring%20(Nicol%C3%A1s%20de%20Jes%C3%BAs)%20is%20given%20a%20unique%20opportunity%20to%20restore%20the%20fair%20to%20its%20former%20glory%20when%20his%20friend%20Dr.%20Goodkat%20(Fredy%20Roque)%20introduces%20him%20to%20Marcus%20Kelevra%20(Alexis%20Adri%C3%A1n)%2C%20a%20man%20whose%20mysterious%20act%20will%20draw%20people%20back%20to%20the%20fair%2C%20at%20a%20deadly%20cost%2C%20and%20even%20sparking%20interest%20among%20his%20fellow%20fairgoers.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fnicolas-de-jesus-now-you-see-me%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-06-26","AT":"2026-06-26","BE":"2026-06-26","BR":"2026-07-23","BG":"2026-06-26","CA":"2026-06-26","CN":"2026-06-26","HR":"2026-06-26","CY":"2026-06-26","CZ":"2026-06-26","DK":"2026-06-26","EE":"2026-06-26","FI":"2026-06-26","FR":"2026-08-06","DE":"2026-06-26","GR":"2026-06-26","HU":"2026-06-26","IN":"2026-06-26","IE":"2026-06-26","IT":"2026-06-26","JP":"2026-06-26","LV":"2026-06-26","LT":"2026-06-26","LU":"2026-06-26","MT":"2026-06-26","NL":"2026-06-26","PL":"2026-06-26","PT":"2026-06-26","RO":"2026-06-26","SK":"2026-06-26","SI":"2026-06-26","KR":"2026-06-26","ES":"2026-08-06","SE":"2026-06-26","GB":"2026-07-16","UA":"2026-06-26","US":"2026-06-26"};
+      var globalDate   = "2026-06-26";
+      var calTitle     = "Nicolás de Jesús' Now You See Me... (2026)";
+      var calDesc      = "Struggling fair owner Kesselring (Nicolás de Jesús) is given a unique opportunity to restore the fair to its former glory when his friend Dr. Goodkat (Fredy Roque) introduces him to Marcus Kelevra (Alexis Adrián), a man whose mysterious act will draw people back to the fair, at a deadly cost, and even sparking interest among his fellow fairgoers.\n\nMore info: https://moviereleaseradar.com/movie/nicolas-de-jesus-now-you-see-me/";
+      var icsSummary   = "Nicolás de Jesús' Now You See Me... (2026)";
+      var icsDescBody  = "Struggling fair owner Kesselring (Nicolás de Jesús) is given a unique opportunity to restore the fair to its former glory when his friend Dr. Goodkat (Fredy Roque) introduces him to Marcus Kelevra (Alexis Adrián)\\, a man whose mysterious act will draw people back to the fair\\, at a deadly cost\\, and even sparking interest among his fellow fairgoers.\\n\\nMore info: https://moviereleaseradar.com/movie/nicolas-de-jesus-now-you-see-me/";
+      var icsUid       = "movie-1450771@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/nicolas-de-jesus-now-you-see-me/";
+      var icsFile      = "nicol-s-de-jes-s-now-you-see-me-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1450771@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260626\r\nDTEND;VALUE=DATE:20260627\r\nSUMMARY:Nicolás de Jesús' Now You See Me... (2026)\r\nDESCRIPTION:Struggling fair owner Kesselring (Nicolás de Jesús) is given a unique opportunity to restore the fair to its former glory when his friend Dr. Goodkat (Fredy Roque) introduces him to Marcus Kelevra (Alexis Adrián)\\, a man whose mysterious act will draw people back to the fair\\, at a deadly cost\\, and even sparking interest among his fellow fairgoers.\\n\\nMore info: https://moviereleaseradar.com/movie/nicolas-de-jesus-now-you-see-me/\r\nURL:https://moviereleaseradar.com/movie/nicolas-de-jesus-now-you-see-me/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "nicol-s-de-jes-s-now-you-see-me-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

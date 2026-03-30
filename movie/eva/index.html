@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Eva%20(2026)&amp;dates=20260421/20260422&amp;details=Eva%2C%20a%20mysterious%20woman%20who%20lives%20in%20the%20forest%2C%20sets%20a%20field%20of%20sunflowers%20on%20fire.%20She%20tells%20the%20police%20commissioner%20who%20arrests%20her%20that%20she%20did%20it%20because%20the%20children%20are%20in%20danger%20and%20must%20be%20protected.%20Eva%20believes%20she%20has%20a%20mission%20and%20she%20talks%20like%20a%20preacher%2C%20a%20sort%20of%20Joan%20of%20Arc.%20She%20sees%20strange%20blue%20lights%20in%20the%20sky.%20Her%20case%20is%20associated%20with%20the%20mysterious%20disappearance%20of%20children%20that%20have%20been%20occurring%20in%20the%20area%2C%20even%20if%20the%20youngsters%20seem%20to%20gladly%20follow%20her%20around.%20I%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Feva%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Eva%20(2026)&amp;startdt=2026-04-21&amp;enddt=2026-04-22&amp;allday=true&amp;body=Eva%2C%20a%20mysterious%20woman%20who%20lives%20in%20the%20forest%2C%20sets%20a%20field%20of%20sunflowers%20on%20fire.%20She%20tells%20the%20police%20commissioner%20who%20arrests%20her%20that%20she%20did%20it%20because%20the%20children%20are%20in%20danger%20and%20must%20be%20protected.%20Eva%20believes%20she%20has%20a%20mission%20and%20she%20talks%20like%20a%20preacher%2C%20a%20sort%20of%20Joan%20of%20Arc.%20She%20sees%20strange%20blue%20lights%20in%20the%20sky.%20Her%20case%20is%20associated%20with%20the%20mysterious%20disappearance%20of%20children%20that%20have%20been%20occurring%20in%20the%20area%2C%20even%20if%20the%20youngsters%20seem%20to%20gladly%20follow%20her%20around.%20I%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Feva%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Eva%20(2026)&amp;ST=20260421&amp;ET=20260422&amp;in_loc=&amp;DESC=Eva%2C%20a%20mysterious%20woman%20who%20lives%20in%20the%20forest%2C%20sets%20a%20field%20of%20sunflowers%20on%20fire.%20She%20tells%20the%20police%20commissioner%20who%20arrests%20her%20that%20she%20did%20it%20because%20the%20children%20are%20in%20danger%20and%20must%20be%20protected.%20Eva%20believes%20she%20has%20a%20mission%20and%20she%20talks%20like%20a%20preacher%2C%20a%20sort%20of%20Joan%20of%20Arc.%20She%20sees%20strange%20blue%20lights%20in%20the%20sky.%20Her%20case%20is%20associated%20with%20the%20mysterious%20disappearance%20of%20children%20that%20have%20been%20occurring%20in%20the%20area%2C%20even%20if%20the%20youngsters%20seem%20to%20gladly%20follow%20her%20around.%20I%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Feva%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-21","AT":"2026-04-21","BE":"2026-04-21","BR":"2026-04-21","BG":"2026-04-21","CA":"2026-04-21","CN":"2026-04-21","HR":"2026-04-21","CY":"2026-04-21","CZ":"2026-04-21","DK":"2026-04-21","EE":"2026-04-21","FI":"2026-04-21","FR":"2026-04-21","DE":"2026-04-21","GR":"2026-04-21","HU":"2026-04-21","IN":"2026-04-21","IE":"2026-04-21","IT":"2026-04-21","JP":"2026-04-21","LV":"2026-04-21","LT":"2026-04-21","LU":"2026-04-21","MT":"2026-04-21","NL":"2026-04-21","PL":"2026-04-21","PT":"2026-04-21","RO":"2026-04-21","SK":"2026-04-21","SI":"2026-04-21","KR":"2026-04-21","ES":"2026-04-21","SE":"2026-04-21","GB":"2026-04-21","UA":"2026-04-21","US":"2026-04-21"};
+      var globalDate   = "2026-04-21";
+      var calTitle     = "Eva (2026)";
+      var calDesc      = "Eva, a mysterious woman who lives in the forest, sets a field of sunflowers on fire. She tells the police commissioner who arrests her that she did it because the children are in danger and must be protected. Eva believes she has a mission and she talks like a preacher, a sort of Joan of Arc. She sees strange blue lights in the sky. Her case is associated with the mysterious disappearance of children that have been occurring in the area, even if the youngsters seem to gladly follow her around. I\n\nMore info: https://moviereleaseradar.com/movie/eva/";
+      var icsSummary   = "Eva (2026)";
+      var icsDescBody  = "Eva\\, a mysterious woman who lives in the forest\\, sets a field of sunflowers on fire. She tells the police commissioner who arrests her that she did it because the children are in danger and must be protected. Eva believes she has a mission and she talks like a preacher\\, a sort of Joan of Arc. She sees strange blue lights in the sky. Her case is associated with the mysterious disappearance of children that have been occurring in the area\\, even if the youngsters seem to gladly follow her around. I\\n\\nMore info: https://moviereleaseradar.com/movie/eva/";
+      var icsUid       = "movie-1570913@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/eva/";
+      var icsFile      = "eva-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1570913@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260421\r\nDTEND;VALUE=DATE:20260422\r\nSUMMARY:Eva (2026)\r\nDESCRIPTION:Eva\\, a mysterious woman who lives in the forest\\, sets a field of sunflowers on fire. She tells the police commissioner who arrests her that she did it because the children are in danger and must be protected. Eva believes she has a mission and she talks like a preacher\\, a sort of Joan of Arc. She sees strange blue lights in the sky. Her case is associated with the mysterious disappearance of children that have been occurring in the area\\, even if the youngsters seem to gladly follow her around. I\\n\\nMore info: https://moviereleaseradar.com/movie/eva/\r\nURL:https://moviereleaseradar.com/movie/eva/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "eva-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

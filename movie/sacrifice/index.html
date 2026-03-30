@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Sacrifice%20(2026)&amp;dates=20260820/20260821&amp;details=During%20a%20star-studded%20charity%20gala%20brimming%20with%20celebrities%2C%20billionaires%20and%20empty%20speeches%2C%20a%20movie%20star%20in%20the%20midst%20of%20an%20existential%20crisis%20is%20taken%20hostage%20by%20a%20radical%20warrior%20and%20her%20devoted%20followers.%20As%20the%20night%20descends%20into%20chaos%2C%20both%20an%20inward%20journey%20and%20an%20outward%20adventure%20ensue%2C%20where%20the%20line%20between%20performance%20and%20belief%2C%20salvation%20and%20sacrifice%2C%20begins%20to%20blur.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fsacrifice%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Sacrifice%20(2026)&amp;startdt=2026-08-20&amp;enddt=2026-08-21&amp;allday=true&amp;body=During%20a%20star-studded%20charity%20gala%20brimming%20with%20celebrities%2C%20billionaires%20and%20empty%20speeches%2C%20a%20movie%20star%20in%20the%20midst%20of%20an%20existential%20crisis%20is%20taken%20hostage%20by%20a%20radical%20warrior%20and%20her%20devoted%20followers.%20As%20the%20night%20descends%20into%20chaos%2C%20both%20an%20inward%20journey%20and%20an%20outward%20adventure%20ensue%2C%20where%20the%20line%20between%20performance%20and%20belief%2C%20salvation%20and%20sacrifice%2C%20begins%20to%20blur.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fsacrifice%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Sacrifice%20(2026)&amp;ST=20260820&amp;ET=20260821&amp;in_loc=&amp;DESC=During%20a%20star-studded%20charity%20gala%20brimming%20with%20celebrities%2C%20billionaires%20and%20empty%20speeches%2C%20a%20movie%20star%20in%20the%20midst%20of%20an%20existential%20crisis%20is%20taken%20hostage%20by%20a%20radical%20warrior%20and%20her%20devoted%20followers.%20As%20the%20night%20descends%20into%20chaos%2C%20both%20an%20inward%20journey%20and%20an%20outward%20adventure%20ensue%2C%20where%20the%20line%20between%20performance%20and%20belief%2C%20salvation%20and%20sacrifice%2C%20begins%20to%20blur.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fsacrifice%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-08-20","AT":"2026-08-20","BE":"2026-08-20","BR":"2026-08-20","BG":"2026-08-20","CA":"2025-09-06","CN":"2026-08-20","HR":"2026-08-20","CY":"2026-08-20","CZ":"2026-08-20","DK":"2026-08-20","EE":"2026-08-20","FI":"2026-08-20","FR":"2026-08-20","DE":"2026-08-20","GR":"2026-08-20","HU":"2026-08-20","IN":"2026-08-20","IE":"2026-08-20","IT":"2026-08-20","JP":"2026-08-20","LV":"2026-08-20","LT":"2026-08-20","LU":"2026-08-20","MT":"2026-08-20","NL":"2026-08-20","PL":"2026-08-20","PT":"2026-08-20","RO":"2026-08-20","SK":"2026-08-20","SI":"2026-08-20","KR":"2026-08-20","ES":"2026-08-20","SE":"2026-08-20","GB":"2026-08-20","UA":"2026-08-20","US":"2026-08-20"};
+      var globalDate   = "2026-08-20";
+      var calTitle     = "Sacrifice (2026)";
+      var calDesc      = "During a star-studded charity gala brimming with celebrities, billionaires and empty speeches, a movie star in the midst of an existential crisis is taken hostage by a radical warrior and her devoted followers. As the night descends into chaos, both an inward journey and an outward adventure ensue, where the line between performance and belief, salvation and sacrifice, begins to blur.\n\nMore info: https://moviereleaseradar.com/movie/sacrifice/";
+      var icsSummary   = "Sacrifice (2026)";
+      var icsDescBody  = "During a star-studded charity gala brimming with celebrities\\, billionaires and empty speeches\\, a movie star in the midst of an existential crisis is taken hostage by a radical warrior and her devoted followers. As the night descends into chaos\\, both an inward journey and an outward adventure ensue\\, where the line between performance and belief\\, salvation and sacrifice\\, begins to blur.\\n\\nMore info: https://moviereleaseradar.com/movie/sacrifice/";
+      var icsUid       = "movie-1284186@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/sacrifice/";
+      var icsFile      = "sacrifice-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1284186@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260820\r\nDTEND;VALUE=DATE:20260821\r\nSUMMARY:Sacrifice (2026)\r\nDESCRIPTION:During a star-studded charity gala brimming with celebrities\\, billionaires and empty speeches\\, a movie star in the midst of an existential crisis is taken hostage by a radical warrior and her devoted followers. As the night descends into chaos\\, both an inward journey and an outward adventure ensue\\, where the line between performance and belief\\, salvation and sacrifice\\, begins to blur.\\n\\nMore info: https://moviereleaseradar.com/movie/sacrifice/\r\nURL:https://moviereleaseradar.com/movie/sacrifice/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "sacrifice-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

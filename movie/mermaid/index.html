@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Mermaid%20(2026)&amp;dates=20260408/20260409&amp;details=A%20Percocet-addicted%20%E2%80%98Florida%20Man%E2%80%99%20finds%20a%20wounded%20mermaid%20at%20his%20lowest%20point.%20Fascination%20becomes%20a%20drug%20infused%2C%20one%20sided%20relationship%20%E2%80%94%20sending%20him%20further%20into%20decline.%20When%20word%20spreads%20about%20his%20secret%2C%20he%E2%80%99ll%20stop%20at%20nothing%20to%20protect%20her.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmermaid%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Mermaid%20(2026)&amp;startdt=2026-04-08&amp;enddt=2026-04-09&amp;allday=true&amp;body=A%20Percocet-addicted%20%E2%80%98Florida%20Man%E2%80%99%20finds%20a%20wounded%20mermaid%20at%20his%20lowest%20point.%20Fascination%20becomes%20a%20drug%20infused%2C%20one%20sided%20relationship%20%E2%80%94%20sending%20him%20further%20into%20decline.%20When%20word%20spreads%20about%20his%20secret%2C%20he%E2%80%99ll%20stop%20at%20nothing%20to%20protect%20her.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmermaid%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Mermaid%20(2026)&amp;ST=20260408&amp;ET=20260409&amp;in_loc=&amp;DESC=A%20Percocet-addicted%20%E2%80%98Florida%20Man%E2%80%99%20finds%20a%20wounded%20mermaid%20at%20his%20lowest%20point.%20Fascination%20becomes%20a%20drug%20infused%2C%20one%20sided%20relationship%20%E2%80%94%20sending%20him%20further%20into%20decline.%20When%20word%20spreads%20about%20his%20secret%2C%20he%E2%80%99ll%20stop%20at%20nothing%20to%20protect%20her.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmermaid%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-08","AT":"2026-04-08","BE":"2026-04-08","BR":"2026-04-08","BG":"2026-04-08","CA":"2026-04-08","CN":"2026-04-08","HR":"2026-04-08","CY":"2026-04-08","CZ":"2026-04-08","DK":"2026-04-08","EE":"2026-04-08","FI":"2026-04-08","FR":"2026-04-08","DE":"2025-05-08","GR":"2026-04-08","HU":"2026-04-08","IN":"2026-04-08","IE":"2026-04-08","IT":"2026-04-08","JP":"2026-04-08","LV":"2026-04-08","LT":"2026-04-08","LU":"2026-04-08","MT":"2026-04-08","NL":"2026-04-08","PL":"2025-10-31","PT":"2026-04-08","RO":"2026-04-08","SK":"2026-04-08","SI":"2026-04-08","KR":"2026-04-08","ES":"2026-04-08","SE":"2025-10-17","GB":"2026-04-08","UA":"2026-04-08","US":"2026-04-08"};
+      var globalDate   = "2026-04-08";
+      var calTitle     = "Mermaid (2026)";
+      var calDesc      = "A Percocet-addicted ‘Florida Man’ finds a wounded mermaid at his lowest point. Fascination becomes a drug infused, one sided relationship — sending him further into decline. When word spreads about his secret, he’ll stop at nothing to protect her.\n\nMore info: https://moviereleaseradar.com/movie/mermaid/";
+      var icsSummary   = "Mermaid (2026)";
+      var icsDescBody  = "A Percocet-addicted ‘Florida Man’ finds a wounded mermaid at his lowest point. Fascination becomes a drug infused\\, one sided relationship — sending him further into decline. When word spreads about his secret\\, he’ll stop at nothing to protect her.\\n\\nMore info: https://moviereleaseradar.com/movie/mermaid/";
+      var icsUid       = "movie-1422120@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/mermaid/";
+      var icsFile      = "mermaid-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1422120@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260408\r\nDTEND;VALUE=DATE:20260409\r\nSUMMARY:Mermaid (2026)\r\nDESCRIPTION:A Percocet-addicted ‘Florida Man’ finds a wounded mermaid at his lowest point. Fascination becomes a drug infused\\, one sided relationship — sending him further into decline. When word spreads about his secret\\, he’ll stop at nothing to protect her.\\n\\nMore info: https://moviereleaseradar.com/movie/mermaid/\r\nURL:https://moviereleaseradar.com/movie/mermaid/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "mermaid-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

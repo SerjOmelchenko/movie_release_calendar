@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Kuncen%20(2026)&amp;dates=20260820/20260821&amp;details=Darus%20(62)%20is%20a%20river%20guardian.%20He%20practices%20rituals%20and%20adheres%20to%20beliefs%20as%20a%20form%20of%20reciprocity%20with%20nature.%20One%20day%2C%20Darus%20hears%20news%20of%20a%20child%20missing%20in%20the%20river%20and%20is%20asked%20by%20the%20community%20to%20help%20with%20the%20search.%20However%2C%20his%20advancing%20age%20and%20an%20increasingly%20toxic%20relationship%20with%20the%20river%20have%20left%20him%20unable%20to%20go%20near%20it%2C%20to%20the%20point%20of%20causing%20him%20distress.%20Darus%20is%20trapped%20in%20a%20dilemma%3A%20saving%20the%20missing%20child%20or%20protecting%20himself.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fkuncen%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Kuncen%20(2026)&amp;startdt=2026-08-20&amp;enddt=2026-08-21&amp;allday=true&amp;body=Darus%20(62)%20is%20a%20river%20guardian.%20He%20practices%20rituals%20and%20adheres%20to%20beliefs%20as%20a%20form%20of%20reciprocity%20with%20nature.%20One%20day%2C%20Darus%20hears%20news%20of%20a%20child%20missing%20in%20the%20river%20and%20is%20asked%20by%20the%20community%20to%20help%20with%20the%20search.%20However%2C%20his%20advancing%20age%20and%20an%20increasingly%20toxic%20relationship%20with%20the%20river%20have%20left%20him%20unable%20to%20go%20near%20it%2C%20to%20the%20point%20of%20causing%20him%20distress.%20Darus%20is%20trapped%20in%20a%20dilemma%3A%20saving%20the%20missing%20child%20or%20protecting%20himself.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fkuncen%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Kuncen%20(2026)&amp;ST=20260820&amp;ET=20260821&amp;in_loc=&amp;DESC=Darus%20(62)%20is%20a%20river%20guardian.%20He%20practices%20rituals%20and%20adheres%20to%20beliefs%20as%20a%20form%20of%20reciprocity%20with%20nature.%20One%20day%2C%20Darus%20hears%20news%20of%20a%20child%20missing%20in%20the%20river%20and%20is%20asked%20by%20the%20community%20to%20help%20with%20the%20search.%20However%2C%20his%20advancing%20age%20and%20an%20increasingly%20toxic%20relationship%20with%20the%20river%20have%20left%20him%20unable%20to%20go%20near%20it%2C%20to%20the%20point%20of%20causing%20him%20distress.%20Darus%20is%20trapped%20in%20a%20dilemma%3A%20saving%20the%20missing%20child%20or%20protecting%20himself.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fkuncen%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-08-20","AT":"2026-08-20","BE":"2026-08-20","BR":"2026-08-20","BG":"2026-08-20","CA":"2026-08-20","CN":"2026-08-20","HR":"2026-08-20","CY":"2026-08-20","CZ":"2026-08-20","DK":"2026-08-20","EE":"2026-08-20","FI":"2026-08-20","FR":"2026-08-20","DE":"2026-08-20","GR":"2026-08-20","HU":"2026-08-20","IN":"2026-08-20","IE":"2026-08-20","IT":"2026-08-20","JP":"2026-08-20","LV":"2026-08-20","LT":"2026-08-20","LU":"2026-08-20","MT":"2026-08-20","NL":"2026-08-20","PL":"2026-08-20","PT":"2026-08-20","RO":"2026-08-20","SK":"2026-08-20","SI":"2026-08-20","KR":"2026-08-20","ES":"2026-08-20","SE":"2026-08-20","GB":"2026-08-20","UA":"2026-08-20","US":"2026-08-20"};
+      var globalDate   = "2026-08-20";
+      var calTitle     = "Kuncen (2026)";
+      var calDesc      = "Darus (62) is a river guardian. He practices rituals and adheres to beliefs as a form of reciprocity with nature. One day, Darus hears news of a child missing in the river and is asked by the community to help with the search. However, his advancing age and an increasingly toxic relationship with the river have left him unable to go near it, to the point of causing him distress. Darus is trapped in a dilemma: saving the missing child or protecting himself.\n\nMore info: https://moviereleaseradar.com/movie/kuncen/";
+      var icsSummary   = "Kuncen (2026)";
+      var icsDescBody  = "Darus (62) is a river guardian. He practices rituals and adheres to beliefs as a form of reciprocity with nature. One day\\, Darus hears news of a child missing in the river and is asked by the community to help with the search. However\\, his advancing age and an increasingly toxic relationship with the river have left him unable to go near it\\, to the point of causing him distress. Darus is trapped in a dilemma: saving the missing child or protecting himself.\\n\\nMore info: https://moviereleaseradar.com/movie/kuncen/";
+      var icsUid       = "movie-1620584@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/kuncen/";
+      var icsFile      = "kuncen-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1620584@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260820\r\nDTEND;VALUE=DATE:20260821\r\nSUMMARY:Kuncen (2026)\r\nDESCRIPTION:Darus (62) is a river guardian. He practices rituals and adheres to beliefs as a form of reciprocity with nature. One day\\, Darus hears news of a child missing in the river and is asked by the community to help with the search. However\\, his advancing age and an increasingly toxic relationship with the river have left him unable to go near it\\, to the point of causing him distress. Darus is trapped in a dilemma: saving the missing child or protecting himself.\\n\\nMore info: https://moviereleaseradar.com/movie/kuncen/\r\nURL:https://moviereleaseradar.com/movie/kuncen/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "kuncen-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Born%20to%20Fake%20(2026)&amp;dates=20260528/20260529&amp;details=In%201996%2C%20one%20of%20the%20biggest%20media%20scandals%20in%20German%20history%20shook%20the%20public%3A%20Michael%20Born%2C%20a%20self-made%20journalist%2C%20had%20faked%20over%20twenty%20reports%20for%20the%20newly%20established%20private%20television%20station%20between%201990%20and%201996.%20Some%20seemed%20amateurish%2C%20others%20dealt%20with%20absurd%20topics%3A%20child%20labor%20for%20IKEA%20in%20India%2C%20drug%20addicts%20licking%20toads%20to%20get%20high%2C%20and%20the%20Ku%20Klux%20Klan%20in%20the%20Eifel%20region%20were%20just%20some%20of%20his%20numerous%20fabrications.%20How%20did%20it%20come%20to%20this%3F%20Was%20Michael%20Born%20an%20enlightened%20figure%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fborn-to-fake%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Born%20to%20Fake%20(2026)&amp;startdt=2026-05-28&amp;enddt=2026-05-29&amp;allday=true&amp;body=In%201996%2C%20one%20of%20the%20biggest%20media%20scandals%20in%20German%20history%20shook%20the%20public%3A%20Michael%20Born%2C%20a%20self-made%20journalist%2C%20had%20faked%20over%20twenty%20reports%20for%20the%20newly%20established%20private%20television%20station%20between%201990%20and%201996.%20Some%20seemed%20amateurish%2C%20others%20dealt%20with%20absurd%20topics%3A%20child%20labor%20for%20IKEA%20in%20India%2C%20drug%20addicts%20licking%20toads%20to%20get%20high%2C%20and%20the%20Ku%20Klux%20Klan%20in%20the%20Eifel%20region%20were%20just%20some%20of%20his%20numerous%20fabrications.%20How%20did%20it%20come%20to%20this%3F%20Was%20Michael%20Born%20an%20enlightened%20figure%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fborn-to-fake%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Born%20to%20Fake%20(2026)&amp;ST=20260528&amp;ET=20260529&amp;in_loc=&amp;DESC=In%201996%2C%20one%20of%20the%20biggest%20media%20scandals%20in%20German%20history%20shook%20the%20public%3A%20Michael%20Born%2C%20a%20self-made%20journalist%2C%20had%20faked%20over%20twenty%20reports%20for%20the%20newly%20established%20private%20television%20station%20between%201990%20and%201996.%20Some%20seemed%20amateurish%2C%20others%20dealt%20with%20absurd%20topics%3A%20child%20labor%20for%20IKEA%20in%20India%2C%20drug%20addicts%20licking%20toads%20to%20get%20high%2C%20and%20the%20Ku%20Klux%20Klan%20in%20the%20Eifel%20region%20were%20just%20some%20of%20his%20numerous%20fabrications.%20How%20did%20it%20come%20to%20this%3F%20Was%20Michael%20Born%20an%20enlightened%20figure%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fborn-to-fake%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-05-28","AT":"2026-05-28","BE":"2026-05-28","BR":"2026-05-28","BG":"2026-05-28","CA":"2026-05-28","CN":"2026-05-28","HR":"2026-05-28","CY":"2026-05-28","CZ":"2026-05-28","DK":"2026-05-28","EE":"2026-05-28","FI":"2026-05-28","FR":"2026-05-28","DE":"2026-05-28","GR":"2026-05-28","HU":"2026-05-28","IN":"2026-05-28","IE":"2026-05-28","IT":"2026-05-28","JP":"2026-05-28","LV":"2026-05-28","LT":"2026-05-28","LU":"2026-05-28","MT":"2026-05-28","NL":"2026-05-28","PL":"2026-05-28","PT":"2026-05-28","RO":"2026-05-28","SK":"2026-05-28","SI":"2026-05-28","KR":"2026-05-28","ES":"2026-05-28","SE":"2026-05-28","GB":"2026-05-28","UA":"2026-05-28","US":"2026-05-28"};
+      var globalDate   = "2026-05-28";
+      var calTitle     = "Born to Fake (2026)";
+      var calDesc      = "In 1996, one of the biggest media scandals in German history shook the public: Michael Born, a self-made journalist, had faked over twenty reports for the newly established private television station between 1990 and 1996. Some seemed amateurish, others dealt with absurd topics: child labor for IKEA in India, drug addicts licking toads to get high, and the Ku Klux Klan in the Eifel region were just some of his numerous fabrications. How did it come to this? Was Michael Born an enlightened figure\n\nMore info: https://moviereleaseradar.com/movie/born-to-fake/";
+      var icsSummary   = "Born to Fake (2026)";
+      var icsDescBody  = "In 1996\\, one of the biggest media scandals in German history shook the public: Michael Born\\, a self-made journalist\\, had faked over twenty reports for the newly established private television station between 1990 and 1996. Some seemed amateurish\\, others dealt with absurd topics: child labor for IKEA in India\\, drug addicts licking toads to get high\\, and the Ku Klux Klan in the Eifel region were just some of his numerous fabrications. How did it come to this? Was Michael Born an enlightened figure\\n\\nMore info: https://moviereleaseradar.com/movie/born-to-fake/";
+      var icsUid       = "movie-1489036@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/born-to-fake/";
+      var icsFile      = "born-to-fake-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1489036@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260528\r\nDTEND;VALUE=DATE:20260529\r\nSUMMARY:Born to Fake (2026)\r\nDESCRIPTION:In 1996\\, one of the biggest media scandals in German history shook the public: Michael Born\\, a self-made journalist\\, had faked over twenty reports for the newly established private television station between 1990 and 1996. Some seemed amateurish\\, others dealt with absurd topics: child labor for IKEA in India\\, drug addicts licking toads to get high\\, and the Ku Klux Klan in the Eifel region were just some of his numerous fabrications. How did it come to this? Was Michael Born an enlightened figure\\n\\nMore info: https://moviereleaseradar.com/movie/born-to-fake/\r\nURL:https://moviereleaseradar.com/movie/born-to-fake/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "born-to-fake-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=4%20Kids%20Walk%20Into%20a%20Bank%20(2026)&amp;dates=20260416/20260417&amp;details=After%20losing%20her%20mother%2C%20Paige's%20grandfather%20steps%20into%20to%20become%20a%20more%20responsible%20guardian.%20But%20when%20a%20group%20of%20criminals%20show%20up%20at%20their%20door%20demanding%20that%20Paige's%20grandpa%20join%20them%20for%20one%20last%20job%2C%20she's%20faced%20with%20a%20decision%3A%20let%20her%20newly%20reformed%20grandpa%20dip%20back%20into%20his%20criminal%20ways%2C%20or%20enlist%20her%20three%20best%20friends%20to%20do%20the%20job%20first.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2F4-kids-walk-into-a-bank%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=4%20Kids%20Walk%20Into%20a%20Bank%20(2026)&amp;startdt=2026-04-16&amp;enddt=2026-04-17&amp;allday=true&amp;body=After%20losing%20her%20mother%2C%20Paige's%20grandfather%20steps%20into%20to%20become%20a%20more%20responsible%20guardian.%20But%20when%20a%20group%20of%20criminals%20show%20up%20at%20their%20door%20demanding%20that%20Paige's%20grandpa%20join%20them%20for%20one%20last%20job%2C%20she's%20faced%20with%20a%20decision%3A%20let%20her%20newly%20reformed%20grandpa%20dip%20back%20into%20his%20criminal%20ways%2C%20or%20enlist%20her%20three%20best%20friends%20to%20do%20the%20job%20first.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2F4-kids-walk-into-a-bank%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=4%20Kids%20Walk%20Into%20a%20Bank%20(2026)&amp;ST=20260416&amp;ET=20260417&amp;in_loc=&amp;DESC=After%20losing%20her%20mother%2C%20Paige's%20grandfather%20steps%20into%20to%20become%20a%20more%20responsible%20guardian.%20But%20when%20a%20group%20of%20criminals%20show%20up%20at%20their%20door%20demanding%20that%20Paige's%20grandpa%20join%20them%20for%20one%20last%20job%2C%20she's%20faced%20with%20a%20decision%3A%20let%20her%20newly%20reformed%20grandpa%20dip%20back%20into%20his%20criminal%20ways%2C%20or%20enlist%20her%20three%20best%20friends%20to%20do%20the%20job%20first.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2F4-kids-walk-into-a-bank%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-16","AT":"2026-04-16","BE":"2026-04-16","BR":"2026-04-16","BG":"2026-04-16","CA":"2026-04-16","CN":"2026-04-16","HR":"2026-04-16","CY":"2026-04-16","CZ":"2026-04-16","DK":"2026-04-16","EE":"2026-04-16","FI":"2026-04-16","FR":"2026-04-16","DE":"2026-04-16","GR":"2026-04-16","HU":"2026-04-16","IN":"2026-04-16","IE":"2026-04-16","IT":"2026-04-16","JP":"2026-04-16","LV":"2026-04-16","LT":"2026-04-16","LU":"2026-04-16","MT":"2026-04-16","NL":"2026-04-16","PL":"2026-04-16","PT":"2026-04-16","RO":"2026-04-16","SK":"2026-04-16","SI":"2026-04-16","KR":"2026-04-16","ES":"2026-04-16","SE":"2026-04-16","GB":"2026-04-16","UA":"2026-04-17","US":"2026-04-17"};
+      var globalDate   = "2026-04-16";
+      var calTitle     = "4 Kids Walk Into a Bank (2026)";
+      var calDesc      = "After losing her mother, Paige's grandfather steps into to become a more responsible guardian. But when a group of criminals show up at their door demanding that Paige's grandpa join them for one last job, she's faced with a decision: let her newly reformed grandpa dip back into his criminal ways, or enlist her three best friends to do the job first.\n\nMore info: https://moviereleaseradar.com/movie/4-kids-walk-into-a-bank/";
+      var icsSummary   = "4 Kids Walk Into a Bank (2026)";
+      var icsDescBody  = "After losing her mother\\, Paige's grandfather steps into to become a more responsible guardian. But when a group of criminals show up at their door demanding that Paige's grandpa join them for one last job\\, she's faced with a decision: let her newly reformed grandpa dip back into his criminal ways\\, or enlist her three best friends to do the job first.\\n\\nMore info: https://moviereleaseradar.com/movie/4-kids-walk-into-a-bank/";
+      var icsUid       = "movie-1341341@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/4-kids-walk-into-a-bank/";
+      var icsFile      = "4-kids-walk-into-a-bank-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1341341@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260416\r\nDTEND;VALUE=DATE:20260417\r\nSUMMARY:4 Kids Walk Into a Bank (2026)\r\nDESCRIPTION:After losing her mother\\, Paige's grandfather steps into to become a more responsible guardian. But when a group of criminals show up at their door demanding that Paige's grandpa join them for one last job\\, she's faced with a decision: let her newly reformed grandpa dip back into his criminal ways\\, or enlist her three best friends to do the job first.\\n\\nMore info: https://moviereleaseradar.com/movie/4-kids-walk-into-a-bank/\r\nURL:https://moviereleaseradar.com/movie/4-kids-walk-into-a-bank/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "4-kids-walk-into-a-bank-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

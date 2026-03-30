@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Chuckle%20Chuckle%20(2026)&amp;dates=20260619/20260620&amp;details=Aiming%20to%20become%20comedians%2C%20Sahara%20and%20his%20comedy%20partner%20Setoguchi%20work%20together%20on%20their%20act%2C%20%22Ultrasweet%20Sourpork%22%2C%20until%20unfortunate%20circumstances%20lead%20to%20their%20disbandment.%20Hindered%20by%20roadblocks%20on%20the%20path%20to%20success%2C%20Sahara%20suddenly%20encounters%20an%20%22ideal%22%20version%20of%20himself%E2%80%94an%20ultra-famous%20comedian.%20Boasting%20rich%20knowledge%20for%20success%20as%20a%20comedian%2C%20this%20%22ideal%22%20Sahara%20begins%20meddling%20with%20the%20real%20Sahara's%20life.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fchuckle-chuckle%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Chuckle%20Chuckle%20(2026)&amp;startdt=2026-06-19&amp;enddt=2026-06-20&amp;allday=true&amp;body=Aiming%20to%20become%20comedians%2C%20Sahara%20and%20his%20comedy%20partner%20Setoguchi%20work%20together%20on%20their%20act%2C%20%22Ultrasweet%20Sourpork%22%2C%20until%20unfortunate%20circumstances%20lead%20to%20their%20disbandment.%20Hindered%20by%20roadblocks%20on%20the%20path%20to%20success%2C%20Sahara%20suddenly%20encounters%20an%20%22ideal%22%20version%20of%20himself%E2%80%94an%20ultra-famous%20comedian.%20Boasting%20rich%20knowledge%20for%20success%20as%20a%20comedian%2C%20this%20%22ideal%22%20Sahara%20begins%20meddling%20with%20the%20real%20Sahara's%20life.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fchuckle-chuckle%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Chuckle%20Chuckle%20(2026)&amp;ST=20260619&amp;ET=20260620&amp;in_loc=&amp;DESC=Aiming%20to%20become%20comedians%2C%20Sahara%20and%20his%20comedy%20partner%20Setoguchi%20work%20together%20on%20their%20act%2C%20%22Ultrasweet%20Sourpork%22%2C%20until%20unfortunate%20circumstances%20lead%20to%20their%20disbandment.%20Hindered%20by%20roadblocks%20on%20the%20path%20to%20success%2C%20Sahara%20suddenly%20encounters%20an%20%22ideal%22%20version%20of%20himself%E2%80%94an%20ultra-famous%20comedian.%20Boasting%20rich%20knowledge%20for%20success%20as%20a%20comedian%2C%20this%20%22ideal%22%20Sahara%20begins%20meddling%20with%20the%20real%20Sahara's%20life.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fchuckle-chuckle%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-06-19","AT":"2026-06-19","BE":"2026-06-19","BR":"2026-06-19","BG":"2026-06-19","CA":"2026-06-19","CN":"2026-06-19","HR":"2026-06-19","CY":"2026-06-19","CZ":"2026-06-19","DK":"2026-06-19","EE":"2026-06-19","FI":"2026-06-19","FR":"2026-06-19","DE":"2026-06-19","GR":"2026-06-19","HU":"2026-06-19","IN":"2026-06-19","IE":"2026-06-19","IT":"2026-06-19","JP":"2026-06-19","LV":"2026-06-19","LT":"2026-06-19","LU":"2026-06-19","MT":"2026-06-19","NL":"2026-06-19","PL":"2026-06-19","PT":"2026-06-19","RO":"2026-06-19","SK":"2026-06-19","SI":"2026-06-19","KR":"2026-06-19","ES":"2026-06-19","SE":"2026-06-19","GB":"2026-06-19","UA":"2026-06-19","US":"2026-06-19"};
+      var globalDate   = "2026-06-19";
+      var calTitle     = "Chuckle Chuckle (2026)";
+      var calDesc      = "Aiming to become comedians, Sahara and his comedy partner Setoguchi work together on their act, \"Ultrasweet Sourpork\", until unfortunate circumstances lead to their disbandment. Hindered by roadblocks on the path to success, Sahara suddenly encounters an \"ideal\" version of himself—an ultra-famous comedian. Boasting rich knowledge for success as a comedian, this \"ideal\" Sahara begins meddling with the real Sahara's life.\n\nMore info: https://moviereleaseradar.com/movie/chuckle-chuckle/";
+      var icsSummary   = "Chuckle Chuckle (2026)";
+      var icsDescBody  = "Aiming to become comedians\\, Sahara and his comedy partner Setoguchi work together on their act\\, \"Ultrasweet Sourpork\"\\, until unfortunate circumstances lead to their disbandment. Hindered by roadblocks on the path to success\\, Sahara suddenly encounters an \"ideal\" version of himself—an ultra-famous comedian. Boasting rich knowledge for success as a comedian\\, this \"ideal\" Sahara begins meddling with the real Sahara's life.\\n\\nMore info: https://moviereleaseradar.com/movie/chuckle-chuckle/";
+      var icsUid       = "movie-1601185@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/chuckle-chuckle/";
+      var icsFile      = "chuckle-chuckle-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1601185@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260619\r\nDTEND;VALUE=DATE:20260620\r\nSUMMARY:Chuckle Chuckle (2026)\r\nDESCRIPTION:Aiming to become comedians\\, Sahara and his comedy partner Setoguchi work together on their act\\, \"Ultrasweet Sourpork\"\\, until unfortunate circumstances lead to their disbandment. Hindered by roadblocks on the path to success\\, Sahara suddenly encounters an \"ideal\" version of himself—an ultra-famous comedian. Boasting rich knowledge for success as a comedian\\, this \"ideal\" Sahara begins meddling with the real Sahara's life.\\n\\nMore info: https://moviereleaseradar.com/movie/chuckle-chuckle/\r\nURL:https://moviereleaseradar.com/movie/chuckle-chuckle/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "chuckle-chuckle-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

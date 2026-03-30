@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=In%20the%20Absence%20of%20Choice%20(2027)&amp;dates=20270120/20270121&amp;details=When%20a%20loyal%20enforcer%20of%20a%20vampire%20order%20begins%20to%20remember%20the%20night%20his%20childhood%20ended%2C%20the%20truth%20waiting%20in%20the%20dark%20threatens%20to%20consume%20what%E2%80%99s%20left%20of%20him.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fin-the-absence-of-choice%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=In%20the%20Absence%20of%20Choice%20(2027)&amp;startdt=2027-01-20&amp;enddt=2027-01-21&amp;allday=true&amp;body=When%20a%20loyal%20enforcer%20of%20a%20vampire%20order%20begins%20to%20remember%20the%20night%20his%20childhood%20ended%2C%20the%20truth%20waiting%20in%20the%20dark%20threatens%20to%20consume%20what%E2%80%99s%20left%20of%20him.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fin-the-absence-of-choice%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=In%20the%20Absence%20of%20Choice%20(2027)&amp;ST=20270120&amp;ET=20270121&amp;in_loc=&amp;DESC=When%20a%20loyal%20enforcer%20of%20a%20vampire%20order%20begins%20to%20remember%20the%20night%20his%20childhood%20ended%2C%20the%20truth%20waiting%20in%20the%20dark%20threatens%20to%20consume%20what%E2%80%99s%20left%20of%20him.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fin-the-absence-of-choice%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-01-20","AT":"2027-01-20","BE":"2027-01-20","BR":"2027-01-20","BG":"2027-01-20","CA":"2027-01-20","CN":"2027-01-20","HR":"2027-01-20","CY":"2027-01-20","CZ":"2027-01-20","DK":"2027-01-20","EE":"2027-01-20","FI":"2027-01-20","FR":"2027-01-20","DE":"2027-01-20","GR":"2027-01-20","HU":"2027-01-20","IN":"2027-01-20","IE":"2027-01-20","IT":"2027-01-20","JP":"2027-01-20","LV":"2027-01-20","LT":"2027-01-20","LU":"2027-01-20","MT":"2027-01-20","NL":"2027-01-20","PL":"2027-01-20","PT":"2027-01-20","RO":"2027-01-20","SK":"2027-01-20","SI":"2027-01-20","KR":"2027-01-20","ES":"2027-01-20","SE":"2027-01-20","GB":"2027-01-20","UA":"2027-01-20","US":"2027-01-20"};
+      var globalDate   = "2027-01-20";
+      var calTitle     = "In the Absence of Choice (2027)";
+      var calDesc      = "When a loyal enforcer of a vampire order begins to remember the night his childhood ended, the truth waiting in the dark threatens to consume what’s left of him.\n\nMore info: https://moviereleaseradar.com/movie/in-the-absence-of-choice/";
+      var icsSummary   = "In the Absence of Choice (2027)";
+      var icsDescBody  = "When a loyal enforcer of a vampire order begins to remember the night his childhood ended\\, the truth waiting in the dark threatens to consume what’s left of him.\\n\\nMore info: https://moviereleaseradar.com/movie/in-the-absence-of-choice/";
+      var icsUid       = "movie-1559118@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/in-the-absence-of-choice/";
+      var icsFile      = "in-the-absence-of-choice-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1559118@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270120\r\nDTEND;VALUE=DATE:20270121\r\nSUMMARY:In the Absence of Choice (2027)\r\nDESCRIPTION:When a loyal enforcer of a vampire order begins to remember the night his childhood ended\\, the truth waiting in the dark threatens to consume what’s left of him.\\n\\nMore info: https://moviereleaseradar.com/movie/in-the-absence-of-choice/\r\nURL:https://moviereleaseradar.com/movie/in-the-absence-of-choice/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "in-the-absence-of-choice-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

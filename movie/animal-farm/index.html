@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Animal%20Farm%20(2026)&amp;dates=20260501/20260502&amp;details=A%20satirical%20allegory%20of%20revolution%20and%20power%20that%20traces%20how%20a%20movement%20for%20equality%20is%20systematically%20corrupted.%20As%20the%20pigs%20consolidate%20control%2C%20truth%20is%20erased%2C%20dissent%20is%20crushed%20and%20the%20farm%20descends%20into%20a%20ruthless%20dictatorship.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fanimal-farm%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Animal%20Farm%20(2026)&amp;startdt=2026-05-01&amp;enddt=2026-05-02&amp;allday=true&amp;body=A%20satirical%20allegory%20of%20revolution%20and%20power%20that%20traces%20how%20a%20movement%20for%20equality%20is%20systematically%20corrupted.%20As%20the%20pigs%20consolidate%20control%2C%20truth%20is%20erased%2C%20dissent%20is%20crushed%20and%20the%20farm%20descends%20into%20a%20ruthless%20dictatorship.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fanimal-farm%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Animal%20Farm%20(2026)&amp;ST=20260501&amp;ET=20260502&amp;in_loc=&amp;DESC=A%20satirical%20allegory%20of%20revolution%20and%20power%20that%20traces%20how%20a%20movement%20for%20equality%20is%20systematically%20corrupted.%20As%20the%20pigs%20consolidate%20control%2C%20truth%20is%20erased%2C%20dissent%20is%20crushed%20and%20the%20farm%20descends%20into%20a%20ruthless%20dictatorship.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fanimal-farm%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-05-01","AT":"2026-05-01","BE":"2026-05-01","BR":"2026-05-01","BG":"2026-05-01","CA":"2026-05-01","CN":"2026-05-01","HR":"2026-05-01","CY":"2026-05-01","CZ":"2026-05-14","DK":"2026-05-01","EE":"2026-05-01","FI":"2026-05-01","FR":"2025-06-09","DE":"2026-05-01","GR":"2026-05-01","HU":"2026-05-01","IN":"2026-05-01","IE":"2026-05-01","IT":"2026-05-01","JP":"2026-05-01","LV":"2026-05-01","LT":"2026-05-01","LU":"2026-05-01","MT":"2026-05-01","NL":"2026-05-01","PL":"2026-05-01","PT":"2026-05-01","RO":"2026-05-01","SK":"2026-05-01","SI":"2026-05-01","KR":"2026-05-01","ES":"2026-05-01","SE":"2026-05-01","GB":"2025-10-11","UA":"2026-05-01","US":"2026-05-01"};
+      var globalDate   = "2026-05-01";
+      var calTitle     = "Animal Farm (2026)";
+      var calDesc      = "A satirical allegory of revolution and power that traces how a movement for equality is systematically corrupted. As the pigs consolidate control, truth is erased, dissent is crushed and the farm descends into a ruthless dictatorship.\n\nMore info: https://moviereleaseradar.com/movie/animal-farm/";
+      var icsSummary   = "Animal Farm (2026)";
+      var icsDescBody  = "A satirical allegory of revolution and power that traces how a movement for equality is systematically corrupted. As the pigs consolidate control\\, truth is erased\\, dissent is crushed and the farm descends into a ruthless dictatorship.\\n\\nMore info: https://moviereleaseradar.com/movie/animal-farm/";
+      var icsUid       = "movie-539745@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/animal-farm/";
+      var icsFile      = "animal-farm-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-539745@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260501\r\nDTEND;VALUE=DATE:20260502\r\nSUMMARY:Animal Farm (2026)\r\nDESCRIPTION:A satirical allegory of revolution and power that traces how a movement for equality is systematically corrupted. As the pigs consolidate control\\, truth is erased\\, dissent is crushed and the farm descends into a ruthless dictatorship.\\n\\nMore info: https://moviereleaseradar.com/movie/animal-farm/\r\nURL:https://moviereleaseradar.com/movie/animal-farm/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "animal-farm-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

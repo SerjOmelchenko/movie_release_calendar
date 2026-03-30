@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=GUR%3A%20Code%20%22Sikora%22%20(2026)&amp;dates=20261001/20261002&amp;details=Maksym%20is%20a%20pilot%20of%20an%20Mi-8%20military%20helicopter%2C%20call%20sign%20%22Sikora%22.%20Raised%20by%20his%20military%20grandfather%2C%20Maksym%20has%20been%20used%20to%20acting%20on%20moral%20grounds%20rather%20than%20under%20stress%20since%20childhood.%20When%20a%20full-scale%20war%20breaks%20out%2C%20he%20does%20not%20immediately%20rush%20into%20battle.%20But%20after%20the%20atrocities%20committed%20by%20the%20Russian%20military%20in%20Bucha%2C%20Irpin%2C%20and%20Donetsk%20region%2C%20he%20can%20no%20longer%20remain%20silent.%20The%20viewer%20is%20presented%20with%20a%20story%20not%20only%20of%20war%2C%20but%20also%20of%20the%20inner%20transformation%20of%20a%20man%20%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fgur-code-sikora%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=GUR%3A%20Code%20%22Sikora%22%20(2026)&amp;startdt=2026-10-01&amp;enddt=2026-10-02&amp;allday=true&amp;body=Maksym%20is%20a%20pilot%20of%20an%20Mi-8%20military%20helicopter%2C%20call%20sign%20%22Sikora%22.%20Raised%20by%20his%20military%20grandfather%2C%20Maksym%20has%20been%20used%20to%20acting%20on%20moral%20grounds%20rather%20than%20under%20stress%20since%20childhood.%20When%20a%20full-scale%20war%20breaks%20out%2C%20he%20does%20not%20immediately%20rush%20into%20battle.%20But%20after%20the%20atrocities%20committed%20by%20the%20Russian%20military%20in%20Bucha%2C%20Irpin%2C%20and%20Donetsk%20region%2C%20he%20can%20no%20longer%20remain%20silent.%20The%20viewer%20is%20presented%20with%20a%20story%20not%20only%20of%20war%2C%20but%20also%20of%20the%20inner%20transformation%20of%20a%20man%20%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fgur-code-sikora%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=GUR%3A%20Code%20%22Sikora%22%20(2026)&amp;ST=20261001&amp;ET=20261002&amp;in_loc=&amp;DESC=Maksym%20is%20a%20pilot%20of%20an%20Mi-8%20military%20helicopter%2C%20call%20sign%20%22Sikora%22.%20Raised%20by%20his%20military%20grandfather%2C%20Maksym%20has%20been%20used%20to%20acting%20on%20moral%20grounds%20rather%20than%20under%20stress%20since%20childhood.%20When%20a%20full-scale%20war%20breaks%20out%2C%20he%20does%20not%20immediately%20rush%20into%20battle.%20But%20after%20the%20atrocities%20committed%20by%20the%20Russian%20military%20in%20Bucha%2C%20Irpin%2C%20and%20Donetsk%20region%2C%20he%20can%20no%20longer%20remain%20silent.%20The%20viewer%20is%20presented%20with%20a%20story%20not%20only%20of%20war%2C%20but%20also%20of%20the%20inner%20transformation%20of%20a%20man%20%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fgur-code-sikora%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-10-01","AT":"2026-10-01","BE":"2026-10-01","BR":"2026-10-01","BG":"2026-10-01","CA":"2026-10-01","CN":"2026-10-01","HR":"2026-10-01","CY":"2026-10-01","CZ":"2026-10-01","DK":"2026-10-01","EE":"2026-10-01","FI":"2026-10-01","FR":"2026-10-01","DE":"2026-10-01","GR":"2026-10-01","HU":"2026-10-01","IN":"2026-10-01","IE":"2026-10-01","IT":"2026-10-01","JP":"2026-10-01","LV":"2026-10-01","LT":"2026-10-01","LU":"2026-10-01","MT":"2026-10-01","NL":"2026-10-01","PL":"2026-10-01","PT":"2026-10-01","RO":"2026-10-01","SK":"2026-10-01","SI":"2026-10-01","KR":"2026-10-01","ES":"2026-10-01","SE":"2026-10-01","GB":"2026-10-01","UA":"2026-10-01","US":"2026-10-01"};
+      var globalDate   = "2026-10-01";
+      var calTitle     = "GUR: Code \"Sikora\" (2026)";
+      var calDesc      = "Maksym is a pilot of an Mi-8 military helicopter, call sign \"Sikora\". Raised by his military grandfather, Maksym has been used to acting on moral grounds rather than under stress since childhood. When a full-scale war breaks out, he does not immediately rush into battle. But after the atrocities committed by the Russian military in Bucha, Irpin, and Donetsk region, he can no longer remain silent. The viewer is presented with a story not only of war, but also of the inner transformation of a man \n\nMore info: https://moviereleaseradar.com/movie/gur-code-sikora/";
+      var icsSummary   = "GUR: Code \"Sikora\" (2026)";
+      var icsDescBody  = "Maksym is a pilot of an Mi-8 military helicopter\\, call sign \"Sikora\". Raised by his military grandfather\\, Maksym has been used to acting on moral grounds rather than under stress since childhood. When a full-scale war breaks out\\, he does not immediately rush into battle. But after the atrocities committed by the Russian military in Bucha\\, Irpin\\, and Donetsk region\\, he can no longer remain silent. The viewer is presented with a story not only of war\\, but also of the inner transformation of a man \\n\\nMore info: https://moviereleaseradar.com/movie/gur-code-sikora/";
+      var icsUid       = "movie-1485702@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/gur-code-sikora/";
+      var icsFile      = "gur-code-sikora-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1485702@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261001\r\nDTEND;VALUE=DATE:20261002\r\nSUMMARY:GUR: Code \"Sikora\" (2026)\r\nDESCRIPTION:Maksym is a pilot of an Mi-8 military helicopter\\, call sign \"Sikora\". Raised by his military grandfather\\, Maksym has been used to acting on moral grounds rather than under stress since childhood. When a full-scale war breaks out\\, he does not immediately rush into battle. But after the atrocities committed by the Russian military in Bucha\\, Irpin\\, and Donetsk region\\, he can no longer remain silent. The viewer is presented with a story not only of war\\, but also of the inner transformation of a man \\n\\nMore info: https://moviereleaseradar.com/movie/gur-code-sikora/\r\nURL:https://moviereleaseradar.com/movie/gur-code-sikora/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "gur-code-sikora-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

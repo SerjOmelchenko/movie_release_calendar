@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Marigold%202nd%20Anniversary%20Show%3A%20Shine%20Forever%202026%20~A%20Glorious%20Celebration!~%20(2026)&amp;dates=20260523/20260524&amp;details=Shine%20Forever%202026%20~A%20Glorious%20Celebration!~%20was%20a%20professional%20wrestling%20event%20promoted%20by%20Dream%20Star%E2%98%85Fighting%20Marigold.%20It%20took%20place%20on%20May%2023%2C%202026%2C%20at%20EBARA%20WAVE%20Arena%20Ota%20in%20Tokyo%2C%20Japan%2C%20in%20commemoration%20of%20the%20second%20anniversary%20of%20Marigold's%20debut%20show.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmarigold-2nd-anniversary-show-shine-forever-2026-a-glorious-celebration%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Marigold%202nd%20Anniversary%20Show%3A%20Shine%20Forever%202026%20~A%20Glorious%20Celebration!~%20(2026)&amp;startdt=2026-05-23&amp;enddt=2026-05-24&amp;allday=true&amp;body=Shine%20Forever%202026%20~A%20Glorious%20Celebration!~%20was%20a%20professional%20wrestling%20event%20promoted%20by%20Dream%20Star%E2%98%85Fighting%20Marigold.%20It%20took%20place%20on%20May%2023%2C%202026%2C%20at%20EBARA%20WAVE%20Arena%20Ota%20in%20Tokyo%2C%20Japan%2C%20in%20commemoration%20of%20the%20second%20anniversary%20of%20Marigold's%20debut%20show.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmarigold-2nd-anniversary-show-shine-forever-2026-a-glorious-celebration%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Marigold%202nd%20Anniversary%20Show%3A%20Shine%20Forever%202026%20~A%20Glorious%20Celebration!~%20(2026)&amp;ST=20260523&amp;ET=20260524&amp;in_loc=&amp;DESC=Shine%20Forever%202026%20~A%20Glorious%20Celebration!~%20was%20a%20professional%20wrestling%20event%20promoted%20by%20Dream%20Star%E2%98%85Fighting%20Marigold.%20It%20took%20place%20on%20May%2023%2C%202026%2C%20at%20EBARA%20WAVE%20Arena%20Ota%20in%20Tokyo%2C%20Japan%2C%20in%20commemoration%20of%20the%20second%20anniversary%20of%20Marigold's%20debut%20show.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmarigold-2nd-anniversary-show-shine-forever-2026-a-glorious-celebration%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-05-23","AT":"2026-05-23","BE":"2026-05-23","BR":"2026-05-23","BG":"2026-05-23","CA":"2026-05-23","CN":"2026-05-23","HR":"2026-05-23","CY":"2026-05-23","CZ":"2026-05-23","DK":"2026-05-23","EE":"2026-05-23","FI":"2026-05-23","FR":"2026-05-23","DE":"2026-05-23","GR":"2026-05-23","HU":"2026-05-23","IN":"2026-05-23","IE":"2026-05-23","IT":"2026-05-23","JP":"2026-05-23","LV":"2026-05-23","LT":"2026-05-23","LU":"2026-05-23","MT":"2026-05-23","NL":"2026-05-23","PL":"2026-05-23","PT":"2026-05-23","RO":"2026-05-23","SK":"2026-05-23","SI":"2026-05-23","KR":"2026-05-23","ES":"2026-05-23","SE":"2026-05-23","GB":"2026-05-23","UA":"2026-05-23","US":"2026-05-23"};
+      var globalDate   = "2026-05-23";
+      var calTitle     = "Marigold 2nd Anniversary Show: Shine Forever 2026 ~A Glorious Celebration!~ (2026)";
+      var calDesc      = "Shine Forever 2026 ~A Glorious Celebration!~ was a professional wrestling event promoted by Dream Star★Fighting Marigold. It took place on May 23, 2026, at EBARA WAVE Arena Ota in Tokyo, Japan, in commemoration of the second anniversary of Marigold's debut show.\n\nMore info: https://moviereleaseradar.com/movie/marigold-2nd-anniversary-show-shine-forever-2026-a-glorious-celebration/";
+      var icsSummary   = "Marigold 2nd Anniversary Show: Shine Forever 2026 ~A Glorious Celebration!~ (2026)";
+      var icsDescBody  = "Shine Forever 2026 ~A Glorious Celebration!~ was a professional wrestling event promoted by Dream Star★Fighting Marigold. It took place on May 23\\, 2026\\, at EBARA WAVE Arena Ota in Tokyo\\, Japan\\, in commemoration of the second anniversary of Marigold's debut show.\\n\\nMore info: https://moviereleaseradar.com/movie/marigold-2nd-anniversary-show-shine-forever-2026-a-glorious-celebration/";
+      var icsUid       = "movie-1647324@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/marigold-2nd-anniversary-show-shine-forever-2026-a-glorious-celebration/";
+      var icsFile      = "marigold-2nd-anniversary-show-shine-forever-2026-a-glorious-celebration-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1647324@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260523\r\nDTEND;VALUE=DATE:20260524\r\nSUMMARY:Marigold 2nd Anniversary Show: Shine Forever 2026 ~A Glorious Celebration!~ (2026)\r\nDESCRIPTION:Shine Forever 2026 ~A Glorious Celebration!~ was a professional wrestling event promoted by Dream Star★Fighting Marigold. It took place on May 23\\, 2026\\, at EBARA WAVE Arena Ota in Tokyo\\, Japan\\, in commemoration of the second anniversary of Marigold's debut show.\\n\\nMore info: https://moviereleaseradar.com/movie/marigold-2nd-anniversary-show-shine-forever-2026-a-glorious-celebration/\r\nURL:https://moviereleaseradar.com/movie/marigold-2nd-anniversary-show-shine-forever-2026-a-glorious-celebration/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "marigold-2nd-anniversary-show-shine-forever-2026-a-glorious-celebration-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

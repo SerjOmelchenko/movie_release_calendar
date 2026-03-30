@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Surviving%20Earth%20(2026)&amp;dates=20260417/20260418&amp;details=Years%20after%20fleeing%20military%20conscription%20during%20the%20Yugoslav%20conflict%2C%20Vlad%20is%20building%20a%20community%20in%20Bristol%2C%20working%20as%20a%20drugs%20counsellor%20and%20pursuing%20success%20with%20his%20riotous%20Balkan%20band.%20But%20integration%20isn%E2%80%99t%20as%20easy%20as%20he%20hoped%2C%20and%20the%20trauma%20of%20his%20past%20life%20is%20difficult%20to%20repress.%20Can%20he%20overcome%20his%20demons%20and%20create%20a%20new%20life%20for%20those%20he%20loves%20the%20most%3F%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fsurviving-earth%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Surviving%20Earth%20(2026)&amp;startdt=2026-04-17&amp;enddt=2026-04-18&amp;allday=true&amp;body=Years%20after%20fleeing%20military%20conscription%20during%20the%20Yugoslav%20conflict%2C%20Vlad%20is%20building%20a%20community%20in%20Bristol%2C%20working%20as%20a%20drugs%20counsellor%20and%20pursuing%20success%20with%20his%20riotous%20Balkan%20band.%20But%20integration%20isn%E2%80%99t%20as%20easy%20as%20he%20hoped%2C%20and%20the%20trauma%20of%20his%20past%20life%20is%20difficult%20to%20repress.%20Can%20he%20overcome%20his%20demons%20and%20create%20a%20new%20life%20for%20those%20he%20loves%20the%20most%3F%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fsurviving-earth%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Surviving%20Earth%20(2026)&amp;ST=20260417&amp;ET=20260418&amp;in_loc=&amp;DESC=Years%20after%20fleeing%20military%20conscription%20during%20the%20Yugoslav%20conflict%2C%20Vlad%20is%20building%20a%20community%20in%20Bristol%2C%20working%20as%20a%20drugs%20counsellor%20and%20pursuing%20success%20with%20his%20riotous%20Balkan%20band.%20But%20integration%20isn%E2%80%99t%20as%20easy%20as%20he%20hoped%2C%20and%20the%20trauma%20of%20his%20past%20life%20is%20difficult%20to%20repress.%20Can%20he%20overcome%20his%20demons%20and%20create%20a%20new%20life%20for%20those%20he%20loves%20the%20most%3F%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fsurviving-earth%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-17","AT":"2026-04-17","BE":"2026-04-17","BR":"2026-04-17","BG":"2026-04-17","CA":"2026-04-17","CN":"2026-04-17","HR":"2026-04-17","CY":"2026-04-17","CZ":"2026-04-17","DK":"2026-04-17","EE":"2026-04-17","FI":"2026-04-17","FR":"2026-04-17","DE":"2026-04-17","GR":"2026-04-17","HU":"2026-04-17","IN":"2026-04-17","IE":"2026-04-17","IT":"2026-04-17","JP":"2026-04-17","LV":"2026-04-17","LT":"2026-04-17","LU":"2026-04-17","MT":"2026-04-17","NL":"2026-04-17","PL":"2026-04-17","PT":"2026-04-17","RO":"2026-04-17","SK":"2026-04-17","SI":"2026-04-17","KR":"2025-09-05","ES":"2026-04-17","SE":"2026-04-17","GB":"2026-04-17","UA":"2026-04-17","US":"2025-03-08"};
+      var globalDate   = "2026-04-17";
+      var calTitle     = "Surviving Earth (2026)";
+      var calDesc      = "Years after fleeing military conscription during the Yugoslav conflict, Vlad is building a community in Bristol, working as a drugs counsellor and pursuing success with his riotous Balkan band. But integration isn’t as easy as he hoped, and the trauma of his past life is difficult to repress. Can he overcome his demons and create a new life for those he loves the most?\n\nMore info: https://moviereleaseradar.com/movie/surviving-earth/";
+      var icsSummary   = "Surviving Earth (2026)";
+      var icsDescBody  = "Years after fleeing military conscription during the Yugoslav conflict\\, Vlad is building a community in Bristol\\, working as a drugs counsellor and pursuing success with his riotous Balkan band. But integration isn’t as easy as he hoped\\, and the trauma of his past life is difficult to repress. Can he overcome his demons and create a new life for those he loves the most?\\n\\nMore info: https://moviereleaseradar.com/movie/surviving-earth/";
+      var icsUid       = "movie-1383580@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/surviving-earth/";
+      var icsFile      = "surviving-earth-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1383580@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260417\r\nDTEND;VALUE=DATE:20260418\r\nSUMMARY:Surviving Earth (2026)\r\nDESCRIPTION:Years after fleeing military conscription during the Yugoslav conflict\\, Vlad is building a community in Bristol\\, working as a drugs counsellor and pursuing success with his riotous Balkan band. But integration isn’t as easy as he hoped\\, and the trauma of his past life is difficult to repress. Can he overcome his demons and create a new life for those he loves the most?\\n\\nMore info: https://moviereleaseradar.com/movie/surviving-earth/\r\nURL:https://moviereleaseradar.com/movie/surviving-earth/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "surviving-earth-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Lou's%20Team%3A%20The%20Story%20of%20the%20Humboldt%20Crabs%20(2026)&amp;dates=20260606/20260607&amp;details=Nestled%20in%20the%20redwood%20forest%20of%20Northern%20California%2C%20the%20Humboldt%20Crabs%2C%20founded%20in%201945%2C%20are%20the%20oldest%20continuously%20operated%20summer%20collegiate%20baseball%20team%2C%20with%20their%20own%20band%2C%20ardent%20fans%2C%20and%20tradition%20of%20winning.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Flou-s-team-the-story-of-the-humboldt-crabs%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Lou's%20Team%3A%20The%20Story%20of%20the%20Humboldt%20Crabs%20(2026)&amp;startdt=2026-06-06&amp;enddt=2026-06-07&amp;allday=true&amp;body=Nestled%20in%20the%20redwood%20forest%20of%20Northern%20California%2C%20the%20Humboldt%20Crabs%2C%20founded%20in%201945%2C%20are%20the%20oldest%20continuously%20operated%20summer%20collegiate%20baseball%20team%2C%20with%20their%20own%20band%2C%20ardent%20fans%2C%20and%20tradition%20of%20winning.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Flou-s-team-the-story-of-the-humboldt-crabs%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Lou's%20Team%3A%20The%20Story%20of%20the%20Humboldt%20Crabs%20(2026)&amp;ST=20260606&amp;ET=20260607&amp;in_loc=&amp;DESC=Nestled%20in%20the%20redwood%20forest%20of%20Northern%20California%2C%20the%20Humboldt%20Crabs%2C%20founded%20in%201945%2C%20are%20the%20oldest%20continuously%20operated%20summer%20collegiate%20baseball%20team%2C%20with%20their%20own%20band%2C%20ardent%20fans%2C%20and%20tradition%20of%20winning.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Flou-s-team-the-story-of-the-humboldt-crabs%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-06-06","AT":"2026-06-06","BE":"2026-06-06","BR":"2026-06-06","BG":"2026-06-06","CA":"2026-06-06","CN":"2026-06-06","HR":"2026-06-06","CY":"2026-06-06","CZ":"2026-06-06","DK":"2026-06-06","EE":"2026-06-06","FI":"2026-06-06","FR":"2026-06-06","DE":"2026-06-06","GR":"2026-06-06","HU":"2026-06-06","IN":"2026-06-06","IE":"2026-06-06","IT":"2026-06-06","JP":"2026-06-06","LV":"2026-06-06","LT":"2026-06-06","LU":"2026-06-06","MT":"2026-06-06","NL":"2026-06-06","PL":"2026-06-06","PT":"2026-06-06","RO":"2026-06-06","SK":"2026-06-06","SI":"2026-06-06","KR":"2026-06-06","ES":"2026-06-06","SE":"2026-06-06","GB":"2026-06-06","UA":"2026-06-06","US":"2026-06-06"};
+      var globalDate   = "2026-06-06";
+      var calTitle     = "Lou's Team: The Story of the Humboldt Crabs (2026)";
+      var calDesc      = "Nestled in the redwood forest of Northern California, the Humboldt Crabs, founded in 1945, are the oldest continuously operated summer collegiate baseball team, with their own band, ardent fans, and tradition of winning.\n\nMore info: https://moviereleaseradar.com/movie/lou-s-team-the-story-of-the-humboldt-crabs/";
+      var icsSummary   = "Lou's Team: The Story of the Humboldt Crabs (2026)";
+      var icsDescBody  = "Nestled in the redwood forest of Northern California\\, the Humboldt Crabs\\, founded in 1945\\, are the oldest continuously operated summer collegiate baseball team\\, with their own band\\, ardent fans\\, and tradition of winning.\\n\\nMore info: https://moviereleaseradar.com/movie/lou-s-team-the-story-of-the-humboldt-crabs/";
+      var icsUid       = "movie-1596392@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/lou-s-team-the-story-of-the-humboldt-crabs/";
+      var icsFile      = "lou-s-team-the-story-of-the-humboldt-crabs-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1596392@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260606\r\nDTEND;VALUE=DATE:20260607\r\nSUMMARY:Lou's Team: The Story of the Humboldt Crabs (2026)\r\nDESCRIPTION:Nestled in the redwood forest of Northern California\\, the Humboldt Crabs\\, founded in 1945\\, are the oldest continuously operated summer collegiate baseball team\\, with their own band\\, ardent fans\\, and tradition of winning.\\n\\nMore info: https://moviereleaseradar.com/movie/lou-s-team-the-story-of-the-humboldt-crabs/\r\nURL:https://moviereleaseradar.com/movie/lou-s-team-the-story-of-the-humboldt-crabs/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "lou-s-team-the-story-of-the-humboldt-crabs-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

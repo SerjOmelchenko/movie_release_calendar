@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Swingers%202%20(2026)&amp;dates=20260401/20260402&amp;details=Swingers%202%20brings%20back%20familiar%20faces%20-%20Indrek%2C%20Elen%2C%20Andrus%2C%20and%20Tiina%20-%20who%20now%20find%20themselves%20tangled%20up%20in%20a%20whole%20new%20set%20of%20relationship%20complications.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fswingers-2%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Swingers%202%20(2026)&amp;startdt=2026-04-01&amp;enddt=2026-04-02&amp;allday=true&amp;body=Swingers%202%20brings%20back%20familiar%20faces%20-%20Indrek%2C%20Elen%2C%20Andrus%2C%20and%20Tiina%20-%20who%20now%20find%20themselves%20tangled%20up%20in%20a%20whole%20new%20set%20of%20relationship%20complications.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fswingers-2%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Swingers%202%20(2026)&amp;ST=20260401&amp;ET=20260402&amp;in_loc=&amp;DESC=Swingers%202%20brings%20back%20familiar%20faces%20-%20Indrek%2C%20Elen%2C%20Andrus%2C%20and%20Tiina%20-%20who%20now%20find%20themselves%20tangled%20up%20in%20a%20whole%20new%20set%20of%20relationship%20complications.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fswingers-2%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-01","AT":"2026-04-01","BE":"2026-04-01","BR":"2026-04-01","BG":"2026-04-01","CA":"2026-04-01","CN":"2026-04-01","HR":"2026-04-01","CY":"2026-04-01","CZ":"2026-04-01","DK":"2026-04-01","EE":"2026-04-01","FI":"2026-04-01","FR":"2026-04-01","DE":"2026-04-01","GR":"2026-04-01","HU":"2026-04-01","IN":"2026-04-01","IE":"2026-04-01","IT":"2026-04-01","JP":"2026-04-01","LV":"2026-04-01","LT":"2026-04-01","LU":"2026-04-01","MT":"2026-04-01","NL":"2026-04-01","PL":"2026-04-01","PT":"2026-04-01","RO":"2026-04-01","SK":"2026-04-01","SI":"2026-04-01","KR":"2026-04-01","ES":"2026-04-01","SE":"2026-04-01","GB":"2026-04-01","UA":"2026-04-01","US":"2026-04-01"};
+      var globalDate   = "2026-04-01";
+      var calTitle     = "Swingers 2 (2026)";
+      var calDesc      = "Swingers 2 brings back familiar faces - Indrek, Elen, Andrus, and Tiina - who now find themselves tangled up in a whole new set of relationship complications.\n\nMore info: https://moviereleaseradar.com/movie/swingers-2/";
+      var icsSummary   = "Swingers 2 (2026)";
+      var icsDescBody  = "Swingers 2 brings back familiar faces - Indrek\\, Elen\\, Andrus\\, and Tiina - who now find themselves tangled up in a whole new set of relationship complications.\\n\\nMore info: https://moviereleaseradar.com/movie/swingers-2/";
+      var icsUid       = "movie-1467007@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/swingers-2/";
+      var icsFile      = "swingers-2-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1467007@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260401\r\nDTEND;VALUE=DATE:20260402\r\nSUMMARY:Swingers 2 (2026)\r\nDESCRIPTION:Swingers 2 brings back familiar faces - Indrek\\, Elen\\, Andrus\\, and Tiina - who now find themselves tangled up in a whole new set of relationship complications.\\n\\nMore info: https://moviereleaseradar.com/movie/swingers-2/\r\nURL:https://moviereleaseradar.com/movie/swingers-2/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "swingers-2-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

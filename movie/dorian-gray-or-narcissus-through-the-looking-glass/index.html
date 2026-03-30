@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Dorian%20Gray%2C%20or%20Narcissus%20Through%20the%20Looking%20Glass%20(2027)&amp;dates=20270227/20270228&amp;details=Dorian%20Gray%20is%20but%20a%20boy%2C%20yet%20he's%20worshipped%20as%20a%20God%20-%20by%20the%20closeted%20painter%20who%20immortalized%20his%20beauty%2C%20by%20the%20libertine%20who%20taught%20him%20all%20of%20the%20world's%20secret%20pleasures%2C%20and%20by%20himself.%20For%20the%20next%20one%20hundred%20years%2C%20Dorian%20Gray%20falls%20into%20a%20rabbit-hole%20of%20debauchery%2C%20remaining%20forever%20young%20while%20his%20portrait%20pays%20the%20price%20for%20each%20of%20his%20sins.%20But%20when%20crimes%20of%20decades%20past%20come%20back%20to%20haunt%20him%2C%20and%20the%20novelty%20of%20everlasting%20youth%20starts%20taking%20its%20toll%2C%20can%20his%20soul%20still%20be%20re%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fdorian-gray-or-narcissus-through-the-looking-glass%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Dorian%20Gray%2C%20or%20Narcissus%20Through%20the%20Looking%20Glass%20(2027)&amp;startdt=2027-02-27&amp;enddt=2027-02-28&amp;allday=true&amp;body=Dorian%20Gray%20is%20but%20a%20boy%2C%20yet%20he's%20worshipped%20as%20a%20God%20-%20by%20the%20closeted%20painter%20who%20immortalized%20his%20beauty%2C%20by%20the%20libertine%20who%20taught%20him%20all%20of%20the%20world's%20secret%20pleasures%2C%20and%20by%20himself.%20For%20the%20next%20one%20hundred%20years%2C%20Dorian%20Gray%20falls%20into%20a%20rabbit-hole%20of%20debauchery%2C%20remaining%20forever%20young%20while%20his%20portrait%20pays%20the%20price%20for%20each%20of%20his%20sins.%20But%20when%20crimes%20of%20decades%20past%20come%20back%20to%20haunt%20him%2C%20and%20the%20novelty%20of%20everlasting%20youth%20starts%20taking%20its%20toll%2C%20can%20his%20soul%20still%20be%20re%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fdorian-gray-or-narcissus-through-the-looking-glass%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Dorian%20Gray%2C%20or%20Narcissus%20Through%20the%20Looking%20Glass%20(2027)&amp;ST=20270227&amp;ET=20270228&amp;in_loc=&amp;DESC=Dorian%20Gray%20is%20but%20a%20boy%2C%20yet%20he's%20worshipped%20as%20a%20God%20-%20by%20the%20closeted%20painter%20who%20immortalized%20his%20beauty%2C%20by%20the%20libertine%20who%20taught%20him%20all%20of%20the%20world's%20secret%20pleasures%2C%20and%20by%20himself.%20For%20the%20next%20one%20hundred%20years%2C%20Dorian%20Gray%20falls%20into%20a%20rabbit-hole%20of%20debauchery%2C%20remaining%20forever%20young%20while%20his%20portrait%20pays%20the%20price%20for%20each%20of%20his%20sins.%20But%20when%20crimes%20of%20decades%20past%20come%20back%20to%20haunt%20him%2C%20and%20the%20novelty%20of%20everlasting%20youth%20starts%20taking%20its%20toll%2C%20can%20his%20soul%20still%20be%20re%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fdorian-gray-or-narcissus-through-the-looking-glass%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-02-27","AT":"2027-02-27","BE":"2027-02-27","BR":"2027-02-27","BG":"2027-02-27","CA":"2027-02-27","CN":"2027-02-27","HR":"2027-02-27","CY":"2027-02-27","CZ":"2027-02-27","DK":"2027-02-27","EE":"2027-02-27","FI":"2027-02-27","FR":"2027-02-27","DE":"2027-02-27","GR":"2027-02-27","HU":"2027-02-27","IN":"2027-02-27","IE":"2027-02-27","IT":"2027-02-27","JP":"2027-02-27","LV":"2027-02-27","LT":"2027-02-27","LU":"2027-02-27","MT":"2027-02-27","NL":"2027-02-27","PL":"2027-02-27","PT":"2027-02-27","RO":"2027-02-27","SK":"2027-02-27","SI":"2027-02-27","KR":"2027-02-27","ES":"2027-02-27","SE":"2027-02-27","GB":"2027-02-27","UA":"2027-02-27","US":"2027-02-27"};
+      var globalDate   = "2027-02-27";
+      var calTitle     = "Dorian Gray, or Narcissus Through the Looking Glass (2027)";
+      var calDesc      = "Dorian Gray is but a boy, yet he's worshipped as a God - by the closeted painter who immortalized his beauty, by the libertine who taught him all of the world's secret pleasures, and by himself. For the next one hundred years, Dorian Gray falls into a rabbit-hole of debauchery, remaining forever young while his portrait pays the price for each of his sins. But when crimes of decades past come back to haunt him, and the novelty of everlasting youth starts taking its toll, can his soul still be re\n\nMore info: https://moviereleaseradar.com/movie/dorian-gray-or-narcissus-through-the-looking-glass/";
+      var icsSummary   = "Dorian Gray\\, or Narcissus Through the Looking Glass (2027)";
+      var icsDescBody  = "Dorian Gray is but a boy\\, yet he's worshipped as a God - by the closeted painter who immortalized his beauty\\, by the libertine who taught him all of the world's secret pleasures\\, and by himself. For the next one hundred years\\, Dorian Gray falls into a rabbit-hole of debauchery\\, remaining forever young while his portrait pays the price for each of his sins. But when crimes of decades past come back to haunt him\\, and the novelty of everlasting youth starts taking its toll\\, can his soul still be re\\n\\nMore info: https://moviereleaseradar.com/movie/dorian-gray-or-narcissus-through-the-looking-glass/";
+      var icsUid       = "movie-1439698@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/dorian-gray-or-narcissus-through-the-looking-glass/";
+      var icsFile      = "dorian-gray-or-narcissus-through-the-looking-glass-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1439698@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270227\r\nDTEND;VALUE=DATE:20270228\r\nSUMMARY:Dorian Gray\\, or Narcissus Through the Looking Glass (2027)\r\nDESCRIPTION:Dorian Gray is but a boy\\, yet he's worshipped as a God - by the closeted painter who immortalized his beauty\\, by the libertine who taught him all of the world's secret pleasures\\, and by himself. For the next one hundred years\\, Dorian Gray falls into a rabbit-hole of debauchery\\, remaining forever young while his portrait pays the price for each of his sins. But when crimes of decades past come back to haunt him\\, and the novelty of everlasting youth starts taking its toll\\, can his soul still be re\\n\\nMore info: https://moviereleaseradar.com/movie/dorian-gray-or-narcissus-through-the-looking-glass/\r\nURL:https://moviereleaseradar.com/movie/dorian-gray-or-narcissus-through-the-looking-glass/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "dorian-gray-or-narcissus-through-the-looking-glass-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

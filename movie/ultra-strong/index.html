@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Ultra%20Strong%20(2026)&amp;dates=20260623/20260624&amp;details=Catherine%20tries%20to%20toughen%20herself%20to%20impress%20the%20%E2%80%9Cprinces%E2%80%9D%20in%20her%20circle%2C%20who%20turn%20out%20to%20be%20more%20off-putting%20than%20charming.%20When%20all%20her%20dubious%20strategies%20fail%2C%20she%20must%20face%20the%20ultimate%20test%3A%20learning%20how%20to%20embrace%20her%20true%20nature.%20%20In%20Ultra%20Strong%2C%20a%20candid%20and%20self-deprecating%20autofictional%20story%20by%20Catherine%20Lepage%2C%20we%E2%80%99re%20invited%20to%20reexamine%20our%20youthful%20ideals%E2%80%94from%20Cinderella%20to%20Iron%20Maiden.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fultra-strong%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Ultra%20Strong%20(2026)&amp;startdt=2026-06-23&amp;enddt=2026-06-24&amp;allday=true&amp;body=Catherine%20tries%20to%20toughen%20herself%20to%20impress%20the%20%E2%80%9Cprinces%E2%80%9D%20in%20her%20circle%2C%20who%20turn%20out%20to%20be%20more%20off-putting%20than%20charming.%20When%20all%20her%20dubious%20strategies%20fail%2C%20she%20must%20face%20the%20ultimate%20test%3A%20learning%20how%20to%20embrace%20her%20true%20nature.%20%20In%20Ultra%20Strong%2C%20a%20candid%20and%20self-deprecating%20autofictional%20story%20by%20Catherine%20Lepage%2C%20we%E2%80%99re%20invited%20to%20reexamine%20our%20youthful%20ideals%E2%80%94from%20Cinderella%20to%20Iron%20Maiden.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fultra-strong%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Ultra%20Strong%20(2026)&amp;ST=20260623&amp;ET=20260624&amp;in_loc=&amp;DESC=Catherine%20tries%20to%20toughen%20herself%20to%20impress%20the%20%E2%80%9Cprinces%E2%80%9D%20in%20her%20circle%2C%20who%20turn%20out%20to%20be%20more%20off-putting%20than%20charming.%20When%20all%20her%20dubious%20strategies%20fail%2C%20she%20must%20face%20the%20ultimate%20test%3A%20learning%20how%20to%20embrace%20her%20true%20nature.%20%20In%20Ultra%20Strong%2C%20a%20candid%20and%20self-deprecating%20autofictional%20story%20by%20Catherine%20Lepage%2C%20we%E2%80%99re%20invited%20to%20reexamine%20our%20youthful%20ideals%E2%80%94from%20Cinderella%20to%20Iron%20Maiden.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fultra-strong%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-06-23","AT":"2026-06-23","BE":"2026-06-23","BR":"2026-06-23","BG":"2026-06-23","CA":"2026-06-23","CN":"2026-06-23","HR":"2026-06-23","CY":"2026-06-23","CZ":"2026-06-23","DK":"2026-06-23","EE":"2026-06-23","FI":"2026-06-23","FR":"2026-06-23","DE":"2026-06-23","GR":"2026-06-23","HU":"2026-06-23","IN":"2026-06-23","IE":"2026-06-23","IT":"2026-06-23","JP":"2026-06-23","LV":"2026-06-23","LT":"2026-06-23","LU":"2026-06-23","MT":"2026-06-23","NL":"2026-06-23","PL":"2026-06-23","PT":"2026-06-23","RO":"2026-06-23","SK":"2026-06-23","SI":"2026-06-23","KR":"2026-06-23","ES":"2026-06-23","SE":"2026-06-23","GB":"2026-06-23","UA":"2026-06-23","US":"2026-06-23"};
+      var globalDate   = "2026-06-23";
+      var calTitle     = "Ultra Strong (2026)";
+      var calDesc      = "Catherine tries to toughen herself to impress the “princes” in her circle, who turn out to be more off-putting than charming. When all her dubious strategies fail, she must face the ultimate test: learning how to embrace her true nature.  In Ultra Strong, a candid and self-deprecating autofictional story by Catherine Lepage, we’re invited to reexamine our youthful ideals—from Cinderella to Iron Maiden.\n\nMore info: https://moviereleaseradar.com/movie/ultra-strong/";
+      var icsSummary   = "Ultra Strong (2026)";
+      var icsDescBody  = "Catherine tries to toughen herself to impress the “princes” in her circle\\, who turn out to be more off-putting than charming. When all her dubious strategies fail\\, she must face the ultimate test: learning how to embrace her true nature.  In Ultra Strong\\, a candid and self-deprecating autofictional story by Catherine Lepage\\, we’re invited to reexamine our youthful ideals—from Cinderella to Iron Maiden.\\n\\nMore info: https://moviereleaseradar.com/movie/ultra-strong/";
+      var icsUid       = "movie-1658473@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/ultra-strong/";
+      var icsFile      = "ultra-strong-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1658473@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260623\r\nDTEND;VALUE=DATE:20260624\r\nSUMMARY:Ultra Strong (2026)\r\nDESCRIPTION:Catherine tries to toughen herself to impress the “princes” in her circle\\, who turn out to be more off-putting than charming. When all her dubious strategies fail\\, she must face the ultimate test: learning how to embrace her true nature.  In Ultra Strong\\, a candid and self-deprecating autofictional story by Catherine Lepage\\, we’re invited to reexamine our youthful ideals—from Cinderella to Iron Maiden.\\n\\nMore info: https://moviereleaseradar.com/movie/ultra-strong/\r\nURL:https://moviereleaseradar.com/movie/ultra-strong/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "ultra-strong-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

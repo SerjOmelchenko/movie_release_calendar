@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Les%20Mis%C3%A9rables%20(2026)&amp;dates=20261014/20261015&amp;details=After%20enduring%2019%20years%20in%20prison%20for%20stealing%20a%20loaf%20of%20bread%2C%20Jean%20Valjean%20emerges%20a%20hardened%20man.%20He%20seeks%20redemption%20by%20reinventing%20himself%20as%20a%20respected%20dignitary%20under%20a%20new%20identity.%20He%20promises%20Fantine%2C%20a%20dying%20factory%20worker%2C%20to%20rescue%20and%20protect%20her%20daughter%20Cosette%2C%20who%20is%20being%20exploited%20and%20mistreated%20by%20the%20deceitful%20Th%C3%A9nardier%20family.%20As%20Valjean%20raises%20Cosette%20as%20his%20own%2C%20he%20is%20relentlessly%20pursued%20by%20Inspector%20Javert.%20Admist%20the%20social%20unrest%20shaking%20France%2C%20the%20fates%20of%20Valjea%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fles-miserables%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Les%20Mis%C3%A9rables%20(2026)&amp;startdt=2026-10-14&amp;enddt=2026-10-15&amp;allday=true&amp;body=After%20enduring%2019%20years%20in%20prison%20for%20stealing%20a%20loaf%20of%20bread%2C%20Jean%20Valjean%20emerges%20a%20hardened%20man.%20He%20seeks%20redemption%20by%20reinventing%20himself%20as%20a%20respected%20dignitary%20under%20a%20new%20identity.%20He%20promises%20Fantine%2C%20a%20dying%20factory%20worker%2C%20to%20rescue%20and%20protect%20her%20daughter%20Cosette%2C%20who%20is%20being%20exploited%20and%20mistreated%20by%20the%20deceitful%20Th%C3%A9nardier%20family.%20As%20Valjean%20raises%20Cosette%20as%20his%20own%2C%20he%20is%20relentlessly%20pursued%20by%20Inspector%20Javert.%20Admist%20the%20social%20unrest%20shaking%20France%2C%20the%20fates%20of%20Valjea%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fles-miserables%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Les%20Mis%C3%A9rables%20(2026)&amp;ST=20261014&amp;ET=20261015&amp;in_loc=&amp;DESC=After%20enduring%2019%20years%20in%20prison%20for%20stealing%20a%20loaf%20of%20bread%2C%20Jean%20Valjean%20emerges%20a%20hardened%20man.%20He%20seeks%20redemption%20by%20reinventing%20himself%20as%20a%20respected%20dignitary%20under%20a%20new%20identity.%20He%20promises%20Fantine%2C%20a%20dying%20factory%20worker%2C%20to%20rescue%20and%20protect%20her%20daughter%20Cosette%2C%20who%20is%20being%20exploited%20and%20mistreated%20by%20the%20deceitful%20Th%C3%A9nardier%20family.%20As%20Valjean%20raises%20Cosette%20as%20his%20own%2C%20he%20is%20relentlessly%20pursued%20by%20Inspector%20Javert.%20Admist%20the%20social%20unrest%20shaking%20France%2C%20the%20fates%20of%20Valjea%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fles-miserables%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-10-14","AT":"2026-10-14","BE":"2026-10-14","BR":"2026-10-14","BG":"2026-10-14","CA":"2026-10-14","CN":"2026-10-14","HR":"2026-10-14","CY":"2026-10-14","CZ":"2026-10-14","DK":"2026-10-14","EE":"2026-10-14","FI":"2026-10-14","FR":"2026-10-14","DE":"2026-12-24","GR":"2026-10-14","HU":"2026-10-14","IN":"2026-10-14","IE":"2026-10-14","IT":"2026-10-14","JP":"2026-10-14","LV":"2026-10-14","LT":"2026-10-14","LU":"2026-10-14","MT":"2026-10-14","NL":"2026-10-14","PL":"2026-10-14","PT":"2026-10-14","RO":"2026-10-14","SK":"2026-10-14","SI":"2026-10-14","KR":"2026-10-14","ES":"2026-10-14","SE":"2026-10-14","GB":"2026-10-14","UA":"2026-10-14","US":"2026-10-14"};
+      var globalDate   = "2026-10-14";
+      var calTitle     = "Les Misérables (2026)";
+      var calDesc      = "After enduring 19 years in prison for stealing a loaf of bread, Jean Valjean emerges a hardened man. He seeks redemption by reinventing himself as a respected dignitary under a new identity. He promises Fantine, a dying factory worker, to rescue and protect her daughter Cosette, who is being exploited and mistreated by the deceitful Thénardier family. As Valjean raises Cosette as his own, he is relentlessly pursued by Inspector Javert. Admist the social unrest shaking France, the fates of Valjea\n\nMore info: https://moviereleaseradar.com/movie/les-miserables/";
+      var icsSummary   = "Les Misérables (2026)";
+      var icsDescBody  = "After enduring 19 years in prison for stealing a loaf of bread\\, Jean Valjean emerges a hardened man. He seeks redemption by reinventing himself as a respected dignitary under a new identity. He promises Fantine\\, a dying factory worker\\, to rescue and protect her daughter Cosette\\, who is being exploited and mistreated by the deceitful Thénardier family. As Valjean raises Cosette as his own\\, he is relentlessly pursued by Inspector Javert. Admist the social unrest shaking France\\, the fates of Valjea\\n\\nMore info: https://moviereleaseradar.com/movie/les-miserables/";
+      var icsUid       = "movie-1241803@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/les-miserables/";
+      var icsFile      = "les-mis-rables-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1241803@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261014\r\nDTEND;VALUE=DATE:20261015\r\nSUMMARY:Les Misérables (2026)\r\nDESCRIPTION:After enduring 19 years in prison for stealing a loaf of bread\\, Jean Valjean emerges a hardened man. He seeks redemption by reinventing himself as a respected dignitary under a new identity. He promises Fantine\\, a dying factory worker\\, to rescue and protect her daughter Cosette\\, who is being exploited and mistreated by the deceitful Thénardier family. As Valjean raises Cosette as his own\\, he is relentlessly pursued by Inspector Javert. Admist the social unrest shaking France\\, the fates of Valjea\\n\\nMore info: https://moviereleaseradar.com/movie/les-miserables/\r\nURL:https://moviereleaseradar.com/movie/les-miserables/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "les-mis-rables-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Heaven's%20Office%20Games%20(2026)&amp;dates=20260928/20260929&amp;details=Four%20carefree%20bachelors%20get%20into%20a%20car%20accident%20after%20a%20night%20of%20partying%20and%20find%20themselves%20in%20purgatory%20%E2%80%94%20a%20world%20of%20endless%20bureaucracy%20and%20chaotic%20digital%20reforms.%20At%20the%20Heaven%E2%80%99s%20Office%2C%20they%20receive%20their%20sentence%3A%20a%20direct%20express%20train%20to%20hell.%20Using%20their%20charm%2C%20they%20convince%20the%20purgatory%20secretary%20to%20give%20them%20a%20chance%20%E2%80%94%20seven%20days%20on%20Earth%20to%20atone%20for%20their%20sins.%20But%20once%20back%2C%20they%20realize%20they%E2%80%99ve%20fallen%20into%20a%20trap%20hidden%20in%20the%20perfectly%20ironic%20fine%20print%20of%20heaven.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fheaven-s-office-games%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Heaven's%20Office%20Games%20(2026)&amp;startdt=2026-09-28&amp;enddt=2026-09-29&amp;allday=true&amp;body=Four%20carefree%20bachelors%20get%20into%20a%20car%20accident%20after%20a%20night%20of%20partying%20and%20find%20themselves%20in%20purgatory%20%E2%80%94%20a%20world%20of%20endless%20bureaucracy%20and%20chaotic%20digital%20reforms.%20At%20the%20Heaven%E2%80%99s%20Office%2C%20they%20receive%20their%20sentence%3A%20a%20direct%20express%20train%20to%20hell.%20Using%20their%20charm%2C%20they%20convince%20the%20purgatory%20secretary%20to%20give%20them%20a%20chance%20%E2%80%94%20seven%20days%20on%20Earth%20to%20atone%20for%20their%20sins.%20But%20once%20back%2C%20they%20realize%20they%E2%80%99ve%20fallen%20into%20a%20trap%20hidden%20in%20the%20perfectly%20ironic%20fine%20print%20of%20heaven.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fheaven-s-office-games%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Heaven's%20Office%20Games%20(2026)&amp;ST=20260928&amp;ET=20260929&amp;in_loc=&amp;DESC=Four%20carefree%20bachelors%20get%20into%20a%20car%20accident%20after%20a%20night%20of%20partying%20and%20find%20themselves%20in%20purgatory%20%E2%80%94%20a%20world%20of%20endless%20bureaucracy%20and%20chaotic%20digital%20reforms.%20At%20the%20Heaven%E2%80%99s%20Office%2C%20they%20receive%20their%20sentence%3A%20a%20direct%20express%20train%20to%20hell.%20Using%20their%20charm%2C%20they%20convince%20the%20purgatory%20secretary%20to%20give%20them%20a%20chance%20%E2%80%94%20seven%20days%20on%20Earth%20to%20atone%20for%20their%20sins.%20But%20once%20back%2C%20they%20realize%20they%E2%80%99ve%20fallen%20into%20a%20trap%20hidden%20in%20the%20perfectly%20ironic%20fine%20print%20of%20heaven.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fheaven-s-office-games%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-09-28","AT":"2026-09-28","BE":"2026-09-28","BR":"2026-09-28","BG":"2026-09-28","CA":"2026-09-28","CN":"2026-09-28","HR":"2026-09-28","CY":"2026-09-28","CZ":"2026-09-28","DK":"2026-09-28","EE":"2026-09-28","FI":"2026-09-28","FR":"2026-09-28","DE":"2026-09-28","GR":"2026-09-28","HU":"2026-09-28","IN":"2026-09-28","IE":"2026-09-28","IT":"2026-09-28","JP":"2026-09-28","LV":"2026-09-28","LT":"2026-09-28","LU":"2026-09-28","MT":"2026-09-28","NL":"2026-09-28","PL":"2026-09-28","PT":"2026-09-28","RO":"2026-09-28","SK":"2026-09-28","SI":"2026-09-28","KR":"2026-09-28","ES":"2026-09-28","SE":"2026-09-28","GB":"2026-09-28","UA":"2026-09-28","US":"2026-09-28"};
+      var globalDate   = "2026-09-28";
+      var calTitle     = "Heaven's Office Games (2026)";
+      var calDesc      = "Four carefree bachelors get into a car accident after a night of partying and find themselves in purgatory — a world of endless bureaucracy and chaotic digital reforms. At the Heaven’s Office, they receive their sentence: a direct express train to hell. Using their charm, they convince the purgatory secretary to give them a chance — seven days on Earth to atone for their sins. But once back, they realize they’ve fallen into a trap hidden in the perfectly ironic fine print of heaven.\n\nMore info: https://moviereleaseradar.com/movie/heaven-s-office-games/";
+      var icsSummary   = "Heaven's Office Games (2026)";
+      var icsDescBody  = "Four carefree bachelors get into a car accident after a night of partying and find themselves in purgatory — a world of endless bureaucracy and chaotic digital reforms. At the Heaven’s Office\\, they receive their sentence: a direct express train to hell. Using their charm\\, they convince the purgatory secretary to give them a chance — seven days on Earth to atone for their sins. But once back\\, they realize they’ve fallen into a trap hidden in the perfectly ironic fine print of heaven.\\n\\nMore info: https://moviereleaseradar.com/movie/heaven-s-office-games/";
+      var icsUid       = "movie-1560163@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/heaven-s-office-games/";
+      var icsFile      = "heaven-s-office-games-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1560163@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260928\r\nDTEND;VALUE=DATE:20260929\r\nSUMMARY:Heaven's Office Games (2026)\r\nDESCRIPTION:Four carefree bachelors get into a car accident after a night of partying and find themselves in purgatory — a world of endless bureaucracy and chaotic digital reforms. At the Heaven’s Office\\, they receive their sentence: a direct express train to hell. Using their charm\\, they convince the purgatory secretary to give them a chance — seven days on Earth to atone for their sins. But once back\\, they realize they’ve fallen into a trap hidden in the perfectly ironic fine print of heaven.\\n\\nMore info: https://moviereleaseradar.com/movie/heaven-s-office-games/\r\nURL:https://moviereleaseradar.com/movie/heaven-s-office-games/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "heaven-s-office-games-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

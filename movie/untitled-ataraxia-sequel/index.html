@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Untitled%20Ataraxia%20Sequel%20(2027)&amp;dates=20270205/20270206&amp;details=Ever%20since%20the%20storm%20subsided%20and%20the%20aberrations%20it%20birthed%20withered%20into%20the%20ruins%2C%20the%20Impact%20Zone%20has%20been%20closely%20monitored%20-%20its%20horrors%20believed%20contained.%20But%20when%20strange%20infections%20begin%20appearing%20beyond%20the%20Impact%20Zone's%20borders%2C%20it%20becomes%20clear%20that%20the%20nightmare%20is%20far%20from%20over...%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Funtitled-ataraxia-sequel%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Untitled%20Ataraxia%20Sequel%20(2027)&amp;startdt=2027-02-05&amp;enddt=2027-02-06&amp;allday=true&amp;body=Ever%20since%20the%20storm%20subsided%20and%20the%20aberrations%20it%20birthed%20withered%20into%20the%20ruins%2C%20the%20Impact%20Zone%20has%20been%20closely%20monitored%20-%20its%20horrors%20believed%20contained.%20But%20when%20strange%20infections%20begin%20appearing%20beyond%20the%20Impact%20Zone's%20borders%2C%20it%20becomes%20clear%20that%20the%20nightmare%20is%20far%20from%20over...%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Funtitled-ataraxia-sequel%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Untitled%20Ataraxia%20Sequel%20(2027)&amp;ST=20270205&amp;ET=20270206&amp;in_loc=&amp;DESC=Ever%20since%20the%20storm%20subsided%20and%20the%20aberrations%20it%20birthed%20withered%20into%20the%20ruins%2C%20the%20Impact%20Zone%20has%20been%20closely%20monitored%20-%20its%20horrors%20believed%20contained.%20But%20when%20strange%20infections%20begin%20appearing%20beyond%20the%20Impact%20Zone's%20borders%2C%20it%20becomes%20clear%20that%20the%20nightmare%20is%20far%20from%20over...%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Funtitled-ataraxia-sequel%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-02-05","AT":"2027-02-05","BE":"2027-02-05","BR":"2027-02-05","BG":"2027-02-05","CA":"2027-02-05","CN":"2027-02-05","HR":"2027-02-05","CY":"2027-02-05","CZ":"2027-02-05","DK":"2027-02-05","EE":"2027-02-05","FI":"2027-02-05","FR":"2027-02-05","DE":"2027-02-05","GR":"2027-02-05","HU":"2027-02-05","IN":"2027-02-05","IE":"2027-02-05","IT":"2027-02-05","JP":"2027-02-05","LV":"2027-02-05","LT":"2027-02-05","LU":"2027-02-05","MT":"2027-02-05","NL":"2027-02-05","PL":"2027-02-05","PT":"2027-02-05","RO":"2027-02-05","SK":"2027-02-05","SI":"2027-02-05","KR":"2027-02-05","ES":"2027-02-05","SE":"2027-02-05","GB":"2027-02-05","UA":"2027-02-05","US":"2027-02-05"};
+      var globalDate   = "2027-02-05";
+      var calTitle     = "Untitled Ataraxia Sequel (2027)";
+      var calDesc      = "Ever since the storm subsided and the aberrations it birthed withered into the ruins, the Impact Zone has been closely monitored - its horrors believed contained. But when strange infections begin appearing beyond the Impact Zone's borders, it becomes clear that the nightmare is far from over...\n\nMore info: https://moviereleaseradar.com/movie/untitled-ataraxia-sequel/";
+      var icsSummary   = "Untitled Ataraxia Sequel (2027)";
+      var icsDescBody  = "Ever since the storm subsided and the aberrations it birthed withered into the ruins\\, the Impact Zone has been closely monitored - its horrors believed contained. But when strange infections begin appearing beyond the Impact Zone's borders\\, it becomes clear that the nightmare is far from over...\\n\\nMore info: https://moviereleaseradar.com/movie/untitled-ataraxia-sequel/";
+      var icsUid       = "movie-1628117@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/untitled-ataraxia-sequel/";
+      var icsFile      = "untitled-ataraxia-sequel-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1628117@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270205\r\nDTEND;VALUE=DATE:20270206\r\nSUMMARY:Untitled Ataraxia Sequel (2027)\r\nDESCRIPTION:Ever since the storm subsided and the aberrations it birthed withered into the ruins\\, the Impact Zone has been closely monitored - its horrors believed contained. But when strange infections begin appearing beyond the Impact Zone's borders\\, it becomes clear that the nightmare is far from over...\\n\\nMore info: https://moviereleaseradar.com/movie/untitled-ataraxia-sequel/\r\nURL:https://moviereleaseradar.com/movie/untitled-ataraxia-sequel/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "untitled-ataraxia-sequel-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Angels%20(2026)&amp;dates=20260404/20260405&amp;details=Paul%20Taylor%2C%20a%20middle-aged%20man%2C%20is%20devastated%20after%20losing%20something%20that%20meant%20the%20world%20to%20him.%20He%20decides%20to%20give%20up%20everything%20and%20to%20go%20and%20teach%20at%20a%20reform%20school%20for%20young%20teens%20in%20the%20hope%20he%20would%20come%20to%20understand%20the%20criminal%20mind%20of%20a%20child.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fangels%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Angels%20(2026)&amp;startdt=2026-04-04&amp;enddt=2026-04-05&amp;allday=true&amp;body=Paul%20Taylor%2C%20a%20middle-aged%20man%2C%20is%20devastated%20after%20losing%20something%20that%20meant%20the%20world%20to%20him.%20He%20decides%20to%20give%20up%20everything%20and%20to%20go%20and%20teach%20at%20a%20reform%20school%20for%20young%20teens%20in%20the%20hope%20he%20would%20come%20to%20understand%20the%20criminal%20mind%20of%20a%20child.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fangels%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Angels%20(2026)&amp;ST=20260404&amp;ET=20260405&amp;in_loc=&amp;DESC=Paul%20Taylor%2C%20a%20middle-aged%20man%2C%20is%20devastated%20after%20losing%20something%20that%20meant%20the%20world%20to%20him.%20He%20decides%20to%20give%20up%20everything%20and%20to%20go%20and%20teach%20at%20a%20reform%20school%20for%20young%20teens%20in%20the%20hope%20he%20would%20come%20to%20understand%20the%20criminal%20mind%20of%20a%20child.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fangels%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-04","AT":"2026-04-04","BE":"2026-04-04","BR":"2026-04-04","BG":"2026-04-04","CA":"2026-04-04","CN":"2026-04-04","HR":"2026-04-04","CY":"2026-04-04","CZ":"2026-04-04","DK":"2026-04-04","EE":"2026-04-04","FI":"2026-04-04","FR":"2026-04-04","DE":"2026-04-04","GR":"2026-04-04","HU":"2026-04-04","IN":"2026-04-04","IE":"2026-04-04","IT":"2026-04-04","JP":"2026-04-04","LV":"2026-04-04","LT":"2026-04-04","LU":"2026-04-04","MT":"2026-04-04","NL":"2026-04-04","PL":"2026-04-04","PT":"2026-04-04","RO":"2026-04-04","SK":"2026-04-04","SI":"2026-04-04","KR":"2026-04-04","ES":"2026-04-04","SE":"2026-04-04","GB":"2026-04-04","UA":"2026-04-04","US":"2026-04-04"};
+      var globalDate   = "2026-04-04";
+      var calTitle     = "Angels (2026)";
+      var calDesc      = "Paul Taylor, a middle-aged man, is devastated after losing something that meant the world to him. He decides to give up everything and to go and teach at a reform school for young teens in the hope he would come to understand the criminal mind of a child.\n\nMore info: https://moviereleaseradar.com/movie/angels/";
+      var icsSummary   = "Angels (2026)";
+      var icsDescBody  = "Paul Taylor\\, a middle-aged man\\, is devastated after losing something that meant the world to him. He decides to give up everything and to go and teach at a reform school for young teens in the hope he would come to understand the criminal mind of a child.\\n\\nMore info: https://moviereleaseradar.com/movie/angels/";
+      var icsUid       = "movie-1219417@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/angels/";
+      var icsFile      = "angels-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1219417@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260404\r\nDTEND;VALUE=DATE:20260405\r\nSUMMARY:Angels (2026)\r\nDESCRIPTION:Paul Taylor\\, a middle-aged man\\, is devastated after losing something that meant the world to him. He decides to give up everything and to go and teach at a reform school for young teens in the hope he would come to understand the criminal mind of a child.\\n\\nMore info: https://moviereleaseradar.com/movie/angels/\r\nURL:https://moviereleaseradar.com/movie/angels/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "angels-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

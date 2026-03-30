@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Animal%20Friends%20(2027)&amp;dates=20270122/20270123&amp;details=Two%20fugitive%20animals%20embark%20on%20an%20adventure%20across%20America%20to%20find%20the%20ranch%20that%20was%20once%20their%20home%2C%20healing%20their%20friendship%20while%20pursued%20by%20an%20equally%20%22odd-couple%22%20DEA%20agent%20and%20Fish%20and%20Wildlife%20ranger%20with%20something%20to%20prove.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fanimal-friends%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Animal%20Friends%20(2027)&amp;startdt=2027-01-22&amp;enddt=2027-01-23&amp;allday=true&amp;body=Two%20fugitive%20animals%20embark%20on%20an%20adventure%20across%20America%20to%20find%20the%20ranch%20that%20was%20once%20their%20home%2C%20healing%20their%20friendship%20while%20pursued%20by%20an%20equally%20%22odd-couple%22%20DEA%20agent%20and%20Fish%20and%20Wildlife%20ranger%20with%20something%20to%20prove.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fanimal-friends%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Animal%20Friends%20(2027)&amp;ST=20270122&amp;ET=20270123&amp;in_loc=&amp;DESC=Two%20fugitive%20animals%20embark%20on%20an%20adventure%20across%20America%20to%20find%20the%20ranch%20that%20was%20once%20their%20home%2C%20healing%20their%20friendship%20while%20pursued%20by%20an%20equally%20%22odd-couple%22%20DEA%20agent%20and%20Fish%20and%20Wildlife%20ranger%20with%20something%20to%20prove.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fanimal-friends%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-01-22","AT":"2027-01-22","BE":"2027-01-22","BR":"2027-01-22","BG":"2027-01-22","CA":"2027-01-22","CN":"2027-01-22","HR":"2027-01-22","CY":"2027-01-22","CZ":"2027-01-22","DK":"2027-01-22","EE":"2027-01-22","FI":"2027-01-22","FR":"2027-01-22","DE":"2027-01-22","GR":"2027-01-22","HU":"2027-01-22","IN":"2027-01-22","IE":"2027-01-22","IT":"2027-01-22","JP":"2027-01-22","LV":"2027-01-22","LT":"2027-01-22","LU":"2027-01-22","MT":"2027-01-22","NL":"2027-01-22","PL":"2027-01-22","PT":"2027-01-22","RO":"2027-01-22","SK":"2027-01-22","SI":"2027-01-22","KR":"2027-01-22","ES":"2027-01-22","SE":"2027-01-22","GB":"2027-01-22","UA":"2027-01-22","US":"2027-01-22"};
+      var globalDate   = "2027-01-22";
+      var calTitle     = "Animal Friends (2027)";
+      var calDesc      = "Two fugitive animals embark on an adventure across America to find the ranch that was once their home, healing their friendship while pursued by an equally \"odd-couple\" DEA agent and Fish and Wildlife ranger with something to prove.\n\nMore info: https://moviereleaseradar.com/movie/animal-friends/";
+      var icsSummary   = "Animal Friends (2027)";
+      var icsDescBody  = "Two fugitive animals embark on an adventure across America to find the ranch that was once their home\\, healing their friendship while pursued by an equally \"odd-couple\" DEA agent and Fish and Wildlife ranger with something to prove.\\n\\nMore info: https://moviereleaseradar.com/movie/animal-friends/";
+      var icsUid       = "movie-1115030@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/animal-friends/";
+      var icsFile      = "animal-friends-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1115030@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270122\r\nDTEND;VALUE=DATE:20270123\r\nSUMMARY:Animal Friends (2027)\r\nDESCRIPTION:Two fugitive animals embark on an adventure across America to find the ranch that was once their home\\, healing their friendship while pursued by an equally \"odd-couple\" DEA agent and Fish and Wildlife ranger with something to prove.\\n\\nMore info: https://moviereleaseradar.com/movie/animal-friends/\r\nURL:https://moviereleaseradar.com/movie/animal-friends/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "animal-friends-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

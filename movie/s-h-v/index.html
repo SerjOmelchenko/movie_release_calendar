@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=S%2FH%2FV%20(2027)&amp;dates=20270204/20270205&amp;details=Four%20students%2C%20who%20make%20money%20by%20putting%20stolen%20school%20items%20online%2C%20are%20hired%20to%20steal%20a%20VHS%20tape%20from%20their%20Physical%20Education%20Teacher%E2%80%99s%20Office.%20However%2C%20things%20take%20a%20turn%20for%20the%20worse%2C%20when%20they%20find%20dozens%20of%20tapes%2C%20and%20being%20kids%2C%20they%20dare%20each%20other%20to%20partake%20in%20watching%20them.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fs-h-v%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=S%2FH%2FV%20(2027)&amp;startdt=2027-02-04&amp;enddt=2027-02-05&amp;allday=true&amp;body=Four%20students%2C%20who%20make%20money%20by%20putting%20stolen%20school%20items%20online%2C%20are%20hired%20to%20steal%20a%20VHS%20tape%20from%20their%20Physical%20Education%20Teacher%E2%80%99s%20Office.%20However%2C%20things%20take%20a%20turn%20for%20the%20worse%2C%20when%20they%20find%20dozens%20of%20tapes%2C%20and%20being%20kids%2C%20they%20dare%20each%20other%20to%20partake%20in%20watching%20them.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fs-h-v%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=S%2FH%2FV%20(2027)&amp;ST=20270204&amp;ET=20270205&amp;in_loc=&amp;DESC=Four%20students%2C%20who%20make%20money%20by%20putting%20stolen%20school%20items%20online%2C%20are%20hired%20to%20steal%20a%20VHS%20tape%20from%20their%20Physical%20Education%20Teacher%E2%80%99s%20Office.%20However%2C%20things%20take%20a%20turn%20for%20the%20worse%2C%20when%20they%20find%20dozens%20of%20tapes%2C%20and%20being%20kids%2C%20they%20dare%20each%20other%20to%20partake%20in%20watching%20them.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fs-h-v%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-02-04","AT":"2027-02-04","BE":"2027-02-04","BR":"2027-02-04","BG":"2027-02-04","CA":"2027-02-04","CN":"2027-02-04","HR":"2027-02-04","CY":"2027-02-04","CZ":"2027-02-04","DK":"2027-02-04","EE":"2027-02-04","FI":"2027-02-04","FR":"2027-02-04","DE":"2027-02-04","GR":"2027-02-04","HU":"2027-02-04","IN":"2027-02-04","IE":"2027-02-04","IT":"2027-02-04","JP":"2027-02-04","LV":"2027-02-04","LT":"2027-02-04","LU":"2027-02-04","MT":"2027-02-04","NL":"2027-02-04","PL":"2027-02-04","PT":"2027-02-04","RO":"2027-02-04","SK":"2027-02-04","SI":"2027-02-04","KR":"2027-02-04","ES":"2027-02-04","SE":"2027-02-04","GB":"2027-02-04","UA":"2027-02-04","US":"2027-02-04"};
+      var globalDate   = "2027-02-04";
+      var calTitle     = "S/H/V (2027)";
+      var calDesc      = "Four students, who make money by putting stolen school items online, are hired to steal a VHS tape from their Physical Education Teacher’s Office. However, things take a turn for the worse, when they find dozens of tapes, and being kids, they dare each other to partake in watching them.\n\nMore info: https://moviereleaseradar.com/movie/s-h-v/";
+      var icsSummary   = "S/H/V (2027)";
+      var icsDescBody  = "Four students\\, who make money by putting stolen school items online\\, are hired to steal a VHS tape from their Physical Education Teacher’s Office. However\\, things take a turn for the worse\\, when they find dozens of tapes\\, and being kids\\, they dare each other to partake in watching them.\\n\\nMore info: https://moviereleaseradar.com/movie/s-h-v/";
+      var icsUid       = "movie-1612048@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/s-h-v/";
+      var icsFile      = "s-h-v-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1612048@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270204\r\nDTEND;VALUE=DATE:20270205\r\nSUMMARY:S/H/V (2027)\r\nDESCRIPTION:Four students\\, who make money by putting stolen school items online\\, are hired to steal a VHS tape from their Physical Education Teacher’s Office. However\\, things take a turn for the worse\\, when they find dozens of tapes\\, and being kids\\, they dare each other to partake in watching them.\\n\\nMore info: https://moviereleaseradar.com/movie/s-h-v/\r\nURL:https://moviereleaseradar.com/movie/s-h-v/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "s-h-v-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

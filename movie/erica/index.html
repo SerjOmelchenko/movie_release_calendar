@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Erica%20(2026)&amp;dates=20260515/20260516&amp;details=Takumi%2C%20a%20man%20who%20is%20unpopular%20with%20women%20and%20hasn%E2%80%99t%20had%20a%20girlfriend%20for%2023%20years%2C%20happens%20to%20walk%20into%20a%20caf%C3%A9%20one%20day%20and%20falls%20in%20love%20at%20first%20sight%20with%20Erica%2C%20a%20waitress.%20However%2C%20she%20is%20suffering%20from%20domestic%20violence%20from%20her%20boyfriend%2C%20Ryo.%20Takumi%20tries%20to%20help%20her%2C%20but%20their%20relationship%20becomes%20entangled%20with%20the%20presence%20of%20Takumi's%20sister%2C%20Yuka%2C%20a%20waitress%20at%20the%20caf%C3%A9%20where%20he%20works%20part-time%2C%20and%20Ryo's%20brother%2C%20Toru.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Ferica%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Erica%20(2026)&amp;startdt=2026-05-15&amp;enddt=2026-05-16&amp;allday=true&amp;body=Takumi%2C%20a%20man%20who%20is%20unpopular%20with%20women%20and%20hasn%E2%80%99t%20had%20a%20girlfriend%20for%2023%20years%2C%20happens%20to%20walk%20into%20a%20caf%C3%A9%20one%20day%20and%20falls%20in%20love%20at%20first%20sight%20with%20Erica%2C%20a%20waitress.%20However%2C%20she%20is%20suffering%20from%20domestic%20violence%20from%20her%20boyfriend%2C%20Ryo.%20Takumi%20tries%20to%20help%20her%2C%20but%20their%20relationship%20becomes%20entangled%20with%20the%20presence%20of%20Takumi's%20sister%2C%20Yuka%2C%20a%20waitress%20at%20the%20caf%C3%A9%20where%20he%20works%20part-time%2C%20and%20Ryo's%20brother%2C%20Toru.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Ferica%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Erica%20(2026)&amp;ST=20260515&amp;ET=20260516&amp;in_loc=&amp;DESC=Takumi%2C%20a%20man%20who%20is%20unpopular%20with%20women%20and%20hasn%E2%80%99t%20had%20a%20girlfriend%20for%2023%20years%2C%20happens%20to%20walk%20into%20a%20caf%C3%A9%20one%20day%20and%20falls%20in%20love%20at%20first%20sight%20with%20Erica%2C%20a%20waitress.%20However%2C%20she%20is%20suffering%20from%20domestic%20violence%20from%20her%20boyfriend%2C%20Ryo.%20Takumi%20tries%20to%20help%20her%2C%20but%20their%20relationship%20becomes%20entangled%20with%20the%20presence%20of%20Takumi's%20sister%2C%20Yuka%2C%20a%20waitress%20at%20the%20caf%C3%A9%20where%20he%20works%20part-time%2C%20and%20Ryo's%20brother%2C%20Toru.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Ferica%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-05-15","AT":"2026-05-15","BE":"2026-05-15","BR":"2026-05-15","BG":"2026-05-15","CA":"2026-05-15","CN":"2026-05-15","HR":"2026-05-15","CY":"2026-05-15","CZ":"2026-05-15","DK":"2026-05-15","EE":"2026-05-15","FI":"2026-05-15","FR":"2026-05-15","DE":"2026-05-15","GR":"2026-05-15","HU":"2026-05-15","IN":"2026-05-15","IE":"2026-05-15","IT":"2026-05-15","JP":"2026-05-15","LV":"2026-05-15","LT":"2026-05-15","LU":"2026-05-15","MT":"2026-05-15","NL":"2026-05-15","PL":"2026-05-15","PT":"2026-05-15","RO":"2026-05-15","SK":"2026-05-15","SI":"2026-05-15","KR":"2026-05-15","ES":"2026-05-15","SE":"2026-05-15","GB":"2026-05-15","UA":"2026-05-15","US":"2026-05-15"};
+      var globalDate   = "2026-05-15";
+      var calTitle     = "Erica (2026)";
+      var calDesc      = "Takumi, a man who is unpopular with women and hasn’t had a girlfriend for 23 years, happens to walk into a café one day and falls in love at first sight with Erica, a waitress. However, she is suffering from domestic violence from her boyfriend, Ryo. Takumi tries to help her, but their relationship becomes entangled with the presence of Takumi's sister, Yuka, a waitress at the café where he works part-time, and Ryo's brother, Toru.\n\nMore info: https://moviereleaseradar.com/movie/erica/";
+      var icsSummary   = "Erica (2026)";
+      var icsDescBody  = "Takumi\\, a man who is unpopular with women and hasn’t had a girlfriend for 23 years\\, happens to walk into a café one day and falls in love at first sight with Erica\\, a waitress. However\\, she is suffering from domestic violence from her boyfriend\\, Ryo. Takumi tries to help her\\, but their relationship becomes entangled with the presence of Takumi's sister\\, Yuka\\, a waitress at the café where he works part-time\\, and Ryo's brother\\, Toru.\\n\\nMore info: https://moviereleaseradar.com/movie/erica/";
+      var icsUid       = "movie-1621777@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/erica/";
+      var icsFile      = "erica-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1621777@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260515\r\nDTEND;VALUE=DATE:20260516\r\nSUMMARY:Erica (2026)\r\nDESCRIPTION:Takumi\\, a man who is unpopular with women and hasn’t had a girlfriend for 23 years\\, happens to walk into a café one day and falls in love at first sight with Erica\\, a waitress. However\\, she is suffering from domestic violence from her boyfriend\\, Ryo. Takumi tries to help her\\, but their relationship becomes entangled with the presence of Takumi's sister\\, Yuka\\, a waitress at the café where he works part-time\\, and Ryo's brother\\, Toru.\\n\\nMore info: https://moviereleaseradar.com/movie/erica/\r\nURL:https://moviereleaseradar.com/movie/erica/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "erica-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

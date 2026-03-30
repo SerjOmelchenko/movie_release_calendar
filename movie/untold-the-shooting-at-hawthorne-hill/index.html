@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Untold%3A%20The%20Shooting%20at%20Hawthorne%20Hill%20(2026)&amp;dates=20260421/20260422&amp;details=A%20retired%20Olympic%20equestrian%20takes%20on%20a%20new%20dressage%20student%20at%20his%20idyllic%20farm%20in%20New%20Jersey.%20Over%20time%2C%20tensions%20mount%20between%20the%20two%2C%20leading%20to%20911%20calls%2C%20cryptic%20social%20media%20posts%2C%20and%20accusations%20of%20spying.%20The%20feud%20culminates%20in%20a%20shocking%20act%20of%20violence%20and%20a%20trial%20that%20rocked%20the%20prestigious%20and%20sophisticated%20world%20of%20dressage.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Funtold-the-shooting-at-hawthorne-hill%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Untold%3A%20The%20Shooting%20at%20Hawthorne%20Hill%20(2026)&amp;startdt=2026-04-21&amp;enddt=2026-04-22&amp;allday=true&amp;body=A%20retired%20Olympic%20equestrian%20takes%20on%20a%20new%20dressage%20student%20at%20his%20idyllic%20farm%20in%20New%20Jersey.%20Over%20time%2C%20tensions%20mount%20between%20the%20two%2C%20leading%20to%20911%20calls%2C%20cryptic%20social%20media%20posts%2C%20and%20accusations%20of%20spying.%20The%20feud%20culminates%20in%20a%20shocking%20act%20of%20violence%20and%20a%20trial%20that%20rocked%20the%20prestigious%20and%20sophisticated%20world%20of%20dressage.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Funtold-the-shooting-at-hawthorne-hill%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Untold%3A%20The%20Shooting%20at%20Hawthorne%20Hill%20(2026)&amp;ST=20260421&amp;ET=20260422&amp;in_loc=&amp;DESC=A%20retired%20Olympic%20equestrian%20takes%20on%20a%20new%20dressage%20student%20at%20his%20idyllic%20farm%20in%20New%20Jersey.%20Over%20time%2C%20tensions%20mount%20between%20the%20two%2C%20leading%20to%20911%20calls%2C%20cryptic%20social%20media%20posts%2C%20and%20accusations%20of%20spying.%20The%20feud%20culminates%20in%20a%20shocking%20act%20of%20violence%20and%20a%20trial%20that%20rocked%20the%20prestigious%20and%20sophisticated%20world%20of%20dressage.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Funtold-the-shooting-at-hawthorne-hill%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-21","AT":"2026-04-21","BE":"2026-04-21","BR":"2026-04-21","BG":"2026-04-21","CA":"2026-04-21","CN":"2026-04-21","HR":"2026-04-21","CY":"2026-04-21","CZ":"2026-04-21","DK":"2026-04-21","EE":"2026-04-21","FI":"2026-04-21","FR":"2026-04-21","DE":"2026-04-21","GR":"2026-04-21","HU":"2026-04-21","IN":"2026-04-21","IE":"2026-04-21","IT":"2026-04-21","JP":"2026-04-21","LV":"2026-04-21","LT":"2026-04-21","LU":"2026-04-21","MT":"2026-04-21","NL":"2026-04-21","PL":"2026-04-21","PT":"2026-04-21","RO":"2026-04-21","SK":"2026-04-21","SI":"2026-04-21","KR":"2026-04-21","ES":"2026-04-21","SE":"2026-04-21","GB":"2026-04-21","UA":"2026-04-21","US":"2026-04-21"};
+      var globalDate   = "2026-04-21";
+      var calTitle     = "Untold: The Shooting at Hawthorne Hill (2026)";
+      var calDesc      = "A retired Olympic equestrian takes on a new dressage student at his idyllic farm in New Jersey. Over time, tensions mount between the two, leading to 911 calls, cryptic social media posts, and accusations of spying. The feud culminates in a shocking act of violence and a trial that rocked the prestigious and sophisticated world of dressage.\n\nMore info: https://moviereleaseradar.com/movie/untold-the-shooting-at-hawthorne-hill/";
+      var icsSummary   = "Untold: The Shooting at Hawthorne Hill (2026)";
+      var icsDescBody  = "A retired Olympic equestrian takes on a new dressage student at his idyllic farm in New Jersey. Over time\\, tensions mount between the two\\, leading to 911 calls\\, cryptic social media posts\\, and accusations of spying. The feud culminates in a shocking act of violence and a trial that rocked the prestigious and sophisticated world of dressage.\\n\\nMore info: https://moviereleaseradar.com/movie/untold-the-shooting-at-hawthorne-hill/";
+      var icsUid       = "movie-1641966@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/untold-the-shooting-at-hawthorne-hill/";
+      var icsFile      = "untold-the-shooting-at-hawthorne-hill-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1641966@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260421\r\nDTEND;VALUE=DATE:20260422\r\nSUMMARY:Untold: The Shooting at Hawthorne Hill (2026)\r\nDESCRIPTION:A retired Olympic equestrian takes on a new dressage student at his idyllic farm in New Jersey. Over time\\, tensions mount between the two\\, leading to 911 calls\\, cryptic social media posts\\, and accusations of spying. The feud culminates in a shocking act of violence and a trial that rocked the prestigious and sophisticated world of dressage.\\n\\nMore info: https://moviereleaseradar.com/movie/untold-the-shooting-at-hawthorne-hill/\r\nURL:https://moviereleaseradar.com/movie/untold-the-shooting-at-hawthorne-hill/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "untold-the-shooting-at-hawthorne-hill-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

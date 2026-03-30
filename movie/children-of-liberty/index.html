@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Children%20of%20Liberty%20(2027)&amp;dates=20270210/20270211&amp;details=New%20York%2C%201941%2C%20shortly%20before%20the%20US%20enters%20the%20war.%20Stevie%20Mayer%20is%20an%20intelligent%20twelve-year-old%20who%E2%80%99s%20father%20suddenly%20disappears%20after%20being%20chased%20by%20two%20threatening%20men.%20Alone%20and%20unprotected%2C%20Stevie%20is%20left%20with%20a%20mysterious%20suitcase%20that%20everybody%20wants%20and%20nobody%20is%20who%20they%20claim%20to%20be.%20Thrown%20headlong%20into%20a%20mind-twisting%20plot%2C%20Stevie%20begins%20to%20suspect%20that%20his%20father%20is%20part%20of%20ring%20of%20Nazi%20spies.%20With%20the%20help%20of%20Miriam%2C%20a%20young%20Jewish%20refugee%20in%20his%20class%2C%20Stevie%20attempts%20to%20unrav%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fchildren-of-liberty%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Children%20of%20Liberty%20(2027)&amp;startdt=2027-02-10&amp;enddt=2027-02-11&amp;allday=true&amp;body=New%20York%2C%201941%2C%20shortly%20before%20the%20US%20enters%20the%20war.%20Stevie%20Mayer%20is%20an%20intelligent%20twelve-year-old%20who%E2%80%99s%20father%20suddenly%20disappears%20after%20being%20chased%20by%20two%20threatening%20men.%20Alone%20and%20unprotected%2C%20Stevie%20is%20left%20with%20a%20mysterious%20suitcase%20that%20everybody%20wants%20and%20nobody%20is%20who%20they%20claim%20to%20be.%20Thrown%20headlong%20into%20a%20mind-twisting%20plot%2C%20Stevie%20begins%20to%20suspect%20that%20his%20father%20is%20part%20of%20ring%20of%20Nazi%20spies.%20With%20the%20help%20of%20Miriam%2C%20a%20young%20Jewish%20refugee%20in%20his%20class%2C%20Stevie%20attempts%20to%20unrav%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fchildren-of-liberty%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Children%20of%20Liberty%20(2027)&amp;ST=20270210&amp;ET=20270211&amp;in_loc=&amp;DESC=New%20York%2C%201941%2C%20shortly%20before%20the%20US%20enters%20the%20war.%20Stevie%20Mayer%20is%20an%20intelligent%20twelve-year-old%20who%E2%80%99s%20father%20suddenly%20disappears%20after%20being%20chased%20by%20two%20threatening%20men.%20Alone%20and%20unprotected%2C%20Stevie%20is%20left%20with%20a%20mysterious%20suitcase%20that%20everybody%20wants%20and%20nobody%20is%20who%20they%20claim%20to%20be.%20Thrown%20headlong%20into%20a%20mind-twisting%20plot%2C%20Stevie%20begins%20to%20suspect%20that%20his%20father%20is%20part%20of%20ring%20of%20Nazi%20spies.%20With%20the%20help%20of%20Miriam%2C%20a%20young%20Jewish%20refugee%20in%20his%20class%2C%20Stevie%20attempts%20to%20unrav%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fchildren-of-liberty%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-02-10","AT":"2027-02-10","BE":"2027-02-10","BR":"2027-02-10","BG":"2027-02-10","CA":"2027-02-10","CN":"2027-02-10","HR":"2027-02-10","CY":"2027-02-10","CZ":"2027-02-10","DK":"2027-02-10","EE":"2027-02-10","FI":"2027-02-10","FR":"2027-02-10","DE":"2027-02-10","GR":"2027-02-10","HU":"2027-02-10","IN":"2027-02-10","IE":"2027-02-10","IT":"2027-02-10","JP":"2027-02-10","LV":"2027-02-10","LT":"2027-02-10","LU":"2027-02-10","MT":"2027-02-10","NL":"2027-02-10","PL":"2027-02-10","PT":"2027-02-10","RO":"2027-02-10","SK":"2027-02-10","SI":"2027-02-10","KR":"2027-02-10","ES":"2027-02-10","SE":"2027-02-10","GB":"2027-02-10","UA":"2027-02-10","US":"2027-02-10"};
+      var globalDate   = "2027-02-10";
+      var calTitle     = "Children of Liberty (2027)";
+      var calDesc      = "New York, 1941, shortly before the US enters the war. Stevie Mayer is an intelligent twelve-year-old who’s father suddenly disappears after being chased by two threatening men. Alone and unprotected, Stevie is left with a mysterious suitcase that everybody wants and nobody is who they claim to be. Thrown headlong into a mind-twisting plot, Stevie begins to suspect that his father is part of ring of Nazi spies. With the help of Miriam, a young Jewish refugee in his class, Stevie attempts to unrav\n\nMore info: https://moviereleaseradar.com/movie/children-of-liberty/";
+      var icsSummary   = "Children of Liberty (2027)";
+      var icsDescBody  = "New York\\, 1941\\, shortly before the US enters the war. Stevie Mayer is an intelligent twelve-year-old who’s father suddenly disappears after being chased by two threatening men. Alone and unprotected\\, Stevie is left with a mysterious suitcase that everybody wants and nobody is who they claim to be. Thrown headlong into a mind-twisting plot\\, Stevie begins to suspect that his father is part of ring of Nazi spies. With the help of Miriam\\, a young Jewish refugee in his class\\, Stevie attempts to unrav\\n\\nMore info: https://moviereleaseradar.com/movie/children-of-liberty/";
+      var icsUid       = "movie-588520@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/children-of-liberty/";
+      var icsFile      = "children-of-liberty-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-588520@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270210\r\nDTEND;VALUE=DATE:20270211\r\nSUMMARY:Children of Liberty (2027)\r\nDESCRIPTION:New York\\, 1941\\, shortly before the US enters the war. Stevie Mayer is an intelligent twelve-year-old who’s father suddenly disappears after being chased by two threatening men. Alone and unprotected\\, Stevie is left with a mysterious suitcase that everybody wants and nobody is who they claim to be. Thrown headlong into a mind-twisting plot\\, Stevie begins to suspect that his father is part of ring of Nazi spies. With the help of Miriam\\, a young Jewish refugee in his class\\, Stevie attempts to unrav\\n\\nMore info: https://moviereleaseradar.com/movie/children-of-liberty/\r\nURL:https://moviereleaseradar.com/movie/children-of-liberty/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "children-of-liberty-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

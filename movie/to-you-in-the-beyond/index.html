@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=To%20You%20in%20the%20Beyond%20(2026)&amp;dates=20261009/20261010&amp;details=Kazuki%20Tsukigase%20is%20a%20high%20school%20boy%20who%20carries%20a%20certain%20secret.%20In%20search%20of%20a%20place%20where%20no%20one%20knows%20him%2C%20he%20enrolls%20at%20Sakijima%20High%20School%20on%20a%20remote%20island.%20%20On%20Sakijima%2C%20there%20is%20a%20place%20known%20as%20the%20%22Cove%20of%20Spiriting%20Away.%22%20One%20early%20summer%20day%2C%20Kazuki%20finds%20a%20girl%20lying%20unconscious%20in%20the%20cove.%20The%20girl%E2%80%94Nanao%2C%2016%20years%20old%E2%80%94later%20regains%20consciousness%20in%20the%20hospital%2C%20but%20her%20identity%20remains%20unknown.%20What%20is%20the%20meaning%20behind%20the%20word%20%221974%22%20that%20she%20murmured%3F%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fto-you-in-the-beyond%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=To%20You%20in%20the%20Beyond%20(2026)&amp;startdt=2026-10-09&amp;enddt=2026-10-10&amp;allday=true&amp;body=Kazuki%20Tsukigase%20is%20a%20high%20school%20boy%20who%20carries%20a%20certain%20secret.%20In%20search%20of%20a%20place%20where%20no%20one%20knows%20him%2C%20he%20enrolls%20at%20Sakijima%20High%20School%20on%20a%20remote%20island.%20%20On%20Sakijima%2C%20there%20is%20a%20place%20known%20as%20the%20%22Cove%20of%20Spiriting%20Away.%22%20One%20early%20summer%20day%2C%20Kazuki%20finds%20a%20girl%20lying%20unconscious%20in%20the%20cove.%20The%20girl%E2%80%94Nanao%2C%2016%20years%20old%E2%80%94later%20regains%20consciousness%20in%20the%20hospital%2C%20but%20her%20identity%20remains%20unknown.%20What%20is%20the%20meaning%20behind%20the%20word%20%221974%22%20that%20she%20murmured%3F%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fto-you-in-the-beyond%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=To%20You%20in%20the%20Beyond%20(2026)&amp;ST=20261009&amp;ET=20261010&amp;in_loc=&amp;DESC=Kazuki%20Tsukigase%20is%20a%20high%20school%20boy%20who%20carries%20a%20certain%20secret.%20In%20search%20of%20a%20place%20where%20no%20one%20knows%20him%2C%20he%20enrolls%20at%20Sakijima%20High%20School%20on%20a%20remote%20island.%20%20On%20Sakijima%2C%20there%20is%20a%20place%20known%20as%20the%20%22Cove%20of%20Spiriting%20Away.%22%20One%20early%20summer%20day%2C%20Kazuki%20finds%20a%20girl%20lying%20unconscious%20in%20the%20cove.%20The%20girl%E2%80%94Nanao%2C%2016%20years%20old%E2%80%94later%20regains%20consciousness%20in%20the%20hospital%2C%20but%20her%20identity%20remains%20unknown.%20What%20is%20the%20meaning%20behind%20the%20word%20%221974%22%20that%20she%20murmured%3F%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fto-you-in-the-beyond%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-10-09","AT":"2026-10-09","BE":"2026-10-09","BR":"2026-10-09","BG":"2026-10-09","CA":"2026-10-09","CN":"2026-10-09","HR":"2026-10-09","CY":"2026-10-09","CZ":"2026-10-09","DK":"2026-10-09","EE":"2026-10-09","FI":"2026-10-09","FR":"2026-10-09","DE":"2026-10-09","GR":"2026-10-09","HU":"2026-10-09","IN":"2026-10-09","IE":"2026-10-09","IT":"2026-10-09","JP":"2026-10-09","LV":"2026-10-09","LT":"2026-10-09","LU":"2026-10-09","MT":"2026-10-09","NL":"2026-10-09","PL":"2026-10-09","PT":"2026-10-09","RO":"2026-10-09","SK":"2026-10-09","SI":"2026-10-09","KR":"2026-10-09","ES":"2026-10-09","SE":"2026-10-09","GB":"2026-10-09","UA":"2026-10-09","US":"2026-10-09"};
+      var globalDate   = "2026-10-09";
+      var calTitle     = "To You in the Beyond (2026)";
+      var calDesc      = "Kazuki Tsukigase is a high school boy who carries a certain secret. In search of a place where no one knows him, he enrolls at Sakijima High School on a remote island.  On Sakijima, there is a place known as the \"Cove of Spiriting Away.\" One early summer day, Kazuki finds a girl lying unconscious in the cove. The girl—Nanao, 16 years old—later regains consciousness in the hospital, but her identity remains unknown. What is the meaning behind the word \"1974\" that she murmured?\n\nMore info: https://moviereleaseradar.com/movie/to-you-in-the-beyond/";
+      var icsSummary   = "To You in the Beyond (2026)";
+      var icsDescBody  = "Kazuki Tsukigase is a high school boy who carries a certain secret. In search of a place where no one knows him\\, he enrolls at Sakijima High School on a remote island.  On Sakijima\\, there is a place known as the \"Cove of Spiriting Away.\" One early summer day\\, Kazuki finds a girl lying unconscious in the cove. The girl—Nanao\\, 16 years old—later regains consciousness in the hospital\\, but her identity remains unknown. What is the meaning behind the word \"1974\" that she murmured?\\n\\nMore info: https://moviereleaseradar.com/movie/to-you-in-the-beyond/";
+      var icsUid       = "movie-1632015@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/to-you-in-the-beyond/";
+      var icsFile      = "to-you-in-the-beyond-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1632015@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261009\r\nDTEND;VALUE=DATE:20261010\r\nSUMMARY:To You in the Beyond (2026)\r\nDESCRIPTION:Kazuki Tsukigase is a high school boy who carries a certain secret. In search of a place where no one knows him\\, he enrolls at Sakijima High School on a remote island.  On Sakijima\\, there is a place known as the \"Cove of Spiriting Away.\" One early summer day\\, Kazuki finds a girl lying unconscious in the cove. The girl—Nanao\\, 16 years old—later regains consciousness in the hospital\\, but her identity remains unknown. What is the meaning behind the word \"1974\" that she murmured?\\n\\nMore info: https://moviereleaseradar.com/movie/to-you-in-the-beyond/\r\nURL:https://moviereleaseradar.com/movie/to-you-in-the-beyond/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "to-you-in-the-beyond-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

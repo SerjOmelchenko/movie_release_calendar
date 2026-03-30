@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Return%20of%20the%20Living%20Dead%20(2026)&amp;dates=20261113/20261114&amp;details=Eighteen%20months%20after%20the%20events%20at%20the%20UNEEDA%20Warehouse%20in%20Louisville%2C%20KY%2C%20a%20new%20Trioxin%202-4-5%20leak%20puts%20a%20small%20Pennsylvania%20town%20on%20the%20brink%20of%20a%20zombie%20outbreak%20during%20Christmas%201985.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Freturn-of-the-living-dead%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Return%20of%20the%20Living%20Dead%20(2026)&amp;startdt=2026-11-13&amp;enddt=2026-11-14&amp;allday=true&amp;body=Eighteen%20months%20after%20the%20events%20at%20the%20UNEEDA%20Warehouse%20in%20Louisville%2C%20KY%2C%20a%20new%20Trioxin%202-4-5%20leak%20puts%20a%20small%20Pennsylvania%20town%20on%20the%20brink%20of%20a%20zombie%20outbreak%20during%20Christmas%201985.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Freturn-of-the-living-dead%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Return%20of%20the%20Living%20Dead%20(2026)&amp;ST=20261113&amp;ET=20261114&amp;in_loc=&amp;DESC=Eighteen%20months%20after%20the%20events%20at%20the%20UNEEDA%20Warehouse%20in%20Louisville%2C%20KY%2C%20a%20new%20Trioxin%202-4-5%20leak%20puts%20a%20small%20Pennsylvania%20town%20on%20the%20brink%20of%20a%20zombie%20outbreak%20during%20Christmas%201985.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Freturn-of-the-living-dead%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-11-13","AT":"2026-11-13","BE":"2026-11-13","BR":"2026-11-13","BG":"2026-11-13","CA":"2026-11-13","CN":"2026-11-13","HR":"2026-11-13","CY":"2026-11-13","CZ":"2026-11-13","DK":"2026-11-13","EE":"2026-11-13","FI":"2026-11-13","FR":"2026-11-13","DE":"2026-11-13","GR":"2026-11-13","HU":"2026-11-13","IN":"2026-11-13","IE":"2026-11-13","IT":"2026-11-13","JP":"2026-11-13","LV":"2026-11-13","LT":"2026-11-13","LU":"2026-11-13","MT":"2026-11-13","NL":"2026-11-13","PL":"2026-11-13","PT":"2026-11-13","RO":"2026-11-13","SK":"2026-11-13","SI":"2026-11-13","KR":"2026-11-13","ES":"2026-11-13","SE":"2026-11-13","GB":"2026-11-13","UA":"2026-11-13","US":"2026-11-13"};
+      var globalDate   = "2026-11-13";
+      var calTitle     = "Return of the Living Dead (2026)";
+      var calDesc      = "Eighteen months after the events at the UNEEDA Warehouse in Louisville, KY, a new Trioxin 2-4-5 leak puts a small Pennsylvania town on the brink of a zombie outbreak during Christmas 1985.\n\nMore info: https://moviereleaseradar.com/movie/return-of-the-living-dead/";
+      var icsSummary   = "Return of the Living Dead (2026)";
+      var icsDescBody  = "Eighteen months after the events at the UNEEDA Warehouse in Louisville\\, KY\\, a new Trioxin 2-4-5 leak puts a small Pennsylvania town on the brink of a zombie outbreak during Christmas 1985.\\n\\nMore info: https://moviereleaseradar.com/movie/return-of-the-living-dead/";
+      var icsUid       = "movie-1170600@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/return-of-the-living-dead/";
+      var icsFile      = "return-of-the-living-dead-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1170600@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261113\r\nDTEND;VALUE=DATE:20261114\r\nSUMMARY:Return of the Living Dead (2026)\r\nDESCRIPTION:Eighteen months after the events at the UNEEDA Warehouse in Louisville\\, KY\\, a new Trioxin 2-4-5 leak puts a small Pennsylvania town on the brink of a zombie outbreak during Christmas 1985.\\n\\nMore info: https://moviereleaseradar.com/movie/return-of-the-living-dead/\r\nURL:https://moviereleaseradar.com/movie/return-of-the-living-dead/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "return-of-the-living-dead-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

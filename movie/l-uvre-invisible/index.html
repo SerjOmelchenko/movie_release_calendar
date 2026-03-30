@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=L'%C5%92uvre%20invisible%20(2026)&amp;dates=20260408/20260409&amp;details=This%20profile%20of%20director%20Alexandre%20Trannoy%20is%20profoundly%20moving.%20But%20you%20would%20be%20forgiven%20for%20asking%20'Alexandre%20who%3F'%20because%20Trannoy%20never%20completed%20a%20single%20film%20in%20his%2030-year%20career%2C%20despite%20working%20on%20multiple%20projects%20and%20with%20illustrious%20names%20like%20Jean%20Rochefort%2C%20Anouk%20Aim%C3%A9e%2C%20Lino%20Ventura%20and%20Marlene%20Dietrich.%20A%20fascinating%20study%20of%20a%20noble%20dreamer.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fl-uvre-invisible%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=L'%C5%92uvre%20invisible%20(2026)&amp;startdt=2026-04-08&amp;enddt=2026-04-09&amp;allday=true&amp;body=This%20profile%20of%20director%20Alexandre%20Trannoy%20is%20profoundly%20moving.%20But%20you%20would%20be%20forgiven%20for%20asking%20'Alexandre%20who%3F'%20because%20Trannoy%20never%20completed%20a%20single%20film%20in%20his%2030-year%20career%2C%20despite%20working%20on%20multiple%20projects%20and%20with%20illustrious%20names%20like%20Jean%20Rochefort%2C%20Anouk%20Aim%C3%A9e%2C%20Lino%20Ventura%20and%20Marlene%20Dietrich.%20A%20fascinating%20study%20of%20a%20noble%20dreamer.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fl-uvre-invisible%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=L'%C5%92uvre%20invisible%20(2026)&amp;ST=20260408&amp;ET=20260409&amp;in_loc=&amp;DESC=This%20profile%20of%20director%20Alexandre%20Trannoy%20is%20profoundly%20moving.%20But%20you%20would%20be%20forgiven%20for%20asking%20'Alexandre%20who%3F'%20because%20Trannoy%20never%20completed%20a%20single%20film%20in%20his%2030-year%20career%2C%20despite%20working%20on%20multiple%20projects%20and%20with%20illustrious%20names%20like%20Jean%20Rochefort%2C%20Anouk%20Aim%C3%A9e%2C%20Lino%20Ventura%20and%20Marlene%20Dietrich.%20A%20fascinating%20study%20of%20a%20noble%20dreamer.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fl-uvre-invisible%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-08","AT":"2026-04-08","BE":"2026-04-08","BR":"2026-04-08","BG":"2026-04-08","CA":"2026-04-08","CN":"2026-04-08","HR":"2026-04-08","CY":"2026-04-08","CZ":"2026-04-08","DK":"2026-04-08","EE":"2026-04-08","FI":"2026-04-08","FR":"2026-04-08","DE":"2026-04-08","GR":"2026-04-08","HU":"2026-04-08","IN":"2026-04-08","IE":"2026-04-08","IT":"2025-10-21","JP":"2026-04-08","LV":"2026-04-08","LT":"2026-04-08","LU":"2026-04-08","MT":"2026-04-08","NL":"2026-04-08","PL":"2026-04-08","PT":"2026-04-08","RO":"2026-04-08","SK":"2026-04-08","SI":"2026-04-08","KR":"2026-04-08","ES":"2026-04-08","SE":"2026-04-08","GB":"2026-04-08","UA":"2026-04-08","US":"2026-04-08"};
+      var globalDate   = "2026-04-08";
+      var calTitle     = "L'Œuvre invisible (2026)";
+      var calDesc      = "This profile of director Alexandre Trannoy is profoundly moving. But you would be forgiven for asking 'Alexandre who?' because Trannoy never completed a single film in his 30-year career, despite working on multiple projects and with illustrious names like Jean Rochefort, Anouk Aimée, Lino Ventura and Marlene Dietrich. A fascinating study of a noble dreamer.\n\nMore info: https://moviereleaseradar.com/movie/l-uvre-invisible/";
+      var icsSummary   = "L'Œuvre invisible (2026)";
+      var icsDescBody  = "This profile of director Alexandre Trannoy is profoundly moving. But you would be forgiven for asking 'Alexandre who?' because Trannoy never completed a single film in his 30-year career\\, despite working on multiple projects and with illustrious names like Jean Rochefort\\, Anouk Aimée\\, Lino Ventura and Marlene Dietrich. A fascinating study of a noble dreamer.\\n\\nMore info: https://moviereleaseradar.com/movie/l-uvre-invisible/";
+      var icsUid       = "movie-1443572@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/l-uvre-invisible/";
+      var icsFile      = "l-uvre-invisible-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1443572@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260408\r\nDTEND;VALUE=DATE:20260409\r\nSUMMARY:L'Œuvre invisible (2026)\r\nDESCRIPTION:This profile of director Alexandre Trannoy is profoundly moving. But you would be forgiven for asking 'Alexandre who?' because Trannoy never completed a single film in his 30-year career\\, despite working on multiple projects and with illustrious names like Jean Rochefort\\, Anouk Aimée\\, Lino Ventura and Marlene Dietrich. A fascinating study of a noble dreamer.\\n\\nMore info: https://moviereleaseradar.com/movie/l-uvre-invisible/\r\nURL:https://moviereleaseradar.com/movie/l-uvre-invisible/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "l-uvre-invisible-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

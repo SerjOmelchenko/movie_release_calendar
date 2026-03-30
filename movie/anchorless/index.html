@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Anchorless%20(2026)&amp;dates=20261205/20261206&amp;details=During%20a%20trip%20to%20Brazil%20in%202022%2C%20Augusto%20(15)%2C%20an%20introspective%20and%20dreamy%20young%20man%2C%20becomes%20enchanted%20by%20Ant%C3%B4nio%20(16)%2C%20a%20magnetic%20and%20unpredictable%20boy%20from%20Bel%C3%A9m.%20Amid%20the%20heat%20of%20the%20World%20Cup%20and%20the%20waters%20reflecting%20a%20fleeting%20encounter%2C%20a%20fragile%20connection%20is%20born%2C%20stretching%20across%20distance%20when%20Augusto%20returns%20to%20Italy%2C%20turning%20desire%20into%20obsession.%20While%20Augusto%20loses%20himself%20in%20idealizations%20and%20the%20emptiness%20of%20delayed%20responses%2C%20Ant%C3%B4nio%20continues%20his%20life%20between%20parties%2C%20friends%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fanchorless%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Anchorless%20(2026)&amp;startdt=2026-12-05&amp;enddt=2026-12-06&amp;allday=true&amp;body=During%20a%20trip%20to%20Brazil%20in%202022%2C%20Augusto%20(15)%2C%20an%20introspective%20and%20dreamy%20young%20man%2C%20becomes%20enchanted%20by%20Ant%C3%B4nio%20(16)%2C%20a%20magnetic%20and%20unpredictable%20boy%20from%20Bel%C3%A9m.%20Amid%20the%20heat%20of%20the%20World%20Cup%20and%20the%20waters%20reflecting%20a%20fleeting%20encounter%2C%20a%20fragile%20connection%20is%20born%2C%20stretching%20across%20distance%20when%20Augusto%20returns%20to%20Italy%2C%20turning%20desire%20into%20obsession.%20While%20Augusto%20loses%20himself%20in%20idealizations%20and%20the%20emptiness%20of%20delayed%20responses%2C%20Ant%C3%B4nio%20continues%20his%20life%20between%20parties%2C%20friends%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fanchorless%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Anchorless%20(2026)&amp;ST=20261205&amp;ET=20261206&amp;in_loc=&amp;DESC=During%20a%20trip%20to%20Brazil%20in%202022%2C%20Augusto%20(15)%2C%20an%20introspective%20and%20dreamy%20young%20man%2C%20becomes%20enchanted%20by%20Ant%C3%B4nio%20(16)%2C%20a%20magnetic%20and%20unpredictable%20boy%20from%20Bel%C3%A9m.%20Amid%20the%20heat%20of%20the%20World%20Cup%20and%20the%20waters%20reflecting%20a%20fleeting%20encounter%2C%20a%20fragile%20connection%20is%20born%2C%20stretching%20across%20distance%20when%20Augusto%20returns%20to%20Italy%2C%20turning%20desire%20into%20obsession.%20While%20Augusto%20loses%20himself%20in%20idealizations%20and%20the%20emptiness%20of%20delayed%20responses%2C%20Ant%C3%B4nio%20continues%20his%20life%20between%20parties%2C%20friends%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fanchorless%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-12-05","AT":"2026-12-05","BE":"2026-12-05","BR":"2026-12-05","BG":"2026-12-05","CA":"2026-12-05","CN":"2026-12-05","HR":"2026-12-05","CY":"2026-12-05","CZ":"2026-12-05","DK":"2026-12-05","EE":"2026-12-05","FI":"2026-12-05","FR":"2026-12-05","DE":"2026-12-05","GR":"2026-12-05","HU":"2026-12-05","IN":"2026-12-05","IE":"2026-12-05","IT":"2026-12-05","JP":"2026-12-05","LV":"2026-12-05","LT":"2026-12-05","LU":"2026-12-05","MT":"2026-12-05","NL":"2026-12-05","PL":"2026-12-05","PT":"2026-12-05","RO":"2026-12-05","SK":"2026-12-05","SI":"2026-12-05","KR":"2026-12-05","ES":"2026-12-05","SE":"2026-12-05","GB":"2026-12-05","UA":"2026-12-05","US":"2026-12-05"};
+      var globalDate   = "2026-12-05";
+      var calTitle     = "Anchorless (2026)";
+      var calDesc      = "During a trip to Brazil in 2022, Augusto (15), an introspective and dreamy young man, becomes enchanted by Antônio (16), a magnetic and unpredictable boy from Belém. Amid the heat of the World Cup and the waters reflecting a fleeting encounter, a fragile connection is born, stretching across distance when Augusto returns to Italy, turning desire into obsession. While Augusto loses himself in idealizations and the emptiness of delayed responses, Antônio continues his life between parties, friends\n\nMore info: https://moviereleaseradar.com/movie/anchorless/";
+      var icsSummary   = "Anchorless (2026)";
+      var icsDescBody  = "During a trip to Brazil in 2022\\, Augusto (15)\\, an introspective and dreamy young man\\, becomes enchanted by Antônio (16)\\, a magnetic and unpredictable boy from Belém. Amid the heat of the World Cup and the waters reflecting a fleeting encounter\\, a fragile connection is born\\, stretching across distance when Augusto returns to Italy\\, turning desire into obsession. While Augusto loses himself in idealizations and the emptiness of delayed responses\\, Antônio continues his life between parties\\, friends\\n\\nMore info: https://moviereleaseradar.com/movie/anchorless/";
+      var icsUid       = "movie-1418397@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/anchorless/";
+      var icsFile      = "anchorless-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1418397@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261205\r\nDTEND;VALUE=DATE:20261206\r\nSUMMARY:Anchorless (2026)\r\nDESCRIPTION:During a trip to Brazil in 2022\\, Augusto (15)\\, an introspective and dreamy young man\\, becomes enchanted by Antônio (16)\\, a magnetic and unpredictable boy from Belém. Amid the heat of the World Cup and the waters reflecting a fleeting encounter\\, a fragile connection is born\\, stretching across distance when Augusto returns to Italy\\, turning desire into obsession. While Augusto loses himself in idealizations and the emptiness of delayed responses\\, Antônio continues his life between parties\\, friends\\n\\nMore info: https://moviereleaseradar.com/movie/anchorless/\r\nURL:https://moviereleaseradar.com/movie/anchorless/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "anchorless-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

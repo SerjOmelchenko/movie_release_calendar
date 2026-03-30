@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Call%20(2026)&amp;dates=20260513/20260514&amp;details=Inspired%20by%20a%20visit%20with%20Orlando%E2%80%99s%20vibrant%20Moroccan%20community%2C%20Central%20Florida%20%E2%80%9Carts%20instigator%E2%80%9D%20Terry%20Olson%20travels%20to%20Rabat%20to%20uncover%20the%20human%20stories%20behind%20the%201975%20Green%20March%E2%80%94when%20350%2C000%20unarmed%20Moroccan%20civilians%20crossed%20into%20the%20Western%20Sahara%2C%20prompting%20Franco%E2%80%99s%20Spain%20to%20relinquish%20its%20colonial%20claim.%20Through%20firsthand%20accounts%20and%20historical%20reflection%2C%20Olson%20and%20Moroccan%20director%20Ahmed%20Bouchalga%20explore%20the%20legacy%20of%20that%20pivotal%20moment%20and%20the%20decades%20of%20regional%20tension%20that%20foll%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-call%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Call%20(2026)&amp;startdt=2026-05-13&amp;enddt=2026-05-14&amp;allday=true&amp;body=Inspired%20by%20a%20visit%20with%20Orlando%E2%80%99s%20vibrant%20Moroccan%20community%2C%20Central%20Florida%20%E2%80%9Carts%20instigator%E2%80%9D%20Terry%20Olson%20travels%20to%20Rabat%20to%20uncover%20the%20human%20stories%20behind%20the%201975%20Green%20March%E2%80%94when%20350%2C000%20unarmed%20Moroccan%20civilians%20crossed%20into%20the%20Western%20Sahara%2C%20prompting%20Franco%E2%80%99s%20Spain%20to%20relinquish%20its%20colonial%20claim.%20Through%20firsthand%20accounts%20and%20historical%20reflection%2C%20Olson%20and%20Moroccan%20director%20Ahmed%20Bouchalga%20explore%20the%20legacy%20of%20that%20pivotal%20moment%20and%20the%20decades%20of%20regional%20tension%20that%20foll%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-call%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Call%20(2026)&amp;ST=20260513&amp;ET=20260514&amp;in_loc=&amp;DESC=Inspired%20by%20a%20visit%20with%20Orlando%E2%80%99s%20vibrant%20Moroccan%20community%2C%20Central%20Florida%20%E2%80%9Carts%20instigator%E2%80%9D%20Terry%20Olson%20travels%20to%20Rabat%20to%20uncover%20the%20human%20stories%20behind%20the%201975%20Green%20March%E2%80%94when%20350%2C000%20unarmed%20Moroccan%20civilians%20crossed%20into%20the%20Western%20Sahara%2C%20prompting%20Franco%E2%80%99s%20Spain%20to%20relinquish%20its%20colonial%20claim.%20Through%20firsthand%20accounts%20and%20historical%20reflection%2C%20Olson%20and%20Moroccan%20director%20Ahmed%20Bouchalga%20explore%20the%20legacy%20of%20that%20pivotal%20moment%20and%20the%20decades%20of%20regional%20tension%20that%20foll%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-call%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-05-13","AT":"2026-05-13","BE":"2026-05-13","BR":"2026-05-13","BG":"2026-05-13","CA":"2026-05-13","CN":"2026-05-13","HR":"2026-05-13","CY":"2026-05-13","CZ":"2026-05-13","DK":"2026-05-13","EE":"2026-05-13","FI":"2026-05-13","FR":"2026-05-13","DE":"2026-05-13","GR":"2026-05-13","HU":"2026-05-13","IN":"2026-05-13","IE":"2026-05-13","IT":"2026-05-13","JP":"2026-05-13","LV":"2026-05-13","LT":"2026-05-13","LU":"2026-05-13","MT":"2026-05-13","NL":"2026-05-13","PL":"2026-05-13","PT":"2026-05-13","RO":"2026-05-13","SK":"2026-05-13","SI":"2026-05-13","KR":"2026-05-13","ES":"2026-05-13","SE":"2026-05-13","GB":"2026-05-13","UA":"2026-05-13","US":"2026-05-13"};
+      var globalDate   = "2026-05-13";
+      var calTitle     = "The Call (2026)";
+      var calDesc      = "Inspired by a visit with Orlando’s vibrant Moroccan community, Central Florida “arts instigator” Terry Olson travels to Rabat to uncover the human stories behind the 1975 Green March—when 350,000 unarmed Moroccan civilians crossed into the Western Sahara, prompting Franco’s Spain to relinquish its colonial claim. Through firsthand accounts and historical reflection, Olson and Moroccan director Ahmed Bouchalga explore the legacy of that pivotal moment and the decades of regional tension that foll\n\nMore info: https://moviereleaseradar.com/movie/the-call/";
+      var icsSummary   = "The Call (2026)";
+      var icsDescBody  = "Inspired by a visit with Orlando’s vibrant Moroccan community\\, Central Florida “arts instigator” Terry Olson travels to Rabat to uncover the human stories behind the 1975 Green March—when 350\\,000 unarmed Moroccan civilians crossed into the Western Sahara\\, prompting Franco’s Spain to relinquish its colonial claim. Through firsthand accounts and historical reflection\\, Olson and Moroccan director Ahmed Bouchalga explore the legacy of that pivotal moment and the decades of regional tension that foll\\n\\nMore info: https://moviereleaseradar.com/movie/the-call/";
+      var icsUid       = "movie-1654805@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/the-call/";
+      var icsFile      = "the-call-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1654805@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260513\r\nDTEND;VALUE=DATE:20260514\r\nSUMMARY:The Call (2026)\r\nDESCRIPTION:Inspired by a visit with Orlando’s vibrant Moroccan community\\, Central Florida “arts instigator” Terry Olson travels to Rabat to uncover the human stories behind the 1975 Green March—when 350\\,000 unarmed Moroccan civilians crossed into the Western Sahara\\, prompting Franco’s Spain to relinquish its colonial claim. Through firsthand accounts and historical reflection\\, Olson and Moroccan director Ahmed Bouchalga explore the legacy of that pivotal moment and the decades of regional tension that foll\\n\\nMore info: https://moviereleaseradar.com/movie/the-call/\r\nURL:https://moviereleaseradar.com/movie/the-call/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "the-call-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

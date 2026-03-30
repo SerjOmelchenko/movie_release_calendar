@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Lady%20Parts%20(2026)&amp;dates=20260404/20260405&amp;details=Traci%2C%20a%20gallerist%2C%20is%20relentlessly%20pursued%20by%20a%20sadistic%20killer%20fixated%20on%20a%20painting%20that%20once%20graced%20her%20gallery's%20centerpiece.%20Following%20a%20home%20invasion%2C%20Traci's%20friends%20come%20to%20offer%20solace%20and%20protection.%20But%20as%20the%20bodies%20begin%20to%20pile%20up%2C%20Traci%20is%20thrust%20into%20a%20desperate%20search%20for%20the%20painting%2C%20knowing%20it%E2%80%99s%20the%20only%20chance%20to%20stop%20the%20killer%E2%80%99s%20relentless%20slaughter.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Flady-parts-2026%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Lady%20Parts%20(2026)&amp;startdt=2026-04-04&amp;enddt=2026-04-05&amp;allday=true&amp;body=Traci%2C%20a%20gallerist%2C%20is%20relentlessly%20pursued%20by%20a%20sadistic%20killer%20fixated%20on%20a%20painting%20that%20once%20graced%20her%20gallery's%20centerpiece.%20Following%20a%20home%20invasion%2C%20Traci's%20friends%20come%20to%20offer%20solace%20and%20protection.%20But%20as%20the%20bodies%20begin%20to%20pile%20up%2C%20Traci%20is%20thrust%20into%20a%20desperate%20search%20for%20the%20painting%2C%20knowing%20it%E2%80%99s%20the%20only%20chance%20to%20stop%20the%20killer%E2%80%99s%20relentless%20slaughter.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Flady-parts-2026%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Lady%20Parts%20(2026)&amp;ST=20260404&amp;ET=20260405&amp;in_loc=&amp;DESC=Traci%2C%20a%20gallerist%2C%20is%20relentlessly%20pursued%20by%20a%20sadistic%20killer%20fixated%20on%20a%20painting%20that%20once%20graced%20her%20gallery's%20centerpiece.%20Following%20a%20home%20invasion%2C%20Traci's%20friends%20come%20to%20offer%20solace%20and%20protection.%20But%20as%20the%20bodies%20begin%20to%20pile%20up%2C%20Traci%20is%20thrust%20into%20a%20desperate%20search%20for%20the%20painting%2C%20knowing%20it%E2%80%99s%20the%20only%20chance%20to%20stop%20the%20killer%E2%80%99s%20relentless%20slaughter.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Flady-parts-2026%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-04","AT":"2026-04-04","BE":"2026-04-04","BR":"2026-04-04","BG":"2026-04-04","CA":"2026-04-04","CN":"2026-04-04","HR":"2026-04-04","CY":"2026-04-04","CZ":"2026-04-04","DK":"2026-04-04","EE":"2026-04-04","FI":"2026-04-04","FR":"2026-04-04","DE":"2026-04-04","GR":"2026-04-04","HU":"2026-04-04","IN":"2026-04-04","IE":"2026-04-04","IT":"2026-04-04","JP":"2026-04-04","LV":"2026-04-04","LT":"2026-04-04","LU":"2026-04-04","MT":"2026-04-04","NL":"2026-04-04","PL":"2026-04-04","PT":"2026-04-04","RO":"2026-04-04","SK":"2026-04-04","SI":"2026-04-04","KR":"2026-04-04","ES":"2026-04-04","SE":"2026-04-04","GB":"2026-04-04","UA":"2026-04-04","US":"2026-04-04"};
+      var globalDate   = "2026-04-04";
+      var calTitle     = "Lady Parts (2026)";
+      var calDesc      = "Traci, a gallerist, is relentlessly pursued by a sadistic killer fixated on a painting that once graced her gallery's centerpiece. Following a home invasion, Traci's friends come to offer solace and protection. But as the bodies begin to pile up, Traci is thrust into a desperate search for the painting, knowing it’s the only chance to stop the killer’s relentless slaughter.\n\nMore info: https://moviereleaseradar.com/movie/lady-parts-2026/";
+      var icsSummary   = "Lady Parts (2026)";
+      var icsDescBody  = "Traci\\, a gallerist\\, is relentlessly pursued by a sadistic killer fixated on a painting that once graced her gallery's centerpiece. Following a home invasion\\, Traci's friends come to offer solace and protection. But as the bodies begin to pile up\\, Traci is thrust into a desperate search for the painting\\, knowing it’s the only chance to stop the killer’s relentless slaughter.\\n\\nMore info: https://moviereleaseradar.com/movie/lady-parts-2026/";
+      var icsUid       = "movie-1307524@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/lady-parts-2026/";
+      var icsFile      = "lady-parts-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1307524@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260404\r\nDTEND;VALUE=DATE:20260405\r\nSUMMARY:Lady Parts (2026)\r\nDESCRIPTION:Traci\\, a gallerist\\, is relentlessly pursued by a sadistic killer fixated on a painting that once graced her gallery's centerpiece. Following a home invasion\\, Traci's friends come to offer solace and protection. But as the bodies begin to pile up\\, Traci is thrust into a desperate search for the painting\\, knowing it’s the only chance to stop the killer’s relentless slaughter.\\n\\nMore info: https://moviereleaseradar.com/movie/lady-parts-2026/\r\nURL:https://moviereleaseradar.com/movie/lady-parts-2026/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "lady-parts-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

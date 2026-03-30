@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Spider-Thony%20Movie%203%20(2026)&amp;dates=20260519/20260520&amp;details=Anthony%20has%20been%20going%20crazy%20for%203%20years%20figuring%20out%20the%20mystery%20of%20his%20dead%20brother.%20All%20for%20the%20killer%20to%20be%20someone%20he%20wasn%E2%80%99t%20expecting.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-spider-thony-movie-3%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Spider-Thony%20Movie%203%20(2026)&amp;startdt=2026-05-19&amp;enddt=2026-05-20&amp;allday=true&amp;body=Anthony%20has%20been%20going%20crazy%20for%203%20years%20figuring%20out%20the%20mystery%20of%20his%20dead%20brother.%20All%20for%20the%20killer%20to%20be%20someone%20he%20wasn%E2%80%99t%20expecting.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-spider-thony-movie-3%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Spider-Thony%20Movie%203%20(2026)&amp;ST=20260519&amp;ET=20260520&amp;in_loc=&amp;DESC=Anthony%20has%20been%20going%20crazy%20for%203%20years%20figuring%20out%20the%20mystery%20of%20his%20dead%20brother.%20All%20for%20the%20killer%20to%20be%20someone%20he%20wasn%E2%80%99t%20expecting.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-spider-thony-movie-3%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-05-19","AT":"2026-05-19","BE":"2026-05-19","BR":"2026-05-19","BG":"2026-05-19","CA":"2026-05-19","CN":"2026-05-19","HR":"2026-05-19","CY":"2026-05-19","CZ":"2026-05-19","DK":"2026-05-19","EE":"2026-05-19","FI":"2026-05-19","FR":"2026-05-19","DE":"2026-05-19","GR":"2026-05-19","HU":"2026-05-19","IN":"2026-05-19","IE":"2026-05-19","IT":"2026-05-19","JP":"2026-05-19","LV":"2026-05-19","LT":"2026-05-19","LU":"2026-05-19","MT":"2026-05-19","NL":"2026-05-19","PL":"2026-05-19","PT":"2026-05-19","RO":"2026-05-19","SK":"2026-05-19","SI":"2026-05-19","KR":"2026-05-19","ES":"2026-05-19","SE":"2026-05-19","GB":"2026-05-19","UA":"2026-05-19","US":"2026-05-19"};
+      var globalDate   = "2026-05-19";
+      var calTitle     = "The Spider-Thony Movie 3 (2026)";
+      var calDesc      = "Anthony has been going crazy for 3 years figuring out the mystery of his dead brother. All for the killer to be someone he wasn’t expecting.\n\nMore info: https://moviereleaseradar.com/movie/the-spider-thony-movie-3/";
+      var icsSummary   = "The Spider-Thony Movie 3 (2026)";
+      var icsDescBody  = "Anthony has been going crazy for 3 years figuring out the mystery of his dead brother. All for the killer to be someone he wasn’t expecting.\\n\\nMore info: https://moviereleaseradar.com/movie/the-spider-thony-movie-3/";
+      var icsUid       = "movie-1636364@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/the-spider-thony-movie-3/";
+      var icsFile      = "the-spider-thony-movie-3-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1636364@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260519\r\nDTEND;VALUE=DATE:20260520\r\nSUMMARY:The Spider-Thony Movie 3 (2026)\r\nDESCRIPTION:Anthony has been going crazy for 3 years figuring out the mystery of his dead brother. All for the killer to be someone he wasn’t expecting.\\n\\nMore info: https://moviereleaseradar.com/movie/the-spider-thony-movie-3/\r\nURL:https://moviereleaseradar.com/movie/the-spider-thony-movie-3/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "the-spider-thony-movie-3-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

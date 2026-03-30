@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%D0%94%D1%8C%D0%BE%D0%BB%20%D1%81%D1%8D%D1%82%D1%82%D1%8D%20%D0%BA%D2%AF%D0%BD%D1%8D%20(2026)&amp;dates=20261015/20261016&amp;details=The%20film%20tells%20the%20story%20of%2027-year-old%20Prokopiy%2C%20a%20man%20with%20autism%20who%20lives%20in%20isolation%20under%20his%20mother's%20strict%20supervision.%20His%20closed%20world%20changes%20with%20the%20arrival%20of%20Aiyyna%2C%20a%20girl%20who%20opens%20the%20outside%20world%20to%20him.%20Their%20fragile%20relationship%20becomes%20a%20test%20for%20all%20the%20characters.%20Prokopiy%20decides%20to%20leave%20his%20familiar%20cage%20and%20live%20his%20%22seven%20days%20of%20happiness%2C%22%20discovering%20the%20world%20and%20himself.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmovie-1628065%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=%D0%94%D1%8C%D0%BE%D0%BB%20%D1%81%D1%8D%D1%82%D1%82%D1%8D%20%D0%BA%D2%AF%D0%BD%D1%8D%20(2026)&amp;startdt=2026-10-15&amp;enddt=2026-10-16&amp;allday=true&amp;body=The%20film%20tells%20the%20story%20of%2027-year-old%20Prokopiy%2C%20a%20man%20with%20autism%20who%20lives%20in%20isolation%20under%20his%20mother's%20strict%20supervision.%20His%20closed%20world%20changes%20with%20the%20arrival%20of%20Aiyyna%2C%20a%20girl%20who%20opens%20the%20outside%20world%20to%20him.%20Their%20fragile%20relationship%20becomes%20a%20test%20for%20all%20the%20characters.%20Prokopiy%20decides%20to%20leave%20his%20familiar%20cage%20and%20live%20his%20%22seven%20days%20of%20happiness%2C%22%20discovering%20the%20world%20and%20himself.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmovie-1628065%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=%D0%94%D1%8C%D0%BE%D0%BB%20%D1%81%D1%8D%D1%82%D1%82%D1%8D%20%D0%BA%D2%AF%D0%BD%D1%8D%20(2026)&amp;ST=20261015&amp;ET=20261016&amp;in_loc=&amp;DESC=The%20film%20tells%20the%20story%20of%2027-year-old%20Prokopiy%2C%20a%20man%20with%20autism%20who%20lives%20in%20isolation%20under%20his%20mother's%20strict%20supervision.%20His%20closed%20world%20changes%20with%20the%20arrival%20of%20Aiyyna%2C%20a%20girl%20who%20opens%20the%20outside%20world%20to%20him.%20Their%20fragile%20relationship%20becomes%20a%20test%20for%20all%20the%20characters.%20Prokopiy%20decides%20to%20leave%20his%20familiar%20cage%20and%20live%20his%20%22seven%20days%20of%20happiness%2C%22%20discovering%20the%20world%20and%20himself.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmovie-1628065%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-10-15","AT":"2026-10-15","BE":"2026-10-15","BR":"2026-10-15","BG":"2026-10-15","CA":"2026-10-15","CN":"2026-10-15","HR":"2026-10-15","CY":"2026-10-15","CZ":"2026-10-15","DK":"2026-10-15","EE":"2026-10-15","FI":"2026-10-15","FR":"2026-10-15","DE":"2026-10-15","GR":"2026-10-15","HU":"2026-10-15","IN":"2026-10-15","IE":"2026-10-15","IT":"2026-10-15","JP":"2026-10-15","LV":"2026-10-15","LT":"2026-10-15","LU":"2026-10-15","MT":"2026-10-15","NL":"2026-10-15","PL":"2026-10-15","PT":"2026-10-15","RO":"2026-10-15","SK":"2026-10-15","SI":"2026-10-15","KR":"2026-10-15","ES":"2026-10-15","SE":"2026-10-15","GB":"2026-10-15","UA":"2026-10-15","US":"2026-10-15"};
+      var globalDate   = "2026-10-15";
+      var calTitle     = "Дьол сэттэ күнэ (2026)";
+      var calDesc      = "The film tells the story of 27-year-old Prokopiy, a man with autism who lives in isolation under his mother's strict supervision. His closed world changes with the arrival of Aiyyna, a girl who opens the outside world to him. Their fragile relationship becomes a test for all the characters. Prokopiy decides to leave his familiar cage and live his \"seven days of happiness,\" discovering the world and himself.\n\nMore info: https://moviereleaseradar.com/movie/movie-1628065/";
+      var icsSummary   = "Дьол сэттэ күнэ (2026)";
+      var icsDescBody  = "The film tells the story of 27-year-old Prokopiy\\, a man with autism who lives in isolation under his mother's strict supervision. His closed world changes with the arrival of Aiyyna\\, a girl who opens the outside world to him. Their fragile relationship becomes a test for all the characters. Prokopiy decides to leave his familiar cage and live his \"seven days of happiness\\,\" discovering the world and himself.\\n\\nMore info: https://moviereleaseradar.com/movie/movie-1628065/";
+      var icsUid       = "movie-1628065@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/movie-1628065/";
+      var icsFile      = "-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1628065@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261015\r\nDTEND;VALUE=DATE:20261016\r\nSUMMARY:Дьол сэттэ күнэ (2026)\r\nDESCRIPTION:The film tells the story of 27-year-old Prokopiy\\, a man with autism who lives in isolation under his mother's strict supervision. His closed world changes with the arrival of Aiyyna\\, a girl who opens the outside world to him. Their fragile relationship becomes a test for all the characters. Prokopiy decides to leave his familiar cage and live his \"seven days of happiness\\,\" discovering the world and himself.\\n\\nMore info: https://moviereleaseradar.com/movie/movie-1628065/\r\nURL:https://moviereleaseradar.com/movie/movie-1628065/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

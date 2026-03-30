@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=When%20the%20Hallways%20Go%20Quiet%20(2026)&amp;dates=20260519/20260520&amp;details=On%20the%20night%20before%20graduation%20at%20Portage%20Northern%20High%20School%2C%20four%20friends%20Carmen%2C%20Vig%2C%20Ace%2C%20and%20Aanya%20walk%20through%20the%20quiet%20halls%20of%20their%20school%20one%20last%20time.%20When%20they%20stop%20outside%20their%20classroom%2C%20they%20decide%20to%20sit%20together%20and%20talk%20about%20their%20memories%20from%20the%20past%20four%20years%2C%20remembering%20the%20moments%20that%20made%20their%20high%20school%20life%20special.%20As%20they%20reflect%2C%20scenes%20from%20the%20lives%20of%20other%20seniors%20appear%20in%20montages%2C%20showing%20the%20many%20experiences%20shared%20by%20the%20Class%20of%202026.%20When%20they%20f%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fwhen-the-hallways-go-quiet%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=When%20the%20Hallways%20Go%20Quiet%20(2026)&amp;startdt=2026-05-19&amp;enddt=2026-05-20&amp;allday=true&amp;body=On%20the%20night%20before%20graduation%20at%20Portage%20Northern%20High%20School%2C%20four%20friends%20Carmen%2C%20Vig%2C%20Ace%2C%20and%20Aanya%20walk%20through%20the%20quiet%20halls%20of%20their%20school%20one%20last%20time.%20When%20they%20stop%20outside%20their%20classroom%2C%20they%20decide%20to%20sit%20together%20and%20talk%20about%20their%20memories%20from%20the%20past%20four%20years%2C%20remembering%20the%20moments%20that%20made%20their%20high%20school%20life%20special.%20As%20they%20reflect%2C%20scenes%20from%20the%20lives%20of%20other%20seniors%20appear%20in%20montages%2C%20showing%20the%20many%20experiences%20shared%20by%20the%20Class%20of%202026.%20When%20they%20f%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fwhen-the-hallways-go-quiet%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=When%20the%20Hallways%20Go%20Quiet%20(2026)&amp;ST=20260519&amp;ET=20260520&amp;in_loc=&amp;DESC=On%20the%20night%20before%20graduation%20at%20Portage%20Northern%20High%20School%2C%20four%20friends%20Carmen%2C%20Vig%2C%20Ace%2C%20and%20Aanya%20walk%20through%20the%20quiet%20halls%20of%20their%20school%20one%20last%20time.%20When%20they%20stop%20outside%20their%20classroom%2C%20they%20decide%20to%20sit%20together%20and%20talk%20about%20their%20memories%20from%20the%20past%20four%20years%2C%20remembering%20the%20moments%20that%20made%20their%20high%20school%20life%20special.%20As%20they%20reflect%2C%20scenes%20from%20the%20lives%20of%20other%20seniors%20appear%20in%20montages%2C%20showing%20the%20many%20experiences%20shared%20by%20the%20Class%20of%202026.%20When%20they%20f%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fwhen-the-hallways-go-quiet%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-05-19","AT":"2026-05-19","BE":"2026-05-19","BR":"2026-05-19","BG":"2026-05-19","CA":"2026-05-19","CN":"2026-05-19","HR":"2026-05-19","CY":"2026-05-19","CZ":"2026-05-19","DK":"2026-05-19","EE":"2026-05-19","FI":"2026-05-19","FR":"2026-05-19","DE":"2026-05-19","GR":"2026-05-19","HU":"2026-05-19","IN":"2026-05-19","IE":"2026-05-19","IT":"2026-05-19","JP":"2026-05-19","LV":"2026-05-19","LT":"2026-05-19","LU":"2026-05-19","MT":"2026-05-19","NL":"2026-05-19","PL":"2026-05-19","PT":"2026-05-19","RO":"2026-05-19","SK":"2026-05-19","SI":"2026-05-19","KR":"2026-05-19","ES":"2026-05-19","SE":"2026-05-19","GB":"2026-05-19","UA":"2026-05-19","US":"2026-05-19"};
+      var globalDate   = "2026-05-19";
+      var calTitle     = "When the Hallways Go Quiet (2026)";
+      var calDesc      = "On the night before graduation at Portage Northern High School, four friends Carmen, Vig, Ace, and Aanya walk through the quiet halls of their school one last time. When they stop outside their classroom, they decide to sit together and talk about their memories from the past four years, remembering the moments that made their high school life special. As they reflect, scenes from the lives of other seniors appear in montages, showing the many experiences shared by the Class of 2026. When they f\n\nMore info: https://moviereleaseradar.com/movie/when-the-hallways-go-quiet/";
+      var icsSummary   = "When the Hallways Go Quiet (2026)";
+      var icsDescBody  = "On the night before graduation at Portage Northern High School\\, four friends Carmen\\, Vig\\, Ace\\, and Aanya walk through the quiet halls of their school one last time. When they stop outside their classroom\\, they decide to sit together and talk about their memories from the past four years\\, remembering the moments that made their high school life special. As they reflect\\, scenes from the lives of other seniors appear in montages\\, showing the many experiences shared by the Class of 2026. When they f\\n\\nMore info: https://moviereleaseradar.com/movie/when-the-hallways-go-quiet/";
+      var icsUid       = "movie-1648153@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/when-the-hallways-go-quiet/";
+      var icsFile      = "when-the-hallways-go-quiet-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1648153@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260519\r\nDTEND;VALUE=DATE:20260520\r\nSUMMARY:When the Hallways Go Quiet (2026)\r\nDESCRIPTION:On the night before graduation at Portage Northern High School\\, four friends Carmen\\, Vig\\, Ace\\, and Aanya walk through the quiet halls of their school one last time. When they stop outside their classroom\\, they decide to sit together and talk about their memories from the past four years\\, remembering the moments that made their high school life special. As they reflect\\, scenes from the lives of other seniors appear in montages\\, showing the many experiences shared by the Class of 2026. When they f\\n\\nMore info: https://moviereleaseradar.com/movie/when-the-hallways-go-quiet/\r\nURL:https://moviereleaseradar.com/movie/when-the-hallways-go-quiet/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "when-the-hallways-go-quiet-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

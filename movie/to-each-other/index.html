@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=To%20Each%20Other%20(2026)&amp;dates=20260424/20260425&amp;details=After%20an%20intimate%20encounter%20with%20her%20flirt%2C%2018-year-old%20G%C3%BCne%C5%9F%20is%20left%20questioning%20where%20her%20consent%20begins%20and%20fades%2C%20while%20the%20fragile%20bond%20with%20her%20closest%20friend%20quietly%20unravels.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fto-each-other%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=To%20Each%20Other%20(2026)&amp;startdt=2026-04-24&amp;enddt=2026-04-25&amp;allday=true&amp;body=After%20an%20intimate%20encounter%20with%20her%20flirt%2C%2018-year-old%20G%C3%BCne%C5%9F%20is%20left%20questioning%20where%20her%20consent%20begins%20and%20fades%2C%20while%20the%20fragile%20bond%20with%20her%20closest%20friend%20quietly%20unravels.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fto-each-other%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=To%20Each%20Other%20(2026)&amp;ST=20260424&amp;ET=20260425&amp;in_loc=&amp;DESC=After%20an%20intimate%20encounter%20with%20her%20flirt%2C%2018-year-old%20G%C3%BCne%C5%9F%20is%20left%20questioning%20where%20her%20consent%20begins%20and%20fades%2C%20while%20the%20fragile%20bond%20with%20her%20closest%20friend%20quietly%20unravels.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fto-each-other%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-24","AT":"2026-04-24","BE":"2026-04-24","BR":"2026-04-24","BG":"2026-04-24","CA":"2026-04-24","CN":"2026-04-24","HR":"2026-04-24","CY":"2026-04-24","CZ":"2026-04-24","DK":"2026-04-24","EE":"2026-04-24","FI":"2026-04-24","FR":"2026-04-24","DE":"2026-04-24","GR":"2026-04-24","HU":"2026-04-24","IN":"2026-04-24","IE":"2026-04-24","IT":"2026-04-24","JP":"2026-04-24","LV":"2026-04-24","LT":"2026-04-24","LU":"2026-04-24","MT":"2026-04-24","NL":"2026-04-24","PL":"2026-04-24","PT":"2026-04-24","RO":"2026-04-24","SK":"2026-04-24","SI":"2026-04-24","KR":"2026-04-24","ES":"2026-04-24","SE":"2026-04-24","GB":"2026-04-24","UA":"2026-04-24","US":"2026-04-24"};
+      var globalDate   = "2026-04-24";
+      var calTitle     = "To Each Other (2026)";
+      var calDesc      = "After an intimate encounter with her flirt, 18-year-old Güneş is left questioning where her consent begins and fades, while the fragile bond with her closest friend quietly unravels.\n\nMore info: https://moviereleaseradar.com/movie/to-each-other/";
+      var icsSummary   = "To Each Other (2026)";
+      var icsDescBody  = "After an intimate encounter with her flirt\\, 18-year-old Güneş is left questioning where her consent begins and fades\\, while the fragile bond with her closest friend quietly unravels.\\n\\nMore info: https://moviereleaseradar.com/movie/to-each-other/";
+      var icsUid       = "movie-1630263@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/to-each-other/";
+      var icsFile      = "to-each-other-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1630263@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260424\r\nDTEND;VALUE=DATE:20260425\r\nSUMMARY:To Each Other (2026)\r\nDESCRIPTION:After an intimate encounter with her flirt\\, 18-year-old Güneş is left questioning where her consent begins and fades\\, while the fragile bond with her closest friend quietly unravels.\\n\\nMore info: https://moviereleaseradar.com/movie/to-each-other/\r\nURL:https://moviereleaseradar.com/movie/to-each-other/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "to-each-other-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

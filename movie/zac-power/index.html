@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Zac%20Power%20(2027)&amp;dates=20270107/20270108&amp;details=Zac%20Power%E2%80%99s%20position%20as%20the%20top%20teenage%20spy%20is%20compromised%20after%20a%20brilliant%20new%20agent%20arrives.%20When%20his%20recklessness%20allows%20an%20ostentatious%20supervillain%20to%20steal%20a%20high-tech%20weapon%2C%20Zac%20is%20forced%20to%20confront%20his%20own%20flaws%20and%20team%20up%20with%20his%20rival.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fzac-power%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Zac%20Power%20(2027)&amp;startdt=2027-01-07&amp;enddt=2027-01-08&amp;allday=true&amp;body=Zac%20Power%E2%80%99s%20position%20as%20the%20top%20teenage%20spy%20is%20compromised%20after%20a%20brilliant%20new%20agent%20arrives.%20When%20his%20recklessness%20allows%20an%20ostentatious%20supervillain%20to%20steal%20a%20high-tech%20weapon%2C%20Zac%20is%20forced%20to%20confront%20his%20own%20flaws%20and%20team%20up%20with%20his%20rival.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fzac-power%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Zac%20Power%20(2027)&amp;ST=20270107&amp;ET=20270108&amp;in_loc=&amp;DESC=Zac%20Power%E2%80%99s%20position%20as%20the%20top%20teenage%20spy%20is%20compromised%20after%20a%20brilliant%20new%20agent%20arrives.%20When%20his%20recklessness%20allows%20an%20ostentatious%20supervillain%20to%20steal%20a%20high-tech%20weapon%2C%20Zac%20is%20forced%20to%20confront%20his%20own%20flaws%20and%20team%20up%20with%20his%20rival.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fzac-power%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-01-07","AT":"2027-01-07","BE":"2027-01-07","BR":"2027-01-07","BG":"2027-01-07","CA":"2027-01-07","CN":"2027-01-07","HR":"2027-01-07","CY":"2027-01-07","CZ":"2027-01-07","DK":"2027-01-07","EE":"2027-01-07","FI":"2027-01-07","FR":"2027-01-07","DE":"2027-01-07","GR":"2027-01-07","HU":"2027-01-07","IN":"2027-01-07","IE":"2027-01-07","IT":"2027-01-07","JP":"2027-01-07","LV":"2027-01-07","LT":"2027-01-07","LU":"2027-01-07","MT":"2027-01-07","NL":"2027-01-07","PL":"2027-01-07","PT":"2027-01-07","RO":"2027-01-07","SK":"2027-01-07","SI":"2027-01-07","KR":"2027-01-07","ES":"2027-01-07","SE":"2027-01-07","GB":"2027-01-07","UA":"2027-01-07","US":"2027-01-07"};
+      var globalDate   = "2027-01-07";
+      var calTitle     = "Zac Power (2027)";
+      var calDesc      = "Zac Power’s position as the top teenage spy is compromised after a brilliant new agent arrives. When his recklessness allows an ostentatious supervillain to steal a high-tech weapon, Zac is forced to confront his own flaws and team up with his rival.\n\nMore info: https://moviereleaseradar.com/movie/zac-power/";
+      var icsSummary   = "Zac Power (2027)";
+      var icsDescBody  = "Zac Power’s position as the top teenage spy is compromised after a brilliant new agent arrives. When his recklessness allows an ostentatious supervillain to steal a high-tech weapon\\, Zac is forced to confront his own flaws and team up with his rival.\\n\\nMore info: https://moviereleaseradar.com/movie/zac-power/";
+      var icsUid       = "movie-1566727@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/zac-power/";
+      var icsFile      = "zac-power-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1566727@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270107\r\nDTEND;VALUE=DATE:20270108\r\nSUMMARY:Zac Power (2027)\r\nDESCRIPTION:Zac Power’s position as the top teenage spy is compromised after a brilliant new agent arrives. When his recklessness allows an ostentatious supervillain to steal a high-tech weapon\\, Zac is forced to confront his own flaws and team up with his rival.\\n\\nMore info: https://moviereleaseradar.com/movie/zac-power/\r\nURL:https://moviereleaseradar.com/movie/zac-power/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "zac-power-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

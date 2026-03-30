@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=California%20Schemin'%20(2026)&amp;dates=20260410/20260411&amp;details=In%20the%20late%201990s%2C%20Gavin%20Bain%20and%20Billy%20Boyd%20had%20their%20musical%20ambitions%20consistently%20ridiculed%20for%20having%20the%20'wrong'%20accents%2C%20so%20they%20went%20for%20broke%20and%20reinvented%20themselves%20as%20Californian%20rappers.%20The%20duo%20re-recorded%20their%20own%20tracks%20with%20fake%20accents%20and%20turned%20up%20in%20London%20claiming%20to%20be%20an%20established%20duo%20on%20the%20Cali%20scene%20as%20well%20as%20childhood%20friends%20with%20Eminem.%20They%20quickly%20bagged%20themselves%20a%20record%20deal%2C%20a%20hefty%20sum%20in%20advances%2C%20and%20an%20appearance%20on%20MTV...%20until%20it%20all%20came%20crashing%20%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fcalifornia-schemin%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=California%20Schemin'%20(2026)&amp;startdt=2026-04-10&amp;enddt=2026-04-11&amp;allday=true&amp;body=In%20the%20late%201990s%2C%20Gavin%20Bain%20and%20Billy%20Boyd%20had%20their%20musical%20ambitions%20consistently%20ridiculed%20for%20having%20the%20'wrong'%20accents%2C%20so%20they%20went%20for%20broke%20and%20reinvented%20themselves%20as%20Californian%20rappers.%20The%20duo%20re-recorded%20their%20own%20tracks%20with%20fake%20accents%20and%20turned%20up%20in%20London%20claiming%20to%20be%20an%20established%20duo%20on%20the%20Cali%20scene%20as%20well%20as%20childhood%20friends%20with%20Eminem.%20They%20quickly%20bagged%20themselves%20a%20record%20deal%2C%20a%20hefty%20sum%20in%20advances%2C%20and%20an%20appearance%20on%20MTV...%20until%20it%20all%20came%20crashing%20%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fcalifornia-schemin%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=California%20Schemin'%20(2026)&amp;ST=20260410&amp;ET=20260411&amp;in_loc=&amp;DESC=In%20the%20late%201990s%2C%20Gavin%20Bain%20and%20Billy%20Boyd%20had%20their%20musical%20ambitions%20consistently%20ridiculed%20for%20having%20the%20'wrong'%20accents%2C%20so%20they%20went%20for%20broke%20and%20reinvented%20themselves%20as%20Californian%20rappers.%20The%20duo%20re-recorded%20their%20own%20tracks%20with%20fake%20accents%20and%20turned%20up%20in%20London%20claiming%20to%20be%20an%20established%20duo%20on%20the%20Cali%20scene%20as%20well%20as%20childhood%20friends%20with%20Eminem.%20They%20quickly%20bagged%20themselves%20a%20record%20deal%2C%20a%20hefty%20sum%20in%20advances%2C%20and%20an%20appearance%20on%20MTV...%20until%20it%20all%20came%20crashing%20%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fcalifornia-schemin%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-10","AT":"2026-04-10","BE":"2026-04-10","BR":"2026-04-10","BG":"2026-04-10","CA":"2025-09-06","CN":"2026-04-10","HR":"2026-04-10","CY":"2026-04-10","CZ":"2026-04-10","DK":"2026-04-10","EE":"2026-04-10","FI":"2026-04-10","FR":"2026-04-10","DE":"2026-04-10","GR":"2026-04-10","HU":"2026-04-10","IN":"2026-04-10","IE":"2026-04-10","IT":"2025-10-19","JP":"2026-04-10","LV":"2026-04-10","LT":"2026-04-10","LU":"2026-04-10","MT":"2026-04-10","NL":"2026-04-10","PL":"2026-04-10","PT":"2026-04-10","RO":"2026-04-10","SK":"2026-04-10","SI":"2026-04-10","KR":"2026-04-10","ES":"2026-04-10","SE":"2026-04-10","GB":"2026-04-10","UA":"2026-04-10","US":"2026-04-10"};
+      var globalDate   = "2026-04-10";
+      var calTitle     = "California Schemin' (2026)";
+      var calDesc      = "In the late 1990s, Gavin Bain and Billy Boyd had their musical ambitions consistently ridiculed for having the 'wrong' accents, so they went for broke and reinvented themselves as Californian rappers. The duo re-recorded their own tracks with fake accents and turned up in London claiming to be an established duo on the Cali scene as well as childhood friends with Eminem. They quickly bagged themselves a record deal, a hefty sum in advances, and an appearance on MTV... until it all came crashing \n\nMore info: https://moviereleaseradar.com/movie/california-schemin/";
+      var icsSummary   = "California Schemin' (2026)";
+      var icsDescBody  = "In the late 1990s\\, Gavin Bain and Billy Boyd had their musical ambitions consistently ridiculed for having the 'wrong' accents\\, so they went for broke and reinvented themselves as Californian rappers. The duo re-recorded their own tracks with fake accents and turned up in London claiming to be an established duo on the Cali scene as well as childhood friends with Eminem. They quickly bagged themselves a record deal\\, a hefty sum in advances\\, and an appearance on MTV... until it all came crashing \\n\\nMore info: https://moviereleaseradar.com/movie/california-schemin/";
+      var icsUid       = "movie-1193550@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/california-schemin/";
+      var icsFile      = "california-schemin-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1193550@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260410\r\nDTEND;VALUE=DATE:20260411\r\nSUMMARY:California Schemin' (2026)\r\nDESCRIPTION:In the late 1990s\\, Gavin Bain and Billy Boyd had their musical ambitions consistently ridiculed for having the 'wrong' accents\\, so they went for broke and reinvented themselves as Californian rappers. The duo re-recorded their own tracks with fake accents and turned up in London claiming to be an established duo on the Cali scene as well as childhood friends with Eminem. They quickly bagged themselves a record deal\\, a hefty sum in advances\\, and an appearance on MTV... until it all came crashing \\n\\nMore info: https://moviereleaseradar.com/movie/california-schemin/\r\nURL:https://moviereleaseradar.com/movie/california-schemin/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "california-schemin-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

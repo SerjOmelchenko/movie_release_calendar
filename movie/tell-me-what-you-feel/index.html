@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Tell%20Me%20What%20You%20Feel%20(2026)&amp;dates=20260918/20260919&amp;details=When%20an%20aspiring%20Polish%20artist%2C%20Patryk%2C%20struggles%20to%20sell%20his%20paintings%2C%20he%20finds%20himself%20at%20Tear%20Dealer%2C%20a%20unique%20art%20project%20letting%20people%20in%20poverty%20trade%20their%20tears%20for%20z%C5%82oty.%20Surrounded%20by%20sobs%20and%20mirrors%2C%20however%2C%20he%20is%20unable%20to%20shed%20a%20tear.%20It%E2%80%99s%20then%20that%20he%20meets%20Maria%2C%20the%20project%E2%80%99s%20conceiver%20and%20an%20art%20therapist%20from%20a%20well-off%20family.%20As%20their%20romance%20buds%2C%20they%20swap%20traumas%20and%20art%2C%20discovering%20they%20may%20share%20more%20than%20they%20thought.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Ftell-me-what-you-feel%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Tell%20Me%20What%20You%20Feel%20(2026)&amp;startdt=2026-09-18&amp;enddt=2026-09-19&amp;allday=true&amp;body=When%20an%20aspiring%20Polish%20artist%2C%20Patryk%2C%20struggles%20to%20sell%20his%20paintings%2C%20he%20finds%20himself%20at%20Tear%20Dealer%2C%20a%20unique%20art%20project%20letting%20people%20in%20poverty%20trade%20their%20tears%20for%20z%C5%82oty.%20Surrounded%20by%20sobs%20and%20mirrors%2C%20however%2C%20he%20is%20unable%20to%20shed%20a%20tear.%20It%E2%80%99s%20then%20that%20he%20meets%20Maria%2C%20the%20project%E2%80%99s%20conceiver%20and%20an%20art%20therapist%20from%20a%20well-off%20family.%20As%20their%20romance%20buds%2C%20they%20swap%20traumas%20and%20art%2C%20discovering%20they%20may%20share%20more%20than%20they%20thought.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Ftell-me-what-you-feel%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Tell%20Me%20What%20You%20Feel%20(2026)&amp;ST=20260918&amp;ET=20260919&amp;in_loc=&amp;DESC=When%20an%20aspiring%20Polish%20artist%2C%20Patryk%2C%20struggles%20to%20sell%20his%20paintings%2C%20he%20finds%20himself%20at%20Tear%20Dealer%2C%20a%20unique%20art%20project%20letting%20people%20in%20poverty%20trade%20their%20tears%20for%20z%C5%82oty.%20Surrounded%20by%20sobs%20and%20mirrors%2C%20however%2C%20he%20is%20unable%20to%20shed%20a%20tear.%20It%E2%80%99s%20then%20that%20he%20meets%20Maria%2C%20the%20project%E2%80%99s%20conceiver%20and%20an%20art%20therapist%20from%20a%20well-off%20family.%20As%20their%20romance%20buds%2C%20they%20swap%20traumas%20and%20art%2C%20discovering%20they%20may%20share%20more%20than%20they%20thought.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Ftell-me-what-you-feel%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-09-18","AT":"2026-09-18","BE":"2026-09-18","BR":"2026-09-18","BG":"2026-09-18","CA":"2026-09-18","CN":"2026-09-18","HR":"2026-09-18","CY":"2026-09-18","CZ":"2026-09-18","DK":"2026-09-18","EE":"2026-09-18","FI":"2026-09-18","FR":"2026-09-18","DE":"2026-09-18","GR":"2026-09-18","HU":"2026-09-18","IN":"2026-09-18","IE":"2026-09-18","IT":"2026-09-18","JP":"2026-09-18","LV":"2026-09-18","LT":"2026-09-18","LU":"2026-09-18","MT":"2026-09-18","NL":"2026-01-31","PL":"2026-09-18","PT":"2026-09-18","RO":"2026-09-18","SK":"2026-09-18","SI":"2026-09-18","KR":"2026-09-18","ES":"2026-09-18","SE":"2026-09-18","GB":"2026-09-18","UA":"2026-09-18","US":"2026-09-18"};
+      var globalDate   = "2026-09-18";
+      var calTitle     = "Tell Me What You Feel (2026)";
+      var calDesc      = "When an aspiring Polish artist, Patryk, struggles to sell his paintings, he finds himself at Tear Dealer, a unique art project letting people in poverty trade their tears for złoty. Surrounded by sobs and mirrors, however, he is unable to shed a tear. It’s then that he meets Maria, the project’s conceiver and an art therapist from a well-off family. As their romance buds, they swap traumas and art, discovering they may share more than they thought.\n\nMore info: https://moviereleaseradar.com/movie/tell-me-what-you-feel/";
+      var icsSummary   = "Tell Me What You Feel (2026)";
+      var icsDescBody  = "When an aspiring Polish artist\\, Patryk\\, struggles to sell his paintings\\, he finds himself at Tear Dealer\\, a unique art project letting people in poverty trade their tears for złoty. Surrounded by sobs and mirrors\\, however\\, he is unable to shed a tear. It’s then that he meets Maria\\, the project’s conceiver and an art therapist from a well-off family. As their romance buds\\, they swap traumas and art\\, discovering they may share more than they thought.\\n\\nMore info: https://moviereleaseradar.com/movie/tell-me-what-you-feel/";
+      var icsUid       = "movie-1396045@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/tell-me-what-you-feel/";
+      var icsFile      = "tell-me-what-you-feel-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1396045@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260918\r\nDTEND;VALUE=DATE:20260919\r\nSUMMARY:Tell Me What You Feel (2026)\r\nDESCRIPTION:When an aspiring Polish artist\\, Patryk\\, struggles to sell his paintings\\, he finds himself at Tear Dealer\\, a unique art project letting people in poverty trade their tears for złoty. Surrounded by sobs and mirrors\\, however\\, he is unable to shed a tear. It’s then that he meets Maria\\, the project’s conceiver and an art therapist from a well-off family. As their romance buds\\, they swap traumas and art\\, discovering they may share more than they thought.\\n\\nMore info: https://moviereleaseradar.com/movie/tell-me-what-you-feel/\r\nURL:https://moviereleaseradar.com/movie/tell-me-what-you-feel/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "tell-me-what-you-feel-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

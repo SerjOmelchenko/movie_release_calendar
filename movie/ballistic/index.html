@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Ballistic%20(2026)&amp;dates=20260417/20260418&amp;details=A%20mother%20who%20works%20for%20an%20ammunition%20manufacturing%20company%20is%20devastated%20when%20her%20son%20is%20killed%20in%20Afghanistan.%20Despair%20gives%20way%20to%20rage%20and%20a%20desire%20for%20revenge%20when%20she%20discovers%20it%20was%20a%20bullet%20from%20her%20factory%20that%20was%20responsible%20for%20her%20son%E2%80%99s%20death.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fballistic%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Ballistic%20(2026)&amp;startdt=2026-04-17&amp;enddt=2026-04-18&amp;allday=true&amp;body=A%20mother%20who%20works%20for%20an%20ammunition%20manufacturing%20company%20is%20devastated%20when%20her%20son%20is%20killed%20in%20Afghanistan.%20Despair%20gives%20way%20to%20rage%20and%20a%20desire%20for%20revenge%20when%20she%20discovers%20it%20was%20a%20bullet%20from%20her%20factory%20that%20was%20responsible%20for%20her%20son%E2%80%99s%20death.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fballistic%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Ballistic%20(2026)&amp;ST=20260417&amp;ET=20260418&amp;in_loc=&amp;DESC=A%20mother%20who%20works%20for%20an%20ammunition%20manufacturing%20company%20is%20devastated%20when%20her%20son%20is%20killed%20in%20Afghanistan.%20Despair%20gives%20way%20to%20rage%20and%20a%20desire%20for%20revenge%20when%20she%20discovers%20it%20was%20a%20bullet%20from%20her%20factory%20that%20was%20responsible%20for%20her%20son%E2%80%99s%20death.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fballistic%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-17","AT":"2026-04-17","BE":"2026-04-17","BR":"2026-04-17","BG":"2026-04-17","CA":"2025-09-13","CN":"2026-04-17","HR":"2026-04-17","CY":"2026-04-17","CZ":"2026-04-17","DK":"2026-04-17","EE":"2026-04-17","FI":"2026-04-17","FR":"2026-04-17","DE":"2026-04-17","GR":"2026-04-17","HU":"2026-04-17","IN":"2026-04-17","IE":"2026-04-17","IT":"2026-04-17","JP":"2026-04-17","LV":"2026-04-17","LT":"2026-04-17","LU":"2026-04-17","MT":"2026-04-17","NL":"2026-04-17","PL":"2026-04-17","PT":"2026-04-17","RO":"2026-04-17","SK":"2026-04-17","SI":"2026-04-17","KR":"2026-04-17","ES":"2026-04-17","SE":"2026-04-17","GB":"2026-04-17","UA":"2026-04-17","US":"2026-04-17"};
+      var globalDate   = "2026-04-17";
+      var calTitle     = "Ballistic (2026)";
+      var calDesc      = "A mother who works for an ammunition manufacturing company is devastated when her son is killed in Afghanistan. Despair gives way to rage and a desire for revenge when she discovers it was a bullet from her factory that was responsible for her son’s death.\n\nMore info: https://moviereleaseradar.com/movie/ballistic/";
+      var icsSummary   = "Ballistic (2026)";
+      var icsDescBody  = "A mother who works for an ammunition manufacturing company is devastated when her son is killed in Afghanistan. Despair gives way to rage and a desire for revenge when she discovers it was a bullet from her factory that was responsible for her son’s death.\\n\\nMore info: https://moviereleaseradar.com/movie/ballistic/";
+      var icsUid       = "movie-1243741@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/ballistic/";
+      var icsFile      = "ballistic-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1243741@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260417\r\nDTEND;VALUE=DATE:20260418\r\nSUMMARY:Ballistic (2026)\r\nDESCRIPTION:A mother who works for an ammunition manufacturing company is devastated when her son is killed in Afghanistan. Despair gives way to rage and a desire for revenge when she discovers it was a bullet from her factory that was responsible for her son’s death.\\n\\nMore info: https://moviereleaseradar.com/movie/ballistic/\r\nURL:https://moviereleaseradar.com/movie/ballistic/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "ballistic-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

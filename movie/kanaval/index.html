@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Kanaval%20(2026)&amp;dates=20260507/20260508&amp;details=In%20the%20mid-1970s%2C%20Rico%2C%20a%209-year-old%20Haitian%20boy%2C%20was%20brutally%20torn%20from%20his%20native%20land%20%20along%20with%20Erzulie%2C%20his%20mother%2C%20to%20a%20strange%20planet%20called%20Canada.%20Since%20their%20arrival%2C%20a%20%20distance%20seems%20to%20have%20grown%20between%20mother%20and%20son.%20To%20regain%20the%20love%20of%20his%20mother%2C%20Rico%20will%20have%20to%20understand%20this%20New%20World%20populated%20by%20individuals%20with%20strange%20habits%20%20and%20customs.%20Fortunately%20for%20him%2C%20he%20can%20count%20on%20Kana%2C%20his%20imaginary%20friend%20who%20comes%20%20straight%20out%20of%20Haitian%20mythology.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fkanaval%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Kanaval%20(2026)&amp;startdt=2026-05-07&amp;enddt=2026-05-08&amp;allday=true&amp;body=In%20the%20mid-1970s%2C%20Rico%2C%20a%209-year-old%20Haitian%20boy%2C%20was%20brutally%20torn%20from%20his%20native%20land%20%20along%20with%20Erzulie%2C%20his%20mother%2C%20to%20a%20strange%20planet%20called%20Canada.%20Since%20their%20arrival%2C%20a%20%20distance%20seems%20to%20have%20grown%20between%20mother%20and%20son.%20To%20regain%20the%20love%20of%20his%20mother%2C%20Rico%20will%20have%20to%20understand%20this%20New%20World%20populated%20by%20individuals%20with%20strange%20habits%20%20and%20customs.%20Fortunately%20for%20him%2C%20he%20can%20count%20on%20Kana%2C%20his%20imaginary%20friend%20who%20comes%20%20straight%20out%20of%20Haitian%20mythology.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fkanaval%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Kanaval%20(2026)&amp;ST=20260507&amp;ET=20260508&amp;in_loc=&amp;DESC=In%20the%20mid-1970s%2C%20Rico%2C%20a%209-year-old%20Haitian%20boy%2C%20was%20brutally%20torn%20from%20his%20native%20land%20%20along%20with%20Erzulie%2C%20his%20mother%2C%20to%20a%20strange%20planet%20called%20Canada.%20Since%20their%20arrival%2C%20a%20%20distance%20seems%20to%20have%20grown%20between%20mother%20and%20son.%20To%20regain%20the%20love%20of%20his%20mother%2C%20Rico%20will%20have%20to%20understand%20this%20New%20World%20populated%20by%20individuals%20with%20strange%20habits%20%20and%20customs.%20Fortunately%20for%20him%2C%20he%20can%20count%20on%20Kana%2C%20his%20imaginary%20friend%20who%20comes%20%20straight%20out%20of%20Haitian%20mythology.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fkanaval%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-05-07","AT":"2026-05-07","BE":"2026-05-07","BR":"2026-05-07","BG":"2026-05-07","CA":"2023-09-08","CN":"2026-05-07","HR":"2026-05-07","CY":"2026-05-07","CZ":"2026-05-07","DK":"2026-05-07","EE":"2026-05-07","FI":"2026-05-07","FR":"2026-05-07","DE":"2026-05-07","GR":"2026-05-07","HU":"2026-05-07","IN":"2026-05-07","IE":"2026-05-07","IT":"2026-05-07","JP":"2026-05-07","LV":"2026-05-07","LT":"2026-05-07","LU":"2026-05-07","MT":"2026-05-07","NL":"2026-05-07","PL":"2026-05-07","PT":"2026-05-07","RO":"2026-05-07","SK":"2026-05-07","SI":"2026-05-07","KR":"2026-05-07","ES":"2026-05-07","SE":"2026-05-07","GB":"2026-05-07","UA":"2026-05-07","US":"2026-05-07"};
+      var globalDate   = "2026-05-07";
+      var calTitle     = "Kanaval (2026)";
+      var calDesc      = "In the mid-1970s, Rico, a 9-year-old Haitian boy, was brutally torn from his native land  along with Erzulie, his mother, to a strange planet called Canada. Since their arrival, a  distance seems to have grown between mother and son. To regain the love of his mother, Rico will have to understand this New World populated by individuals with strange habits  and customs. Fortunately for him, he can count on Kana, his imaginary friend who comes  straight out of Haitian mythology.\n\nMore info: https://moviereleaseradar.com/movie/kanaval/";
+      var icsSummary   = "Kanaval (2026)";
+      var icsDescBody  = "In the mid-1970s\\, Rico\\, a 9-year-old Haitian boy\\, was brutally torn from his native land  along with Erzulie\\, his mother\\, to a strange planet called Canada. Since their arrival\\, a  distance seems to have grown between mother and son. To regain the love of his mother\\, Rico will have to understand this New World populated by individuals with strange habits  and customs. Fortunately for him\\, he can count on Kana\\, his imaginary friend who comes  straight out of Haitian mythology.\\n\\nMore info: https://moviereleaseradar.com/movie/kanaval/";
+      var icsUid       = "movie-991332@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/kanaval/";
+      var icsFile      = "kanaval-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-991332@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260507\r\nDTEND;VALUE=DATE:20260508\r\nSUMMARY:Kanaval (2026)\r\nDESCRIPTION:In the mid-1970s\\, Rico\\, a 9-year-old Haitian boy\\, was brutally torn from his native land  along with Erzulie\\, his mother\\, to a strange planet called Canada. Since their arrival\\, a  distance seems to have grown between mother and son. To regain the love of his mother\\, Rico will have to understand this New World populated by individuals with strange habits  and customs. Fortunately for him\\, he can count on Kana\\, his imaginary friend who comes  straight out of Haitian mythology.\\n\\nMore info: https://moviereleaseradar.com/movie/kanaval/\r\nURL:https://moviereleaseradar.com/movie/kanaval/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "kanaval-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

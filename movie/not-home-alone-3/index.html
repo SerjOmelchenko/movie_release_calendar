@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Not%20Home%20Alone%203%20(2026)&amp;dates=20260521/20260522&amp;details=Masha%20encounters%20the%20insidious%20Nanny%20again.%20But%20now%20the%20villain%20has%20a%20new%20ally%20-%20the%20charming%20swindler%20Anton.%20At%20stake%20is%20the%20school%20graduation!%20Together%20with%20her%20friend%20Yegor%2C%20Masha%20must%20stop%20the%20criminals%20and%20save%20the%20most%20important%20evening%20of%20the%20year.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fnot-home-alone-3%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Not%20Home%20Alone%203%20(2026)&amp;startdt=2026-05-21&amp;enddt=2026-05-22&amp;allday=true&amp;body=Masha%20encounters%20the%20insidious%20Nanny%20again.%20But%20now%20the%20villain%20has%20a%20new%20ally%20-%20the%20charming%20swindler%20Anton.%20At%20stake%20is%20the%20school%20graduation!%20Together%20with%20her%20friend%20Yegor%2C%20Masha%20must%20stop%20the%20criminals%20and%20save%20the%20most%20important%20evening%20of%20the%20year.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fnot-home-alone-3%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Not%20Home%20Alone%203%20(2026)&amp;ST=20260521&amp;ET=20260522&amp;in_loc=&amp;DESC=Masha%20encounters%20the%20insidious%20Nanny%20again.%20But%20now%20the%20villain%20has%20a%20new%20ally%20-%20the%20charming%20swindler%20Anton.%20At%20stake%20is%20the%20school%20graduation!%20Together%20with%20her%20friend%20Yegor%2C%20Masha%20must%20stop%20the%20criminals%20and%20save%20the%20most%20important%20evening%20of%20the%20year.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fnot-home-alone-3%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-05-21","AT":"2026-05-21","BE":"2026-05-21","BR":"2026-05-21","BG":"2026-05-21","CA":"2026-05-21","CN":"2026-05-21","HR":"2026-05-21","CY":"2026-05-21","CZ":"2026-05-21","DK":"2026-05-21","EE":"2026-05-21","FI":"2026-05-21","FR":"2026-05-21","DE":"2026-05-21","GR":"2026-05-21","HU":"2026-05-21","IN":"2026-05-21","IE":"2026-05-21","IT":"2026-05-21","JP":"2026-05-21","LV":"2026-05-21","LT":"2026-05-21","LU":"2026-05-21","MT":"2026-05-21","NL":"2026-05-21","PL":"2026-05-21","PT":"2026-05-21","RO":"2026-05-21","SK":"2026-05-21","SI":"2026-05-21","KR":"2026-05-21","ES":"2026-05-21","SE":"2026-05-21","GB":"2026-05-21","UA":"2026-05-21","US":"2026-05-21"};
+      var globalDate   = "2026-05-21";
+      var calTitle     = "Not Home Alone 3 (2026)";
+      var calDesc      = "Masha encounters the insidious Nanny again. But now the villain has a new ally - the charming swindler Anton. At stake is the school graduation! Together with her friend Yegor, Masha must stop the criminals and save the most important evening of the year.\n\nMore info: https://moviereleaseradar.com/movie/not-home-alone-3/";
+      var icsSummary   = "Not Home Alone 3 (2026)";
+      var icsDescBody  = "Masha encounters the insidious Nanny again. But now the villain has a new ally - the charming swindler Anton. At stake is the school graduation! Together with her friend Yegor\\, Masha must stop the criminals and save the most important evening of the year.\\n\\nMore info: https://moviereleaseradar.com/movie/not-home-alone-3/";
+      var icsUid       = "movie-1530389@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/not-home-alone-3/";
+      var icsFile      = "not-home-alone-3-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1530389@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260521\r\nDTEND;VALUE=DATE:20260522\r\nSUMMARY:Not Home Alone 3 (2026)\r\nDESCRIPTION:Masha encounters the insidious Nanny again. But now the villain has a new ally - the charming swindler Anton. At stake is the school graduation! Together with her friend Yegor\\, Masha must stop the criminals and save the most important evening of the year.\\n\\nMore info: https://moviereleaseradar.com/movie/not-home-alone-3/\r\nURL:https://moviereleaseradar.com/movie/not-home-alone-3/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "not-home-alone-3-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

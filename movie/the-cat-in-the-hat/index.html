@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Cat%20in%20the%20Hat%20(2026)&amp;dates=20261105/20261106&amp;details=Doing%20what%20he%20does%20best%2C%20the%20Cat%20spreads%20joy%20to%20kids%20in%20his%20hilarious%2C%20signature%2C%20and%20singularly%20irreverent%20way%2C%20transporting%20them%20and%20audiences%20on%20a%20fantastical%20journey%20through%20a%20world%20they've%20never%20seen%20before.%20Our%20hero%20takes%20on%20his%20toughest%20assignment%20yet%20for%20the%20I.I.I.I.%20(Institute%20for%20the%20Institution%20of%20Imagination%20and%20Inspiration%2C%20LLC)%20to%20cheer%20up%20Gabby%20and%20Sebastian%2C%20a%20pair%20of%20siblings%20struggling%20to%20move%20to%20a%20new%20town.%20Known%20for%20taking%20things%20too%20far%2C%20this%20could%20be%20this%20agent%20of%20chaos'%20la%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-cat-in-the-hat%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Cat%20in%20the%20Hat%20(2026)&amp;startdt=2026-11-05&amp;enddt=2026-11-06&amp;allday=true&amp;body=Doing%20what%20he%20does%20best%2C%20the%20Cat%20spreads%20joy%20to%20kids%20in%20his%20hilarious%2C%20signature%2C%20and%20singularly%20irreverent%20way%2C%20transporting%20them%20and%20audiences%20on%20a%20fantastical%20journey%20through%20a%20world%20they've%20never%20seen%20before.%20Our%20hero%20takes%20on%20his%20toughest%20assignment%20yet%20for%20the%20I.I.I.I.%20(Institute%20for%20the%20Institution%20of%20Imagination%20and%20Inspiration%2C%20LLC)%20to%20cheer%20up%20Gabby%20and%20Sebastian%2C%20a%20pair%20of%20siblings%20struggling%20to%20move%20to%20a%20new%20town.%20Known%20for%20taking%20things%20too%20far%2C%20this%20could%20be%20this%20agent%20of%20chaos'%20la%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-cat-in-the-hat%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Cat%20in%20the%20Hat%20(2026)&amp;ST=20261105&amp;ET=20261106&amp;in_loc=&amp;DESC=Doing%20what%20he%20does%20best%2C%20the%20Cat%20spreads%20joy%20to%20kids%20in%20his%20hilarious%2C%20signature%2C%20and%20singularly%20irreverent%20way%2C%20transporting%20them%20and%20audiences%20on%20a%20fantastical%20journey%20through%20a%20world%20they've%20never%20seen%20before.%20Our%20hero%20takes%20on%20his%20toughest%20assignment%20yet%20for%20the%20I.I.I.I.%20(Institute%20for%20the%20Institution%20of%20Imagination%20and%20Inspiration%2C%20LLC)%20to%20cheer%20up%20Gabby%20and%20Sebastian%2C%20a%20pair%20of%20siblings%20struggling%20to%20move%20to%20a%20new%20town.%20Known%20for%20taking%20things%20too%20far%2C%20this%20could%20be%20this%20agent%20of%20chaos'%20la%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-cat-in-the-hat%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-11-05","AT":"2026-11-05","BE":"2026-11-05","BR":"2026-11-05","BG":"2026-11-05","CA":"2026-11-05","CN":"2026-11-05","HR":"2026-11-05","CY":"2026-11-05","CZ":"2026-11-05","DK":"2026-11-05","EE":"2026-11-05","FI":"2026-11-05","FR":"2026-11-05","DE":"2026-12-10","GR":"2026-11-05","HU":"2026-11-05","IN":"2026-11-05","IE":"2026-11-05","IT":"2026-11-05","JP":"2026-11-05","LV":"2026-11-05","LT":"2026-11-05","LU":"2026-11-05","MT":"2026-11-05","NL":"2026-11-05","PL":"2026-11-06","PT":"2026-11-05","RO":"2026-11-05","SK":"2026-11-05","SI":"2026-11-05","KR":"2026-11-05","ES":"2026-11-06","SE":"2026-11-05","GB":"2026-11-05","UA":"2026-11-05","US":"2026-11-06"};
+      var globalDate   = "2026-11-05";
+      var calTitle     = "The Cat in the Hat (2026)";
+      var calDesc      = "Doing what he does best, the Cat spreads joy to kids in his hilarious, signature, and singularly irreverent way, transporting them and audiences on a fantastical journey through a world they've never seen before. Our hero takes on his toughest assignment yet for the I.I.I.I. (Institute for the Institution of Imagination and Inspiration, LLC) to cheer up Gabby and Sebastian, a pair of siblings struggling to move to a new town. Known for taking things too far, this could be this agent of chaos' la\n\nMore info: https://moviereleaseradar.com/movie/the-cat-in-the-hat/";
+      var icsSummary   = "The Cat in the Hat (2026)";
+      var icsDescBody  = "Doing what he does best\\, the Cat spreads joy to kids in his hilarious\\, signature\\, and singularly irreverent way\\, transporting them and audiences on a fantastical journey through a world they've never seen before. Our hero takes on his toughest assignment yet for the I.I.I.I. (Institute for the Institution of Imagination and Inspiration\\, LLC) to cheer up Gabby and Sebastian\\, a pair of siblings struggling to move to a new town. Known for taking things too far\\, this could be this agent of chaos' la\\n\\nMore info: https://moviereleaseradar.com/movie/the-cat-in-the-hat/";
+      var icsUid       = "movie-1117898@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/the-cat-in-the-hat/";
+      var icsFile      = "the-cat-in-the-hat-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1117898@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261105\r\nDTEND;VALUE=DATE:20261106\r\nSUMMARY:The Cat in the Hat (2026)\r\nDESCRIPTION:Doing what he does best\\, the Cat spreads joy to kids in his hilarious\\, signature\\, and singularly irreverent way\\, transporting them and audiences on a fantastical journey through a world they've never seen before. Our hero takes on his toughest assignment yet for the I.I.I.I. (Institute for the Institution of Imagination and Inspiration\\, LLC) to cheer up Gabby and Sebastian\\, a pair of siblings struggling to move to a new town. Known for taking things too far\\, this could be this agent of chaos' la\\n\\nMore info: https://moviereleaseradar.com/movie/the-cat-in-the-hat/\r\nURL:https://moviereleaseradar.com/movie/the-cat-in-the-hat/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "the-cat-in-the-hat-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

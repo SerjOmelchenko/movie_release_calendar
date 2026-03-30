@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Street%20Photographer%20(2026)&amp;dates=20260703/20260704&amp;details=Matthijs%20is%20a%20street%20photographer%20in%20Amsterdam%2C%20aiming%20to%20succeed%20and%20grow%20within%20his%20profession.%20A%20new%20client%20gives%20him%20a%20unique%20photography%20assignment%3A%20create%20a%20photo%20that%20captures%20the%20spirit%20of%20art%20in%20Amsterdam.%20%20Matthijs%20travels%20the%20city%20in%20search%20of%20the%20best%20photo%2C%20ultimately%20learning%20not%20only%20what%20he%20considers%20the%20essence%20of%20true%20art%2C%20but%20also%20how%20he%20can%20become%20a%20better%20artist%20himself.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-street-photographer%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Street%20Photographer%20(2026)&amp;startdt=2026-07-03&amp;enddt=2026-07-04&amp;allday=true&amp;body=Matthijs%20is%20a%20street%20photographer%20in%20Amsterdam%2C%20aiming%20to%20succeed%20and%20grow%20within%20his%20profession.%20A%20new%20client%20gives%20him%20a%20unique%20photography%20assignment%3A%20create%20a%20photo%20that%20captures%20the%20spirit%20of%20art%20in%20Amsterdam.%20%20Matthijs%20travels%20the%20city%20in%20search%20of%20the%20best%20photo%2C%20ultimately%20learning%20not%20only%20what%20he%20considers%20the%20essence%20of%20true%20art%2C%20but%20also%20how%20he%20can%20become%20a%20better%20artist%20himself.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-street-photographer%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Street%20Photographer%20(2026)&amp;ST=20260703&amp;ET=20260704&amp;in_loc=&amp;DESC=Matthijs%20is%20a%20street%20photographer%20in%20Amsterdam%2C%20aiming%20to%20succeed%20and%20grow%20within%20his%20profession.%20A%20new%20client%20gives%20him%20a%20unique%20photography%20assignment%3A%20create%20a%20photo%20that%20captures%20the%20spirit%20of%20art%20in%20Amsterdam.%20%20Matthijs%20travels%20the%20city%20in%20search%20of%20the%20best%20photo%2C%20ultimately%20learning%20not%20only%20what%20he%20considers%20the%20essence%20of%20true%20art%2C%20but%20also%20how%20he%20can%20become%20a%20better%20artist%20himself.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-street-photographer%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-07-03","AT":"2026-07-03","BE":"2026-07-03","BR":"2026-07-03","BG":"2026-07-03","CA":"2026-07-03","CN":"2026-07-03","HR":"2026-07-03","CY":"2026-07-03","CZ":"2026-07-03","DK":"2026-07-03","EE":"2026-07-03","FI":"2026-07-03","FR":"2026-07-03","DE":"2026-07-03","GR":"2026-07-03","HU":"2026-07-03","IN":"2026-07-03","IE":"2026-07-03","IT":"2026-07-03","JP":"2026-07-03","LV":"2026-07-03","LT":"2026-07-03","LU":"2026-07-03","MT":"2026-07-03","NL":"2026-07-03","PL":"2026-07-03","PT":"2026-07-03","RO":"2026-07-03","SK":"2026-07-03","SI":"2026-07-03","KR":"2026-07-03","ES":"2026-07-03","SE":"2026-07-03","GB":"2026-07-03","UA":"2026-07-03","US":"2026-07-03"};
+      var globalDate   = "2026-07-03";
+      var calTitle     = "The Street Photographer (2026)";
+      var calDesc      = "Matthijs is a street photographer in Amsterdam, aiming to succeed and grow within his profession. A new client gives him a unique photography assignment: create a photo that captures the spirit of art in Amsterdam.  Matthijs travels the city in search of the best photo, ultimately learning not only what he considers the essence of true art, but also how he can become a better artist himself.\n\nMore info: https://moviereleaseradar.com/movie/the-street-photographer/";
+      var icsSummary   = "The Street Photographer (2026)";
+      var icsDescBody  = "Matthijs is a street photographer in Amsterdam\\, aiming to succeed and grow within his profession. A new client gives him a unique photography assignment: create a photo that captures the spirit of art in Amsterdam.  Matthijs travels the city in search of the best photo\\, ultimately learning not only what he considers the essence of true art\\, but also how he can become a better artist himself.\\n\\nMore info: https://moviereleaseradar.com/movie/the-street-photographer/";
+      var icsUid       = "movie-1515714@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/the-street-photographer/";
+      var icsFile      = "the-street-photographer-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1515714@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260703\r\nDTEND;VALUE=DATE:20260704\r\nSUMMARY:The Street Photographer (2026)\r\nDESCRIPTION:Matthijs is a street photographer in Amsterdam\\, aiming to succeed and grow within his profession. A new client gives him a unique photography assignment: create a photo that captures the spirit of art in Amsterdam.  Matthijs travels the city in search of the best photo\\, ultimately learning not only what he considers the essence of true art\\, but also how he can become a better artist himself.\\n\\nMore info: https://moviereleaseradar.com/movie/the-street-photographer/\r\nURL:https://moviereleaseradar.com/movie/the-street-photographer/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "the-street-photographer-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=My%20Name%20is%20Agneta%20(2026)&amp;dates=20260429/20260430&amp;details=Agneta%20is%20colorful%20and%20funny%20-%20but%20you%20wouldn%E2%80%99t%20guess%20it%20at%20first.%20At%2049%2C%20with%20her%20children%20gone%20and%20a%20stagnant%20job%20at%20the%20traffic%20office%2C%20she%20feels%20like%20she%E2%80%99s%20fading%20into%20the%20background%20of%20her%20own%20life.%20While%20her%20husband%20finds%20purpose%20in%20ice%20baths%20and%20expensive%20cycling%20gear%2C%20Agneta%20longs%20for%20change.%20She%20leaves%20Sweden%20to%20work%20as%20an%20au%20pair%20in%20France%2C%20dreaming%20of%20a%20fresh%20start%20-%20only%20to%20discover%20her%20charge%2C%20Einar%2C%20isn%E2%80%99t%20a%20young%20Swedish%20boy%20but%20an%20eccentric%20elderly%20man.%20What%20follows%20is%20a%20chaotic%20a%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmy-name-is-agneta%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=My%20Name%20is%20Agneta%20(2026)&amp;startdt=2026-04-29&amp;enddt=2026-04-30&amp;allday=true&amp;body=Agneta%20is%20colorful%20and%20funny%20-%20but%20you%20wouldn%E2%80%99t%20guess%20it%20at%20first.%20At%2049%2C%20with%20her%20children%20gone%20and%20a%20stagnant%20job%20at%20the%20traffic%20office%2C%20she%20feels%20like%20she%E2%80%99s%20fading%20into%20the%20background%20of%20her%20own%20life.%20While%20her%20husband%20finds%20purpose%20in%20ice%20baths%20and%20expensive%20cycling%20gear%2C%20Agneta%20longs%20for%20change.%20She%20leaves%20Sweden%20to%20work%20as%20an%20au%20pair%20in%20France%2C%20dreaming%20of%20a%20fresh%20start%20-%20only%20to%20discover%20her%20charge%2C%20Einar%2C%20isn%E2%80%99t%20a%20young%20Swedish%20boy%20but%20an%20eccentric%20elderly%20man.%20What%20follows%20is%20a%20chaotic%20a%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmy-name-is-agneta%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=My%20Name%20is%20Agneta%20(2026)&amp;ST=20260429&amp;ET=20260430&amp;in_loc=&amp;DESC=Agneta%20is%20colorful%20and%20funny%20-%20but%20you%20wouldn%E2%80%99t%20guess%20it%20at%20first.%20At%2049%2C%20with%20her%20children%20gone%20and%20a%20stagnant%20job%20at%20the%20traffic%20office%2C%20she%20feels%20like%20she%E2%80%99s%20fading%20into%20the%20background%20of%20her%20own%20life.%20While%20her%20husband%20finds%20purpose%20in%20ice%20baths%20and%20expensive%20cycling%20gear%2C%20Agneta%20longs%20for%20change.%20She%20leaves%20Sweden%20to%20work%20as%20an%20au%20pair%20in%20France%2C%20dreaming%20of%20a%20fresh%20start%20-%20only%20to%20discover%20her%20charge%2C%20Einar%2C%20isn%E2%80%99t%20a%20young%20Swedish%20boy%20but%20an%20eccentric%20elderly%20man.%20What%20follows%20is%20a%20chaotic%20a%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmy-name-is-agneta%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-29","AT":"2026-04-29","BE":"2026-04-29","BR":"2026-04-29","BG":"2026-04-29","CA":"2026-04-29","CN":"2026-04-29","HR":"2026-04-29","CY":"2026-04-29","CZ":"2026-04-29","DK":"2026-04-29","EE":"2026-04-29","FI":"2026-04-29","FR":"2026-04-29","DE":"2026-04-29","GR":"2026-04-29","HU":"2026-04-29","IN":"2026-04-29","IE":"2026-04-29","IT":"2026-04-29","JP":"2026-04-29","LV":"2026-04-29","LT":"2026-04-29","LU":"2026-04-29","MT":"2026-04-29","NL":"2026-04-29","PL":"2026-04-29","PT":"2026-04-29","RO":"2026-04-29","SK":"2026-04-29","SI":"2026-04-29","KR":"2026-04-29","ES":"2026-04-29","SE":"2026-04-29","GB":"2026-04-29","UA":"2026-04-29","US":"2026-04-29"};
+      var globalDate   = "2026-04-29";
+      var calTitle     = "My Name is Agneta (2026)";
+      var calDesc      = "Agneta is colorful and funny - but you wouldn’t guess it at first. At 49, with her children gone and a stagnant job at the traffic office, she feels like she’s fading into the background of her own life. While her husband finds purpose in ice baths and expensive cycling gear, Agneta longs for change. She leaves Sweden to work as an au pair in France, dreaming of a fresh start - only to discover her charge, Einar, isn’t a young Swedish boy but an eccentric elderly man. What follows is a chaotic a\n\nMore info: https://moviereleaseradar.com/movie/my-name-is-agneta/";
+      var icsSummary   = "My Name is Agneta (2026)";
+      var icsDescBody  = "Agneta is colorful and funny - but you wouldn’t guess it at first. At 49\\, with her children gone and a stagnant job at the traffic office\\, she feels like she’s fading into the background of her own life. While her husband finds purpose in ice baths and expensive cycling gear\\, Agneta longs for change. She leaves Sweden to work as an au pair in France\\, dreaming of a fresh start - only to discover her charge\\, Einar\\, isn’t a young Swedish boy but an eccentric elderly man. What follows is a chaotic a\\n\\nMore info: https://moviereleaseradar.com/movie/my-name-is-agneta/";
+      var icsUid       = "movie-829487@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/my-name-is-agneta/";
+      var icsFile      = "my-name-is-agneta-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-829487@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260429\r\nDTEND;VALUE=DATE:20260430\r\nSUMMARY:My Name is Agneta (2026)\r\nDESCRIPTION:Agneta is colorful and funny - but you wouldn’t guess it at first. At 49\\, with her children gone and a stagnant job at the traffic office\\, she feels like she’s fading into the background of her own life. While her husband finds purpose in ice baths and expensive cycling gear\\, Agneta longs for change. She leaves Sweden to work as an au pair in France\\, dreaming of a fresh start - only to discover her charge\\, Einar\\, isn’t a young Swedish boy but an eccentric elderly man. What follows is a chaotic a\\n\\nMore info: https://moviereleaseradar.com/movie/my-name-is-agneta/\r\nURL:https://moviereleaseradar.com/movie/my-name-is-agneta/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "my-name-is-agneta-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

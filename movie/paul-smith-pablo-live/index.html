@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Paul%20Smith%3A%20Pablo%20Live%20(2026)&amp;dates=20260417/20260418&amp;details=From%20one%20of%20the%20UK%E2%80%99s%20most%20viral%20stand-up%20comedians%2C%20in%20his%20debut%20special%2C%20%E2%80%9CPaul%20Smith%3A%20Pablo%20Live%E2%80%9D%20is%20the%20show%20you%E2%80%99ve%20all%20been%20waiting%20for.%20Filmed%20live%20at%20the%203Olympia%20Theatre%20in%20Dublin%2C%20it%E2%80%99s%20packed%20full%20of%20Smith%E2%80%99s%20signature%2C%20unflinching%2C%20laugh%20out%20loud%20comedy.%20Featuring%20a%20mix%20of%20his%20trademark%20audience%20roasting%2C%20razor-sharp%20wit%20and%20hilarious%20true%20stories%20of%20his%20everyday%20life%2C%20from%20spending%20money%20in%20the%20most%20irresponsible%20way%20possible%2C%20why%20boys%20are%20better%20than%20girls%20and%20raising%20kids%20without%20leadi%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fpaul-smith-pablo-live%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Paul%20Smith%3A%20Pablo%20Live%20(2026)&amp;startdt=2026-04-17&amp;enddt=2026-04-18&amp;allday=true&amp;body=From%20one%20of%20the%20UK%E2%80%99s%20most%20viral%20stand-up%20comedians%2C%20in%20his%20debut%20special%2C%20%E2%80%9CPaul%20Smith%3A%20Pablo%20Live%E2%80%9D%20is%20the%20show%20you%E2%80%99ve%20all%20been%20waiting%20for.%20Filmed%20live%20at%20the%203Olympia%20Theatre%20in%20Dublin%2C%20it%E2%80%99s%20packed%20full%20of%20Smith%E2%80%99s%20signature%2C%20unflinching%2C%20laugh%20out%20loud%20comedy.%20Featuring%20a%20mix%20of%20his%20trademark%20audience%20roasting%2C%20razor-sharp%20wit%20and%20hilarious%20true%20stories%20of%20his%20everyday%20life%2C%20from%20spending%20money%20in%20the%20most%20irresponsible%20way%20possible%2C%20why%20boys%20are%20better%20than%20girls%20and%20raising%20kids%20without%20leadi%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fpaul-smith-pablo-live%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Paul%20Smith%3A%20Pablo%20Live%20(2026)&amp;ST=20260417&amp;ET=20260418&amp;in_loc=&amp;DESC=From%20one%20of%20the%20UK%E2%80%99s%20most%20viral%20stand-up%20comedians%2C%20in%20his%20debut%20special%2C%20%E2%80%9CPaul%20Smith%3A%20Pablo%20Live%E2%80%9D%20is%20the%20show%20you%E2%80%99ve%20all%20been%20waiting%20for.%20Filmed%20live%20at%20the%203Olympia%20Theatre%20in%20Dublin%2C%20it%E2%80%99s%20packed%20full%20of%20Smith%E2%80%99s%20signature%2C%20unflinching%2C%20laugh%20out%20loud%20comedy.%20Featuring%20a%20mix%20of%20his%20trademark%20audience%20roasting%2C%20razor-sharp%20wit%20and%20hilarious%20true%20stories%20of%20his%20everyday%20life%2C%20from%20spending%20money%20in%20the%20most%20irresponsible%20way%20possible%2C%20why%20boys%20are%20better%20than%20girls%20and%20raising%20kids%20without%20leadi%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fpaul-smith-pablo-live%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-17","AT":"2026-04-17","BE":"2026-04-17","BR":"2026-04-17","BG":"2026-04-17","CA":"2026-04-17","CN":"2026-04-17","HR":"2026-04-17","CY":"2026-04-17","CZ":"2026-04-17","DK":"2026-04-17","EE":"2026-04-17","FI":"2026-04-17","FR":"2026-04-17","DE":"2026-04-17","GR":"2026-04-17","HU":"2026-04-17","IN":"2026-04-17","IE":"2026-04-17","IT":"2026-04-17","JP":"2026-04-17","LV":"2026-04-17","LT":"2026-04-17","LU":"2026-04-17","MT":"2026-04-17","NL":"2026-04-17","PL":"2026-04-17","PT":"2026-04-17","RO":"2026-04-17","SK":"2026-04-17","SI":"2026-04-17","KR":"2026-04-17","ES":"2026-04-17","SE":"2026-04-17","GB":"2026-04-17","UA":"2026-04-17","US":"2026-04-17"};
+      var globalDate   = "2026-04-17";
+      var calTitle     = "Paul Smith: Pablo Live (2026)";
+      var calDesc      = "From one of the UK’s most viral stand-up comedians, in his debut special, “Paul Smith: Pablo Live” is the show you’ve all been waiting for. Filmed live at the 3Olympia Theatre in Dublin, it’s packed full of Smith’s signature, unflinching, laugh out loud comedy. Featuring a mix of his trademark audience roasting, razor-sharp wit and hilarious true stories of his everyday life, from spending money in the most irresponsible way possible, why boys are better than girls and raising kids without leadi\n\nMore info: https://moviereleaseradar.com/movie/paul-smith-pablo-live/";
+      var icsSummary   = "Paul Smith: Pablo Live (2026)";
+      var icsDescBody  = "From one of the UK’s most viral stand-up comedians\\, in his debut special\\, “Paul Smith: Pablo Live” is the show you’ve all been waiting for. Filmed live at the 3Olympia Theatre in Dublin\\, it’s packed full of Smith’s signature\\, unflinching\\, laugh out loud comedy. Featuring a mix of his trademark audience roasting\\, razor-sharp wit and hilarious true stories of his everyday life\\, from spending money in the most irresponsible way possible\\, why boys are better than girls and raising kids without leadi\\n\\nMore info: https://moviereleaseradar.com/movie/paul-smith-pablo-live/";
+      var icsUid       = "movie-1646221@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/paul-smith-pablo-live/";
+      var icsFile      = "paul-smith-pablo-live-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1646221@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260417\r\nDTEND;VALUE=DATE:20260418\r\nSUMMARY:Paul Smith: Pablo Live (2026)\r\nDESCRIPTION:From one of the UK’s most viral stand-up comedians\\, in his debut special\\, “Paul Smith: Pablo Live” is the show you’ve all been waiting for. Filmed live at the 3Olympia Theatre in Dublin\\, it’s packed full of Smith’s signature\\, unflinching\\, laugh out loud comedy. Featuring a mix of his trademark audience roasting\\, razor-sharp wit and hilarious true stories of his everyday life\\, from spending money in the most irresponsible way possible\\, why boys are better than girls and raising kids without leadi\\n\\nMore info: https://moviereleaseradar.com/movie/paul-smith-pablo-live/\r\nURL:https://moviereleaseradar.com/movie/paul-smith-pablo-live/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "paul-smith-pablo-live-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

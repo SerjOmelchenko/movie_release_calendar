@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Hollow%20Season%20(2027)&amp;dates=20270225/20270226&amp;details=In%20the%20remote%20mountain%20town%20of%20Graven%20Hollow%2C%20autumn%20is%20more%20than%20just%20a%20season%20%E2%80%94%20it%E2%80%99s%20a%20warning.%20Every%20thirteen%20years%2C%20as%20the%20harvest%20moon%20rises%20and%20the%20leaves%20turn%20blood-red%2C%20the%20town%20prepares%20for%20a%20ritual%20it%20dares%20not%20speak%20aloud.%20When%20a%20group%20of%20college%20friends%20arrives%20for%20the%20annual%20fall%20festival%2C%20they%E2%80%99re%20drawn%20into%20a%20chilling%20legend%20about%20the%20Hollow%20Man%20%E2%80%94%20a%20masked%20figure%20born%20of%20fire%20and%20betrayal%2C%20who%20returns%20to%20collect%20a%20blood%20debt.%20As%20the%20friends%20unravel%20the%20town%E2%80%99s%20secrets%20and%20fight%20to%20s%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-hollow-season%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Hollow%20Season%20(2027)&amp;startdt=2027-02-25&amp;enddt=2027-02-26&amp;allday=true&amp;body=In%20the%20remote%20mountain%20town%20of%20Graven%20Hollow%2C%20autumn%20is%20more%20than%20just%20a%20season%20%E2%80%94%20it%E2%80%99s%20a%20warning.%20Every%20thirteen%20years%2C%20as%20the%20harvest%20moon%20rises%20and%20the%20leaves%20turn%20blood-red%2C%20the%20town%20prepares%20for%20a%20ritual%20it%20dares%20not%20speak%20aloud.%20When%20a%20group%20of%20college%20friends%20arrives%20for%20the%20annual%20fall%20festival%2C%20they%E2%80%99re%20drawn%20into%20a%20chilling%20legend%20about%20the%20Hollow%20Man%20%E2%80%94%20a%20masked%20figure%20born%20of%20fire%20and%20betrayal%2C%20who%20returns%20to%20collect%20a%20blood%20debt.%20As%20the%20friends%20unravel%20the%20town%E2%80%99s%20secrets%20and%20fight%20to%20s%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-hollow-season%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Hollow%20Season%20(2027)&amp;ST=20270225&amp;ET=20270226&amp;in_loc=&amp;DESC=In%20the%20remote%20mountain%20town%20of%20Graven%20Hollow%2C%20autumn%20is%20more%20than%20just%20a%20season%20%E2%80%94%20it%E2%80%99s%20a%20warning.%20Every%20thirteen%20years%2C%20as%20the%20harvest%20moon%20rises%20and%20the%20leaves%20turn%20blood-red%2C%20the%20town%20prepares%20for%20a%20ritual%20it%20dares%20not%20speak%20aloud.%20When%20a%20group%20of%20college%20friends%20arrives%20for%20the%20annual%20fall%20festival%2C%20they%E2%80%99re%20drawn%20into%20a%20chilling%20legend%20about%20the%20Hollow%20Man%20%E2%80%94%20a%20masked%20figure%20born%20of%20fire%20and%20betrayal%2C%20who%20returns%20to%20collect%20a%20blood%20debt.%20As%20the%20friends%20unravel%20the%20town%E2%80%99s%20secrets%20and%20fight%20to%20s%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-hollow-season%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-02-25","AT":"2027-02-25","BE":"2027-02-25","BR":"2027-02-25","BG":"2027-02-25","CA":"2027-02-25","CN":"2027-02-25","HR":"2027-02-25","CY":"2027-02-25","CZ":"2027-02-25","DK":"2027-02-25","EE":"2027-02-25","FI":"2027-02-25","FR":"2027-02-25","DE":"2027-02-25","GR":"2027-02-25","HU":"2027-02-25","IN":"2027-02-25","IE":"2027-02-25","IT":"2027-02-25","JP":"2027-02-25","LV":"2027-02-25","LT":"2027-02-25","LU":"2027-02-25","MT":"2027-02-25","NL":"2027-02-25","PL":"2027-02-25","PT":"2027-02-25","RO":"2027-02-25","SK":"2027-02-25","SI":"2027-02-25","KR":"2027-02-25","ES":"2027-02-25","SE":"2027-02-25","GB":"2027-02-25","UA":"2027-02-25","US":"2027-02-25"};
+      var globalDate   = "2027-02-25";
+      var calTitle     = "The Hollow Season (2027)";
+      var calDesc      = "In the remote mountain town of Graven Hollow, autumn is more than just a season — it’s a warning. Every thirteen years, as the harvest moon rises and the leaves turn blood-red, the town prepares for a ritual it dares not speak aloud. When a group of college friends arrives for the annual fall festival, they’re drawn into a chilling legend about the Hollow Man — a masked figure born of fire and betrayal, who returns to collect a blood debt. As the friends unravel the town’s secrets and fight to s\n\nMore info: https://moviereleaseradar.com/movie/the-hollow-season/";
+      var icsSummary   = "The Hollow Season (2027)";
+      var icsDescBody  = "In the remote mountain town of Graven Hollow\\, autumn is more than just a season — it’s a warning. Every thirteen years\\, as the harvest moon rises and the leaves turn blood-red\\, the town prepares for a ritual it dares not speak aloud. When a group of college friends arrives for the annual fall festival\\, they’re drawn into a chilling legend about the Hollow Man — a masked figure born of fire and betrayal\\, who returns to collect a blood debt. As the friends unravel the town’s secrets and fight to s\\n\\nMore info: https://moviereleaseradar.com/movie/the-hollow-season/";
+      var icsUid       = "movie-1573756@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/the-hollow-season/";
+      var icsFile      = "the-hollow-season-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1573756@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270225\r\nDTEND;VALUE=DATE:20270226\r\nSUMMARY:The Hollow Season (2027)\r\nDESCRIPTION:In the remote mountain town of Graven Hollow\\, autumn is more than just a season — it’s a warning. Every thirteen years\\, as the harvest moon rises and the leaves turn blood-red\\, the town prepares for a ritual it dares not speak aloud. When a group of college friends arrives for the annual fall festival\\, they’re drawn into a chilling legend about the Hollow Man — a masked figure born of fire and betrayal\\, who returns to collect a blood debt. As the friends unravel the town’s secrets and fight to s\\n\\nMore info: https://moviereleaseradar.com/movie/the-hollow-season/\r\nURL:https://moviereleaseradar.com/movie/the-hollow-season/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "the-hollow-season-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

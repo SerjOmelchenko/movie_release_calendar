@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=How%20to%20Save%20the%20Immortal.%20The%20Mystery%20of%20Living%20Water%20(2026)&amp;dates=20260528/20260529&amp;details=Three%20hundred%20years%20of%20Koshchey's%20search%20for%20a%20chosen%20one%20have%20finally%20been%20crowned%20with%20success%2C%20and%20preparations%20for%20the%20wedding%20with%20Varvara%20are%20in%20full%20swing.%20However%2C%20his%20cherished%20dream%20will%20not%20come%20true%20so%20easily%2C%20and%20now%20Koshchey%2C%20along%20with%20the%20Good%20fellow%20Elisha%20and%20Kolobok%2C%20embarks%20on%20a%20dangerous%20journey%20to%20save%20his%20beloved.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fhow-to-save-the-immortal-the-mystery-of-living-water%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=How%20to%20Save%20the%20Immortal.%20The%20Mystery%20of%20Living%20Water%20(2026)&amp;startdt=2026-05-28&amp;enddt=2026-05-29&amp;allday=true&amp;body=Three%20hundred%20years%20of%20Koshchey's%20search%20for%20a%20chosen%20one%20have%20finally%20been%20crowned%20with%20success%2C%20and%20preparations%20for%20the%20wedding%20with%20Varvara%20are%20in%20full%20swing.%20However%2C%20his%20cherished%20dream%20will%20not%20come%20true%20so%20easily%2C%20and%20now%20Koshchey%2C%20along%20with%20the%20Good%20fellow%20Elisha%20and%20Kolobok%2C%20embarks%20on%20a%20dangerous%20journey%20to%20save%20his%20beloved.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fhow-to-save-the-immortal-the-mystery-of-living-water%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=How%20to%20Save%20the%20Immortal.%20The%20Mystery%20of%20Living%20Water%20(2026)&amp;ST=20260528&amp;ET=20260529&amp;in_loc=&amp;DESC=Three%20hundred%20years%20of%20Koshchey's%20search%20for%20a%20chosen%20one%20have%20finally%20been%20crowned%20with%20success%2C%20and%20preparations%20for%20the%20wedding%20with%20Varvara%20are%20in%20full%20swing.%20However%2C%20his%20cherished%20dream%20will%20not%20come%20true%20so%20easily%2C%20and%20now%20Koshchey%2C%20along%20with%20the%20Good%20fellow%20Elisha%20and%20Kolobok%2C%20embarks%20on%20a%20dangerous%20journey%20to%20save%20his%20beloved.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fhow-to-save-the-immortal-the-mystery-of-living-water%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-05-28","AT":"2026-05-28","BE":"2026-05-28","BR":"2026-05-28","BG":"2026-05-28","CA":"2026-05-28","CN":"2026-05-28","HR":"2026-05-28","CY":"2026-05-28","CZ":"2026-05-28","DK":"2026-05-28","EE":"2026-05-28","FI":"2026-05-28","FR":"2026-05-28","DE":"2026-05-28","GR":"2026-05-28","HU":"2026-05-28","IN":"2026-05-28","IE":"2026-05-28","IT":"2026-05-28","JP":"2026-05-28","LV":"2026-05-28","LT":"2026-05-28","LU":"2026-05-28","MT":"2026-05-28","NL":"2026-05-28","PL":"2026-05-28","PT":"2026-05-28","RO":"2026-05-28","SK":"2026-05-28","SI":"2026-05-28","KR":"2026-05-28","ES":"2026-05-28","SE":"2026-05-28","GB":"2026-05-28","UA":"2026-05-28","US":"2026-05-28"};
+      var globalDate   = "2026-05-28";
+      var calTitle     = "How to Save the Immortal. The Mystery of Living Water (2026)";
+      var calDesc      = "Three hundred years of Koshchey's search for a chosen one have finally been crowned with success, and preparations for the wedding with Varvara are in full swing. However, his cherished dream will not come true so easily, and now Koshchey, along with the Good fellow Elisha and Kolobok, embarks on a dangerous journey to save his beloved.\n\nMore info: https://moviereleaseradar.com/movie/how-to-save-the-immortal-the-mystery-of-living-water/";
+      var icsSummary   = "How to Save the Immortal. The Mystery of Living Water (2026)";
+      var icsDescBody  = "Three hundred years of Koshchey's search for a chosen one have finally been crowned with success\\, and preparations for the wedding with Varvara are in full swing. However\\, his cherished dream will not come true so easily\\, and now Koshchey\\, along with the Good fellow Elisha and Kolobok\\, embarks on a dangerous journey to save his beloved.\\n\\nMore info: https://moviereleaseradar.com/movie/how-to-save-the-immortal-the-mystery-of-living-water/";
+      var icsUid       = "movie-1504150@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/how-to-save-the-immortal-the-mystery-of-living-water/";
+      var icsFile      = "how-to-save-the-immortal-the-mystery-of-living-water-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1504150@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260528\r\nDTEND;VALUE=DATE:20260529\r\nSUMMARY:How to Save the Immortal. The Mystery of Living Water (2026)\r\nDESCRIPTION:Three hundred years of Koshchey's search for a chosen one have finally been crowned with success\\, and preparations for the wedding with Varvara are in full swing. However\\, his cherished dream will not come true so easily\\, and now Koshchey\\, along with the Good fellow Elisha and Kolobok\\, embarks on a dangerous journey to save his beloved.\\n\\nMore info: https://moviereleaseradar.com/movie/how-to-save-the-immortal-the-mystery-of-living-water/\r\nURL:https://moviereleaseradar.com/movie/how-to-save-the-immortal-the-mystery-of-living-water/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "how-to-save-the-immortal-the-mystery-of-living-water-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

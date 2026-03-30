@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Waiting%20Man%20(2026)&amp;dates=20261231/20270101&amp;details=In%202022%2C%20the%20famous%20streaming%20group%20TOMNI%20was%20at%20the%20height%20of%20its%20popularity%20with%20over%207%20million%20followers.%20Over%20the%20course%20of%20a%20week%2C%20their%20content%20changed%20and%20then%20they%20suddenly%20vanished.%20This%20is%20the%20footage%20recovered%20from%20their%20social%20media%2C%20computers%2C%20and%20SD%20cards.%20Experts%20believe%20the%20footage%20shows%20the%20worldwide%20phenomenon%20known%20as%20Alikabiha%2C%20also%20called%20the%20Waiting%20Man.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-waiting-man%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Waiting%20Man%20(2026)&amp;startdt=2026-12-31&amp;enddt=2027-01-01&amp;allday=true&amp;body=In%202022%2C%20the%20famous%20streaming%20group%20TOMNI%20was%20at%20the%20height%20of%20its%20popularity%20with%20over%207%20million%20followers.%20Over%20the%20course%20of%20a%20week%2C%20their%20content%20changed%20and%20then%20they%20suddenly%20vanished.%20This%20is%20the%20footage%20recovered%20from%20their%20social%20media%2C%20computers%2C%20and%20SD%20cards.%20Experts%20believe%20the%20footage%20shows%20the%20worldwide%20phenomenon%20known%20as%20Alikabiha%2C%20also%20called%20the%20Waiting%20Man.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-waiting-man%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Waiting%20Man%20(2026)&amp;ST=20261231&amp;ET=20270101&amp;in_loc=&amp;DESC=In%202022%2C%20the%20famous%20streaming%20group%20TOMNI%20was%20at%20the%20height%20of%20its%20popularity%20with%20over%207%20million%20followers.%20Over%20the%20course%20of%20a%20week%2C%20their%20content%20changed%20and%20then%20they%20suddenly%20vanished.%20This%20is%20the%20footage%20recovered%20from%20their%20social%20media%2C%20computers%2C%20and%20SD%20cards.%20Experts%20believe%20the%20footage%20shows%20the%20worldwide%20phenomenon%20known%20as%20Alikabiha%2C%20also%20called%20the%20Waiting%20Man.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-waiting-man%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-12-31","AT":"2026-12-31","BE":"2026-12-31","BR":"2026-12-31","BG":"2026-12-31","CA":"2026-12-31","CN":"2026-12-31","HR":"2026-12-31","CY":"2026-12-31","CZ":"2026-12-31","DK":"2026-12-31","EE":"2026-12-31","FI":"2026-12-31","FR":"2026-12-31","DE":"2026-12-31","GR":"2026-12-31","HU":"2026-12-31","IN":"2026-12-31","IE":"2026-12-31","IT":"2026-12-31","JP":"2026-12-31","LV":"2026-12-31","LT":"2026-12-31","LU":"2026-12-31","MT":"2026-12-31","NL":"2026-12-31","PL":"2026-12-31","PT":"2026-12-31","RO":"2026-12-31","SK":"2026-12-31","SI":"2026-12-31","KR":"2026-12-31","ES":"2026-12-31","SE":"2026-12-31","GB":"2026-12-31","UA":"2026-12-31","US":"2026-12-31"};
+      var globalDate   = "2026-12-31";
+      var calTitle     = "The Waiting Man (2026)";
+      var calDesc      = "In 2022, the famous streaming group TOMNI was at the height of its popularity with over 7 million followers. Over the course of a week, their content changed and then they suddenly vanished. This is the footage recovered from their social media, computers, and SD cards. Experts believe the footage shows the worldwide phenomenon known as Alikabiha, also called the Waiting Man.\n\nMore info: https://moviereleaseradar.com/movie/the-waiting-man/";
+      var icsSummary   = "The Waiting Man (2026)";
+      var icsDescBody  = "In 2022\\, the famous streaming group TOMNI was at the height of its popularity with over 7 million followers. Over the course of a week\\, their content changed and then they suddenly vanished. This is the footage recovered from their social media\\, computers\\, and SD cards. Experts believe the footage shows the worldwide phenomenon known as Alikabiha\\, also called the Waiting Man.\\n\\nMore info: https://moviereleaseradar.com/movie/the-waiting-man/";
+      var icsUid       = "movie-1654479@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/the-waiting-man/";
+      var icsFile      = "the-waiting-man-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1654479@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261231\r\nDTEND;VALUE=DATE:20270101\r\nSUMMARY:The Waiting Man (2026)\r\nDESCRIPTION:In 2022\\, the famous streaming group TOMNI was at the height of its popularity with over 7 million followers. Over the course of a week\\, their content changed and then they suddenly vanished. This is the footage recovered from their social media\\, computers\\, and SD cards. Experts believe the footage shows the worldwide phenomenon known as Alikabiha\\, also called the Waiting Man.\\n\\nMore info: https://moviereleaseradar.com/movie/the-waiting-man/\r\nURL:https://moviereleaseradar.com/movie/the-waiting-man/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "the-waiting-man-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

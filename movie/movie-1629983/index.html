@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%D0%A0%D0%BE%D0%B1%D0%BE%D0%BD%D1%8F%D0%BD%D1%8F%20(2026)&amp;dates=20260618/20260619&amp;details=Cheerful%20and%20inventive%20Zlata%2C%20who%20stays%20at%20home%20alone%20for%20the%20sake%20of%20the%20school%20ball%20and%20the%20first%20kiss%2C%20under%20the%20supervision%20of%20the%20newest%20robot%20nanny%20Notrix.%20Confident%20that%20she%20can%20easily%20trick%20the%20car%2C%20Zlata%20soon%20discovers%20that%20she%20is%20dealing%20with%20an%20invulnerable%20opponent%20who%20controls%20the%20entire%20house.%20Desperate%2C%20she%20and%20her%20neighbor%20Nikita%2C%20who%20is%20in%20love%20with%20her%2C%20find%20an%20unconventional%20way%20out%20-%20they%20begin%20to%20communicate%20with%20the%20robot%20in%20its%20language%2C%20using%20%22perfect%20promts%22.%20Their%20frien%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmovie-1629983%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=%D0%A0%D0%BE%D0%B1%D0%BE%D0%BD%D1%8F%D0%BD%D1%8F%20(2026)&amp;startdt=2026-06-18&amp;enddt=2026-06-19&amp;allday=true&amp;body=Cheerful%20and%20inventive%20Zlata%2C%20who%20stays%20at%20home%20alone%20for%20the%20sake%20of%20the%20school%20ball%20and%20the%20first%20kiss%2C%20under%20the%20supervision%20of%20the%20newest%20robot%20nanny%20Notrix.%20Confident%20that%20she%20can%20easily%20trick%20the%20car%2C%20Zlata%20soon%20discovers%20that%20she%20is%20dealing%20with%20an%20invulnerable%20opponent%20who%20controls%20the%20entire%20house.%20Desperate%2C%20she%20and%20her%20neighbor%20Nikita%2C%20who%20is%20in%20love%20with%20her%2C%20find%20an%20unconventional%20way%20out%20-%20they%20begin%20to%20communicate%20with%20the%20robot%20in%20its%20language%2C%20using%20%22perfect%20promts%22.%20Their%20frien%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmovie-1629983%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=%D0%A0%D0%BE%D0%B1%D0%BE%D0%BD%D1%8F%D0%BD%D1%8F%20(2026)&amp;ST=20260618&amp;ET=20260619&amp;in_loc=&amp;DESC=Cheerful%20and%20inventive%20Zlata%2C%20who%20stays%20at%20home%20alone%20for%20the%20sake%20of%20the%20school%20ball%20and%20the%20first%20kiss%2C%20under%20the%20supervision%20of%20the%20newest%20robot%20nanny%20Notrix.%20Confident%20that%20she%20can%20easily%20trick%20the%20car%2C%20Zlata%20soon%20discovers%20that%20she%20is%20dealing%20with%20an%20invulnerable%20opponent%20who%20controls%20the%20entire%20house.%20Desperate%2C%20she%20and%20her%20neighbor%20Nikita%2C%20who%20is%20in%20love%20with%20her%2C%20find%20an%20unconventional%20way%20out%20-%20they%20begin%20to%20communicate%20with%20the%20robot%20in%20its%20language%2C%20using%20%22perfect%20promts%22.%20Their%20frien%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmovie-1629983%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-06-18","AT":"2026-06-18","BE":"2026-06-18","BR":"2026-06-18","BG":"2026-06-18","CA":"2026-06-18","CN":"2026-06-18","HR":"2026-06-18","CY":"2026-06-18","CZ":"2026-06-18","DK":"2026-06-18","EE":"2026-06-18","FI":"2026-06-18","FR":"2026-06-18","DE":"2026-06-18","GR":"2026-06-18","HU":"2026-06-18","IN":"2026-06-18","IE":"2026-06-18","IT":"2026-06-18","JP":"2026-06-18","LV":"2026-06-18","LT":"2026-06-18","LU":"2026-06-18","MT":"2026-06-18","NL":"2026-06-18","PL":"2026-06-18","PT":"2026-06-18","RO":"2026-06-18","SK":"2026-06-18","SI":"2026-06-18","KR":"2026-06-18","ES":"2026-06-18","SE":"2026-06-18","GB":"2026-06-18","UA":"2026-06-18","US":"2026-06-18"};
+      var globalDate   = "2026-06-18";
+      var calTitle     = "Робоняня (2026)";
+      var calDesc      = "Cheerful and inventive Zlata, who stays at home alone for the sake of the school ball and the first kiss, under the supervision of the newest robot nanny Notrix. Confident that she can easily trick the car, Zlata soon discovers that she is dealing with an invulnerable opponent who controls the entire house. Desperate, she and her neighbor Nikita, who is in love with her, find an unconventional way out - they begin to communicate with the robot in its language, using \"perfect promts\". Their frien\n\nMore info: https://moviereleaseradar.com/movie/movie-1629983/";
+      var icsSummary   = "Робоняня (2026)";
+      var icsDescBody  = "Cheerful and inventive Zlata\\, who stays at home alone for the sake of the school ball and the first kiss\\, under the supervision of the newest robot nanny Notrix. Confident that she can easily trick the car\\, Zlata soon discovers that she is dealing with an invulnerable opponent who controls the entire house. Desperate\\, she and her neighbor Nikita\\, who is in love with her\\, find an unconventional way out - they begin to communicate with the robot in its language\\, using \"perfect promts\". Their frien\\n\\nMore info: https://moviereleaseradar.com/movie/movie-1629983/";
+      var icsUid       = "movie-1629983@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/movie-1629983/";
+      var icsFile      = "-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1629983@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260618\r\nDTEND;VALUE=DATE:20260619\r\nSUMMARY:Робоняня (2026)\r\nDESCRIPTION:Cheerful and inventive Zlata\\, who stays at home alone for the sake of the school ball and the first kiss\\, under the supervision of the newest robot nanny Notrix. Confident that she can easily trick the car\\, Zlata soon discovers that she is dealing with an invulnerable opponent who controls the entire house. Desperate\\, she and her neighbor Nikita\\, who is in love with her\\, find an unconventional way out - they begin to communicate with the robot in its language\\, using \"perfect promts\". Their frien\\n\\nMore info: https://moviereleaseradar.com/movie/movie-1629983/\r\nURL:https://moviereleaseradar.com/movie/movie-1629983/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

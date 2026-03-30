@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Lappen%3A%20A%20Tragedy.%20(2027)&amp;dates=20270112/20270113&amp;details=Lappen%20is%20an%20ambitious%20actress%20%E2%80%94%20and%20a%20washcloth%20in%20a%20world%20dominated%20by%20humans.%20Despite%20her%20acting%20training%2C%20she%20fails%20to%20make%20a%20breakthrough%20at%20a%20small%20theater.%20Her%20appearance%20and%20the%20patriarchal%20environment%20confine%20her%20to%20minor%20roles.%20At%20the%20lowest%20point%20of%20her%20career%2C%20she%20decides%20to%20try%20her%20luck%20in%20the%20film%20industry.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Flappen-a-tragedy%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Lappen%3A%20A%20Tragedy.%20(2027)&amp;startdt=2027-01-12&amp;enddt=2027-01-13&amp;allday=true&amp;body=Lappen%20is%20an%20ambitious%20actress%20%E2%80%94%20and%20a%20washcloth%20in%20a%20world%20dominated%20by%20humans.%20Despite%20her%20acting%20training%2C%20she%20fails%20to%20make%20a%20breakthrough%20at%20a%20small%20theater.%20Her%20appearance%20and%20the%20patriarchal%20environment%20confine%20her%20to%20minor%20roles.%20At%20the%20lowest%20point%20of%20her%20career%2C%20she%20decides%20to%20try%20her%20luck%20in%20the%20film%20industry.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Flappen-a-tragedy%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Lappen%3A%20A%20Tragedy.%20(2027)&amp;ST=20270112&amp;ET=20270113&amp;in_loc=&amp;DESC=Lappen%20is%20an%20ambitious%20actress%20%E2%80%94%20and%20a%20washcloth%20in%20a%20world%20dominated%20by%20humans.%20Despite%20her%20acting%20training%2C%20she%20fails%20to%20make%20a%20breakthrough%20at%20a%20small%20theater.%20Her%20appearance%20and%20the%20patriarchal%20environment%20confine%20her%20to%20minor%20roles.%20At%20the%20lowest%20point%20of%20her%20career%2C%20she%20decides%20to%20try%20her%20luck%20in%20the%20film%20industry.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Flappen-a-tragedy%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-01-12","AT":"2027-01-12","BE":"2027-01-12","BR":"2027-01-12","BG":"2027-01-12","CA":"2027-01-12","CN":"2027-01-12","HR":"2027-01-12","CY":"2027-01-12","CZ":"2027-01-12","DK":"2027-01-12","EE":"2027-01-12","FI":"2027-01-12","FR":"2027-01-12","DE":"2027-01-12","GR":"2027-01-12","HU":"2027-01-12","IN":"2027-01-12","IE":"2027-01-12","IT":"2027-01-12","JP":"2027-01-12","LV":"2027-01-12","LT":"2027-01-12","LU":"2027-01-12","MT":"2027-01-12","NL":"2027-01-12","PL":"2027-01-12","PT":"2027-01-12","RO":"2027-01-12","SK":"2027-01-12","SI":"2027-01-12","KR":"2027-01-12","ES":"2027-01-12","SE":"2027-01-12","GB":"2027-01-12","UA":"2027-01-12","US":"2027-01-12"};
+      var globalDate   = "2027-01-12";
+      var calTitle     = "Lappen: A Tragedy. (2027)";
+      var calDesc      = "Lappen is an ambitious actress — and a washcloth in a world dominated by humans. Despite her acting training, she fails to make a breakthrough at a small theater. Her appearance and the patriarchal environment confine her to minor roles. At the lowest point of her career, she decides to try her luck in the film industry.\n\nMore info: https://moviereleaseradar.com/movie/lappen-a-tragedy/";
+      var icsSummary   = "Lappen: A Tragedy. (2027)";
+      var icsDescBody  = "Lappen is an ambitious actress — and a washcloth in a world dominated by humans. Despite her acting training\\, she fails to make a breakthrough at a small theater. Her appearance and the patriarchal environment confine her to minor roles. At the lowest point of her career\\, she decides to try her luck in the film industry.\\n\\nMore info: https://moviereleaseradar.com/movie/lappen-a-tragedy/";
+      var icsUid       = "movie-1626918@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/lappen-a-tragedy/";
+      var icsFile      = "lappen-a-tragedy-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1626918@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270112\r\nDTEND;VALUE=DATE:20270113\r\nSUMMARY:Lappen: A Tragedy. (2027)\r\nDESCRIPTION:Lappen is an ambitious actress — and a washcloth in a world dominated by humans. Despite her acting training\\, she fails to make a breakthrough at a small theater. Her appearance and the patriarchal environment confine her to minor roles. At the lowest point of her career\\, she decides to try her luck in the film industry.\\n\\nMore info: https://moviereleaseradar.com/movie/lappen-a-tragedy/\r\nURL:https://moviereleaseradar.com/movie/lappen-a-tragedy/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "lappen-a-tragedy-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

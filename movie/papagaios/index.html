@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Papagaios%20(2026)&amp;dates=20260423/20260424&amp;details=Tunico%20is%20the%20most%20famous%20%E2%80%9CPirate%20Parrot%E2%80%9D%20of%20Rio%20de%20Janeiro%20and%20is%20always%20chasing%20reporters%20to%20appear%20on%20TV.%20After%20a%20serious%20accident%20at%20an%20amusement%20park%2C%20Tunico%20meets%20Beto%2C%20a%20mysterious%20young%20man%20who%20becomes%20his%20apprentice.%20This%20encounter%20will%20reveal%20the%20dark%20side%20of%20the%20relentless%20pursuit%20of%20fame%20at%20any%20cost%2C%20in%20a%20Brazil%20with%20more%20than%2070%20million%20televisions%20turned%20on%20every%20day.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fpapagaios%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Papagaios%20(2026)&amp;startdt=2026-04-23&amp;enddt=2026-04-24&amp;allday=true&amp;body=Tunico%20is%20the%20most%20famous%20%E2%80%9CPirate%20Parrot%E2%80%9D%20of%20Rio%20de%20Janeiro%20and%20is%20always%20chasing%20reporters%20to%20appear%20on%20TV.%20After%20a%20serious%20accident%20at%20an%20amusement%20park%2C%20Tunico%20meets%20Beto%2C%20a%20mysterious%20young%20man%20who%20becomes%20his%20apprentice.%20This%20encounter%20will%20reveal%20the%20dark%20side%20of%20the%20relentless%20pursuit%20of%20fame%20at%20any%20cost%2C%20in%20a%20Brazil%20with%20more%20than%2070%20million%20televisions%20turned%20on%20every%20day.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fpapagaios%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Papagaios%20(2026)&amp;ST=20260423&amp;ET=20260424&amp;in_loc=&amp;DESC=Tunico%20is%20the%20most%20famous%20%E2%80%9CPirate%20Parrot%E2%80%9D%20of%20Rio%20de%20Janeiro%20and%20is%20always%20chasing%20reporters%20to%20appear%20on%20TV.%20After%20a%20serious%20accident%20at%20an%20amusement%20park%2C%20Tunico%20meets%20Beto%2C%20a%20mysterious%20young%20man%20who%20becomes%20his%20apprentice.%20This%20encounter%20will%20reveal%20the%20dark%20side%20of%20the%20relentless%20pursuit%20of%20fame%20at%20any%20cost%2C%20in%20a%20Brazil%20with%20more%20than%2070%20million%20televisions%20turned%20on%20every%20day.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fpapagaios%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-23","AT":"2026-04-23","BE":"2026-04-23","BR":"2026-04-23","BG":"2026-04-23","CA":"2026-04-23","CN":"2026-04-23","HR":"2026-04-23","CY":"2026-04-23","CZ":"2026-04-23","DK":"2026-04-23","EE":"2026-04-23","FI":"2026-04-23","FR":"2026-04-23","DE":"2026-04-23","GR":"2026-04-23","HU":"2026-04-23","IN":"2026-04-23","IE":"2026-04-23","IT":"2026-04-23","JP":"2026-04-23","LV":"2026-04-23","LT":"2026-04-23","LU":"2026-04-23","MT":"2026-04-23","NL":"2026-04-23","PL":"2026-04-23","PT":"2026-04-23","RO":"2026-04-23","SK":"2026-04-23","SI":"2026-04-23","KR":"2026-04-23","ES":"2026-04-23","SE":"2026-04-23","GB":"2026-04-23","UA":"2026-04-23","US":"2026-04-23"};
+      var globalDate   = "2026-04-23";
+      var calTitle     = "Papagaios (2026)";
+      var calDesc      = "Tunico is the most famous “Pirate Parrot” of Rio de Janeiro and is always chasing reporters to appear on TV. After a serious accident at an amusement park, Tunico meets Beto, a mysterious young man who becomes his apprentice. This encounter will reveal the dark side of the relentless pursuit of fame at any cost, in a Brazil with more than 70 million televisions turned on every day.\n\nMore info: https://moviereleaseradar.com/movie/papagaios/";
+      var icsSummary   = "Papagaios (2026)";
+      var icsDescBody  = "Tunico is the most famous “Pirate Parrot” of Rio de Janeiro and is always chasing reporters to appear on TV. After a serious accident at an amusement park\\, Tunico meets Beto\\, a mysterious young man who becomes his apprentice. This encounter will reveal the dark side of the relentless pursuit of fame at any cost\\, in a Brazil with more than 70 million televisions turned on every day.\\n\\nMore info: https://moviereleaseradar.com/movie/papagaios/";
+      var icsUid       = "movie-1456619@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/papagaios/";
+      var icsFile      = "papagaios-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1456619@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260423\r\nDTEND;VALUE=DATE:20260424\r\nSUMMARY:Papagaios (2026)\r\nDESCRIPTION:Tunico is the most famous “Pirate Parrot” of Rio de Janeiro and is always chasing reporters to appear on TV. After a serious accident at an amusement park\\, Tunico meets Beto\\, a mysterious young man who becomes his apprentice. This encounter will reveal the dark side of the relentless pursuit of fame at any cost\\, in a Brazil with more than 70 million televisions turned on every day.\\n\\nMore info: https://moviereleaseradar.com/movie/papagaios/\r\nURL:https://moviereleaseradar.com/movie/papagaios/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "papagaios-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

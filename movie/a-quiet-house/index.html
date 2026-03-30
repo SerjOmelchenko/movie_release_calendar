@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=A%20Quiet%20House%20(2026)&amp;dates=20260604/20260605&amp;details=SHE%E2%80%99S%20ALWAYS%20BEEN%20AN%20OLD%20SOUL%0D%20Sian%20and%20Lewis%2C%20are%20a%20married%20couple%20spend%20who%20their%20days%20attempting%20to%20reach%20out%20to%20their%20daughter%2C%20Hope.%20Sian%20brings%20meals%20to%20their%20room%20whilst%20Lewis%20waits%20and%20listens.%20However%2C%20the%20couple%20are%20stuck%20in%20a%20loop%20that%20conceals%20reality.%20The%20evening%20brings%20warmth%20and%20comfort%2C%20whilst%20the%20harsh%20morning%20light%20reveals%20the%20truth%20of%20what%20lies%20beyond%20Hope%E2%80%99s%20door.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fa-quiet-house%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=A%20Quiet%20House%20(2026)&amp;startdt=2026-06-04&amp;enddt=2026-06-05&amp;allday=true&amp;body=SHE%E2%80%99S%20ALWAYS%20BEEN%20AN%20OLD%20SOUL%0D%20Sian%20and%20Lewis%2C%20are%20a%20married%20couple%20spend%20who%20their%20days%20attempting%20to%20reach%20out%20to%20their%20daughter%2C%20Hope.%20Sian%20brings%20meals%20to%20their%20room%20whilst%20Lewis%20waits%20and%20listens.%20However%2C%20the%20couple%20are%20stuck%20in%20a%20loop%20that%20conceals%20reality.%20The%20evening%20brings%20warmth%20and%20comfort%2C%20whilst%20the%20harsh%20morning%20light%20reveals%20the%20truth%20of%20what%20lies%20beyond%20Hope%E2%80%99s%20door.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fa-quiet-house%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=A%20Quiet%20House%20(2026)&amp;ST=20260604&amp;ET=20260605&amp;in_loc=&amp;DESC=SHE%E2%80%99S%20ALWAYS%20BEEN%20AN%20OLD%20SOUL%0D%20Sian%20and%20Lewis%2C%20are%20a%20married%20couple%20spend%20who%20their%20days%20attempting%20to%20reach%20out%20to%20their%20daughter%2C%20Hope.%20Sian%20brings%20meals%20to%20their%20room%20whilst%20Lewis%20waits%20and%20listens.%20However%2C%20the%20couple%20are%20stuck%20in%20a%20loop%20that%20conceals%20reality.%20The%20evening%20brings%20warmth%20and%20comfort%2C%20whilst%20the%20harsh%20morning%20light%20reveals%20the%20truth%20of%20what%20lies%20beyond%20Hope%E2%80%99s%20door.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fa-quiet-house%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-06-04","AT":"2026-06-04","BE":"2026-06-04","BR":"2026-06-04","BG":"2026-06-04","CA":"2026-06-04","CN":"2026-06-04","HR":"2026-06-04","CY":"2026-06-04","CZ":"2026-06-04","DK":"2026-06-04","EE":"2026-06-04","FI":"2026-06-04","FR":"2026-06-04","DE":"2026-06-04","GR":"2026-06-04","HU":"2026-06-04","IN":"2026-06-04","IE":"2026-06-04","IT":"2026-06-04","JP":"2026-06-04","LV":"2026-06-04","LT":"2026-06-04","LU":"2026-06-04","MT":"2026-06-04","NL":"2026-06-04","PL":"2026-06-04","PT":"2026-06-04","RO":"2026-06-04","SK":"2026-06-04","SI":"2026-06-04","KR":"2026-06-04","ES":"2026-06-04","SE":"2026-06-04","GB":"2026-06-04","UA":"2026-06-04","US":"2026-06-04"};
+      var globalDate   = "2026-06-04";
+      var calTitle     = "A Quiet House (2026)";
+      var calDesc      = "SHE’S ALWAYS BEEN AN OLD SOUL\r Sian and Lewis, are a married couple spend who their days attempting to reach out to their daughter, Hope. Sian brings meals to their room whilst Lewis waits and listens. However, the couple are stuck in a loop that conceals reality. The evening brings warmth and comfort, whilst the harsh morning light reveals the truth of what lies beyond Hope’s door.\n\nMore info: https://moviereleaseradar.com/movie/a-quiet-house/";
+      var icsSummary   = "A Quiet House (2026)";
+      var icsDescBody  = "SHE’S ALWAYS BEEN AN OLD SOUL\r Sian and Lewis\\, are a married couple spend who their days attempting to reach out to their daughter\\, Hope. Sian brings meals to their room whilst Lewis waits and listens. However\\, the couple are stuck in a loop that conceals reality. The evening brings warmth and comfort\\, whilst the harsh morning light reveals the truth of what lies beyond Hope’s door.\\n\\nMore info: https://moviereleaseradar.com/movie/a-quiet-house/";
+      var icsUid       = "movie-1650660@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/a-quiet-house/";
+      var icsFile      = "a-quiet-house-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1650660@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260604\r\nDTEND;VALUE=DATE:20260605\r\nSUMMARY:A Quiet House (2026)\r\nDESCRIPTION:SHE’S ALWAYS BEEN AN OLD SOUL\r Sian and Lewis\\, are a married couple spend who their days attempting to reach out to their daughter\\, Hope. Sian brings meals to their room whilst Lewis waits and listens. However\\, the couple are stuck in a loop that conceals reality. The evening brings warmth and comfort\\, whilst the harsh morning light reveals the truth of what lies beyond Hope’s door.\\n\\nMore info: https://moviereleaseradar.com/movie/a-quiet-house/\r\nURL:https://moviereleaseradar.com/movie/a-quiet-house/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "a-quiet-house-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

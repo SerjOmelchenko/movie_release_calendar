@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Don't%20Let%20The%20Bastards%20Grind%20You%20Down%20(2026)&amp;dates=20261101/20261102&amp;details=%22Don't%20Let%20The%20Bastards%20Grind%20You%20Down%22%20is%20a%20documentary%20film%20about%20British%20social%20policy.%20The%20focus%20is%20on%20the%20political%20struggle%20against%20neoliberal%20austerity%20policies%2C%20which%20have%20their%20origins%20in%20the%20hated%20Thatcher%20government.%20%20The%20film%20features%20the%20former%20socialist%20MP%20Dave%20Nellist%2C%20who%20is%20now%20the%20national%20chair%20of%20the%20Trade%20Unionist%20%26%20Socialist%20Coalition%20and%20Hannah%20Sell%2C%20the%20general%20secretary%20of%20the%20Socialist%20Party.%20The%20film%20features%20a%20local%20election%20campaign%20in%20the%20miners'%20town%20of%20Nuneaton%2C%20s%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fdon-t-let-the-bastards-grind-you-down%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Don't%20Let%20The%20Bastards%20Grind%20You%20Down%20(2026)&amp;startdt=2026-11-01&amp;enddt=2026-11-02&amp;allday=true&amp;body=%22Don't%20Let%20The%20Bastards%20Grind%20You%20Down%22%20is%20a%20documentary%20film%20about%20British%20social%20policy.%20The%20focus%20is%20on%20the%20political%20struggle%20against%20neoliberal%20austerity%20policies%2C%20which%20have%20their%20origins%20in%20the%20hated%20Thatcher%20government.%20%20The%20film%20features%20the%20former%20socialist%20MP%20Dave%20Nellist%2C%20who%20is%20now%20the%20national%20chair%20of%20the%20Trade%20Unionist%20%26%20Socialist%20Coalition%20and%20Hannah%20Sell%2C%20the%20general%20secretary%20of%20the%20Socialist%20Party.%20The%20film%20features%20a%20local%20election%20campaign%20in%20the%20miners'%20town%20of%20Nuneaton%2C%20s%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fdon-t-let-the-bastards-grind-you-down%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Don't%20Let%20The%20Bastards%20Grind%20You%20Down%20(2026)&amp;ST=20261101&amp;ET=20261102&amp;in_loc=&amp;DESC=%22Don't%20Let%20The%20Bastards%20Grind%20You%20Down%22%20is%20a%20documentary%20film%20about%20British%20social%20policy.%20The%20focus%20is%20on%20the%20political%20struggle%20against%20neoliberal%20austerity%20policies%2C%20which%20have%20their%20origins%20in%20the%20hated%20Thatcher%20government.%20%20The%20film%20features%20the%20former%20socialist%20MP%20Dave%20Nellist%2C%20who%20is%20now%20the%20national%20chair%20of%20the%20Trade%20Unionist%20%26%20Socialist%20Coalition%20and%20Hannah%20Sell%2C%20the%20general%20secretary%20of%20the%20Socialist%20Party.%20The%20film%20features%20a%20local%20election%20campaign%20in%20the%20miners'%20town%20of%20Nuneaton%2C%20s%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fdon-t-let-the-bastards-grind-you-down%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-11-01","AT":"2026-11-01","BE":"2026-11-01","BR":"2026-11-01","BG":"2026-11-01","CA":"2026-11-01","CN":"2026-11-01","HR":"2026-11-01","CY":"2026-11-01","CZ":"2026-11-01","DK":"2026-11-01","EE":"2026-11-01","FI":"2026-11-01","FR":"2026-11-01","DE":"2026-11-01","GR":"2026-11-01","HU":"2026-11-01","IN":"2026-11-01","IE":"2026-11-01","IT":"2026-11-01","JP":"2026-11-01","LV":"2026-11-01","LT":"2026-11-01","LU":"2026-11-01","MT":"2026-11-01","NL":"2026-11-01","PL":"2026-11-01","PT":"2026-11-01","RO":"2026-11-01","SK":"2026-11-01","SI":"2026-11-01","KR":"2026-11-01","ES":"2026-11-01","SE":"2026-11-01","GB":"2026-11-01","UA":"2026-11-01","US":"2026-11-01"};
+      var globalDate   = "2026-11-01";
+      var calTitle     = "Don't Let The Bastards Grind You Down (2026)";
+      var calDesc      = "\"Don't Let The Bastards Grind You Down\" is a documentary film about British social policy. The focus is on the political struggle against neoliberal austerity policies, which have their origins in the hated Thatcher government.  The film features the former socialist MP Dave Nellist, who is now the national chair of the Trade Unionist & Socialist Coalition and Hannah Sell, the general secretary of the Socialist Party. The film features a local election campaign in the miners' town of Nuneaton, s\n\nMore info: https://moviereleaseradar.com/movie/don-t-let-the-bastards-grind-you-down/";
+      var icsSummary   = "Don't Let The Bastards Grind You Down (2026)";
+      var icsDescBody  = "\"Don't Let The Bastards Grind You Down\" is a documentary film about British social policy. The focus is on the political struggle against neoliberal austerity policies\\, which have their origins in the hated Thatcher government.  The film features the former socialist MP Dave Nellist\\, who is now the national chair of the Trade Unionist & Socialist Coalition and Hannah Sell\\, the general secretary of the Socialist Party. The film features a local election campaign in the miners' town of Nuneaton\\, s\\n\\nMore info: https://moviereleaseradar.com/movie/don-t-let-the-bastards-grind-you-down/";
+      var icsUid       = "movie-1575273@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/don-t-let-the-bastards-grind-you-down/";
+      var icsFile      = "don-t-let-the-bastards-grind-you-down-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1575273@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261101\r\nDTEND;VALUE=DATE:20261102\r\nSUMMARY:Don't Let The Bastards Grind You Down (2026)\r\nDESCRIPTION:\"Don't Let The Bastards Grind You Down\" is a documentary film about British social policy. The focus is on the political struggle against neoliberal austerity policies\\, which have their origins in the hated Thatcher government.  The film features the former socialist MP Dave Nellist\\, who is now the national chair of the Trade Unionist & Socialist Coalition and Hannah Sell\\, the general secretary of the Socialist Party. The film features a local election campaign in the miners' town of Nuneaton\\, s\\n\\nMore info: https://moviereleaseradar.com/movie/don-t-let-the-bastards-grind-you-down/\r\nURL:https://moviereleaseradar.com/movie/don-t-let-the-bastards-grind-you-down/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "don-t-let-the-bastards-grind-you-down-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

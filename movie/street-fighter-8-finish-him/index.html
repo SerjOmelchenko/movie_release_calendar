@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Street%20Fighter%208%20(Finish%20Him)%20(2027)&amp;dates=20270316/20270317&amp;details=The%20final%20chapter.%0D%20Balthasar%20turned%20all%20wimen%20on%20earth%20in%20to%20Merle%20and%20starts%20his%20conquest%20to%20rule%20the%20whole%20world.%0D%20Nick%20and%20Luca%20the%20two%20only%20survivors%20of%20the%20deadly%20conflict%20angainst%20Balthasar%2C%20are%20trying%20to%20build%20a%20team%20that%20could%20stop%20the%20purple%20gigant%20from%20dominating%20the%20mordern%20world.%0D%20Balthasar%20and%20the%20Boys%20are%20are%20pitted%20against%20each%20other%20in%20an%20epic%20battle%20that%20will%20determine%20the%20fate%20of%20Merle%2C%20Balthasar%2C%20the%20Boys%20and%20the%20future%20for%20even%20human%20beeing%20on%20earth.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fstreet-fighter-8-finish-him%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Street%20Fighter%208%20(Finish%20Him)%20(2027)&amp;startdt=2027-03-16&amp;enddt=2027-03-17&amp;allday=true&amp;body=The%20final%20chapter.%0D%20Balthasar%20turned%20all%20wimen%20on%20earth%20in%20to%20Merle%20and%20starts%20his%20conquest%20to%20rule%20the%20whole%20world.%0D%20Nick%20and%20Luca%20the%20two%20only%20survivors%20of%20the%20deadly%20conflict%20angainst%20Balthasar%2C%20are%20trying%20to%20build%20a%20team%20that%20could%20stop%20the%20purple%20gigant%20from%20dominating%20the%20mordern%20world.%0D%20Balthasar%20and%20the%20Boys%20are%20are%20pitted%20against%20each%20other%20in%20an%20epic%20battle%20that%20will%20determine%20the%20fate%20of%20Merle%2C%20Balthasar%2C%20the%20Boys%20and%20the%20future%20for%20even%20human%20beeing%20on%20earth.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fstreet-fighter-8-finish-him%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Street%20Fighter%208%20(Finish%20Him)%20(2027)&amp;ST=20270316&amp;ET=20270317&amp;in_loc=&amp;DESC=The%20final%20chapter.%0D%20Balthasar%20turned%20all%20wimen%20on%20earth%20in%20to%20Merle%20and%20starts%20his%20conquest%20to%20rule%20the%20whole%20world.%0D%20Nick%20and%20Luca%20the%20two%20only%20survivors%20of%20the%20deadly%20conflict%20angainst%20Balthasar%2C%20are%20trying%20to%20build%20a%20team%20that%20could%20stop%20the%20purple%20gigant%20from%20dominating%20the%20mordern%20world.%0D%20Balthasar%20and%20the%20Boys%20are%20are%20pitted%20against%20each%20other%20in%20an%20epic%20battle%20that%20will%20determine%20the%20fate%20of%20Merle%2C%20Balthasar%2C%20the%20Boys%20and%20the%20future%20for%20even%20human%20beeing%20on%20earth.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fstreet-fighter-8-finish-him%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-03-16","AT":"2027-03-16","BE":"2027-03-16","BR":"2027-03-16","BG":"2027-03-16","CA":"2027-03-16","CN":"2027-03-16","HR":"2027-03-16","CY":"2027-03-16","CZ":"2027-03-16","DK":"2027-03-16","EE":"2027-03-16","FI":"2027-03-16","FR":"2027-03-16","DE":"2027-03-16","GR":"2027-03-16","HU":"2027-03-16","IN":"2027-03-16","IE":"2027-03-16","IT":"2027-03-16","JP":"2027-03-16","LV":"2027-03-16","LT":"2027-03-16","LU":"2027-03-16","MT":"2027-03-16","NL":"2027-03-16","PL":"2027-03-16","PT":"2027-03-16","RO":"2027-03-16","SK":"2027-03-16","SI":"2027-03-16","KR":"2027-03-16","ES":"2027-03-16","SE":"2027-03-16","GB":"2027-03-16","UA":"2027-03-16","US":"2027-03-16"};
+      var globalDate   = "2027-03-16";
+      var calTitle     = "Street Fighter 8 (Finish Him) (2027)";
+      var calDesc      = "The final chapter.\r Balthasar turned all wimen on earth in to Merle and starts his conquest to rule the whole world.\r Nick and Luca the two only survivors of the deadly conflict angainst Balthasar, are trying to build a team that could stop the purple gigant from dominating the mordern world.\r Balthasar and the Boys are are pitted against each other in an epic battle that will determine the fate of Merle, Balthasar, the Boys and the future for even human beeing on earth.\n\nMore info: https://moviereleaseradar.com/movie/street-fighter-8-finish-him/";
+      var icsSummary   = "Street Fighter 8 (Finish Him) (2027)";
+      var icsDescBody  = "The final chapter.\r Balthasar turned all wimen on earth in to Merle and starts his conquest to rule the whole world.\r Nick and Luca the two only survivors of the deadly conflict angainst Balthasar\\, are trying to build a team that could stop the purple gigant from dominating the mordern world.\r Balthasar and the Boys are are pitted against each other in an epic battle that will determine the fate of Merle\\, Balthasar\\, the Boys and the future for even human beeing on earth.\\n\\nMore info: https://moviereleaseradar.com/movie/street-fighter-8-finish-him/";
+      var icsUid       = "movie-1364206@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/street-fighter-8-finish-him/";
+      var icsFile      = "street-fighter-8-finish-him-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1364206@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270316\r\nDTEND;VALUE=DATE:20270317\r\nSUMMARY:Street Fighter 8 (Finish Him) (2027)\r\nDESCRIPTION:The final chapter.\r Balthasar turned all wimen on earth in to Merle and starts his conquest to rule the whole world.\r Nick and Luca the two only survivors of the deadly conflict angainst Balthasar\\, are trying to build a team that could stop the purple gigant from dominating the mordern world.\r Balthasar and the Boys are are pitted against each other in an epic battle that will determine the fate of Merle\\, Balthasar\\, the Boys and the future for even human beeing on earth.\\n\\nMore info: https://moviereleaseradar.com/movie/street-fighter-8-finish-him/\r\nURL:https://moviereleaseradar.com/movie/street-fighter-8-finish-him/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "street-fighter-8-finish-him-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

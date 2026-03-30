@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Cliffhanger%20(2026)&amp;dates=20260826/20260827&amp;details=During%20a%20weekend%20trip%20with%20a%20billionaire's%20son%2C%20seasoned%20mountaineer%20Ray%20Cooper%20and%20his%20daughter%20Sydney%20are%20targeted%20by%20a%20gang%20of%20kidnappers.%20Ray%E2%80%99s%20other%20daughter%20Naomi%2C%20still%20haunted%20by%20a%20past%20climbing%20accident%2C%20witnesses%20the%20attack%20and%20escapes.%20To%20save%20her%20family%2C%20she%20must%20confront%20her%20fears%20and%20fight%20for%20survival.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fcliffhanger%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Cliffhanger%20(2026)&amp;startdt=2026-08-26&amp;enddt=2026-08-27&amp;allday=true&amp;body=During%20a%20weekend%20trip%20with%20a%20billionaire's%20son%2C%20seasoned%20mountaineer%20Ray%20Cooper%20and%20his%20daughter%20Sydney%20are%20targeted%20by%20a%20gang%20of%20kidnappers.%20Ray%E2%80%99s%20other%20daughter%20Naomi%2C%20still%20haunted%20by%20a%20past%20climbing%20accident%2C%20witnesses%20the%20attack%20and%20escapes.%20To%20save%20her%20family%2C%20she%20must%20confront%20her%20fears%20and%20fight%20for%20survival.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fcliffhanger%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Cliffhanger%20(2026)&amp;ST=20260826&amp;ET=20260827&amp;in_loc=&amp;DESC=During%20a%20weekend%20trip%20with%20a%20billionaire's%20son%2C%20seasoned%20mountaineer%20Ray%20Cooper%20and%20his%20daughter%20Sydney%20are%20targeted%20by%20a%20gang%20of%20kidnappers.%20Ray%E2%80%99s%20other%20daughter%20Naomi%2C%20still%20haunted%20by%20a%20past%20climbing%20accident%2C%20witnesses%20the%20attack%20and%20escapes.%20To%20save%20her%20family%2C%20she%20must%20confront%20her%20fears%20and%20fight%20for%20survival.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fcliffhanger%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-08-26","AT":"2026-08-26","BE":"2026-08-26","BR":"2026-08-26","BG":"2026-08-26","CA":"2026-08-28","CN":"2026-08-26","HR":"2026-08-26","CY":"2026-08-26","CZ":"2026-08-26","DK":"2026-08-26","EE":"2026-08-26","FI":"2026-08-26","FR":"2026-08-26","DE":"2026-09-03","GR":"2026-08-26","HU":"2026-08-26","IN":"2026-08-26","IE":"2026-08-26","IT":"2026-08-26","JP":"2026-08-26","LV":"2026-08-26","LT":"2026-08-26","LU":"2026-08-26","MT":"2026-08-26","NL":"2026-08-26","PL":"2026-08-26","PT":"2026-08-26","RO":"2026-08-26","SK":"2026-08-26","SI":"2026-08-26","KR":"2026-08-26","ES":"2026-08-26","SE":"2026-08-26","GB":"2026-08-26","UA":"2026-08-26","US":"2026-08-26"};
+      var globalDate   = "2026-08-26";
+      var calTitle     = "Cliffhanger (2026)";
+      var calDesc      = "During a weekend trip with a billionaire's son, seasoned mountaineer Ray Cooper and his daughter Sydney are targeted by a gang of kidnappers. Ray’s other daughter Naomi, still haunted by a past climbing accident, witnesses the attack and escapes. To save her family, she must confront her fears and fight for survival.\n\nMore info: https://moviereleaseradar.com/movie/cliffhanger/";
+      var icsSummary   = "Cliffhanger (2026)";
+      var icsDescBody  = "During a weekend trip with a billionaire's son\\, seasoned mountaineer Ray Cooper and his daughter Sydney are targeted by a gang of kidnappers. Ray’s other daughter Naomi\\, still haunted by a past climbing accident\\, witnesses the attack and escapes. To save her family\\, she must confront her fears and fight for survival.\\n\\nMore info: https://moviereleaseradar.com/movie/cliffhanger/";
+      var icsUid       = "movie-1120556@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/cliffhanger/";
+      var icsFile      = "cliffhanger-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1120556@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260826\r\nDTEND;VALUE=DATE:20260827\r\nSUMMARY:Cliffhanger (2026)\r\nDESCRIPTION:During a weekend trip with a billionaire's son\\, seasoned mountaineer Ray Cooper and his daughter Sydney are targeted by a gang of kidnappers. Ray’s other daughter Naomi\\, still haunted by a past climbing accident\\, witnesses the attack and escapes. To save her family\\, she must confront her fears and fight for survival.\\n\\nMore info: https://moviereleaseradar.com/movie/cliffhanger/\r\nURL:https://moviereleaseradar.com/movie/cliffhanger/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "cliffhanger-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

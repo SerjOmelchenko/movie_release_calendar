@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=House%20with%20Roman%20(2027)&amp;dates=20270121/20270122&amp;details=An%20upcoming%20romantic%20comedy%20with%20elements%20of%20fantasy%20about%20Ivanka%2C%20the%20owner%20of%20a%20coffee%20shop%20in%20the%20capital%2C%20who%20decides%20to%20sell%20her%20only%20inheritance%E2%80%94her%20grandmother's%20house%20in%20a%20small%20town%20in%20Podillia%E2%80%94to%20pay%20off%20her%20debts.%20Soon%2C%20the%20girl%20discovers%20that%20the%20house%20is%20inhabited%20by%20a%20house%20spirit%20named%20Roman%2C%20a%20young%2C%20seductive%20handsome%20man%20who%20will%20do%20anything%20to%20save%20the%20house%20from%20being%20sold.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fhouse-with-roman%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=House%20with%20Roman%20(2027)&amp;startdt=2027-01-21&amp;enddt=2027-01-22&amp;allday=true&amp;body=An%20upcoming%20romantic%20comedy%20with%20elements%20of%20fantasy%20about%20Ivanka%2C%20the%20owner%20of%20a%20coffee%20shop%20in%20the%20capital%2C%20who%20decides%20to%20sell%20her%20only%20inheritance%E2%80%94her%20grandmother's%20house%20in%20a%20small%20town%20in%20Podillia%E2%80%94to%20pay%20off%20her%20debts.%20Soon%2C%20the%20girl%20discovers%20that%20the%20house%20is%20inhabited%20by%20a%20house%20spirit%20named%20Roman%2C%20a%20young%2C%20seductive%20handsome%20man%20who%20will%20do%20anything%20to%20save%20the%20house%20from%20being%20sold.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fhouse-with-roman%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=House%20with%20Roman%20(2027)&amp;ST=20270121&amp;ET=20270122&amp;in_loc=&amp;DESC=An%20upcoming%20romantic%20comedy%20with%20elements%20of%20fantasy%20about%20Ivanka%2C%20the%20owner%20of%20a%20coffee%20shop%20in%20the%20capital%2C%20who%20decides%20to%20sell%20her%20only%20inheritance%E2%80%94her%20grandmother's%20house%20in%20a%20small%20town%20in%20Podillia%E2%80%94to%20pay%20off%20her%20debts.%20Soon%2C%20the%20girl%20discovers%20that%20the%20house%20is%20inhabited%20by%20a%20house%20spirit%20named%20Roman%2C%20a%20young%2C%20seductive%20handsome%20man%20who%20will%20do%20anything%20to%20save%20the%20house%20from%20being%20sold.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fhouse-with-roman%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-01-21","AT":"2027-01-21","BE":"2027-01-21","BR":"2027-01-21","BG":"2027-01-21","CA":"2027-01-21","CN":"2027-01-21","HR":"2027-01-21","CY":"2027-01-21","CZ":"2027-01-21","DK":"2027-01-21","EE":"2027-01-21","FI":"2027-01-21","FR":"2027-01-21","DE":"2027-01-21","GR":"2027-01-21","HU":"2027-01-21","IN":"2027-01-21","IE":"2027-01-21","IT":"2027-01-21","JP":"2027-01-21","LV":"2027-01-21","LT":"2027-01-21","LU":"2027-01-21","MT":"2027-01-21","NL":"2027-01-21","PL":"2027-01-21","PT":"2027-01-21","RO":"2027-01-21","SK":"2027-01-21","SI":"2027-01-21","KR":"2027-01-21","ES":"2027-01-21","SE":"2027-01-21","GB":"2027-01-21","UA":"2027-01-21","US":"2027-01-21"};
+      var globalDate   = "2027-01-21";
+      var calTitle     = "House with Roman (2027)";
+      var calDesc      = "An upcoming romantic comedy with elements of fantasy about Ivanka, the owner of a coffee shop in the capital, who decides to sell her only inheritance—her grandmother's house in a small town in Podillia—to pay off her debts. Soon, the girl discovers that the house is inhabited by a house spirit named Roman, a young, seductive handsome man who will do anything to save the house from being sold.\n\nMore info: https://moviereleaseradar.com/movie/house-with-roman/";
+      var icsSummary   = "House with Roman (2027)";
+      var icsDescBody  = "An upcoming romantic comedy with elements of fantasy about Ivanka\\, the owner of a coffee shop in the capital\\, who decides to sell her only inheritance—her grandmother's house in a small town in Podillia—to pay off her debts. Soon\\, the girl discovers that the house is inhabited by a house spirit named Roman\\, a young\\, seductive handsome man who will do anything to save the house from being sold.\\n\\nMore info: https://moviereleaseradar.com/movie/house-with-roman/";
+      var icsUid       = "movie-1643097@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/house-with-roman/";
+      var icsFile      = "house-with-roman-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1643097@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270121\r\nDTEND;VALUE=DATE:20270122\r\nSUMMARY:House with Roman (2027)\r\nDESCRIPTION:An upcoming romantic comedy with elements of fantasy about Ivanka\\, the owner of a coffee shop in the capital\\, who decides to sell her only inheritance—her grandmother's house in a small town in Podillia—to pay off her debts. Soon\\, the girl discovers that the house is inhabited by a house spirit named Roman\\, a young\\, seductive handsome man who will do anything to save the house from being sold.\\n\\nMore info: https://moviereleaseradar.com/movie/house-with-roman/\r\nURL:https://moviereleaseradar.com/movie/house-with-roman/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "house-with-roman-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

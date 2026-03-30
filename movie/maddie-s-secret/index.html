@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Maddie's%20Secret%20(2026)&amp;dates=20260612/20260613&amp;details=By%20day%2C%20bright-eyed%2C%20kind-hearted%20Maddie%20is%20a%20dishwasher%20at%20Gourmaybe%2C%20a%20trendy%20Los%20Angeles%20food%20content%20creation%20company%2C%20and%20at%20night%20makes%20scrumptious%20vegetarian%20dishes%2C%20captured%20in%20videos%20by%20her%20devoted%20husband%20Jake.%20When%20one%20of%20the%20videos%20goes%20viral%20and%20she%20is%20thrust%20into%20the%20spotlight%2C%20the%20pressure%20heralds%20the%20inopportune%20return%20of%20a%20long-dormant%20struggle%20with%20an%20eating%20disorder.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmaddie-s-secret%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Maddie's%20Secret%20(2026)&amp;startdt=2026-06-12&amp;enddt=2026-06-13&amp;allday=true&amp;body=By%20day%2C%20bright-eyed%2C%20kind-hearted%20Maddie%20is%20a%20dishwasher%20at%20Gourmaybe%2C%20a%20trendy%20Los%20Angeles%20food%20content%20creation%20company%2C%20and%20at%20night%20makes%20scrumptious%20vegetarian%20dishes%2C%20captured%20in%20videos%20by%20her%20devoted%20husband%20Jake.%20When%20one%20of%20the%20videos%20goes%20viral%20and%20she%20is%20thrust%20into%20the%20spotlight%2C%20the%20pressure%20heralds%20the%20inopportune%20return%20of%20a%20long-dormant%20struggle%20with%20an%20eating%20disorder.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmaddie-s-secret%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Maddie's%20Secret%20(2026)&amp;ST=20260612&amp;ET=20260613&amp;in_loc=&amp;DESC=By%20day%2C%20bright-eyed%2C%20kind-hearted%20Maddie%20is%20a%20dishwasher%20at%20Gourmaybe%2C%20a%20trendy%20Los%20Angeles%20food%20content%20creation%20company%2C%20and%20at%20night%20makes%20scrumptious%20vegetarian%20dishes%2C%20captured%20in%20videos%20by%20her%20devoted%20husband%20Jake.%20When%20one%20of%20the%20videos%20goes%20viral%20and%20she%20is%20thrust%20into%20the%20spotlight%2C%20the%20pressure%20heralds%20the%20inopportune%20return%20of%20a%20long-dormant%20struggle%20with%20an%20eating%20disorder.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmaddie-s-secret%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-06-12","AT":"2026-06-12","BE":"2026-06-12","BR":"2026-06-12","BG":"2026-06-12","CA":"2025-09-04","CN":"2026-06-12","HR":"2026-06-12","CY":"2026-06-12","CZ":"2026-06-12","DK":"2026-06-12","EE":"2026-06-12","FI":"2026-06-12","FR":"2026-06-12","DE":"2026-06-12","GR":"2026-06-12","HU":"2026-06-12","IN":"2026-06-12","IE":"2026-06-12","IT":"2026-06-12","JP":"2026-06-12","LV":"2026-06-12","LT":"2026-06-12","LU":"2026-06-12","MT":"2026-06-12","NL":"2026-01-31","PL":"2026-06-12","PT":"2026-06-12","RO":"2026-06-12","SK":"2026-06-12","SI":"2026-06-12","KR":"2026-06-12","ES":"2026-06-12","SE":"2026-06-12","GB":"2026-06-12","UA":"2026-06-12","US":"2026-06-12"};
+      var globalDate   = "2026-06-12";
+      var calTitle     = "Maddie's Secret (2026)";
+      var calDesc      = "By day, bright-eyed, kind-hearted Maddie is a dishwasher at Gourmaybe, a trendy Los Angeles food content creation company, and at night makes scrumptious vegetarian dishes, captured in videos by her devoted husband Jake. When one of the videos goes viral and she is thrust into the spotlight, the pressure heralds the inopportune return of a long-dormant struggle with an eating disorder.\n\nMore info: https://moviereleaseradar.com/movie/maddie-s-secret/";
+      var icsSummary   = "Maddie's Secret (2026)";
+      var icsDescBody  = "By day\\, bright-eyed\\, kind-hearted Maddie is a dishwasher at Gourmaybe\\, a trendy Los Angeles food content creation company\\, and at night makes scrumptious vegetarian dishes\\, captured in videos by her devoted husband Jake. When one of the videos goes viral and she is thrust into the spotlight\\, the pressure heralds the inopportune return of a long-dormant struggle with an eating disorder.\\n\\nMore info: https://moviereleaseradar.com/movie/maddie-s-secret/";
+      var icsUid       = "movie-1517868@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/maddie-s-secret/";
+      var icsFile      = "maddie-s-secret-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1517868@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260612\r\nDTEND;VALUE=DATE:20260613\r\nSUMMARY:Maddie's Secret (2026)\r\nDESCRIPTION:By day\\, bright-eyed\\, kind-hearted Maddie is a dishwasher at Gourmaybe\\, a trendy Los Angeles food content creation company\\, and at night makes scrumptious vegetarian dishes\\, captured in videos by her devoted husband Jake. When one of the videos goes viral and she is thrust into the spotlight\\, the pressure heralds the inopportune return of a long-dormant struggle with an eating disorder.\\n\\nMore info: https://moviereleaseradar.com/movie/maddie-s-secret/\r\nURL:https://moviereleaseradar.com/movie/maddie-s-secret/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "maddie-s-secret-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

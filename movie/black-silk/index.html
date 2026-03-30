@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Black%20Silk%20(2027)&amp;dates=20270331/20270401&amp;details=A%20sequel%20to%20the%20spy%20thriller%20Red%20Silk.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fblack-silk%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Black%20Silk%20(2027)&amp;startdt=2027-03-31&amp;enddt=2027-04-01&amp;allday=true&amp;body=A%20sequel%20to%20the%20spy%20thriller%20Red%20Silk.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fblack-silk%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Black%20Silk%20(2027)&amp;ST=20270331&amp;ET=20270401&amp;in_loc=&amp;DESC=A%20sequel%20to%20the%20spy%20thriller%20Red%20Silk.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fblack-silk%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-03-31","AT":"2027-03-31","BE":"2027-03-31","BR":"2027-03-31","BG":"2027-03-31","CA":"2027-03-31","CN":"2027-03-31","HR":"2027-03-31","CY":"2027-03-31","CZ":"2027-03-31","DK":"2027-03-31","EE":"2027-03-31","FI":"2027-03-31","FR":"2027-03-31","DE":"2027-03-31","GR":"2027-03-31","HU":"2027-03-31","IN":"2027-03-31","IE":"2027-03-31","IT":"2027-03-31","JP":"2027-03-31","LV":"2027-03-31","LT":"2027-03-31","LU":"2027-03-31","MT":"2027-03-31","NL":"2027-03-31","PL":"2027-03-31","PT":"2027-03-31","RO":"2027-03-31","SK":"2027-03-31","SI":"2027-03-31","KR":"2027-03-31","ES":"2027-03-31","SE":"2027-03-31","GB":"2027-03-31","UA":"2027-03-31","US":"2027-03-31"};
+      var globalDate   = "2027-03-31";
+      var calTitle     = "Black Silk (2027)";
+      var calDesc      = "A sequel to the spy thriller Red Silk.\n\nMore info: https://moviereleaseradar.com/movie/black-silk/";
+      var icsSummary   = "Black Silk (2027)";
+      var icsDescBody  = "A sequel to the spy thriller Red Silk.\\n\\nMore info: https://moviereleaseradar.com/movie/black-silk/";
+      var icsUid       = "movie-1550039@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/black-silk/";
+      var icsFile      = "black-silk-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1550039@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270331\r\nDTEND;VALUE=DATE:20270401\r\nSUMMARY:Black Silk (2027)\r\nDESCRIPTION:A sequel to the spy thriller Red Silk.\\n\\nMore info: https://moviereleaseradar.com/movie/black-silk/\r\nURL:https://moviereleaseradar.com/movie/black-silk/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "black-silk-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

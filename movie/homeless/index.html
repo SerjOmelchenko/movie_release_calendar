@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HOMELESS%20(2026)&amp;dates=20260424/20260425&amp;details=HOMELESS%20is%20a%20documentary%20that%20humanizes%20unhoused%20people%20and%20explores%20their%20backgrounds%2C%20dreams%20and%20struggles%20to%20find%20the%20way%20home.%20The%20film%20aims%20to%20raise%20awareness%20and%20funds%20to%20end%20homelessness%2C%20which%20is%20an%20ever%20more%20urgent%20global%20challenge%3A%20The%20United%20Nations%20Human%20Settlements%20Program%20estimates%20that%201.6%20billion%20people%20live%20in%20inadequate%20housing%2C%20and%20the%20best%20available%20data%20suggests%20that%20more%20than%20100%20million%20people%20have%20no%20housing%20at%20all.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fhomeless%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=HOMELESS%20(2026)&amp;startdt=2026-04-24&amp;enddt=2026-04-25&amp;allday=true&amp;body=HOMELESS%20is%20a%20documentary%20that%20humanizes%20unhoused%20people%20and%20explores%20their%20backgrounds%2C%20dreams%20and%20struggles%20to%20find%20the%20way%20home.%20The%20film%20aims%20to%20raise%20awareness%20and%20funds%20to%20end%20homelessness%2C%20which%20is%20an%20ever%20more%20urgent%20global%20challenge%3A%20The%20United%20Nations%20Human%20Settlements%20Program%20estimates%20that%201.6%20billion%20people%20live%20in%20inadequate%20housing%2C%20and%20the%20best%20available%20data%20suggests%20that%20more%20than%20100%20million%20people%20have%20no%20housing%20at%20all.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fhomeless%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=HOMELESS%20(2026)&amp;ST=20260424&amp;ET=20260425&amp;in_loc=&amp;DESC=HOMELESS%20is%20a%20documentary%20that%20humanizes%20unhoused%20people%20and%20explores%20their%20backgrounds%2C%20dreams%20and%20struggles%20to%20find%20the%20way%20home.%20The%20film%20aims%20to%20raise%20awareness%20and%20funds%20to%20end%20homelessness%2C%20which%20is%20an%20ever%20more%20urgent%20global%20challenge%3A%20The%20United%20Nations%20Human%20Settlements%20Program%20estimates%20that%201.6%20billion%20people%20live%20in%20inadequate%20housing%2C%20and%20the%20best%20available%20data%20suggests%20that%20more%20than%20100%20million%20people%20have%20no%20housing%20at%20all.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fhomeless%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-24","AT":"2026-04-24","BE":"2026-04-24","BR":"2026-04-24","BG":"2026-04-24","CA":"2026-04-24","CN":"2026-04-24","HR":"2026-04-24","CY":"2026-04-24","CZ":"2026-04-24","DK":"2026-04-24","EE":"2026-04-24","FI":"2026-04-24","FR":"2026-04-24","DE":"2026-04-24","GR":"2026-04-24","HU":"2026-04-24","IN":"2026-04-24","IE":"2026-04-24","IT":"2026-04-24","JP":"2026-04-24","LV":"2026-04-24","LT":"2026-04-24","LU":"2026-04-24","MT":"2026-04-24","NL":"2026-04-24","PL":"2026-04-24","PT":"2026-04-24","RO":"2026-04-24","SK":"2026-04-24","SI":"2026-04-24","KR":"2026-04-24","ES":"2026-04-24","SE":"2026-04-24","GB":"2026-04-24","UA":"2026-04-24","US":"2026-04-24"};
+      var globalDate   = "2026-04-24";
+      var calTitle     = "HOMELESS (2026)";
+      var calDesc      = "HOMELESS is a documentary that humanizes unhoused people and explores their backgrounds, dreams and struggles to find the way home. The film aims to raise awareness and funds to end homelessness, which is an ever more urgent global challenge: The United Nations Human Settlements Program estimates that 1.6 billion people live in inadequate housing, and the best available data suggests that more than 100 million people have no housing at all.\n\nMore info: https://moviereleaseradar.com/movie/homeless/";
+      var icsSummary   = "HOMELESS (2026)";
+      var icsDescBody  = "HOMELESS is a documentary that humanizes unhoused people and explores their backgrounds\\, dreams and struggles to find the way home. The film aims to raise awareness and funds to end homelessness\\, which is an ever more urgent global challenge: The United Nations Human Settlements Program estimates that 1.6 billion people live in inadequate housing\\, and the best available data suggests that more than 100 million people have no housing at all.\\n\\nMore info: https://moviereleaseradar.com/movie/homeless/";
+      var icsUid       = "movie-1625517@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/homeless/";
+      var icsFile      = "homeless-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1625517@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260424\r\nDTEND;VALUE=DATE:20260425\r\nSUMMARY:HOMELESS (2026)\r\nDESCRIPTION:HOMELESS is a documentary that humanizes unhoused people and explores their backgrounds\\, dreams and struggles to find the way home. The film aims to raise awareness and funds to end homelessness\\, which is an ever more urgent global challenge: The United Nations Human Settlements Program estimates that 1.6 billion people live in inadequate housing\\, and the best available data suggests that more than 100 million people have no housing at all.\\n\\nMore info: https://moviereleaseradar.com/movie/homeless/\r\nURL:https://moviereleaseradar.com/movie/homeless/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "homeless-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

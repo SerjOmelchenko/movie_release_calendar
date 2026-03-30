@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Squirrel%20(2026)&amp;dates=20260402/20260403&amp;details=Pasi%2C%20a%20lonely%20but%20kind-hearted%20designer%20of%20artificial%20animals%2C%20lives%20in%20a%20world%20where%20nature%20is%20just%20a%20memory%20and%20human%20well-being%20is%20organized%20with%20perhaps%20too%20much%20care.%20One%20day%2C%20Pasi%20accidentally%20finds%20the%20world's%20last%20living%20squirrel%20and%20meets%20Emilia%2C%20an%20official%20who%20enforces%20the%20rules%20of%20well-being.%20Pasi%20decides%20to%20defy%20society's%20rules%20and%20help%20the%20squirrel%2C%20but%20something%20unexpected%20happens%E2%80%94the%20squirrel%20becomes%20depressed%20and%20Pasi%20falls%20in%20love.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-squirrel%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Squirrel%20(2026)&amp;startdt=2026-04-02&amp;enddt=2026-04-03&amp;allday=true&amp;body=Pasi%2C%20a%20lonely%20but%20kind-hearted%20designer%20of%20artificial%20animals%2C%20lives%20in%20a%20world%20where%20nature%20is%20just%20a%20memory%20and%20human%20well-being%20is%20organized%20with%20perhaps%20too%20much%20care.%20One%20day%2C%20Pasi%20accidentally%20finds%20the%20world's%20last%20living%20squirrel%20and%20meets%20Emilia%2C%20an%20official%20who%20enforces%20the%20rules%20of%20well-being.%20Pasi%20decides%20to%20defy%20society's%20rules%20and%20help%20the%20squirrel%2C%20but%20something%20unexpected%20happens%E2%80%94the%20squirrel%20becomes%20depressed%20and%20Pasi%20falls%20in%20love.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-squirrel%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Squirrel%20(2026)&amp;ST=20260402&amp;ET=20260403&amp;in_loc=&amp;DESC=Pasi%2C%20a%20lonely%20but%20kind-hearted%20designer%20of%20artificial%20animals%2C%20lives%20in%20a%20world%20where%20nature%20is%20just%20a%20memory%20and%20human%20well-being%20is%20organized%20with%20perhaps%20too%20much%20care.%20One%20day%2C%20Pasi%20accidentally%20finds%20the%20world's%20last%20living%20squirrel%20and%20meets%20Emilia%2C%20an%20official%20who%20enforces%20the%20rules%20of%20well-being.%20Pasi%20decides%20to%20defy%20society's%20rules%20and%20help%20the%20squirrel%2C%20but%20something%20unexpected%20happens%E2%80%94the%20squirrel%20becomes%20depressed%20and%20Pasi%20falls%20in%20love.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-squirrel%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-02","AT":"2026-04-02","BE":"2026-04-02","BR":"2026-04-02","BG":"2026-04-02","CA":"2026-04-02","CN":"2026-04-02","HR":"2026-04-02","CY":"2026-04-02","CZ":"2026-04-02","DK":"2026-04-02","EE":"2026-04-02","FI":"2026-04-02","FR":"2026-04-02","DE":"2026-04-02","GR":"2026-04-02","HU":"2026-04-02","IN":"2026-04-02","IE":"2026-04-02","IT":"2026-04-02","JP":"2026-04-02","LV":"2026-04-02","LT":"2026-04-02","LU":"2026-04-02","MT":"2026-04-02","NL":"2026-04-02","PL":"2026-04-02","PT":"2026-04-02","RO":"2026-04-02","SK":"2026-04-02","SI":"2026-04-02","KR":"2026-04-02","ES":"2026-04-02","SE":"2026-04-02","GB":"2026-04-02","UA":"2026-04-02","US":"2026-04-02"};
+      var globalDate   = "2026-04-02";
+      var calTitle     = "The Squirrel (2026)";
+      var calDesc      = "Pasi, a lonely but kind-hearted designer of artificial animals, lives in a world where nature is just a memory and human well-being is organized with perhaps too much care. One day, Pasi accidentally finds the world's last living squirrel and meets Emilia, an official who enforces the rules of well-being. Pasi decides to defy society's rules and help the squirrel, but something unexpected happens—the squirrel becomes depressed and Pasi falls in love.\n\nMore info: https://moviereleaseradar.com/movie/the-squirrel/";
+      var icsSummary   = "The Squirrel (2026)";
+      var icsDescBody  = "Pasi\\, a lonely but kind-hearted designer of artificial animals\\, lives in a world where nature is just a memory and human well-being is organized with perhaps too much care. One day\\, Pasi accidentally finds the world's last living squirrel and meets Emilia\\, an official who enforces the rules of well-being. Pasi decides to defy society's rules and help the squirrel\\, but something unexpected happens—the squirrel becomes depressed and Pasi falls in love.\\n\\nMore info: https://moviereleaseradar.com/movie/the-squirrel/";
+      var icsUid       = "movie-683367@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/the-squirrel/";
+      var icsFile      = "the-squirrel-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-683367@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260402\r\nDTEND;VALUE=DATE:20260403\r\nSUMMARY:The Squirrel (2026)\r\nDESCRIPTION:Pasi\\, a lonely but kind-hearted designer of artificial animals\\, lives in a world where nature is just a memory and human well-being is organized with perhaps too much care. One day\\, Pasi accidentally finds the world's last living squirrel and meets Emilia\\, an official who enforces the rules of well-being. Pasi decides to defy society's rules and help the squirrel\\, but something unexpected happens—the squirrel becomes depressed and Pasi falls in love.\\n\\nMore info: https://moviereleaseradar.com/movie/the-squirrel/\r\nURL:https://moviereleaseradar.com/movie/the-squirrel/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "the-squirrel-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

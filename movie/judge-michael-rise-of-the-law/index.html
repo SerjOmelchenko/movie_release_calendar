@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Judge%20Michael%20-%20Rise%20of%20the%20Law%20(2026)&amp;dates=20260626/20260627&amp;details=A%20new%20enemy%20has%20risen%20on%20mega%20city%20one%2C%20his%20name%20is%20Voss%20Kane%20%22%20The%20Ripper%20%22%20bringing%20chaos%20to%20the%20streets%2C%20now%20a%20new%20judge%20has%20emerged%20from%20the%20hall%20of%20justice%20teached%20by%20Dredd%20himself%2C%20to%20uphold%20the%20law%20and%20bring%20justice%20to%20the%20streets.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fjudge-michael-rise-of-the-law%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Judge%20Michael%20-%20Rise%20of%20the%20Law%20(2026)&amp;startdt=2026-06-26&amp;enddt=2026-06-27&amp;allday=true&amp;body=A%20new%20enemy%20has%20risen%20on%20mega%20city%20one%2C%20his%20name%20is%20Voss%20Kane%20%22%20The%20Ripper%20%22%20bringing%20chaos%20to%20the%20streets%2C%20now%20a%20new%20judge%20has%20emerged%20from%20the%20hall%20of%20justice%20teached%20by%20Dredd%20himself%2C%20to%20uphold%20the%20law%20and%20bring%20justice%20to%20the%20streets.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fjudge-michael-rise-of-the-law%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Judge%20Michael%20-%20Rise%20of%20the%20Law%20(2026)&amp;ST=20260626&amp;ET=20260627&amp;in_loc=&amp;DESC=A%20new%20enemy%20has%20risen%20on%20mega%20city%20one%2C%20his%20name%20is%20Voss%20Kane%20%22%20The%20Ripper%20%22%20bringing%20chaos%20to%20the%20streets%2C%20now%20a%20new%20judge%20has%20emerged%20from%20the%20hall%20of%20justice%20teached%20by%20Dredd%20himself%2C%20to%20uphold%20the%20law%20and%20bring%20justice%20to%20the%20streets.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fjudge-michael-rise-of-the-law%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-06-26","AT":"2026-06-26","BE":"2026-06-26","BR":"2026-06-26","BG":"2026-06-26","CA":"2026-06-26","CN":"2026-06-26","HR":"2026-06-26","CY":"2026-06-26","CZ":"2026-06-26","DK":"2026-06-26","EE":"2026-06-26","FI":"2026-06-26","FR":"2026-06-26","DE":"2026-06-26","GR":"2026-06-26","HU":"2026-06-26","IN":"2026-06-26","IE":"2026-06-26","IT":"2026-06-26","JP":"2026-06-26","LV":"2026-06-26","LT":"2026-06-26","LU":"2026-06-26","MT":"2026-06-26","NL":"2026-06-26","PL":"2026-06-26","PT":"2026-06-26","RO":"2026-06-26","SK":"2026-06-26","SI":"2026-06-26","KR":"2026-06-26","ES":"2026-06-26","SE":"2026-06-26","GB":"2026-06-26","UA":"2026-06-26","US":"2026-06-26"};
+      var globalDate   = "2026-06-26";
+      var calTitle     = "Judge Michael - Rise of the Law (2026)";
+      var calDesc      = "A new enemy has risen on mega city one, his name is Voss Kane \" The Ripper \" bringing chaos to the streets, now a new judge has emerged from the hall of justice teached by Dredd himself, to uphold the law and bring justice to the streets.\n\nMore info: https://moviereleaseradar.com/movie/judge-michael-rise-of-the-law/";
+      var icsSummary   = "Judge Michael - Rise of the Law (2026)";
+      var icsDescBody  = "A new enemy has risen on mega city one\\, his name is Voss Kane \" The Ripper \" bringing chaos to the streets\\, now a new judge has emerged from the hall of justice teached by Dredd himself\\, to uphold the law and bring justice to the streets.\\n\\nMore info: https://moviereleaseradar.com/movie/judge-michael-rise-of-the-law/";
+      var icsUid       = "movie-1647483@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/judge-michael-rise-of-the-law/";
+      var icsFile      = "judge-michael-rise-of-the-law-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1647483@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260626\r\nDTEND;VALUE=DATE:20260627\r\nSUMMARY:Judge Michael - Rise of the Law (2026)\r\nDESCRIPTION:A new enemy has risen on mega city one\\, his name is Voss Kane \" The Ripper \" bringing chaos to the streets\\, now a new judge has emerged from the hall of justice teached by Dredd himself\\, to uphold the law and bring justice to the streets.\\n\\nMore info: https://moviereleaseradar.com/movie/judge-michael-rise-of-the-law/\r\nURL:https://moviereleaseradar.com/movie/judge-michael-rise-of-the-law/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "judge-michael-rise-of-the-law-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

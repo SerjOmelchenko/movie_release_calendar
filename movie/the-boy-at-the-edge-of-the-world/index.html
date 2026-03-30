@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Boy%20at%20the%20Edge%20of%20the%20World%20(2026)&amp;dates=20260626/20260627&amp;details=Omul%20lives%20with%20his%20family%20on%20a%20remote%20island%20in%20the%20Fire%20Archipelago.%20During%20a%20beach%20trip%2C%20a%20storm%20sweeps%20Omul%20and%20his%20younger%20sister%20Kimi%20into%20the%20sea%2C%20where%20Omul%20witnesses%20a%20mysterious%20creature%20threatening%20Kimi%E2%80%99s%20soul.%20%20Rescued%20by%20a%20whale%2C%20the%20siblings%20survive%2C%20but%20Kimi%20is%20left%20in%20a%20coma.%20Omul%E2%80%99s%20ability%20to%20talk%20to%20animals%20becomes%20crucial%20as%20he%20and%20his%20brother%20%E2%80%93%20who%20blames%20him%20for%20the%20accident%20%E2%80%93%20set%20out%20to%20find%20Sadumea%2C%20the%20mythical%20figure%20behind%20Kimi%E2%80%99s%20torment.%20%20With%20their%20dog%20Tela%2C%20they%20emba%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-boy-at-the-edge-of-the-world%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Boy%20at%20the%20Edge%20of%20the%20World%20(2026)&amp;startdt=2026-06-26&amp;enddt=2026-06-27&amp;allday=true&amp;body=Omul%20lives%20with%20his%20family%20on%20a%20remote%20island%20in%20the%20Fire%20Archipelago.%20During%20a%20beach%20trip%2C%20a%20storm%20sweeps%20Omul%20and%20his%20younger%20sister%20Kimi%20into%20the%20sea%2C%20where%20Omul%20witnesses%20a%20mysterious%20creature%20threatening%20Kimi%E2%80%99s%20soul.%20%20Rescued%20by%20a%20whale%2C%20the%20siblings%20survive%2C%20but%20Kimi%20is%20left%20in%20a%20coma.%20Omul%E2%80%99s%20ability%20to%20talk%20to%20animals%20becomes%20crucial%20as%20he%20and%20his%20brother%20%E2%80%93%20who%20blames%20him%20for%20the%20accident%20%E2%80%93%20set%20out%20to%20find%20Sadumea%2C%20the%20mythical%20figure%20behind%20Kimi%E2%80%99s%20torment.%20%20With%20their%20dog%20Tela%2C%20they%20emba%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-boy-at-the-edge-of-the-world%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Boy%20at%20the%20Edge%20of%20the%20World%20(2026)&amp;ST=20260626&amp;ET=20260627&amp;in_loc=&amp;DESC=Omul%20lives%20with%20his%20family%20on%20a%20remote%20island%20in%20the%20Fire%20Archipelago.%20During%20a%20beach%20trip%2C%20a%20storm%20sweeps%20Omul%20and%20his%20younger%20sister%20Kimi%20into%20the%20sea%2C%20where%20Omul%20witnesses%20a%20mysterious%20creature%20threatening%20Kimi%E2%80%99s%20soul.%20%20Rescued%20by%20a%20whale%2C%20the%20siblings%20survive%2C%20but%20Kimi%20is%20left%20in%20a%20coma.%20Omul%E2%80%99s%20ability%20to%20talk%20to%20animals%20becomes%20crucial%20as%20he%20and%20his%20brother%20%E2%80%93%20who%20blames%20him%20for%20the%20accident%20%E2%80%93%20set%20out%20to%20find%20Sadumea%2C%20the%20mythical%20figure%20behind%20Kimi%E2%80%99s%20torment.%20%20With%20their%20dog%20Tela%2C%20they%20emba%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-boy-at-the-edge-of-the-world%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-06-26","AT":"2026-06-26","BE":"2026-06-26","BR":"2026-06-26","BG":"2026-06-26","CA":"2026-06-26","CN":"2026-06-26","HR":"2026-06-26","CY":"2026-06-26","CZ":"2026-06-26","DK":"2026-06-26","EE":"2025-11-16","FI":"2026-06-26","FR":"2026-06-26","DE":"2026-06-26","GR":"2026-06-26","HU":"2026-06-26","IN":"2026-06-26","IE":"2026-06-26","IT":"2026-06-26","JP":"2026-06-26","LV":"2026-06-26","LT":"2026-06-26","LU":"2026-06-26","MT":"2026-06-26","NL":"2026-06-26","PL":"2026-06-26","PT":"2026-06-26","RO":"2026-06-26","SK":"2026-06-26","SI":"2026-06-26","KR":"2026-06-26","ES":"2026-06-26","SE":"2026-06-26","GB":"2026-06-26","UA":"2026-06-26","US":"2026-06-26"};
+      var globalDate   = "2026-06-26";
+      var calTitle     = "The Boy at the Edge of the World (2026)";
+      var calDesc      = "Omul lives with his family on a remote island in the Fire Archipelago. During a beach trip, a storm sweeps Omul and his younger sister Kimi into the sea, where Omul witnesses a mysterious creature threatening Kimi’s soul.  Rescued by a whale, the siblings survive, but Kimi is left in a coma. Omul’s ability to talk to animals becomes crucial as he and his brother – who blames him for the accident – set out to find Sadumea, the mythical figure behind Kimi’s torment.  With their dog Tela, they emba\n\nMore info: https://moviereleaseradar.com/movie/the-boy-at-the-edge-of-the-world/";
+      var icsSummary   = "The Boy at the Edge of the World (2026)";
+      var icsDescBody  = "Omul lives with his family on a remote island in the Fire Archipelago. During a beach trip\\, a storm sweeps Omul and his younger sister Kimi into the sea\\, where Omul witnesses a mysterious creature threatening Kimi’s soul.  Rescued by a whale\\, the siblings survive\\, but Kimi is left in a coma. Omul’s ability to talk to animals becomes crucial as he and his brother – who blames him for the accident – set out to find Sadumea\\, the mythical figure behind Kimi’s torment.  With their dog Tela\\, they emba\\n\\nMore info: https://moviereleaseradar.com/movie/the-boy-at-the-edge-of-the-world/";
+      var icsUid       = "movie-1277047@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/the-boy-at-the-edge-of-the-world/";
+      var icsFile      = "the-boy-at-the-edge-of-the-world-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1277047@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260626\r\nDTEND;VALUE=DATE:20260627\r\nSUMMARY:The Boy at the Edge of the World (2026)\r\nDESCRIPTION:Omul lives with his family on a remote island in the Fire Archipelago. During a beach trip\\, a storm sweeps Omul and his younger sister Kimi into the sea\\, where Omul witnesses a mysterious creature threatening Kimi’s soul.  Rescued by a whale\\, the siblings survive\\, but Kimi is left in a coma. Omul’s ability to talk to animals becomes crucial as he and his brother – who blames him for the accident – set out to find Sadumea\\, the mythical figure behind Kimi’s torment.  With their dog Tela\\, they emba\\n\\nMore info: https://moviereleaseradar.com/movie/the-boy-at-the-edge-of-the-world/\r\nURL:https://moviereleaseradar.com/movie/the-boy-at-the-edge-of-the-world/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "the-boy-at-the-edge-of-the-world-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

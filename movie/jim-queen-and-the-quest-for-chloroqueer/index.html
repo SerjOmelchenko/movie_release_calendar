@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Jim%20Queen%20and%20the%20Quest%20for%20Chloroqueer%20(2026)&amp;dates=20260617/20260618&amp;details=When%20Heterosis%20-%20a%20mysterious%20virus%20that%20turns%20gay%20men%20straight%20sweeps%20through%20the%20Parisian%20gay%20scene%2C%20Jim%2C%20the%20six%20packed%20sovereign%20of%20the%20Gym%20Queens%2C%20goes%20from%20Pride%20royalty%20to%20social%20outcast.%20With%20only%20Lucien%2C%20a%20freshly-out%20twink%20with%20more%20heart%20than%20abs%2C%20still%20by%20his%20side%2C%20Jim%20must%20race%20to%20find%20a%20cure%20before%20the%20disease%20erases%20the%20community%20that%20once%20worshipped%20him.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fjim-queen-and-the-quest-for-chloroqueer%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Jim%20Queen%20and%20the%20Quest%20for%20Chloroqueer%20(2026)&amp;startdt=2026-06-17&amp;enddt=2026-06-18&amp;allday=true&amp;body=When%20Heterosis%20-%20a%20mysterious%20virus%20that%20turns%20gay%20men%20straight%20sweeps%20through%20the%20Parisian%20gay%20scene%2C%20Jim%2C%20the%20six%20packed%20sovereign%20of%20the%20Gym%20Queens%2C%20goes%20from%20Pride%20royalty%20to%20social%20outcast.%20With%20only%20Lucien%2C%20a%20freshly-out%20twink%20with%20more%20heart%20than%20abs%2C%20still%20by%20his%20side%2C%20Jim%20must%20race%20to%20find%20a%20cure%20before%20the%20disease%20erases%20the%20community%20that%20once%20worshipped%20him.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fjim-queen-and-the-quest-for-chloroqueer%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Jim%20Queen%20and%20the%20Quest%20for%20Chloroqueer%20(2026)&amp;ST=20260617&amp;ET=20260618&amp;in_loc=&amp;DESC=When%20Heterosis%20-%20a%20mysterious%20virus%20that%20turns%20gay%20men%20straight%20sweeps%20through%20the%20Parisian%20gay%20scene%2C%20Jim%2C%20the%20six%20packed%20sovereign%20of%20the%20Gym%20Queens%2C%20goes%20from%20Pride%20royalty%20to%20social%20outcast.%20With%20only%20Lucien%2C%20a%20freshly-out%20twink%20with%20more%20heart%20than%20abs%2C%20still%20by%20his%20side%2C%20Jim%20must%20race%20to%20find%20a%20cure%20before%20the%20disease%20erases%20the%20community%20that%20once%20worshipped%20him.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fjim-queen-and-the-quest-for-chloroqueer%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-06-17","AT":"2026-06-17","BE":"2026-06-17","BR":"2026-06-17","BG":"2026-06-17","CA":"2026-06-17","CN":"2026-06-17","HR":"2026-06-17","CY":"2026-06-17","CZ":"2026-06-17","DK":"2026-06-17","EE":"2026-06-17","FI":"2026-06-17","FR":"2026-06-17","DE":"2026-06-17","GR":"2026-06-17","HU":"2026-06-17","IN":"2026-06-17","IE":"2026-06-17","IT":"2026-06-17","JP":"2026-06-17","LV":"2026-06-17","LT":"2026-06-17","LU":"2026-06-17","MT":"2026-06-17","NL":"2026-06-17","PL":"2026-06-17","PT":"2026-06-17","RO":"2026-06-17","SK":"2026-06-17","SI":"2026-06-17","KR":"2026-06-17","ES":"2026-06-17","SE":"2026-06-17","GB":"2026-06-17","UA":"2026-06-17","US":"2026-06-17"};
+      var globalDate   = "2026-06-17";
+      var calTitle     = "Jim Queen and the Quest for Chloroqueer (2026)";
+      var calDesc      = "When Heterosis - a mysterious virus that turns gay men straight sweeps through the Parisian gay scene, Jim, the six packed sovereign of the Gym Queens, goes from Pride royalty to social outcast. With only Lucien, a freshly-out twink with more heart than abs, still by his side, Jim must race to find a cure before the disease erases the community that once worshipped him.\n\nMore info: https://moviereleaseradar.com/movie/jim-queen-and-the-quest-for-chloroqueer/";
+      var icsSummary   = "Jim Queen and the Quest for Chloroqueer (2026)";
+      var icsDescBody  = "When Heterosis - a mysterious virus that turns gay men straight sweeps through the Parisian gay scene\\, Jim\\, the six packed sovereign of the Gym Queens\\, goes from Pride royalty to social outcast. With only Lucien\\, a freshly-out twink with more heart than abs\\, still by his side\\, Jim must race to find a cure before the disease erases the community that once worshipped him.\\n\\nMore info: https://moviereleaseradar.com/movie/jim-queen-and-the-quest-for-chloroqueer/";
+      var icsUid       = "movie-1061798@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/jim-queen-and-the-quest-for-chloroqueer/";
+      var icsFile      = "jim-queen-and-the-quest-for-chloroqueer-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1061798@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260617\r\nDTEND;VALUE=DATE:20260618\r\nSUMMARY:Jim Queen and the Quest for Chloroqueer (2026)\r\nDESCRIPTION:When Heterosis - a mysterious virus that turns gay men straight sweeps through the Parisian gay scene\\, Jim\\, the six packed sovereign of the Gym Queens\\, goes from Pride royalty to social outcast. With only Lucien\\, a freshly-out twink with more heart than abs\\, still by his side\\, Jim must race to find a cure before the disease erases the community that once worshipped him.\\n\\nMore info: https://moviereleaseradar.com/movie/jim-queen-and-the-quest-for-chloroqueer/\r\nURL:https://moviereleaseradar.com/movie/jim-queen-and-the-quest-for-chloroqueer/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "jim-queen-and-the-quest-for-chloroqueer-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

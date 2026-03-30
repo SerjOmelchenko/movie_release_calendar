@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=SUFFICIENT%20SIDE%20EFFECTS%20The%20Making%20Of%20Magenta%20House%20(2026)&amp;dates=20260605/20260606&amp;details=SUFFICIENT%20SIDE%20EFFECTS%20is%20the%20definitive%20behind%20the%20scenes%20look%20at%20the%20making%20of%20Magenta%20House%20using%20extensive%20behind%20the%20scenes%20footage%20shot%20during%20the%20production%20of%20the%20film%20and%20interviews%20with%20most%20of%20the%20crew%20and%20some%20of%20the%20cast.%20It%E2%80%99s%20a%20unique%20opportunity%20to%20showcase%20the%20creation%20of%20fully%20independent%20student%20film%20which%20we%20had%20full%20control%20over.%20The%20good%2C%20the%20bad%20and%20the%20ugly%20side%20of%20film%20making%20is%20on%20full%20display%20going%20through%20all%20the%20ups%20and%20downs%20of%20such%20a%20production%20and%20hearing%20from%20tho%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fsufficient-side-effects-the-making-of-magenta-house%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=SUFFICIENT%20SIDE%20EFFECTS%20The%20Making%20Of%20Magenta%20House%20(2026)&amp;startdt=2026-06-05&amp;enddt=2026-06-06&amp;allday=true&amp;body=SUFFICIENT%20SIDE%20EFFECTS%20is%20the%20definitive%20behind%20the%20scenes%20look%20at%20the%20making%20of%20Magenta%20House%20using%20extensive%20behind%20the%20scenes%20footage%20shot%20during%20the%20production%20of%20the%20film%20and%20interviews%20with%20most%20of%20the%20crew%20and%20some%20of%20the%20cast.%20It%E2%80%99s%20a%20unique%20opportunity%20to%20showcase%20the%20creation%20of%20fully%20independent%20student%20film%20which%20we%20had%20full%20control%20over.%20The%20good%2C%20the%20bad%20and%20the%20ugly%20side%20of%20film%20making%20is%20on%20full%20display%20going%20through%20all%20the%20ups%20and%20downs%20of%20such%20a%20production%20and%20hearing%20from%20tho%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fsufficient-side-effects-the-making-of-magenta-house%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=SUFFICIENT%20SIDE%20EFFECTS%20The%20Making%20Of%20Magenta%20House%20(2026)&amp;ST=20260605&amp;ET=20260606&amp;in_loc=&amp;DESC=SUFFICIENT%20SIDE%20EFFECTS%20is%20the%20definitive%20behind%20the%20scenes%20look%20at%20the%20making%20of%20Magenta%20House%20using%20extensive%20behind%20the%20scenes%20footage%20shot%20during%20the%20production%20of%20the%20film%20and%20interviews%20with%20most%20of%20the%20crew%20and%20some%20of%20the%20cast.%20It%E2%80%99s%20a%20unique%20opportunity%20to%20showcase%20the%20creation%20of%20fully%20independent%20student%20film%20which%20we%20had%20full%20control%20over.%20The%20good%2C%20the%20bad%20and%20the%20ugly%20side%20of%20film%20making%20is%20on%20full%20display%20going%20through%20all%20the%20ups%20and%20downs%20of%20such%20a%20production%20and%20hearing%20from%20tho%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fsufficient-side-effects-the-making-of-magenta-house%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-06-05","AT":"2026-06-05","BE":"2026-06-05","BR":"2026-06-05","BG":"2026-06-05","CA":"2026-06-05","CN":"2026-06-05","HR":"2026-06-05","CY":"2026-06-05","CZ":"2026-06-05","DK":"2026-06-05","EE":"2026-06-05","FI":"2026-06-05","FR":"2026-06-05","DE":"2026-06-05","GR":"2026-06-05","HU":"2026-06-05","IN":"2026-06-05","IE":"2026-06-05","IT":"2026-06-05","JP":"2026-06-05","LV":"2026-06-05","LT":"2026-06-05","LU":"2026-06-05","MT":"2026-06-05","NL":"2026-06-05","PL":"2026-06-05","PT":"2026-06-05","RO":"2026-06-05","SK":"2026-06-05","SI":"2026-06-05","KR":"2026-06-05","ES":"2026-06-05","SE":"2026-06-05","GB":"2026-06-05","UA":"2026-06-05","US":"2026-06-05"};
+      var globalDate   = "2026-06-05";
+      var calTitle     = "SUFFICIENT SIDE EFFECTS The Making Of Magenta House (2026)";
+      var calDesc      = "SUFFICIENT SIDE EFFECTS is the definitive behind the scenes look at the making of Magenta House using extensive behind the scenes footage shot during the production of the film and interviews with most of the crew and some of the cast. It’s a unique opportunity to showcase the creation of fully independent student film which we had full control over. The good, the bad and the ugly side of film making is on full display going through all the ups and downs of such a production and hearing from tho\n\nMore info: https://moviereleaseradar.com/movie/sufficient-side-effects-the-making-of-magenta-house/";
+      var icsSummary   = "SUFFICIENT SIDE EFFECTS The Making Of Magenta House (2026)";
+      var icsDescBody  = "SUFFICIENT SIDE EFFECTS is the definitive behind the scenes look at the making of Magenta House using extensive behind the scenes footage shot during the production of the film and interviews with most of the crew and some of the cast. It’s a unique opportunity to showcase the creation of fully independent student film which we had full control over. The good\\, the bad and the ugly side of film making is on full display going through all the ups and downs of such a production and hearing from tho\\n\\nMore info: https://moviereleaseradar.com/movie/sufficient-side-effects-the-making-of-magenta-house/";
+      var icsUid       = "movie-1626527@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/sufficient-side-effects-the-making-of-magenta-house/";
+      var icsFile      = "sufficient-side-effects-the-making-of-magenta-house-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1626527@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260605\r\nDTEND;VALUE=DATE:20260606\r\nSUMMARY:SUFFICIENT SIDE EFFECTS The Making Of Magenta House (2026)\r\nDESCRIPTION:SUFFICIENT SIDE EFFECTS is the definitive behind the scenes look at the making of Magenta House using extensive behind the scenes footage shot during the production of the film and interviews with most of the crew and some of the cast. It’s a unique opportunity to showcase the creation of fully independent student film which we had full control over. The good\\, the bad and the ugly side of film making is on full display going through all the ups and downs of such a production and hearing from tho\\n\\nMore info: https://moviereleaseradar.com/movie/sufficient-side-effects-the-making-of-magenta-house/\r\nURL:https://moviereleaseradar.com/movie/sufficient-side-effects-the-making-of-magenta-house/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "sufficient-side-effects-the-making-of-magenta-house-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

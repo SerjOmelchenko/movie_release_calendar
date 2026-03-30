@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=BORN%20SEXY%20YESTERDAY%3A%20Decoding%20the%20Enigma%20of%20Beauty%20(2027)&amp;dates=20270314/20270315&amp;details=The%20phrase%20%22Born%20Sexy%20Yesterday%22%20is%20derived%20from%20the%201950%20film%20%22Born%20Yesterday.%22%20However%20beneath%20this%20superficial%20portrayal%20of%20some%20women%20lies%20a%20more%20complex%20understanding%20%2C%20revealing%20deeper%20narratives%20that%20resonate%20with%20many.%20%20October%201%2C%201985.%20The%20chilling%20emptiness%20in%20Michele%20Avila's%20eyes.%20Her%20murder%2C%20a%20savage%20ballet%20of%20teenage%20fury%2C%20ripped%20through%20the%20town%2C%20festering%20wounds%20exposing%20the%20venomous%20underbelly%20of%20a%20seemingly%20innocent%20friendship.%20Jealousy%2C%20a%20serpent%20coiled%20in%20the%20heart%20of%20adolesce%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fborn-sexy-yesterday-decoding-the-enigma-of-beauty%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=BORN%20SEXY%20YESTERDAY%3A%20Decoding%20the%20Enigma%20of%20Beauty%20(2027)&amp;startdt=2027-03-14&amp;enddt=2027-03-15&amp;allday=true&amp;body=The%20phrase%20%22Born%20Sexy%20Yesterday%22%20is%20derived%20from%20the%201950%20film%20%22Born%20Yesterday.%22%20However%20beneath%20this%20superficial%20portrayal%20of%20some%20women%20lies%20a%20more%20complex%20understanding%20%2C%20revealing%20deeper%20narratives%20that%20resonate%20with%20many.%20%20October%201%2C%201985.%20The%20chilling%20emptiness%20in%20Michele%20Avila's%20eyes.%20Her%20murder%2C%20a%20savage%20ballet%20of%20teenage%20fury%2C%20ripped%20through%20the%20town%2C%20festering%20wounds%20exposing%20the%20venomous%20underbelly%20of%20a%20seemingly%20innocent%20friendship.%20Jealousy%2C%20a%20serpent%20coiled%20in%20the%20heart%20of%20adolesce%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fborn-sexy-yesterday-decoding-the-enigma-of-beauty%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=BORN%20SEXY%20YESTERDAY%3A%20Decoding%20the%20Enigma%20of%20Beauty%20(2027)&amp;ST=20270314&amp;ET=20270315&amp;in_loc=&amp;DESC=The%20phrase%20%22Born%20Sexy%20Yesterday%22%20is%20derived%20from%20the%201950%20film%20%22Born%20Yesterday.%22%20However%20beneath%20this%20superficial%20portrayal%20of%20some%20women%20lies%20a%20more%20complex%20understanding%20%2C%20revealing%20deeper%20narratives%20that%20resonate%20with%20many.%20%20October%201%2C%201985.%20The%20chilling%20emptiness%20in%20Michele%20Avila's%20eyes.%20Her%20murder%2C%20a%20savage%20ballet%20of%20teenage%20fury%2C%20ripped%20through%20the%20town%2C%20festering%20wounds%20exposing%20the%20venomous%20underbelly%20of%20a%20seemingly%20innocent%20friendship.%20Jealousy%2C%20a%20serpent%20coiled%20in%20the%20heart%20of%20adolesce%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fborn-sexy-yesterday-decoding-the-enigma-of-beauty%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-03-14","AT":"2027-03-14","BE":"2027-03-14","BR":"2027-03-14","BG":"2027-03-14","CA":"2027-03-14","CN":"2027-03-14","HR":"2027-03-14","CY":"2027-03-14","CZ":"2027-03-14","DK":"2027-03-14","EE":"2027-03-14","FI":"2027-03-14","FR":"2027-03-14","DE":"2027-03-14","GR":"2027-03-14","HU":"2027-03-14","IN":"2027-03-14","IE":"2027-03-14","IT":"2027-03-14","JP":"2027-03-14","LV":"2027-03-14","LT":"2027-03-14","LU":"2027-03-14","MT":"2027-03-14","NL":"2027-03-14","PL":"2027-03-14","PT":"2027-03-14","RO":"2027-03-14","SK":"2027-03-14","SI":"2027-03-14","KR":"2027-03-14","ES":"2027-03-14","SE":"2027-03-14","GB":"2027-03-14","UA":"2027-03-14","US":"2027-03-14"};
+      var globalDate   = "2027-03-14";
+      var calTitle     = "BORN SEXY YESTERDAY: Decoding the Enigma of Beauty (2027)";
+      var calDesc      = "The phrase \"Born Sexy Yesterday\" is derived from the 1950 film \"Born Yesterday.\" However beneath this superficial portrayal of some women lies a more complex understanding , revealing deeper narratives that resonate with many.  October 1, 1985. The chilling emptiness in Michele Avila's eyes. Her murder, a savage ballet of teenage fury, ripped through the town, festering wounds exposing the venomous underbelly of a seemingly innocent friendship. Jealousy, a serpent coiled in the heart of adolesce\n\nMore info: https://moviereleaseradar.com/movie/born-sexy-yesterday-decoding-the-enigma-of-beauty/";
+      var icsSummary   = "BORN SEXY YESTERDAY: Decoding the Enigma of Beauty (2027)";
+      var icsDescBody  = "The phrase \"Born Sexy Yesterday\" is derived from the 1950 film \"Born Yesterday.\" However beneath this superficial portrayal of some women lies a more complex understanding \\, revealing deeper narratives that resonate with many.  October 1\\, 1985. The chilling emptiness in Michele Avila's eyes. Her murder\\, a savage ballet of teenage fury\\, ripped through the town\\, festering wounds exposing the venomous underbelly of a seemingly innocent friendship. Jealousy\\, a serpent coiled in the heart of adolesce\\n\\nMore info: https://moviereleaseradar.com/movie/born-sexy-yesterday-decoding-the-enigma-of-beauty/";
+      var icsUid       = "movie-1495044@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/born-sexy-yesterday-decoding-the-enigma-of-beauty/";
+      var icsFile      = "born-sexy-yesterday-decoding-the-enigma-of-beauty-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1495044@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270314\r\nDTEND;VALUE=DATE:20270315\r\nSUMMARY:BORN SEXY YESTERDAY: Decoding the Enigma of Beauty (2027)\r\nDESCRIPTION:The phrase \"Born Sexy Yesterday\" is derived from the 1950 film \"Born Yesterday.\" However beneath this superficial portrayal of some women lies a more complex understanding \\, revealing deeper narratives that resonate with many.  October 1\\, 1985. The chilling emptiness in Michele Avila's eyes. Her murder\\, a savage ballet of teenage fury\\, ripped through the town\\, festering wounds exposing the venomous underbelly of a seemingly innocent friendship. Jealousy\\, a serpent coiled in the heart of adolesce\\n\\nMore info: https://moviereleaseradar.com/movie/born-sexy-yesterday-decoding-the-enigma-of-beauty/\r\nURL:https://moviereleaseradar.com/movie/born-sexy-yesterday-decoding-the-enigma-of-beauty/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "born-sexy-yesterday-decoding-the-enigma-of-beauty-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

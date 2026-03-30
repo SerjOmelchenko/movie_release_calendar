@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Les%20parfait(s)%20(2026)&amp;dates=20260624/20260625&amp;details=The%20Toussaint%20family%20are%20expert%20hustlers%20on%20the%20run%20who%20adopt%20the%20unassuming%20identities%20of%20the%20%E2%80%9CPerfects%E2%80%9D%20and%20settle%20in%20Scotland.%20As%20they%20juggle%20new%20jobs%2C%20nosy%20colleagues%20and%20a%20mysterious%20neighbor%2C%20their%20elaborate%20disguises%2C%20gadgets%20and%20insane%20schemes%20threaten%20to%20expose%20their%20double%20life.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fles-parfait-s%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Les%20parfait(s)%20(2026)&amp;startdt=2026-06-24&amp;enddt=2026-06-25&amp;allday=true&amp;body=The%20Toussaint%20family%20are%20expert%20hustlers%20on%20the%20run%20who%20adopt%20the%20unassuming%20identities%20of%20the%20%E2%80%9CPerfects%E2%80%9D%20and%20settle%20in%20Scotland.%20As%20they%20juggle%20new%20jobs%2C%20nosy%20colleagues%20and%20a%20mysterious%20neighbor%2C%20their%20elaborate%20disguises%2C%20gadgets%20and%20insane%20schemes%20threaten%20to%20expose%20their%20double%20life.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fles-parfait-s%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Les%20parfait(s)%20(2026)&amp;ST=20260624&amp;ET=20260625&amp;in_loc=&amp;DESC=The%20Toussaint%20family%20are%20expert%20hustlers%20on%20the%20run%20who%20adopt%20the%20unassuming%20identities%20of%20the%20%E2%80%9CPerfects%E2%80%9D%20and%20settle%20in%20Scotland.%20As%20they%20juggle%20new%20jobs%2C%20nosy%20colleagues%20and%20a%20mysterious%20neighbor%2C%20their%20elaborate%20disguises%2C%20gadgets%20and%20insane%20schemes%20threaten%20to%20expose%20their%20double%20life.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fles-parfait-s%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-06-24","AT":"2026-06-24","BE":"2026-06-24","BR":"2026-06-24","BG":"2026-06-24","CA":"2026-06-24","CN":"2026-06-24","HR":"2026-06-24","CY":"2026-06-24","CZ":"2026-06-24","DK":"2026-06-24","EE":"2026-06-24","FI":"2026-06-24","FR":"2026-06-24","DE":"2026-06-24","GR":"2026-06-24","HU":"2026-06-24","IN":"2026-06-24","IE":"2026-06-24","IT":"2026-06-24","JP":"2026-06-24","LV":"2026-06-24","LT":"2026-06-24","LU":"2026-06-24","MT":"2026-06-24","NL":"2026-06-24","PL":"2026-06-24","PT":"2026-06-24","RO":"2026-06-24","SK":"2026-06-24","SI":"2026-06-24","KR":"2026-06-24","ES":"2026-06-24","SE":"2026-06-24","GB":"2026-06-24","UA":"2026-06-24","US":"2026-06-24"};
+      var globalDate   = "2026-06-24";
+      var calTitle     = "Les parfait(s) (2026)";
+      var calDesc      = "The Toussaint family are expert hustlers on the run who adopt the unassuming identities of the “Perfects” and settle in Scotland. As they juggle new jobs, nosy colleagues and a mysterious neighbor, their elaborate disguises, gadgets and insane schemes threaten to expose their double life.\n\nMore info: https://moviereleaseradar.com/movie/les-parfait-s/";
+      var icsSummary   = "Les parfait(s) (2026)";
+      var icsDescBody  = "The Toussaint family are expert hustlers on the run who adopt the unassuming identities of the “Perfects” and settle in Scotland. As they juggle new jobs\\, nosy colleagues and a mysterious neighbor\\, their elaborate disguises\\, gadgets and insane schemes threaten to expose their double life.\\n\\nMore info: https://moviereleaseradar.com/movie/les-parfait-s/";
+      var icsUid       = "movie-1421401@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/les-parfait-s/";
+      var icsFile      = "les-parfait-s-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1421401@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260624\r\nDTEND;VALUE=DATE:20260625\r\nSUMMARY:Les parfait(s) (2026)\r\nDESCRIPTION:The Toussaint family are expert hustlers on the run who adopt the unassuming identities of the “Perfects” and settle in Scotland. As they juggle new jobs\\, nosy colleagues and a mysterious neighbor\\, their elaborate disguises\\, gadgets and insane schemes threaten to expose their double life.\\n\\nMore info: https://moviereleaseradar.com/movie/les-parfait-s/\r\nURL:https://moviereleaseradar.com/movie/les-parfait-s/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "les-parfait-s-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

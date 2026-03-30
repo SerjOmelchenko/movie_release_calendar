@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Doggies%202%20(2027)&amp;dates=20270304/20270305&amp;details=A%20sequel%20to%20the%20magnetic%20story%20about%20love%20for%20people%20and%20dogs%2C%20but%20now%20the%20focus%20is%20on%20the%20main%20character%2C%20who%20is%20a%20boy.%20There%20are%20even%20more%20animals%2C%20and%20not%20just%20dogs%2C%20and%20this%20time%20it's%20women%20that%20are%20turning%20into%20them!%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fdoggies-2%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Doggies%202%20(2027)&amp;startdt=2027-03-04&amp;enddt=2027-03-05&amp;allday=true&amp;body=A%20sequel%20to%20the%20magnetic%20story%20about%20love%20for%20people%20and%20dogs%2C%20but%20now%20the%20focus%20is%20on%20the%20main%20character%2C%20who%20is%20a%20boy.%20There%20are%20even%20more%20animals%2C%20and%20not%20just%20dogs%2C%20and%20this%20time%20it's%20women%20that%20are%20turning%20into%20them!%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fdoggies-2%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Doggies%202%20(2027)&amp;ST=20270304&amp;ET=20270305&amp;in_loc=&amp;DESC=A%20sequel%20to%20the%20magnetic%20story%20about%20love%20for%20people%20and%20dogs%2C%20but%20now%20the%20focus%20is%20on%20the%20main%20character%2C%20who%20is%20a%20boy.%20There%20are%20even%20more%20animals%2C%20and%20not%20just%20dogs%2C%20and%20this%20time%20it's%20women%20that%20are%20turning%20into%20them!%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fdoggies-2%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-03-04","AT":"2027-03-04","BE":"2027-03-04","BR":"2027-03-04","BG":"2027-03-04","CA":"2027-03-04","CN":"2027-03-04","HR":"2027-03-04","CY":"2027-03-04","CZ":"2027-03-04","DK":"2027-03-04","EE":"2027-03-04","FI":"2027-03-04","FR":"2027-03-04","DE":"2027-03-04","GR":"2027-03-04","HU":"2027-03-04","IN":"2027-03-04","IE":"2027-03-04","IT":"2027-03-04","JP":"2027-03-04","LV":"2027-03-04","LT":"2027-03-04","LU":"2027-03-04","MT":"2027-03-04","NL":"2027-03-04","PL":"2027-03-04","PT":"2027-03-04","RO":"2027-03-04","SK":"2027-03-04","SI":"2027-03-04","KR":"2027-03-04","ES":"2027-03-04","SE":"2027-03-04","GB":"2027-03-04","UA":"2027-03-04","US":"2027-03-04"};
+      var globalDate   = "2027-03-04";
+      var calTitle     = "Doggies 2 (2027)";
+      var calDesc      = "A sequel to the magnetic story about love for people and dogs, but now the focus is on the main character, who is a boy. There are even more animals, and not just dogs, and this time it's women that are turning into them!\n\nMore info: https://moviereleaseradar.com/movie/doggies-2/";
+      var icsSummary   = "Doggies 2 (2027)";
+      var icsDescBody  = "A sequel to the magnetic story about love for people and dogs\\, but now the focus is on the main character\\, who is a boy. There are even more animals\\, and not just dogs\\, and this time it's women that are turning into them!\\n\\nMore info: https://moviereleaseradar.com/movie/doggies-2/";
+      var icsUid       = "movie-1643094@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/doggies-2/";
+      var icsFile      = "doggies-2-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1643094@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270304\r\nDTEND;VALUE=DATE:20270305\r\nSUMMARY:Doggies 2 (2027)\r\nDESCRIPTION:A sequel to the magnetic story about love for people and dogs\\, but now the focus is on the main character\\, who is a boy. There are even more animals\\, and not just dogs\\, and this time it's women that are turning into them!\\n\\nMore info: https://moviereleaseradar.com/movie/doggies-2/\r\nURL:https://moviereleaseradar.com/movie/doggies-2/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "doggies-2-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

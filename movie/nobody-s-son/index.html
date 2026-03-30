@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Nobody's%20Son%20(2026)&amp;dates=20260603/20260604&amp;details=The%20script%20centres%20on%20Mathilda%20and%20Thomas%2C%20married%20for%20over%2015%20years.%20They%E2%80%99ve%20always%20dreamed%20of%20having%20children%2C%20but%20their%20efforts%20were%20only%20met%20with%20failures.%20After%20having%20adopted%20Mapring%2C%20a%204-year-old%20boy%20from%20Thailand%2C%20their%20life%20takes%20a%20tragic%20turn%20when%20Mathilda%20dies%20in%20an%20accident.%20Thomas%20then%20finds%20himself%20alone%20with%20a%20child%20he%20hadn%E2%80%99t%20really%20wanted.%20Devastated%20by%20this%20loss%20and%20incapable%20of%20forming%20a%20bond%20with%20Mapring%2C%20he%20decides%20to%20go%20look%20for%20the%20child%E2%80%99s%20biological%20family.%20Accompanied%20by%20%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fnobody-s-son%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Nobody's%20Son%20(2026)&amp;startdt=2026-06-03&amp;enddt=2026-06-04&amp;allday=true&amp;body=The%20script%20centres%20on%20Mathilda%20and%20Thomas%2C%20married%20for%20over%2015%20years.%20They%E2%80%99ve%20always%20dreamed%20of%20having%20children%2C%20but%20their%20efforts%20were%20only%20met%20with%20failures.%20After%20having%20adopted%20Mapring%2C%20a%204-year-old%20boy%20from%20Thailand%2C%20their%20life%20takes%20a%20tragic%20turn%20when%20Mathilda%20dies%20in%20an%20accident.%20Thomas%20then%20finds%20himself%20alone%20with%20a%20child%20he%20hadn%E2%80%99t%20really%20wanted.%20Devastated%20by%20this%20loss%20and%20incapable%20of%20forming%20a%20bond%20with%20Mapring%2C%20he%20decides%20to%20go%20look%20for%20the%20child%E2%80%99s%20biological%20family.%20Accompanied%20by%20%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fnobody-s-son%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Nobody's%20Son%20(2026)&amp;ST=20260603&amp;ET=20260604&amp;in_loc=&amp;DESC=The%20script%20centres%20on%20Mathilda%20and%20Thomas%2C%20married%20for%20over%2015%20years.%20They%E2%80%99ve%20always%20dreamed%20of%20having%20children%2C%20but%20their%20efforts%20were%20only%20met%20with%20failures.%20After%20having%20adopted%20Mapring%2C%20a%204-year-old%20boy%20from%20Thailand%2C%20their%20life%20takes%20a%20tragic%20turn%20when%20Mathilda%20dies%20in%20an%20accident.%20Thomas%20then%20finds%20himself%20alone%20with%20a%20child%20he%20hadn%E2%80%99t%20really%20wanted.%20Devastated%20by%20this%20loss%20and%20incapable%20of%20forming%20a%20bond%20with%20Mapring%2C%20he%20decides%20to%20go%20look%20for%20the%20child%E2%80%99s%20biological%20family.%20Accompanied%20by%20%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fnobody-s-son%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-06-03","AT":"2026-06-03","BE":"2026-06-03","BR":"2026-06-03","BG":"2026-06-03","CA":"2026-06-03","CN":"2026-06-03","HR":"2026-06-03","CY":"2026-06-03","CZ":"2026-06-03","DK":"2026-06-03","EE":"2026-06-03","FI":"2026-06-03","FR":"2026-06-03","DE":"2026-06-03","GR":"2026-06-03","HU":"2026-06-03","IN":"2026-06-03","IE":"2026-06-03","IT":"2026-06-03","JP":"2026-06-03","LV":"2026-06-03","LT":"2026-06-03","LU":"2026-06-03","MT":"2026-06-03","NL":"2026-06-03","PL":"2026-06-03","PT":"2026-06-03","RO":"2026-06-03","SK":"2026-06-03","SI":"2026-06-03","KR":"2026-06-03","ES":"2026-06-03","SE":"2026-06-03","GB":"2026-06-03","UA":"2026-06-03","US":"2026-06-03"};
+      var globalDate   = "2026-06-03";
+      var calTitle     = "Nobody's Son (2026)";
+      var calDesc      = "The script centres on Mathilda and Thomas, married for over 15 years. They’ve always dreamed of having children, but their efforts were only met with failures. After having adopted Mapring, a 4-year-old boy from Thailand, their life takes a tragic turn when Mathilda dies in an accident. Thomas then finds himself alone with a child he hadn’t really wanted. Devastated by this loss and incapable of forming a bond with Mapring, he decides to go look for the child’s biological family. Accompanied by \n\nMore info: https://moviereleaseradar.com/movie/nobody-s-son/";
+      var icsSummary   = "Nobody's Son (2026)";
+      var icsDescBody  = "The script centres on Mathilda and Thomas\\, married for over 15 years. They’ve always dreamed of having children\\, but their efforts were only met with failures. After having adopted Mapring\\, a 4-year-old boy from Thailand\\, their life takes a tragic turn when Mathilda dies in an accident. Thomas then finds himself alone with a child he hadn’t really wanted. Devastated by this loss and incapable of forming a bond with Mapring\\, he decides to go look for the child’s biological family. Accompanied by \\n\\nMore info: https://moviereleaseradar.com/movie/nobody-s-son/";
+      var icsUid       = "movie-1309406@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/nobody-s-son/";
+      var icsFile      = "nobody-s-son-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1309406@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260603\r\nDTEND;VALUE=DATE:20260604\r\nSUMMARY:Nobody's Son (2026)\r\nDESCRIPTION:The script centres on Mathilda and Thomas\\, married for over 15 years. They’ve always dreamed of having children\\, but their efforts were only met with failures. After having adopted Mapring\\, a 4-year-old boy from Thailand\\, their life takes a tragic turn when Mathilda dies in an accident. Thomas then finds himself alone with a child he hadn’t really wanted. Devastated by this loss and incapable of forming a bond with Mapring\\, he decides to go look for the child’s biological family. Accompanied by \\n\\nMore info: https://moviereleaseradar.com/movie/nobody-s-son/\r\nURL:https://moviereleaseradar.com/movie/nobody-s-son/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "nobody-s-son-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

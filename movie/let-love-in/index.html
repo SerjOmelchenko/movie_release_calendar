@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Let%20Love%20In%20(2026)&amp;dates=20261021/20261022&amp;details=After%20an%20affair%20comes%20to%20light%2C%20a%20couple's%20world%20unravels.%20Through%20confronting%20painful%20truths%2C%20they%20discover%20their%20crisis%20becomes%20a%20path%20to%20deeper%20connection%20and%20a%20new%20understanding%20of%20love.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Flet-love-in%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Let%20Love%20In%20(2026)&amp;startdt=2026-10-21&amp;enddt=2026-10-22&amp;allday=true&amp;body=After%20an%20affair%20comes%20to%20light%2C%20a%20couple's%20world%20unravels.%20Through%20confronting%20painful%20truths%2C%20they%20discover%20their%20crisis%20becomes%20a%20path%20to%20deeper%20connection%20and%20a%20new%20understanding%20of%20love.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Flet-love-in%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Let%20Love%20In%20(2026)&amp;ST=20261021&amp;ET=20261022&amp;in_loc=&amp;DESC=After%20an%20affair%20comes%20to%20light%2C%20a%20couple's%20world%20unravels.%20Through%20confronting%20painful%20truths%2C%20they%20discover%20their%20crisis%20becomes%20a%20path%20to%20deeper%20connection%20and%20a%20new%20understanding%20of%20love.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Flet-love-in%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-10-21","AT":"2026-10-21","BE":"2026-10-21","BR":"2026-10-21","BG":"2026-10-21","CA":"2026-10-21","CN":"2026-10-21","HR":"2026-10-21","CY":"2026-10-21","CZ":"2026-10-21","DK":"2026-10-21","EE":"2026-10-21","FI":"2026-10-21","FR":"2026-10-21","DE":"2026-10-21","GR":"2026-10-21","HU":"2026-10-21","IN":"2026-10-21","IE":"2026-10-21","IT":"2026-10-21","JP":"2026-10-21","LV":"2026-10-21","LT":"2026-10-21","LU":"2026-10-21","MT":"2026-10-21","NL":"2026-10-21","PL":"2026-10-21","PT":"2026-10-21","RO":"2026-10-21","SK":"2026-10-21","SI":"2026-10-21","KR":"2026-10-21","ES":"2026-10-21","SE":"2026-10-21","GB":"2026-10-21","UA":"2026-10-21","US":"2026-10-21"};
+      var globalDate   = "2026-10-21";
+      var calTitle     = "Let Love In (2026)";
+      var calDesc      = "After an affair comes to light, a couple's world unravels. Through confronting painful truths, they discover their crisis becomes a path to deeper connection and a new understanding of love.\n\nMore info: https://moviereleaseradar.com/movie/let-love-in/";
+      var icsSummary   = "Let Love In (2026)";
+      var icsDescBody  = "After an affair comes to light\\, a couple's world unravels. Through confronting painful truths\\, they discover their crisis becomes a path to deeper connection and a new understanding of love.\\n\\nMore info: https://moviereleaseradar.com/movie/let-love-in/";
+      var icsUid       = "movie-1558094@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/let-love-in/";
+      var icsFile      = "let-love-in-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1558094@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261021\r\nDTEND;VALUE=DATE:20261022\r\nSUMMARY:Let Love In (2026)\r\nDESCRIPTION:After an affair comes to light\\, a couple's world unravels. Through confronting painful truths\\, they discover their crisis becomes a path to deeper connection and a new understanding of love.\\n\\nMore info: https://moviereleaseradar.com/movie/let-love-in/\r\nURL:https://moviereleaseradar.com/movie/let-love-in/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "let-love-in-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

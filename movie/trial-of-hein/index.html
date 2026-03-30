@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Trial%20of%20Hein%20(2026)&amp;dates=20260806/20260807&amp;details=After%2014%20years%20away%2C%20Hein%20returns%20to%20his%20home%20village%20on%20a%20remote%20island%2C%20only%20to%20discover%20that%20the%20close-knit%20community%20no%20longer%20recognises%20him.%20Suspecting%20him%20to%20be%20an%20impostor%2C%20they%20demand%20a%20trial%20to%20determine%20his%20true%20identity.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Ftrial-of-hein%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Trial%20of%20Hein%20(2026)&amp;startdt=2026-08-06&amp;enddt=2026-08-07&amp;allday=true&amp;body=After%2014%20years%20away%2C%20Hein%20returns%20to%20his%20home%20village%20on%20a%20remote%20island%2C%20only%20to%20discover%20that%20the%20close-knit%20community%20no%20longer%20recognises%20him.%20Suspecting%20him%20to%20be%20an%20impostor%2C%20they%20demand%20a%20trial%20to%20determine%20his%20true%20identity.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Ftrial-of-hein%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Trial%20of%20Hein%20(2026)&amp;ST=20260806&amp;ET=20260807&amp;in_loc=&amp;DESC=After%2014%20years%20away%2C%20Hein%20returns%20to%20his%20home%20village%20on%20a%20remote%20island%2C%20only%20to%20discover%20that%20the%20close-knit%20community%20no%20longer%20recognises%20him.%20Suspecting%20him%20to%20be%20an%20impostor%2C%20they%20demand%20a%20trial%20to%20determine%20his%20true%20identity.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Ftrial-of-hein%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-08-06","AT":"2026-08-06","BE":"2026-08-06","BR":"2026-08-06","BG":"2026-03-16","CA":"2026-08-06","CN":"2026-08-06","HR":"2026-08-06","CY":"2026-08-06","CZ":"2026-08-06","DK":"2026-08-06","EE":"2026-08-06","FI":"2026-08-06","FR":"2026-08-06","DE":"2026-08-06","GR":"2026-08-06","HU":"2026-08-06","IN":"2026-08-06","IE":"2026-08-06","IT":"2026-08-06","JP":"2026-08-06","LV":"2026-08-06","LT":"2026-08-06","LU":"2026-08-06","MT":"2026-08-06","NL":"2026-08-06","PL":"2026-08-06","PT":"2026-08-06","RO":"2026-08-06","SK":"2026-08-06","SI":"2026-08-06","KR":"2026-08-06","ES":"2026-08-06","SE":"2026-08-06","GB":"2026-08-06","UA":"2026-08-06","US":"2026-04-11"};
+      var globalDate   = "2026-08-06";
+      var calTitle     = "Trial of Hein (2026)";
+      var calDesc      = "After 14 years away, Hein returns to his home village on a remote island, only to discover that the close-knit community no longer recognises him. Suspecting him to be an impostor, they demand a trial to determine his true identity.\n\nMore info: https://moviereleaseradar.com/movie/trial-of-hein/";
+      var icsSummary   = "Trial of Hein (2026)";
+      var icsDescBody  = "After 14 years away\\, Hein returns to his home village on a remote island\\, only to discover that the close-knit community no longer recognises him. Suspecting him to be an impostor\\, they demand a trial to determine his true identity.\\n\\nMore info: https://moviereleaseradar.com/movie/trial-of-hein/";
+      var icsUid       = "movie-1476466@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/trial-of-hein/";
+      var icsFile      = "trial-of-hein-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1476466@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260806\r\nDTEND;VALUE=DATE:20260807\r\nSUMMARY:Trial of Hein (2026)\r\nDESCRIPTION:After 14 years away\\, Hein returns to his home village on a remote island\\, only to discover that the close-knit community no longer recognises him. Suspecting him to be an impostor\\, they demand a trial to determine his true identity.\\n\\nMore info: https://moviereleaseradar.com/movie/trial-of-hein/\r\nURL:https://moviereleaseradar.com/movie/trial-of-hein/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "trial-of-hein-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

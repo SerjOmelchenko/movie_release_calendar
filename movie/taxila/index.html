@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=TAXILA%20(2026)&amp;dates=20260410/20260411&amp;details=When%20Earth%20is%20obliterated%2C%20its%20shattered%20fragments%20and%20encoded%20legacy%20are%20cast%20across%20the%20stars.%20Light-years%20away%2C%20a%20barren%20world%2C%20Taxila%2C%20awakens%20as%20Earth%E2%80%99s%20remnants%20seed%20it%20with%20life%2C%20turning%20humanity%E2%80%99s%20end%20into%20the%20universe%E2%80%99s%20next%20beginning.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Ftaxila%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=TAXILA%20(2026)&amp;startdt=2026-04-10&amp;enddt=2026-04-11&amp;allday=true&amp;body=When%20Earth%20is%20obliterated%2C%20its%20shattered%20fragments%20and%20encoded%20legacy%20are%20cast%20across%20the%20stars.%20Light-years%20away%2C%20a%20barren%20world%2C%20Taxila%2C%20awakens%20as%20Earth%E2%80%99s%20remnants%20seed%20it%20with%20life%2C%20turning%20humanity%E2%80%99s%20end%20into%20the%20universe%E2%80%99s%20next%20beginning.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Ftaxila%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=TAXILA%20(2026)&amp;ST=20260410&amp;ET=20260411&amp;in_loc=&amp;DESC=When%20Earth%20is%20obliterated%2C%20its%20shattered%20fragments%20and%20encoded%20legacy%20are%20cast%20across%20the%20stars.%20Light-years%20away%2C%20a%20barren%20world%2C%20Taxila%2C%20awakens%20as%20Earth%E2%80%99s%20remnants%20seed%20it%20with%20life%2C%20turning%20humanity%E2%80%99s%20end%20into%20the%20universe%E2%80%99s%20next%20beginning.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Ftaxila%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-10","AT":"2026-04-10","BE":"2026-04-10","BR":"2026-04-10","BG":"2026-04-10","CA":"2026-04-10","CN":"2026-04-10","HR":"2026-04-10","CY":"2026-04-10","CZ":"2026-04-10","DK":"2026-04-10","EE":"2026-04-10","FI":"2026-04-10","FR":"2026-04-10","DE":"2026-04-10","GR":"2026-04-10","HU":"2026-04-10","IN":"2026-04-10","IE":"2026-04-10","IT":"2026-04-10","JP":"2026-04-10","LV":"2026-04-10","LT":"2026-04-10","LU":"2026-04-10","MT":"2026-04-10","NL":"2026-04-10","PL":"2026-04-10","PT":"2026-04-10","RO":"2026-04-10","SK":"2026-04-10","SI":"2026-04-10","KR":"2026-04-10","ES":"2026-04-10","SE":"2026-04-10","GB":"2026-04-10","UA":"2026-04-10","US":"2026-04-10"};
+      var globalDate   = "2026-04-10";
+      var calTitle     = "TAXILA (2026)";
+      var calDesc      = "When Earth is obliterated, its shattered fragments and encoded legacy are cast across the stars. Light-years away, a barren world, Taxila, awakens as Earth’s remnants seed it with life, turning humanity’s end into the universe’s next beginning.\n\nMore info: https://moviereleaseradar.com/movie/taxila/";
+      var icsSummary   = "TAXILA (2026)";
+      var icsDescBody  = "When Earth is obliterated\\, its shattered fragments and encoded legacy are cast across the stars. Light-years away\\, a barren world\\, Taxila\\, awakens as Earth’s remnants seed it with life\\, turning humanity’s end into the universe’s next beginning.\\n\\nMore info: https://moviereleaseradar.com/movie/taxila/";
+      var icsUid       = "movie-1638094@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/taxila/";
+      var icsFile      = "taxila-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1638094@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260410\r\nDTEND;VALUE=DATE:20260411\r\nSUMMARY:TAXILA (2026)\r\nDESCRIPTION:When Earth is obliterated\\, its shattered fragments and encoded legacy are cast across the stars. Light-years away\\, a barren world\\, Taxila\\, awakens as Earth’s remnants seed it with life\\, turning humanity’s end into the universe’s next beginning.\\n\\nMore info: https://moviereleaseradar.com/movie/taxila/\r\nURL:https://moviereleaseradar.com/movie/taxila/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "taxila-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

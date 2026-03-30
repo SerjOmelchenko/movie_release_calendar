@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=UK%20Holiday%20(2026)&amp;dates=20260620/20260621&amp;details=A%20UK%20Holiday%20is%20not%20just%20a%20journey%3B%20it%E2%80%99s%20an%20adventure%20filled%20with%20love%2C%20laughter%2C%20and%20unforgettable%20memories.%20The%20story%20revolves%20around%20Aakash%2C%20a%20kind-hearted%20and%20adventurous%20young%20man%2C%20who%20invites%20his%20sister%20Rekha%20from%20the%20USA%20to%20visit%20the%20UK%20for%20a%20long-awaited%20family%20reunion.%20Rekha%2C%20excited%20to%20escape%20her%20routine%2C%20is%20thrilled%20to%20meet%20their%20mother%2C%20Subhadra%2C%20and%20sisters%20Priyanka%20and%20Deepika%2C%20who%20already%20reside%20in%20the%20UK.%20Aakash%20ensures%20this%20holiday%20becomes%20a%20truly%20special%20experience.%20Together%2C%20t%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fuk-holiday%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=UK%20Holiday%20(2026)&amp;startdt=2026-06-20&amp;enddt=2026-06-21&amp;allday=true&amp;body=A%20UK%20Holiday%20is%20not%20just%20a%20journey%3B%20it%E2%80%99s%20an%20adventure%20filled%20with%20love%2C%20laughter%2C%20and%20unforgettable%20memories.%20The%20story%20revolves%20around%20Aakash%2C%20a%20kind-hearted%20and%20adventurous%20young%20man%2C%20who%20invites%20his%20sister%20Rekha%20from%20the%20USA%20to%20visit%20the%20UK%20for%20a%20long-awaited%20family%20reunion.%20Rekha%2C%20excited%20to%20escape%20her%20routine%2C%20is%20thrilled%20to%20meet%20their%20mother%2C%20Subhadra%2C%20and%20sisters%20Priyanka%20and%20Deepika%2C%20who%20already%20reside%20in%20the%20UK.%20Aakash%20ensures%20this%20holiday%20becomes%20a%20truly%20special%20experience.%20Together%2C%20t%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fuk-holiday%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=UK%20Holiday%20(2026)&amp;ST=20260620&amp;ET=20260621&amp;in_loc=&amp;DESC=A%20UK%20Holiday%20is%20not%20just%20a%20journey%3B%20it%E2%80%99s%20an%20adventure%20filled%20with%20love%2C%20laughter%2C%20and%20unforgettable%20memories.%20The%20story%20revolves%20around%20Aakash%2C%20a%20kind-hearted%20and%20adventurous%20young%20man%2C%20who%20invites%20his%20sister%20Rekha%20from%20the%20USA%20to%20visit%20the%20UK%20for%20a%20long-awaited%20family%20reunion.%20Rekha%2C%20excited%20to%20escape%20her%20routine%2C%20is%20thrilled%20to%20meet%20their%20mother%2C%20Subhadra%2C%20and%20sisters%20Priyanka%20and%20Deepika%2C%20who%20already%20reside%20in%20the%20UK.%20Aakash%20ensures%20this%20holiday%20becomes%20a%20truly%20special%20experience.%20Together%2C%20t%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fuk-holiday%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-06-20","AT":"2026-06-20","BE":"2026-06-20","BR":"2026-06-20","BG":"2026-06-20","CA":"2026-06-20","CN":"2026-06-20","HR":"2026-06-20","CY":"2026-06-20","CZ":"2026-06-20","DK":"2026-06-20","EE":"2026-06-20","FI":"2026-06-20","FR":"2026-06-20","DE":"2026-06-20","GR":"2026-06-20","HU":"2026-06-20","IN":"2026-06-20","IE":"2026-06-20","IT":"2026-06-20","JP":"2026-06-20","LV":"2026-06-20","LT":"2026-06-20","LU":"2026-06-20","MT":"2026-06-20","NL":"2026-06-20","PL":"2026-06-20","PT":"2026-06-20","RO":"2026-06-20","SK":"2026-06-20","SI":"2026-06-20","KR":"2026-06-20","ES":"2026-06-20","SE":"2026-06-20","GB":"2026-06-20","UA":"2026-06-20","US":"2026-06-20"};
+      var globalDate   = "2026-06-20";
+      var calTitle     = "UK Holiday (2026)";
+      var calDesc      = "A UK Holiday is not just a journey; it’s an adventure filled with love, laughter, and unforgettable memories. The story revolves around Aakash, a kind-hearted and adventurous young man, who invites his sister Rekha from the USA to visit the UK for a long-awaited family reunion. Rekha, excited to escape her routine, is thrilled to meet their mother, Subhadra, and sisters Priyanka and Deepika, who already reside in the UK. Aakash ensures this holiday becomes a truly special experience. Together, t\n\nMore info: https://moviereleaseradar.com/movie/uk-holiday/";
+      var icsSummary   = "UK Holiday (2026)";
+      var icsDescBody  = "A UK Holiday is not just a journey\\; it’s an adventure filled with love\\, laughter\\, and unforgettable memories. The story revolves around Aakash\\, a kind-hearted and adventurous young man\\, who invites his sister Rekha from the USA to visit the UK for a long-awaited family reunion. Rekha\\, excited to escape her routine\\, is thrilled to meet their mother\\, Subhadra\\, and sisters Priyanka and Deepika\\, who already reside in the UK. Aakash ensures this holiday becomes a truly special experience. Together\\, t\\n\\nMore info: https://moviereleaseradar.com/movie/uk-holiday/";
+      var icsUid       = "movie-1424261@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/uk-holiday/";
+      var icsFile      = "uk-holiday-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1424261@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260620\r\nDTEND;VALUE=DATE:20260621\r\nSUMMARY:UK Holiday (2026)\r\nDESCRIPTION:A UK Holiday is not just a journey\\; it’s an adventure filled with love\\, laughter\\, and unforgettable memories. The story revolves around Aakash\\, a kind-hearted and adventurous young man\\, who invites his sister Rekha from the USA to visit the UK for a long-awaited family reunion. Rekha\\, excited to escape her routine\\, is thrilled to meet their mother\\, Subhadra\\, and sisters Priyanka and Deepika\\, who already reside in the UK. Aakash ensures this holiday becomes a truly special experience. Together\\, t\\n\\nMore info: https://moviereleaseradar.com/movie/uk-holiday/\r\nURL:https://moviereleaseradar.com/movie/uk-holiday/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "uk-holiday-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

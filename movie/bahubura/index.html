@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=BAHUBURA%20(2027)&amp;dates=20270310/20270311&amp;details=Mr.%20Teacher%2C%20a%20quiet%20and%20principled%20schoolteacher%2C%20is%20devastated%20after%20losing%20his%20only%20child%20in%20a%20tragic%20road%20accident.%20The%20very%20same%20day%2C%20at%20the%20accident%20site%2C%20he%20comes%20across%20another%20injured%20boy-abandoned%2C%20nameless%2C%20and%20unconscious.%20Everyone%20around%20looks%20the%20other%20way%2C%20but%20Mr.%20Teacher%20steps%20in%20to%20help.%20As%20he%20nurses%20the%20boy%20back%20to%20health%2C%20he%20discovers%20the%20child%20is%20a%20victim%20of%20a%20deeper%20evil-caught%20in%20the%20clutches%20of%20a%20trafficking%20network.%20What%20begins%20as%20an%20act%20of%20kindness%20becomes%20a%20mission%20of%20j%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fbahubura%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=BAHUBURA%20(2027)&amp;startdt=2027-03-10&amp;enddt=2027-03-11&amp;allday=true&amp;body=Mr.%20Teacher%2C%20a%20quiet%20and%20principled%20schoolteacher%2C%20is%20devastated%20after%20losing%20his%20only%20child%20in%20a%20tragic%20road%20accident.%20The%20very%20same%20day%2C%20at%20the%20accident%20site%2C%20he%20comes%20across%20another%20injured%20boy-abandoned%2C%20nameless%2C%20and%20unconscious.%20Everyone%20around%20looks%20the%20other%20way%2C%20but%20Mr.%20Teacher%20steps%20in%20to%20help.%20As%20he%20nurses%20the%20boy%20back%20to%20health%2C%20he%20discovers%20the%20child%20is%20a%20victim%20of%20a%20deeper%20evil-caught%20in%20the%20clutches%20of%20a%20trafficking%20network.%20What%20begins%20as%20an%20act%20of%20kindness%20becomes%20a%20mission%20of%20j%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fbahubura%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=BAHUBURA%20(2027)&amp;ST=20270310&amp;ET=20270311&amp;in_loc=&amp;DESC=Mr.%20Teacher%2C%20a%20quiet%20and%20principled%20schoolteacher%2C%20is%20devastated%20after%20losing%20his%20only%20child%20in%20a%20tragic%20road%20accident.%20The%20very%20same%20day%2C%20at%20the%20accident%20site%2C%20he%20comes%20across%20another%20injured%20boy-abandoned%2C%20nameless%2C%20and%20unconscious.%20Everyone%20around%20looks%20the%20other%20way%2C%20but%20Mr.%20Teacher%20steps%20in%20to%20help.%20As%20he%20nurses%20the%20boy%20back%20to%20health%2C%20he%20discovers%20the%20child%20is%20a%20victim%20of%20a%20deeper%20evil-caught%20in%20the%20clutches%20of%20a%20trafficking%20network.%20What%20begins%20as%20an%20act%20of%20kindness%20becomes%20a%20mission%20of%20j%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fbahubura%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2027-03-10","AT":"2027-03-10","BE":"2027-03-10","BR":"2027-03-10","BG":"2027-03-10","CA":"2027-03-10","CN":"2027-03-10","HR":"2027-03-10","CY":"2027-03-10","CZ":"2027-03-10","DK":"2027-03-10","EE":"2027-03-10","FI":"2027-03-10","FR":"2027-03-10","DE":"2027-03-10","GR":"2027-03-10","HU":"2027-03-10","IN":"2027-03-10","IE":"2027-03-10","IT":"2027-03-10","JP":"2027-03-10","LV":"2027-03-10","LT":"2027-03-10","LU":"2027-03-10","MT":"2027-03-10","NL":"2027-03-10","PL":"2027-03-10","PT":"2027-03-10","RO":"2027-03-10","SK":"2027-03-10","SI":"2027-03-10","KR":"2027-03-10","ES":"2027-03-10","SE":"2027-03-10","GB":"2027-03-10","UA":"2027-03-10","US":"2027-03-10"};
+      var globalDate   = "2027-03-10";
+      var calTitle     = "BAHUBURA (2027)";
+      var calDesc      = "Mr. Teacher, a quiet and principled schoolteacher, is devastated after losing his only child in a tragic road accident. The very same day, at the accident site, he comes across another injured boy-abandoned, nameless, and unconscious. Everyone around looks the other way, but Mr. Teacher steps in to help. As he nurses the boy back to health, he discovers the child is a victim of a deeper evil-caught in the clutches of a trafficking network. What begins as an act of kindness becomes a mission of j\n\nMore info: https://moviereleaseradar.com/movie/bahubura/";
+      var icsSummary   = "BAHUBURA (2027)";
+      var icsDescBody  = "Mr. Teacher\\, a quiet and principled schoolteacher\\, is devastated after losing his only child in a tragic road accident. The very same day\\, at the accident site\\, he comes across another injured boy-abandoned\\, nameless\\, and unconscious. Everyone around looks the other way\\, but Mr. Teacher steps in to help. As he nurses the boy back to health\\, he discovers the child is a victim of a deeper evil-caught in the clutches of a trafficking network. What begins as an act of kindness becomes a mission of j\\n\\nMore info: https://moviereleaseradar.com/movie/bahubura/";
+      var icsUid       = "movie-1511426@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/bahubura/";
+      var icsFile      = "bahubura-2027-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1511426@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270310\r\nDTEND;VALUE=DATE:20270311\r\nSUMMARY:BAHUBURA (2027)\r\nDESCRIPTION:Mr. Teacher\\, a quiet and principled schoolteacher\\, is devastated after losing his only child in a tragic road accident. The very same day\\, at the accident site\\, he comes across another injured boy-abandoned\\, nameless\\, and unconscious. Everyone around looks the other way\\, but Mr. Teacher steps in to help. As he nurses the boy back to health\\, he discovers the child is a victim of a deeper evil-caught in the clutches of a trafficking network. What begins as an act of kindness becomes a mission of j\\n\\nMore info: https://moviereleaseradar.com/movie/bahubura/\r\nURL:https://moviereleaseradar.com/movie/bahubura/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "bahubura-2027-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

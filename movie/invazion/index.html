@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=InvaZion!%20(2026)&amp;dates=20260520/20260521&amp;details=Dena%C3%A9%2C%20Fousey%2C%20and%20Remy%20plan%20to%20hit%20what%20they%20believe%20is%20an%20empty%20house%2C%20but%20when%20the%20homeowner%20unexpectedly%20returns%2C%20Fousey%20makes%20a%20split-second%20decision%20and%20one%20simple%20impulsive%20action%20changes%20the%20lives%20of%20everyone.%20Remy%2C%20known%20for%20her%20brilliant%20strategies%2C%20becomes%20tangled%20into%20a%20brawl%20with%20Fousey.%20Tensions%20boil%20over%20as%20Dena%C3%A9%20finally%20witnesses%20the%20same%20treatment%20that%20was%20done%20unto%20her.%20When%20Fousey%20threatens%20Remy%E2%80%99s%20life%2C%20Dena%C3%A9%20is%20finally%20forced%20to%20pick%20a%20side.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Finvazion%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=InvaZion!%20(2026)&amp;startdt=2026-05-20&amp;enddt=2026-05-21&amp;allday=true&amp;body=Dena%C3%A9%2C%20Fousey%2C%20and%20Remy%20plan%20to%20hit%20what%20they%20believe%20is%20an%20empty%20house%2C%20but%20when%20the%20homeowner%20unexpectedly%20returns%2C%20Fousey%20makes%20a%20split-second%20decision%20and%20one%20simple%20impulsive%20action%20changes%20the%20lives%20of%20everyone.%20Remy%2C%20known%20for%20her%20brilliant%20strategies%2C%20becomes%20tangled%20into%20a%20brawl%20with%20Fousey.%20Tensions%20boil%20over%20as%20Dena%C3%A9%20finally%20witnesses%20the%20same%20treatment%20that%20was%20done%20unto%20her.%20When%20Fousey%20threatens%20Remy%E2%80%99s%20life%2C%20Dena%C3%A9%20is%20finally%20forced%20to%20pick%20a%20side.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Finvazion%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=InvaZion!%20(2026)&amp;ST=20260520&amp;ET=20260521&amp;in_loc=&amp;DESC=Dena%C3%A9%2C%20Fousey%2C%20and%20Remy%20plan%20to%20hit%20what%20they%20believe%20is%20an%20empty%20house%2C%20but%20when%20the%20homeowner%20unexpectedly%20returns%2C%20Fousey%20makes%20a%20split-second%20decision%20and%20one%20simple%20impulsive%20action%20changes%20the%20lives%20of%20everyone.%20Remy%2C%20known%20for%20her%20brilliant%20strategies%2C%20becomes%20tangled%20into%20a%20brawl%20with%20Fousey.%20Tensions%20boil%20over%20as%20Dena%C3%A9%20finally%20witnesses%20the%20same%20treatment%20that%20was%20done%20unto%20her.%20When%20Fousey%20threatens%20Remy%E2%80%99s%20life%2C%20Dena%C3%A9%20is%20finally%20forced%20to%20pick%20a%20side.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Finvazion%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-05-20","AT":"2026-05-20","BE":"2026-05-20","BR":"2026-05-20","BG":"2026-05-20","CA":"2026-05-20","CN":"2026-05-20","HR":"2026-05-20","CY":"2026-05-20","CZ":"2026-05-20","DK":"2026-05-20","EE":"2026-05-20","FI":"2026-05-20","FR":"2026-05-20","DE":"2026-05-20","GR":"2026-05-20","HU":"2026-05-20","IN":"2026-05-20","IE":"2026-05-20","IT":"2026-05-20","JP":"2026-05-20","LV":"2026-05-20","LT":"2026-05-20","LU":"2026-05-20","MT":"2026-05-20","NL":"2026-05-20","PL":"2026-05-20","PT":"2026-05-20","RO":"2026-05-20","SK":"2026-05-20","SI":"2026-05-20","KR":"2026-05-20","ES":"2026-05-20","SE":"2026-05-20","GB":"2026-05-20","UA":"2026-05-20","US":"2026-05-20"};
+      var globalDate   = "2026-05-20";
+      var calTitle     = "InvaZion! (2026)";
+      var calDesc      = "Denaé, Fousey, and Remy plan to hit what they believe is an empty house, but when the homeowner unexpectedly returns, Fousey makes a split-second decision and one simple impulsive action changes the lives of everyone. Remy, known for her brilliant strategies, becomes tangled into a brawl with Fousey. Tensions boil over as Denaé finally witnesses the same treatment that was done unto her. When Fousey threatens Remy’s life, Denaé is finally forced to pick a side.\n\nMore info: https://moviereleaseradar.com/movie/invazion/";
+      var icsSummary   = "InvaZion! (2026)";
+      var icsDescBody  = "Denaé\\, Fousey\\, and Remy plan to hit what they believe is an empty house\\, but when the homeowner unexpectedly returns\\, Fousey makes a split-second decision and one simple impulsive action changes the lives of everyone. Remy\\, known for her brilliant strategies\\, becomes tangled into a brawl with Fousey. Tensions boil over as Denaé finally witnesses the same treatment that was done unto her. When Fousey threatens Remy’s life\\, Denaé is finally forced to pick a side.\\n\\nMore info: https://moviereleaseradar.com/movie/invazion/";
+      var icsUid       = "movie-1649812@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/invazion/";
+      var icsFile      = "invazion-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1649812@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260520\r\nDTEND;VALUE=DATE:20260521\r\nSUMMARY:InvaZion! (2026)\r\nDESCRIPTION:Denaé\\, Fousey\\, and Remy plan to hit what they believe is an empty house\\, but when the homeowner unexpectedly returns\\, Fousey makes a split-second decision and one simple impulsive action changes the lives of everyone. Remy\\, known for her brilliant strategies\\, becomes tangled into a brawl with Fousey. Tensions boil over as Denaé finally witnesses the same treatment that was done unto her. When Fousey threatens Remy’s life\\, Denaé is finally forced to pick a side.\\n\\nMore info: https://moviereleaseradar.com/movie/invazion/\r\nURL:https://moviereleaseradar.com/movie/invazion/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "invazion-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

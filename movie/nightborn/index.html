@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Nightborn%20(2026)&amp;dates=20260806/20260807&amp;details=With%20dreams%20of%20starting%20a%20perfect%20family%2C%20Saga%20and%20her%20British%20husband%20Jon%20move%20to%20the%20isolated%20house%20where%20she%20spent%20much%20of%20her%20childhood%2C%20deep%20in%20the%20Finnish%20forest.%20But%20as%20soon%20as%20their%20baby%20is%20born%2C%20despite%20the%20reassurance%20of%20all%20around%20her%2C%20Saga%20knows%20there's%20something%20terribly%20wrong.%20As%20their%20marriage%20starts%20to%20crack%2C%20Jon%20struggles%20to%20support%20his%20wife%2C%20but%20only%20Saga%20suspects%20the%20disturbing%20truth%20about%20her%20new-born.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fnightborn%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Nightborn%20(2026)&amp;startdt=2026-08-06&amp;enddt=2026-08-07&amp;allday=true&amp;body=With%20dreams%20of%20starting%20a%20perfect%20family%2C%20Saga%20and%20her%20British%20husband%20Jon%20move%20to%20the%20isolated%20house%20where%20she%20spent%20much%20of%20her%20childhood%2C%20deep%20in%20the%20Finnish%20forest.%20But%20as%20soon%20as%20their%20baby%20is%20born%2C%20despite%20the%20reassurance%20of%20all%20around%20her%2C%20Saga%20knows%20there's%20something%20terribly%20wrong.%20As%20their%20marriage%20starts%20to%20crack%2C%20Jon%20struggles%20to%20support%20his%20wife%2C%20but%20only%20Saga%20suspects%20the%20disturbing%20truth%20about%20her%20new-born.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fnightborn%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Nightborn%20(2026)&amp;ST=20260806&amp;ET=20260807&amp;in_loc=&amp;DESC=With%20dreams%20of%20starting%20a%20perfect%20family%2C%20Saga%20and%20her%20British%20husband%20Jon%20move%20to%20the%20isolated%20house%20where%20she%20spent%20much%20of%20her%20childhood%2C%20deep%20in%20the%20Finnish%20forest.%20But%20as%20soon%20as%20their%20baby%20is%20born%2C%20despite%20the%20reassurance%20of%20all%20around%20her%2C%20Saga%20knows%20there's%20something%20terribly%20wrong.%20As%20their%20marriage%20starts%20to%20crack%2C%20Jon%20struggles%20to%20support%20his%20wife%2C%20but%20only%20Saga%20suspects%20the%20disturbing%20truth%20about%20her%20new-born.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fnightborn%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-08-06","AT":"2026-08-06","BE":"2026-08-06","BR":"2026-08-06","BG":"2026-08-06","CA":"2026-08-06","CN":"2026-08-06","HR":"2026-08-06","CY":"2026-08-06","CZ":"2026-08-06","DK":"2026-08-06","EE":"2026-08-06","FI":"2026-11-06","FR":"2026-08-06","DE":"2026-08-06","GR":"2026-08-06","HU":"2026-08-06","IN":"2026-08-06","IE":"2026-08-06","IT":"2026-08-06","JP":"2026-08-06","LV":"2026-08-06","LT":"2026-08-06","LU":"2026-08-06","MT":"2026-08-06","NL":"2026-08-06","PL":"2026-08-06","PT":"2026-08-06","RO":"2026-08-06","SK":"2026-08-06","SI":"2026-08-06","KR":"2026-08-06","ES":"2026-08-06","SE":"2026-08-06","GB":"2026-08-06","UA":"2026-08-06","US":"2026-08-06"};
+      var globalDate   = "2026-08-06";
+      var calTitle     = "Nightborn (2026)";
+      var calDesc      = "With dreams of starting a perfect family, Saga and her British husband Jon move to the isolated house where she spent much of her childhood, deep in the Finnish forest. But as soon as their baby is born, despite the reassurance of all around her, Saga knows there's something terribly wrong. As their marriage starts to crack, Jon struggles to support his wife, but only Saga suspects the disturbing truth about her new-born.\n\nMore info: https://moviereleaseradar.com/movie/nightborn/";
+      var icsSummary   = "Nightborn (2026)";
+      var icsDescBody  = "With dreams of starting a perfect family\\, Saga and her British husband Jon move to the isolated house where she spent much of her childhood\\, deep in the Finnish forest. But as soon as their baby is born\\, despite the reassurance of all around her\\, Saga knows there's something terribly wrong. As their marriage starts to crack\\, Jon struggles to support his wife\\, but only Saga suspects the disturbing truth about her new-born.\\n\\nMore info: https://moviereleaseradar.com/movie/nightborn/";
+      var icsUid       = "movie-964849@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/nightborn/";
+      var icsFile      = "nightborn-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-964849@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260806\r\nDTEND;VALUE=DATE:20260807\r\nSUMMARY:Nightborn (2026)\r\nDESCRIPTION:With dreams of starting a perfect family\\, Saga and her British husband Jon move to the isolated house where she spent much of her childhood\\, deep in the Finnish forest. But as soon as their baby is born\\, despite the reassurance of all around her\\, Saga knows there's something terribly wrong. As their marriage starts to crack\\, Jon struggles to support his wife\\, but only Saga suspects the disturbing truth about her new-born.\\n\\nMore info: https://moviereleaseradar.com/movie/nightborn/\r\nURL:https://moviereleaseradar.com/movie/nightborn/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "nightborn-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

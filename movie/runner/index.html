@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Runner%20(2026)&amp;dates=20261105/20261106&amp;details=Hank%20Malone%2C%20a%20high-end%20courier%20%20has%20three%20hours%20to%20transport%20an%20organ%20to%20save%20a%20seven-year-old%20girl%20in%20need%20of%20an%20immediate%20transplant.%20The%20seemingly%20simple%20mission%20turns%20deadly%20when%20the%20leader%20of%20a%20notorious%20crime%20syndicate%20becomes%20hell-bent%20on%20claiming%20the%20organ.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Frunner%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Runner%20(2026)&amp;startdt=2026-11-05&amp;enddt=2026-11-06&amp;allday=true&amp;body=Hank%20Malone%2C%20a%20high-end%20courier%20%20has%20three%20hours%20to%20transport%20an%20organ%20to%20save%20a%20seven-year-old%20girl%20in%20need%20of%20an%20immediate%20transplant.%20The%20seemingly%20simple%20mission%20turns%20deadly%20when%20the%20leader%20of%20a%20notorious%20crime%20syndicate%20becomes%20hell-bent%20on%20claiming%20the%20organ.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Frunner%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Runner%20(2026)&amp;ST=20261105&amp;ET=20261106&amp;in_loc=&amp;DESC=Hank%20Malone%2C%20a%20high-end%20courier%20%20has%20three%20hours%20to%20transport%20an%20organ%20to%20save%20a%20seven-year-old%20girl%20in%20need%20of%20an%20immediate%20transplant.%20The%20seemingly%20simple%20mission%20turns%20deadly%20when%20the%20leader%20of%20a%20notorious%20crime%20syndicate%20becomes%20hell-bent%20on%20claiming%20the%20organ.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Frunner%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-11-05","AT":"2026-11-05","BE":"2026-11-05","BR":"2026-11-05","BG":"2026-11-05","CA":"2026-11-05","CN":"2026-11-05","HR":"2026-11-05","CY":"2026-11-05","CZ":"2026-11-05","DK":"2026-11-05","EE":"2026-11-05","FI":"2026-11-05","FR":"2026-11-05","DE":"2026-11-05","GR":"2026-11-05","HU":"2026-11-05","IN":"2026-11-05","IE":"2026-11-05","IT":"2026-11-05","JP":"2026-11-05","LV":"2026-11-05","LT":"2026-11-05","LU":"2026-11-05","MT":"2026-11-05","NL":"2026-11-05","PL":"2026-11-05","PT":"2026-11-05","RO":"2026-11-05","SK":"2026-11-05","SI":"2026-11-05","KR":"2026-11-05","ES":"2026-11-05","SE":"2026-11-05","GB":"2026-11-05","UA":"2026-11-05","US":"2026-11-05"};
+      var globalDate   = "2026-11-05";
+      var calTitle     = "Runner (2026)";
+      var calDesc      = "Hank Malone, a high-end courier  has three hours to transport an organ to save a seven-year-old girl in need of an immediate transplant. The seemingly simple mission turns deadly when the leader of a notorious crime syndicate becomes hell-bent on claiming the organ.\n\nMore info: https://moviereleaseradar.com/movie/runner/";
+      var icsSummary   = "Runner (2026)";
+      var icsDescBody  = "Hank Malone\\, a high-end courier  has three hours to transport an organ to save a seven-year-old girl in need of an immediate transplant. The seemingly simple mission turns deadly when the leader of a notorious crime syndicate becomes hell-bent on claiming the organ.\\n\\nMore info: https://moviereleaseradar.com/movie/runner/";
+      var icsUid       = "movie-1377237@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/runner/";
+      var icsFile      = "runner-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1377237@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261105\r\nDTEND;VALUE=DATE:20261106\r\nSUMMARY:Runner (2026)\r\nDESCRIPTION:Hank Malone\\, a high-end courier  has three hours to transport an organ to save a seven-year-old girl in need of an immediate transplant. The seemingly simple mission turns deadly when the leader of a notorious crime syndicate becomes hell-bent on claiming the organ.\\n\\nMore info: https://moviereleaseradar.com/movie/runner/\r\nURL:https://moviereleaseradar.com/movie/runner/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "runner-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

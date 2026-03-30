@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Midnight%20monster%20(2026)&amp;dates=20260407/20260408&amp;details=A%20female%20Psychic%20manifests%20a%20Monster%20in%20her%20closet%20that%20helps%20unlock%20the%20key%20to%20her%20childhood%20trauma.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmidnight-monster%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Midnight%20monster%20(2026)&amp;startdt=2026-04-07&amp;enddt=2026-04-08&amp;allday=true&amp;body=A%20female%20Psychic%20manifests%20a%20Monster%20in%20her%20closet%20that%20helps%20unlock%20the%20key%20to%20her%20childhood%20trauma.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmidnight-monster%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Midnight%20monster%20(2026)&amp;ST=20260407&amp;ET=20260408&amp;in_loc=&amp;DESC=A%20female%20Psychic%20manifests%20a%20Monster%20in%20her%20closet%20that%20helps%20unlock%20the%20key%20to%20her%20childhood%20trauma.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmidnight-monster%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-07","AT":"2026-04-07","BE":"2026-04-07","BR":"2026-04-07","BG":"2026-04-07","CA":"2026-04-07","CN":"2026-04-07","HR":"2026-04-07","CY":"2026-04-07","CZ":"2026-04-07","DK":"2026-04-07","EE":"2026-04-07","FI":"2026-04-07","FR":"2026-04-07","DE":"2026-04-07","GR":"2026-04-07","HU":"2026-04-07","IN":"2026-04-07","IE":"2026-04-07","IT":"2026-04-07","JP":"2026-04-07","LV":"2026-04-07","LT":"2026-04-07","LU":"2026-04-07","MT":"2026-04-07","NL":"2026-04-07","PL":"2026-04-07","PT":"2026-04-07","RO":"2026-04-07","SK":"2026-04-07","SI":"2026-04-07","KR":"2026-04-07","ES":"2026-04-07","SE":"2026-04-07","GB":"2026-04-07","UA":"2026-04-07","US":"2026-04-07"};
+      var globalDate   = "2026-04-07";
+      var calTitle     = "Midnight monster (2026)";
+      var calDesc      = "A female Psychic manifests a Monster in her closet that helps unlock the key to her childhood trauma.\n\nMore info: https://moviereleaseradar.com/movie/midnight-monster/";
+      var icsSummary   = "Midnight monster (2026)";
+      var icsDescBody  = "A female Psychic manifests a Monster in her closet that helps unlock the key to her childhood trauma.\\n\\nMore info: https://moviereleaseradar.com/movie/midnight-monster/";
+      var icsUid       = "movie-1151320@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/midnight-monster/";
+      var icsFile      = "midnight-monster-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1151320@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260407\r\nDTEND;VALUE=DATE:20260408\r\nSUMMARY:Midnight monster (2026)\r\nDESCRIPTION:A female Psychic manifests a Monster in her closet that helps unlock the key to her childhood trauma.\\n\\nMore info: https://moviereleaseradar.com/movie/midnight-monster/\r\nURL:https://moviereleaseradar.com/movie/midnight-monster/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "midnight-monster-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

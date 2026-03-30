@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Hammer%20and%20Nail%20(2026)&amp;dates=20260901/20260902&amp;details=Ond%C5%99ej%20Bla%C5%BEek%2C%20confronts%20the%20raw%2C%20untold%20emotions%20behind%20the%20fight.%20This%20UFC-inspired%20documentary%20takes%20you%20deep%20into%20the%20mind%20of%20a%20fighter%2C%20where%20each%20punch%20carries%20the%20weight%20of%20personal%20sacrifice%2C%20triumph%2C%20and%20inner%20demons.%20With%20high-octane%20energy%20and%20cinematic%20intensity%2C%20Coach%20Ond%C5%99ej%20revisits%20pivotal%20moments%20from%20his%20career%2C%20reflecting%20on%20the%20emotional%20turmoil%20and%20adrenaline%20that%20fuel%20him.%20Watch%20as%20we%20recreate%20one%20of%20his%20most%20defining%20fights%2C%20immersing%20you%20in%20the%20brutal%20reality%20of%20what%20it%20me%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fhammer-and-nail%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Hammer%20and%20Nail%20(2026)&amp;startdt=2026-09-01&amp;enddt=2026-09-02&amp;allday=true&amp;body=Ond%C5%99ej%20Bla%C5%BEek%2C%20confronts%20the%20raw%2C%20untold%20emotions%20behind%20the%20fight.%20This%20UFC-inspired%20documentary%20takes%20you%20deep%20into%20the%20mind%20of%20a%20fighter%2C%20where%20each%20punch%20carries%20the%20weight%20of%20personal%20sacrifice%2C%20triumph%2C%20and%20inner%20demons.%20With%20high-octane%20energy%20and%20cinematic%20intensity%2C%20Coach%20Ond%C5%99ej%20revisits%20pivotal%20moments%20from%20his%20career%2C%20reflecting%20on%20the%20emotional%20turmoil%20and%20adrenaline%20that%20fuel%20him.%20Watch%20as%20we%20recreate%20one%20of%20his%20most%20defining%20fights%2C%20immersing%20you%20in%20the%20brutal%20reality%20of%20what%20it%20me%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fhammer-and-nail%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Hammer%20and%20Nail%20(2026)&amp;ST=20260901&amp;ET=20260902&amp;in_loc=&amp;DESC=Ond%C5%99ej%20Bla%C5%BEek%2C%20confronts%20the%20raw%2C%20untold%20emotions%20behind%20the%20fight.%20This%20UFC-inspired%20documentary%20takes%20you%20deep%20into%20the%20mind%20of%20a%20fighter%2C%20where%20each%20punch%20carries%20the%20weight%20of%20personal%20sacrifice%2C%20triumph%2C%20and%20inner%20demons.%20With%20high-octane%20energy%20and%20cinematic%20intensity%2C%20Coach%20Ond%C5%99ej%20revisits%20pivotal%20moments%20from%20his%20career%2C%20reflecting%20on%20the%20emotional%20turmoil%20and%20adrenaline%20that%20fuel%20him.%20Watch%20as%20we%20recreate%20one%20of%20his%20most%20defining%20fights%2C%20immersing%20you%20in%20the%20brutal%20reality%20of%20what%20it%20me%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fhammer-and-nail%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-09-01","AT":"2026-09-01","BE":"2026-09-01","BR":"2026-09-01","BG":"2026-09-01","CA":"2026-09-01","CN":"2026-09-01","HR":"2026-09-01","CY":"2026-09-01","CZ":"2026-09-01","DK":"2026-09-01","EE":"2026-09-01","FI":"2026-09-01","FR":"2026-09-01","DE":"2026-09-01","GR":"2026-09-01","HU":"2026-09-01","IN":"2026-09-01","IE":"2026-09-01","IT":"2026-09-01","JP":"2026-09-01","LV":"2026-09-01","LT":"2026-09-01","LU":"2026-09-01","MT":"2026-09-01","NL":"2026-09-01","PL":"2026-09-01","PT":"2026-09-01","RO":"2026-09-01","SK":"2026-09-01","SI":"2026-09-01","KR":"2026-09-01","ES":"2026-09-01","SE":"2026-09-01","GB":"2026-09-01","UA":"2026-09-01","US":"2026-09-01"};
+      var globalDate   = "2026-09-01";
+      var calTitle     = "Hammer and Nail (2026)";
+      var calDesc      = "Ondřej Blažek, confronts the raw, untold emotions behind the fight. This UFC-inspired documentary takes you deep into the mind of a fighter, where each punch carries the weight of personal sacrifice, triumph, and inner demons. With high-octane energy and cinematic intensity, Coach Ondřej revisits pivotal moments from his career, reflecting on the emotional turmoil and adrenaline that fuel him. Watch as we recreate one of his most defining fights, immersing you in the brutal reality of what it me\n\nMore info: https://moviereleaseradar.com/movie/hammer-and-nail/";
+      var icsSummary   = "Hammer and Nail (2026)";
+      var icsDescBody  = "Ondřej Blažek\\, confronts the raw\\, untold emotions behind the fight. This UFC-inspired documentary takes you deep into the mind of a fighter\\, where each punch carries the weight of personal sacrifice\\, triumph\\, and inner demons. With high-octane energy and cinematic intensity\\, Coach Ondřej revisits pivotal moments from his career\\, reflecting on the emotional turmoil and adrenaline that fuel him. Watch as we recreate one of his most defining fights\\, immersing you in the brutal reality of what it me\\n\\nMore info: https://moviereleaseradar.com/movie/hammer-and-nail/";
+      var icsUid       = "movie-1617903@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/hammer-and-nail/";
+      var icsFile      = "hammer-and-nail-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1617903@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260901\r\nDTEND;VALUE=DATE:20260902\r\nSUMMARY:Hammer and Nail (2026)\r\nDESCRIPTION:Ondřej Blažek\\, confronts the raw\\, untold emotions behind the fight. This UFC-inspired documentary takes you deep into the mind of a fighter\\, where each punch carries the weight of personal sacrifice\\, triumph\\, and inner demons. With high-octane energy and cinematic intensity\\, Coach Ondřej revisits pivotal moments from his career\\, reflecting on the emotional turmoil and adrenaline that fuel him. Watch as we recreate one of his most defining fights\\, immersing you in the brutal reality of what it me\\n\\nMore info: https://moviereleaseradar.com/movie/hammer-and-nail/\r\nURL:https://moviereleaseradar.com/movie/hammer-and-nail/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "hammer-and-nail-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

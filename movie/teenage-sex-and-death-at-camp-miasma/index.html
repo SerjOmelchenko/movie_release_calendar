@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Teenage%20Sex%20and%20Death%20at%20Camp%20Miasma%20(2026)&amp;dates=20260807/20260808&amp;details=After%20years%20of%20slapdash%20sequels%20and%20waning%20fandom%2C%20the%20Camp%20Miasma%20slasher%20franchise%20is%20handed%20over%20to%20an%20enthusiastic%20young%20director%20for%20resurrection.%20But%20when%20she%20visits%20the%20original%20movie%E2%80%99s%20star%2C%20a%20now-reclusive%20actress%20shrouded%20in%20mystery%2C%20the%20two%20women%20fall%20into%20a%20blood-soaked%20world%20of%20desire%2C%20fear%2C%20and%20delirium.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fteenage-sex-and-death-at-camp-miasma%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Teenage%20Sex%20and%20Death%20at%20Camp%20Miasma%20(2026)&amp;startdt=2026-08-07&amp;enddt=2026-08-08&amp;allday=true&amp;body=After%20years%20of%20slapdash%20sequels%20and%20waning%20fandom%2C%20the%20Camp%20Miasma%20slasher%20franchise%20is%20handed%20over%20to%20an%20enthusiastic%20young%20director%20for%20resurrection.%20But%20when%20she%20visits%20the%20original%20movie%E2%80%99s%20star%2C%20a%20now-reclusive%20actress%20shrouded%20in%20mystery%2C%20the%20two%20women%20fall%20into%20a%20blood-soaked%20world%20of%20desire%2C%20fear%2C%20and%20delirium.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fteenage-sex-and-death-at-camp-miasma%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Teenage%20Sex%20and%20Death%20at%20Camp%20Miasma%20(2026)&amp;ST=20260807&amp;ET=20260808&amp;in_loc=&amp;DESC=After%20years%20of%20slapdash%20sequels%20and%20waning%20fandom%2C%20the%20Camp%20Miasma%20slasher%20franchise%20is%20handed%20over%20to%20an%20enthusiastic%20young%20director%20for%20resurrection.%20But%20when%20she%20visits%20the%20original%20movie%E2%80%99s%20star%2C%20a%20now-reclusive%20actress%20shrouded%20in%20mystery%2C%20the%20two%20women%20fall%20into%20a%20blood-soaked%20world%20of%20desire%2C%20fear%2C%20and%20delirium.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fteenage-sex-and-death-at-camp-miasma%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-08-07","AT":"2026-08-07","BE":"2026-08-07","BR":"2026-08-07","BG":"2026-08-07","CA":"2026-08-07","CN":"2026-08-07","HR":"2026-08-07","CY":"2026-08-07","CZ":"2026-08-07","DK":"2026-08-07","EE":"2026-08-07","FI":"2026-08-07","FR":"2026-08-07","DE":"2026-08-07","GR":"2026-08-07","HU":"2026-08-07","IN":"2026-08-07","IE":"2026-08-07","IT":"2026-08-07","JP":"2026-08-07","LV":"2026-08-07","LT":"2026-08-07","LU":"2026-08-07","MT":"2026-08-07","NL":"2026-08-07","PL":"2026-08-07","PT":"2026-08-07","RO":"2026-08-07","SK":"2026-08-07","SI":"2026-08-07","KR":"2026-08-07","ES":"2026-08-07","SE":"2026-08-07","GB":"2026-08-21","UA":"2026-08-07","US":"2026-08-07"};
+      var globalDate   = "2026-08-07";
+      var calTitle     = "Teenage Sex and Death at Camp Miasma (2026)";
+      var calDesc      = "After years of slapdash sequels and waning fandom, the Camp Miasma slasher franchise is handed over to an enthusiastic young director for resurrection. But when she visits the original movie’s star, a now-reclusive actress shrouded in mystery, the two women fall into a blood-soaked world of desire, fear, and delirium.\n\nMore info: https://moviereleaseradar.com/movie/teenage-sex-and-death-at-camp-miasma/";
+      var icsSummary   = "Teenage Sex and Death at Camp Miasma (2026)";
+      var icsDescBody  = "After years of slapdash sequels and waning fandom\\, the Camp Miasma slasher franchise is handed over to an enthusiastic young director for resurrection. But when she visits the original movie’s star\\, a now-reclusive actress shrouded in mystery\\, the two women fall into a blood-soaked world of desire\\, fear\\, and delirium.\\n\\nMore info: https://moviereleaseradar.com/movie/teenage-sex-and-death-at-camp-miasma/";
+      var icsUid       = "movie-1240889@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/teenage-sex-and-death-at-camp-miasma/";
+      var icsFile      = "teenage-sex-and-death-at-camp-miasma-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1240889@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260807\r\nDTEND;VALUE=DATE:20260808\r\nSUMMARY:Teenage Sex and Death at Camp Miasma (2026)\r\nDESCRIPTION:After years of slapdash sequels and waning fandom\\, the Camp Miasma slasher franchise is handed over to an enthusiastic young director for resurrection. But when she visits the original movie’s star\\, a now-reclusive actress shrouded in mystery\\, the two women fall into a blood-soaked world of desire\\, fear\\, and delirium.\\n\\nMore info: https://moviereleaseradar.com/movie/teenage-sex-and-death-at-camp-miasma/\r\nURL:https://moviereleaseradar.com/movie/teenage-sex-and-death-at-camp-miasma/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "teenage-sex-and-death-at-camp-miasma-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=DRUID%20(2026)&amp;dates=20260611/20260612&amp;details=60%20AD.%20Romans%20tighten%20their%20grip%20on%20Britannia.%20Druidism%20is%20hunted%20almost%20to%20extinction.%20after%20being%20driven%20out%20of%20their%20commune%2C%20Rhiain-%20a%20young%20druid%20and%20her%20master%20Gwen%20are%20forced%20to%20flee%20and%20traverse%20the%20wilds%20of%20Britannia%20in%20order%20to%20reach%20the%20sanctuary%20of%20the%20Druids%20-%20Ynys%20M%C3%B4n.%20On%20their%20journey%20they%20will%20encounter%20great%20challenges%20and%20unlikely%20allies%20on%20a%20quest%20that%20will%20decide%20not%20only%20their%20survival%2C%20but%20the%20future%20of%20their%20way%20of%20life%20itself.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fdruid%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=DRUID%20(2026)&amp;startdt=2026-06-11&amp;enddt=2026-06-12&amp;allday=true&amp;body=60%20AD.%20Romans%20tighten%20their%20grip%20on%20Britannia.%20Druidism%20is%20hunted%20almost%20to%20extinction.%20after%20being%20driven%20out%20of%20their%20commune%2C%20Rhiain-%20a%20young%20druid%20and%20her%20master%20Gwen%20are%20forced%20to%20flee%20and%20traverse%20the%20wilds%20of%20Britannia%20in%20order%20to%20reach%20the%20sanctuary%20of%20the%20Druids%20-%20Ynys%20M%C3%B4n.%20On%20their%20journey%20they%20will%20encounter%20great%20challenges%20and%20unlikely%20allies%20on%20a%20quest%20that%20will%20decide%20not%20only%20their%20survival%2C%20but%20the%20future%20of%20their%20way%20of%20life%20itself.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fdruid%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=DRUID%20(2026)&amp;ST=20260611&amp;ET=20260612&amp;in_loc=&amp;DESC=60%20AD.%20Romans%20tighten%20their%20grip%20on%20Britannia.%20Druidism%20is%20hunted%20almost%20to%20extinction.%20after%20being%20driven%20out%20of%20their%20commune%2C%20Rhiain-%20a%20young%20druid%20and%20her%20master%20Gwen%20are%20forced%20to%20flee%20and%20traverse%20the%20wilds%20of%20Britannia%20in%20order%20to%20reach%20the%20sanctuary%20of%20the%20Druids%20-%20Ynys%20M%C3%B4n.%20On%20their%20journey%20they%20will%20encounter%20great%20challenges%20and%20unlikely%20allies%20on%20a%20quest%20that%20will%20decide%20not%20only%20their%20survival%2C%20but%20the%20future%20of%20their%20way%20of%20life%20itself.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fdruid%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-06-11","AT":"2026-06-11","BE":"2026-06-11","BR":"2026-06-11","BG":"2026-06-11","CA":"2026-06-11","CN":"2026-06-11","HR":"2026-06-11","CY":"2026-06-11","CZ":"2026-06-11","DK":"2026-06-11","EE":"2026-06-11","FI":"2026-06-11","FR":"2026-06-11","DE":"2026-06-11","GR":"2026-06-11","HU":"2026-06-11","IN":"2026-06-11","IE":"2026-06-11","IT":"2026-06-11","JP":"2026-06-11","LV":"2026-06-11","LT":"2026-06-11","LU":"2026-06-11","MT":"2026-06-11","NL":"2026-06-11","PL":"2026-06-11","PT":"2026-06-11","RO":"2026-06-11","SK":"2026-06-11","SI":"2026-06-11","KR":"2026-06-11","ES":"2026-06-11","SE":"2026-06-11","GB":"2026-06-11","UA":"2026-06-11","US":"2026-06-11"};
+      var globalDate   = "2026-06-11";
+      var calTitle     = "DRUID (2026)";
+      var calDesc      = "60 AD. Romans tighten their grip on Britannia. Druidism is hunted almost to extinction. after being driven out of their commune, Rhiain- a young druid and her master Gwen are forced to flee and traverse the wilds of Britannia in order to reach the sanctuary of the Druids - Ynys Môn. On their journey they will encounter great challenges and unlikely allies on a quest that will decide not only their survival, but the future of their way of life itself.\n\nMore info: https://moviereleaseradar.com/movie/druid/";
+      var icsSummary   = "DRUID (2026)";
+      var icsDescBody  = "60 AD. Romans tighten their grip on Britannia. Druidism is hunted almost to extinction. after being driven out of their commune\\, Rhiain- a young druid and her master Gwen are forced to flee and traverse the wilds of Britannia in order to reach the sanctuary of the Druids - Ynys Môn. On their journey they will encounter great challenges and unlikely allies on a quest that will decide not only their survival\\, but the future of their way of life itself.\\n\\nMore info: https://moviereleaseradar.com/movie/druid/";
+      var icsUid       = "movie-1652036@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/druid/";
+      var icsFile      = "druid-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1652036@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260611\r\nDTEND;VALUE=DATE:20260612\r\nSUMMARY:DRUID (2026)\r\nDESCRIPTION:60 AD. Romans tighten their grip on Britannia. Druidism is hunted almost to extinction. after being driven out of their commune\\, Rhiain- a young druid and her master Gwen are forced to flee and traverse the wilds of Britannia in order to reach the sanctuary of the Druids - Ynys Môn. On their journey they will encounter great challenges and unlikely allies on a quest that will decide not only their survival\\, but the future of their way of life itself.\\n\\nMore info: https://moviereleaseradar.com/movie/druid/\r\nURL:https://moviereleaseradar.com/movie/druid/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "druid-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

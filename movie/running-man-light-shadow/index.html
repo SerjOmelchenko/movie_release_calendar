@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Running%20Man%3A%20Light%20%26%20Shadow%20(2026)&amp;dates=20260411/20260412&amp;details=In%20Tree%20City%2C%20Metronome%20works%20in%20secret%20to%20keep%20all%20things%20in%20balance.%20Adel%2C%20its%20charismatic%20director%2C%20hires%20the%20former%20champions%20of%20the%20Running%20Man%20competition%20as%20agents.%20Among%20them%20is%20Adel%E2%80%99s%20prot%C3%A9g%C3%A9%2C%20Lema.%20One%20day%20the%20Running%20Men%20inexplicably%20begin%20committing%20crimes%20throughout%20the%20city.%20Adel%20recognizes%20the%20threat%20and%20mobilizes%20Metronome%20to%20rise%20from%20the%20darkness%20to%20face%20them.%20Lema%2C%20shocked%20by%20the%20Running%20Men%E2%80%99s%20sudden%20transformation%2C%20decides%20to%20pursue%20her%20own%20investigation%20in%20order%20to%20prevent%20a%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Frunning-man-light-shadow%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Running%20Man%3A%20Light%20%26%20Shadow%20(2026)&amp;startdt=2026-04-11&amp;enddt=2026-04-12&amp;allday=true&amp;body=In%20Tree%20City%2C%20Metronome%20works%20in%20secret%20to%20keep%20all%20things%20in%20balance.%20Adel%2C%20its%20charismatic%20director%2C%20hires%20the%20former%20champions%20of%20the%20Running%20Man%20competition%20as%20agents.%20Among%20them%20is%20Adel%E2%80%99s%20prot%C3%A9g%C3%A9%2C%20Lema.%20One%20day%20the%20Running%20Men%20inexplicably%20begin%20committing%20crimes%20throughout%20the%20city.%20Adel%20recognizes%20the%20threat%20and%20mobilizes%20Metronome%20to%20rise%20from%20the%20darkness%20to%20face%20them.%20Lema%2C%20shocked%20by%20the%20Running%20Men%E2%80%99s%20sudden%20transformation%2C%20decides%20to%20pursue%20her%20own%20investigation%20in%20order%20to%20prevent%20a%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Frunning-man-light-shadow%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Running%20Man%3A%20Light%20%26%20Shadow%20(2026)&amp;ST=20260411&amp;ET=20260412&amp;in_loc=&amp;DESC=In%20Tree%20City%2C%20Metronome%20works%20in%20secret%20to%20keep%20all%20things%20in%20balance.%20Adel%2C%20its%20charismatic%20director%2C%20hires%20the%20former%20champions%20of%20the%20Running%20Man%20competition%20as%20agents.%20Among%20them%20is%20Adel%E2%80%99s%20prot%C3%A9g%C3%A9%2C%20Lema.%20One%20day%20the%20Running%20Men%20inexplicably%20begin%20committing%20crimes%20throughout%20the%20city.%20Adel%20recognizes%20the%20threat%20and%20mobilizes%20Metronome%20to%20rise%20from%20the%20darkness%20to%20face%20them.%20Lema%2C%20shocked%20by%20the%20Running%20Men%E2%80%99s%20sudden%20transformation%2C%20decides%20to%20pursue%20her%20own%20investigation%20in%20order%20to%20prevent%20a%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Frunning-man-light-shadow%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-11","AT":"2026-04-11","BE":"2026-04-11","BR":"2026-04-11","BG":"2026-04-11","CA":"2026-04-11","CN":"2026-04-11","HR":"2026-04-11","CY":"2026-04-11","CZ":"2026-04-11","DK":"2026-04-11","EE":"2026-04-11","FI":"2026-04-11","FR":"2026-04-11","DE":"2026-04-11","GR":"2026-04-11","HU":"2026-04-11","IN":"2026-04-11","IE":"2026-04-11","IT":"2026-04-11","JP":"2026-04-11","LV":"2026-04-11","LT":"2026-04-11","LU":"2026-04-11","MT":"2026-04-11","NL":"2026-04-11","PL":"2026-04-11","PT":"2026-04-11","RO":"2026-04-11","SK":"2026-04-11","SI":"2026-04-11","KR":"2026-04-11","ES":"2026-04-11","SE":"2026-04-11","GB":"2026-04-11","UA":"2026-04-11","US":"2026-04-11"};
+      var globalDate   = "2026-04-11";
+      var calTitle     = "Running Man: Light & Shadow (2026)";
+      var calDesc      = "In Tree City, Metronome works in secret to keep all things in balance. Adel, its charismatic director, hires the former champions of the Running Man competition as agents. Among them is Adel’s protégé, Lema. One day the Running Men inexplicably begin committing crimes throughout the city. Adel recognizes the threat and mobilizes Metronome to rise from the darkness to face them. Lema, shocked by the Running Men’s sudden transformation, decides to pursue her own investigation in order to prevent a\n\nMore info: https://moviereleaseradar.com/movie/running-man-light-shadow/";
+      var icsSummary   = "Running Man: Light & Shadow (2026)";
+      var icsDescBody  = "In Tree City\\, Metronome works in secret to keep all things in balance. Adel\\, its charismatic director\\, hires the former champions of the Running Man competition as agents. Among them is Adel’s protégé\\, Lema. One day the Running Men inexplicably begin committing crimes throughout the city. Adel recognizes the threat and mobilizes Metronome to rise from the darkness to face them. Lema\\, shocked by the Running Men’s sudden transformation\\, decides to pursue her own investigation in order to prevent a\\n\\nMore info: https://moviereleaseradar.com/movie/running-man-light-shadow/";
+      var icsUid       = "movie-1647332@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/running-man-light-shadow/";
+      var icsFile      = "running-man-light-shadow-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1647332@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260411\r\nDTEND;VALUE=DATE:20260412\r\nSUMMARY:Running Man: Light & Shadow (2026)\r\nDESCRIPTION:In Tree City\\, Metronome works in secret to keep all things in balance. Adel\\, its charismatic director\\, hires the former champions of the Running Man competition as agents. Among them is Adel’s protégé\\, Lema. One day the Running Men inexplicably begin committing crimes throughout the city. Adel recognizes the threat and mobilizes Metronome to rise from the darkness to face them. Lema\\, shocked by the Running Men’s sudden transformation\\, decides to pursue her own investigation in order to prevent a\\n\\nMore info: https://moviereleaseradar.com/movie/running-man-light-shadow/\r\nURL:https://moviereleaseradar.com/movie/running-man-light-shadow/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "running-man-light-shadow-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

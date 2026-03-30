@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Eternal%20Return%20(2026)&amp;dates=20260416/20260417&amp;details=Cass%20has%20come%20to%20a%20personal%20point%20of%20emotional%20invulnerability%2C%20until%20she%20meets%20Virgil%2C%20a%20cartographer.%20Along%20with%20his%20partner%20Malcolm%2C%20they%20attempt%20to%20travel%20back%20in%20time%20to%20awaken%20Cass%20to%20love%20again.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Feternal-return%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Eternal%20Return%20(2026)&amp;startdt=2026-04-16&amp;enddt=2026-04-17&amp;allday=true&amp;body=Cass%20has%20come%20to%20a%20personal%20point%20of%20emotional%20invulnerability%2C%20until%20she%20meets%20Virgil%2C%20a%20cartographer.%20Along%20with%20his%20partner%20Malcolm%2C%20they%20attempt%20to%20travel%20back%20in%20time%20to%20awaken%20Cass%20to%20love%20again.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Feternal-return%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Eternal%20Return%20(2026)&amp;ST=20260416&amp;ET=20260417&amp;in_loc=&amp;DESC=Cass%20has%20come%20to%20a%20personal%20point%20of%20emotional%20invulnerability%2C%20until%20she%20meets%20Virgil%2C%20a%20cartographer.%20Along%20with%20his%20partner%20Malcolm%2C%20they%20attempt%20to%20travel%20back%20in%20time%20to%20awaken%20Cass%20to%20love%20again.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Feternal-return%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-16","AT":"2026-04-16","BE":"2026-04-16","BR":"2026-08-13","BG":"2026-04-16","CA":"2025-09-08","CN":"2026-04-16","HR":"2026-04-16","CY":"2026-04-16","CZ":"2026-04-16","DK":"2026-04-16","EE":"2026-04-16","FI":"2026-04-16","FR":"2026-04-16","DE":"2026-04-16","GR":"2026-04-16","HU":"2026-04-16","IN":"2026-04-16","IE":"2026-04-16","IT":"2026-04-16","JP":"2026-04-16","LV":"2026-04-16","LT":"2026-04-16","LU":"2026-04-16","MT":"2026-04-16","NL":"2026-04-16","PL":"2026-04-16","PT":"2026-04-16","RO":"2026-04-16","SK":"2026-04-16","SI":"2026-04-16","KR":"2026-04-16","ES":"2026-04-16","SE":"2026-04-16","GB":"2026-04-16","UA":"2026-04-16","US":"2026-04-16"};
+      var globalDate   = "2026-04-16";
+      var calTitle     = "Eternal Return (2026)";
+      var calDesc      = "Cass has come to a personal point of emotional invulnerability, until she meets Virgil, a cartographer. Along with his partner Malcolm, they attempt to travel back in time to awaken Cass to love again.\n\nMore info: https://moviereleaseradar.com/movie/eternal-return/";
+      var icsSummary   = "Eternal Return (2026)";
+      var icsDescBody  = "Cass has come to a personal point of emotional invulnerability\\, until she meets Virgil\\, a cartographer. Along with his partner Malcolm\\, they attempt to travel back in time to awaken Cass to love again.\\n\\nMore info: https://moviereleaseradar.com/movie/eternal-return/";
+      var icsUid       = "movie-1125822@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/eternal-return/";
+      var icsFile      = "eternal-return-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1125822@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260416\r\nDTEND;VALUE=DATE:20260417\r\nSUMMARY:Eternal Return (2026)\r\nDESCRIPTION:Cass has come to a personal point of emotional invulnerability\\, until she meets Virgil\\, a cartographer. Along with his partner Malcolm\\, they attempt to travel back in time to awaken Cass to love again.\\n\\nMore info: https://moviereleaseradar.com/movie/eternal-return/\r\nURL:https://moviereleaseradar.com/movie/eternal-return/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "eternal-return-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%D0%A5%D0%B5%D0%B9%D1%82%D0%B5%D1%80%20(2026)&amp;dates=20260409/20260410&amp;details=An%20elusive%20hater%20wages%20a%20destructive%20game%20behind%20the%20guise%20of%20anonymity.%20Their%20provocations%20gradually%20draw%20a%20wide%20range%20of%20people%20into%20conflict%E2%80%94from%20public%20figures%20to%20ordinary%20users.%20Online%20bullying%20extends%20beyond%20the%20virtual%20space%20and%20begins%20to%20impact%20real-life%20lives%2C%20destroying%20relationships%2C%20careers%2C%20and%20trust%20between%20people.%20While%20those%20around%20them%20try%20to%20understand%20who%20is%20behind%20this%20torrent%20of%20aggression%2C%20it%20becomes%20clear%20that%20exposing%20this%20person%20could%20have%20unexpected%20consequences%20for%20eve%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmovie-1655906%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=%D0%A5%D0%B5%D0%B9%D1%82%D0%B5%D1%80%20(2026)&amp;startdt=2026-04-09&amp;enddt=2026-04-10&amp;allday=true&amp;body=An%20elusive%20hater%20wages%20a%20destructive%20game%20behind%20the%20guise%20of%20anonymity.%20Their%20provocations%20gradually%20draw%20a%20wide%20range%20of%20people%20into%20conflict%E2%80%94from%20public%20figures%20to%20ordinary%20users.%20Online%20bullying%20extends%20beyond%20the%20virtual%20space%20and%20begins%20to%20impact%20real-life%20lives%2C%20destroying%20relationships%2C%20careers%2C%20and%20trust%20between%20people.%20While%20those%20around%20them%20try%20to%20understand%20who%20is%20behind%20this%20torrent%20of%20aggression%2C%20it%20becomes%20clear%20that%20exposing%20this%20person%20could%20have%20unexpected%20consequences%20for%20eve%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmovie-1655906%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=%D0%A5%D0%B5%D0%B9%D1%82%D0%B5%D1%80%20(2026)&amp;ST=20260409&amp;ET=20260410&amp;in_loc=&amp;DESC=An%20elusive%20hater%20wages%20a%20destructive%20game%20behind%20the%20guise%20of%20anonymity.%20Their%20provocations%20gradually%20draw%20a%20wide%20range%20of%20people%20into%20conflict%E2%80%94from%20public%20figures%20to%20ordinary%20users.%20Online%20bullying%20extends%20beyond%20the%20virtual%20space%20and%20begins%20to%20impact%20real-life%20lives%2C%20destroying%20relationships%2C%20careers%2C%20and%20trust%20between%20people.%20While%20those%20around%20them%20try%20to%20understand%20who%20is%20behind%20this%20torrent%20of%20aggression%2C%20it%20becomes%20clear%20that%20exposing%20this%20person%20could%20have%20unexpected%20consequences%20for%20eve%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmovie-1655906%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-09","AT":"2026-04-09","BE":"2026-04-09","BR":"2026-04-09","BG":"2026-04-09","CA":"2026-04-09","CN":"2026-04-09","HR":"2026-04-09","CY":"2026-04-09","CZ":"2026-04-09","DK":"2026-04-09","EE":"2026-04-09","FI":"2026-04-09","FR":"2026-04-09","DE":"2026-04-09","GR":"2026-04-09","HU":"2026-04-09","IN":"2026-04-09","IE":"2026-04-09","IT":"2026-04-09","JP":"2026-04-09","LV":"2026-04-09","LT":"2026-04-09","LU":"2026-04-09","MT":"2026-04-09","NL":"2026-04-09","PL":"2026-04-09","PT":"2026-04-09","RO":"2026-04-09","SK":"2026-04-09","SI":"2026-04-09","KR":"2026-04-09","ES":"2026-04-09","SE":"2026-04-09","GB":"2026-04-09","UA":"2026-04-09","US":"2026-04-09"};
+      var globalDate   = "2026-04-09";
+      var calTitle     = "Хейтер (2026)";
+      var calDesc      = "An elusive hater wages a destructive game behind the guise of anonymity. Their provocations gradually draw a wide range of people into conflict—from public figures to ordinary users. Online bullying extends beyond the virtual space and begins to impact real-life lives, destroying relationships, careers, and trust between people. While those around them try to understand who is behind this torrent of aggression, it becomes clear that exposing this person could have unexpected consequences for eve\n\nMore info: https://moviereleaseradar.com/movie/movie-1655906/";
+      var icsSummary   = "Хейтер (2026)";
+      var icsDescBody  = "An elusive hater wages a destructive game behind the guise of anonymity. Their provocations gradually draw a wide range of people into conflict—from public figures to ordinary users. Online bullying extends beyond the virtual space and begins to impact real-life lives\\, destroying relationships\\, careers\\, and trust between people. While those around them try to understand who is behind this torrent of aggression\\, it becomes clear that exposing this person could have unexpected consequences for eve\\n\\nMore info: https://moviereleaseradar.com/movie/movie-1655906/";
+      var icsUid       = "movie-1655906@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/movie-1655906/";
+      var icsFile      = "-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1655906@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260409\r\nDTEND;VALUE=DATE:20260410\r\nSUMMARY:Хейтер (2026)\r\nDESCRIPTION:An elusive hater wages a destructive game behind the guise of anonymity. Their provocations gradually draw a wide range of people into conflict—from public figures to ordinary users. Online bullying extends beyond the virtual space and begins to impact real-life lives\\, destroying relationships\\, careers\\, and trust between people. While those around them try to understand who is behind this torrent of aggression\\, it becomes clear that exposing this person could have unexpected consequences for eve\\n\\nMore info: https://moviereleaseradar.com/movie/movie-1655906/\r\nURL:https://moviereleaseradar.com/movie/movie-1655906/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

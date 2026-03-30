@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Volcanic%20vs.%20Pedex%20(2026)&amp;dates=20261114/20261115&amp;details=Pedex%20was%20tasked%20with%20protecting%20the%20Shadow%20Realm%20after%20Amelia's%20death%20as%20a%20way%20of%20honoring%20her%20legacy.%20When%20Pedex%20senses%20an%20unnatural%20presence%2C%20he%20discovers%20it%20is%20Volcanic%2C%20the%20Fire%20Demon.%20Seeing%20this%20as%20an%20invasion%2C%20Pedex%20confronts%20him%2C%20and%20the%20two%20engage%20in%20a%20violent%20battle%20between%20Fire%20and%20Darkness.%20The%20conflict%20extends%20beyond%20the%20Shadow%20Realm%20and%20extends%20to%20the%20small%20fictional%20town%20of%20Oldwood%2C%20where%20the%20fighting%20becomes%20even%20more%20intense%20and%20destructive.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fvolcanic-vs-pedex%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Volcanic%20vs.%20Pedex%20(2026)&amp;startdt=2026-11-14&amp;enddt=2026-11-15&amp;allday=true&amp;body=Pedex%20was%20tasked%20with%20protecting%20the%20Shadow%20Realm%20after%20Amelia's%20death%20as%20a%20way%20of%20honoring%20her%20legacy.%20When%20Pedex%20senses%20an%20unnatural%20presence%2C%20he%20discovers%20it%20is%20Volcanic%2C%20the%20Fire%20Demon.%20Seeing%20this%20as%20an%20invasion%2C%20Pedex%20confronts%20him%2C%20and%20the%20two%20engage%20in%20a%20violent%20battle%20between%20Fire%20and%20Darkness.%20The%20conflict%20extends%20beyond%20the%20Shadow%20Realm%20and%20extends%20to%20the%20small%20fictional%20town%20of%20Oldwood%2C%20where%20the%20fighting%20becomes%20even%20more%20intense%20and%20destructive.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fvolcanic-vs-pedex%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Volcanic%20vs.%20Pedex%20(2026)&amp;ST=20261114&amp;ET=20261115&amp;in_loc=&amp;DESC=Pedex%20was%20tasked%20with%20protecting%20the%20Shadow%20Realm%20after%20Amelia's%20death%20as%20a%20way%20of%20honoring%20her%20legacy.%20When%20Pedex%20senses%20an%20unnatural%20presence%2C%20he%20discovers%20it%20is%20Volcanic%2C%20the%20Fire%20Demon.%20Seeing%20this%20as%20an%20invasion%2C%20Pedex%20confronts%20him%2C%20and%20the%20two%20engage%20in%20a%20violent%20battle%20between%20Fire%20and%20Darkness.%20The%20conflict%20extends%20beyond%20the%20Shadow%20Realm%20and%20extends%20to%20the%20small%20fictional%20town%20of%20Oldwood%2C%20where%20the%20fighting%20becomes%20even%20more%20intense%20and%20destructive.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fvolcanic-vs-pedex%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-11-14","AT":"2026-11-14","BE":"2026-11-14","BR":"2026-11-14","BG":"2026-11-14","CA":"2026-11-14","CN":"2026-11-14","HR":"2026-11-14","CY":"2026-11-14","CZ":"2026-11-14","DK":"2026-11-14","EE":"2026-11-14","FI":"2026-11-14","FR":"2026-11-14","DE":"2026-11-14","GR":"2026-11-14","HU":"2026-11-14","IN":"2026-11-14","IE":"2026-11-14","IT":"2026-11-14","JP":"2026-11-14","LV":"2026-11-14","LT":"2026-11-14","LU":"2026-11-14","MT":"2026-11-14","NL":"2026-11-14","PL":"2026-11-14","PT":"2026-11-14","RO":"2026-11-14","SK":"2026-11-14","SI":"2026-11-14","KR":"2026-11-14","ES":"2026-11-14","SE":"2026-11-14","GB":"2026-11-14","UA":"2026-11-14","US":"2026-11-14"};
+      var globalDate   = "2026-11-14";
+      var calTitle     = "Volcanic vs. Pedex (2026)";
+      var calDesc      = "Pedex was tasked with protecting the Shadow Realm after Amelia's death as a way of honoring her legacy. When Pedex senses an unnatural presence, he discovers it is Volcanic, the Fire Demon. Seeing this as an invasion, Pedex confronts him, and the two engage in a violent battle between Fire and Darkness. The conflict extends beyond the Shadow Realm and extends to the small fictional town of Oldwood, where the fighting becomes even more intense and destructive.\n\nMore info: https://moviereleaseradar.com/movie/volcanic-vs-pedex/";
+      var icsSummary   = "Volcanic vs. Pedex (2026)";
+      var icsDescBody  = "Pedex was tasked with protecting the Shadow Realm after Amelia's death as a way of honoring her legacy. When Pedex senses an unnatural presence\\, he discovers it is Volcanic\\, the Fire Demon. Seeing this as an invasion\\, Pedex confronts him\\, and the two engage in a violent battle between Fire and Darkness. The conflict extends beyond the Shadow Realm and extends to the small fictional town of Oldwood\\, where the fighting becomes even more intense and destructive.\\n\\nMore info: https://moviereleaseradar.com/movie/volcanic-vs-pedex/";
+      var icsUid       = "movie-1477454@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/volcanic-vs-pedex/";
+      var icsFile      = "volcanic-vs-pedex-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1477454@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261114\r\nDTEND;VALUE=DATE:20261115\r\nSUMMARY:Volcanic vs. Pedex (2026)\r\nDESCRIPTION:Pedex was tasked with protecting the Shadow Realm after Amelia's death as a way of honoring her legacy. When Pedex senses an unnatural presence\\, he discovers it is Volcanic\\, the Fire Demon. Seeing this as an invasion\\, Pedex confronts him\\, and the two engage in a violent battle between Fire and Darkness. The conflict extends beyond the Shadow Realm and extends to the small fictional town of Oldwood\\, where the fighting becomes even more intense and destructive.\\n\\nMore info: https://moviereleaseradar.com/movie/volcanic-vs-pedex/\r\nURL:https://moviereleaseradar.com/movie/volcanic-vs-pedex/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "volcanic-vs-pedex-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');

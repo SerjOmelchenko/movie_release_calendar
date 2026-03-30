@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Quiet%20Beekeeper%20(2026)&amp;dates=20260417/20260418&amp;details=In%20the%20small%20community%20of%20%C3%85motfors%20in%20V%C3%A4rmland%2C%20Olof%20lives%20a%20quiet%20life%20as%20a%20beekeeper%20after%20losing%20his%20partner%20many%20years%20ago.%20All%20that%20remains%20is%20his%20teenage%20daughter%20Lise%2C%20who%20increasingly%20seeks%20to%20escape%20the%20confines%20of%20home.%20Olof%20struggles%20to%20reach%20her%2C%20and%20grief%20has%20long%20lain%20buried%20in%20silence%E2%80%94until%20he%20suddenly%20falls%20ill%20and%20is%20forced%20to%20confront%20all%20that%20has%20remained%20unspoken.%20With%20great%20sensitivity%2C%20Marcus%20Carlsson%20portrays%20the%20different%20stages%20of%20life%20and%20reminds%20us%20how%20the%20fragility%20be%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-quiet-beekeeper%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
-            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Quiet%20Beekeeper%20(2026)&amp;startdt=2026-04-17&amp;enddt=2026-04-18&amp;allday=true&amp;body=In%20the%20small%20community%20of%20%C3%85motfors%20in%20V%C3%A4rmland%2C%20Olof%20lives%20a%20quiet%20life%20as%20a%20beekeeper%20after%20losing%20his%20partner%20many%20years%20ago.%20All%20that%20remains%20is%20his%20teenage%20daughter%20Lise%2C%20who%20increasingly%20seeks%20to%20escape%20the%20confines%20of%20home.%20Olof%20struggles%20to%20reach%20her%2C%20and%20grief%20has%20long%20lain%20buried%20in%20silence%E2%80%94until%20he%20suddenly%20falls%20ill%20and%20is%20forced%20to%20confront%20all%20that%20has%20remained%20unspoken.%20With%20great%20sensitivity%2C%20Marcus%20Carlsson%20portrays%20the%20different%20stages%20of%20life%20and%20reminds%20us%20how%20the%20fragility%20be%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-quiet-beekeeper%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
-            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Quiet%20Beekeeper%20(2026)&amp;ST=20260417&amp;ET=20260418&amp;in_loc=&amp;DESC=In%20the%20small%20community%20of%20%C3%85motfors%20in%20V%C3%A4rmland%2C%20Olof%20lives%20a%20quiet%20life%20as%20a%20beekeeper%20after%20losing%20his%20partner%20many%20years%20ago.%20All%20that%20remains%20is%20his%20teenage%20daughter%20Lise%2C%20who%20increasingly%20seeks%20to%20escape%20the%20confines%20of%20home.%20Olof%20struggles%20to%20reach%20her%2C%20and%20grief%20has%20long%20lain%20buried%20in%20silence%E2%80%94until%20he%20suddenly%20falls%20ill%20and%20is%20forced%20to%20confront%20all%20that%20has%20remained%20unspoken.%20With%20great%20sensitivity%2C%20Marcus%20Carlsson%20portrays%20the%20different%20stages%20of%20life%20and%20reminds%20us%20how%20the%20fragility%20be%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-quiet-beekeeper%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
+            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,16 +227,70 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
+
+      // Build-time data
+      var countryDates = {"AU":"2026-04-17","AT":"2026-04-17","BE":"2026-04-17","BR":"2026-04-17","BG":"2026-04-17","CA":"2026-04-17","CN":"2026-04-17","HR":"2026-04-17","CY":"2026-04-17","CZ":"2026-04-17","DK":"2026-04-17","EE":"2026-04-17","FI":"2026-04-17","FR":"2026-04-17","DE":"2026-04-17","GR":"2026-04-17","HU":"2026-04-17","IN":"2026-04-17","IE":"2026-04-17","IT":"2026-04-17","JP":"2026-04-17","LV":"2026-04-17","LT":"2026-04-17","LU":"2026-04-17","MT":"2026-04-17","NL":"2026-04-17","PL":"2026-04-17","PT":"2026-04-17","RO":"2026-04-17","SK":"2026-04-17","SI":"2026-04-17","KR":"2026-04-17","ES":"2026-04-17","SE":"2026-04-17","GB":"2026-04-17","UA":"2026-04-17","US":"2026-04-17"};
+      var globalDate   = "2026-04-17";
+      var calTitle     = "The Quiet Beekeeper (2026)";
+      var calDesc      = "In the small community of Åmotfors in Värmland, Olof lives a quiet life as a beekeeper after losing his partner many years ago. All that remains is his teenage daughter Lise, who increasingly seeks to escape the confines of home. Olof struggles to reach her, and grief has long lain buried in silence—until he suddenly falls ill and is forced to confront all that has remained unspoken. With great sensitivity, Marcus Carlsson portrays the different stages of life and reminds us how the fragility be\n\nMore info: https://moviereleaseradar.com/movie/the-quiet-beekeeper/";
+      var icsSummary   = "The Quiet Beekeeper (2026)";
+      var icsDescBody  = "In the small community of Åmotfors in Värmland\\, Olof lives a quiet life as a beekeeper after losing his partner many years ago. All that remains is his teenage daughter Lise\\, who increasingly seeks to escape the confines of home. Olof struggles to reach her\\, and grief has long lain buried in silence—until he suddenly falls ill and is forced to confront all that has remained unspoken. With great sensitivity\\, Marcus Carlsson portrays the different stages of life and reminds us how the fragility be\\n\\nMore info: https://moviereleaseradar.com/movie/the-quiet-beekeeper/";
+      var icsUid       = "movie-1596163@moviereleasecalendar.com";
+      var icsCanonical = "https://moviereleaseradar.com/movie/the-quiet-beekeeper/";
+      var icsFile      = "the-quiet-beekeeper-2026-.ics";
+
+      // Pick release date for the user's chosen region, fall back to global
+      var region = 'WW';
+      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
+      var rd = countryDates[region] || globalDate;
+
+      // Date helpers
+      function pad(n){ return String(n).padStart(2, '0'); }
+      var parts = rd.split('-');
+      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
+      var startG = rd.replace(/-/g, '');
+      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
+      var startI = rd;
+      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
+      var te = encodeURIComponent(calTitle);
+      var de = encodeURIComponent(calDesc);
+
+      // Set calendar links
+      document.getElementById('cal-google').href =
+        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
+        '&dates=' + startG + '/' + endG + '&details=' + de;
+      document.getElementById('cal-outlook').href =
+        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
+        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
+      document.getElementById('cal-yahoo').href =
+        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
+        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
+
+      // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1596163@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260417\r\nDTEND;VALUE=DATE:20260418\r\nSUMMARY:The Quiet Beekeeper (2026)\r\nDESCRIPTION:In the small community of Åmotfors in Värmland\\, Olof lives a quiet life as a beekeeper after losing his partner many years ago. All that remains is his teenage daughter Lise\\, who increasingly seeks to escape the confines of home. Olof struggles to reach her\\, and grief has long lain buried in silence—until he suddenly falls ill and is forced to confront all that has remained unspoken. With great sensitivity\\, Marcus Carlsson portrays the different stages of life and reminds us how the fragility be\\n\\nMore info: https://moviereleaseradar.com/movie/the-quiet-beekeeper/\r\nURL:https://moviereleaseradar.com/movie/the-quiet-beekeeper/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
+        var icsBody = [
+          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+          'BEGIN:VEVENT',
+          'UID:' + icsUid,
+          'DTSTART;VALUE=DATE:' + startG,
+          'DTEND;VALUE=DATE:' + endG,
+          'SUMMARY:' + icsSummary,
+          'DESCRIPTION:' + icsDescBody,
+          'URL:' + icsCanonical,
+          'END:VEVENT', 'END:VCALENDAR'
+        ].join('\r\n');
+        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = "the-quiet-beekeeper-2026-.ics";
+        a.download = icsFile;
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
+
+      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
