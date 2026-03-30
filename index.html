@@ -2323,23 +2323,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const movieMap = {};
       moviesData.forEach(m => { movieMap[m.id] = m; });
 
-      const allMovies = ids.map(id => movieMap[id]).filter(Boolean)
-        .sort((a, b) => (a.release_date || '').localeCompare(b.release_date || ''));
+      const allMovies = ids.map(id => movieMap[id]).filter(Boolean);
 
       if (allMovies.length === 0) {
         content.innerHTML = '<p class="watchlist-empty">Could not load watchlist movies.</p>';
         return;
       }
 
+      const region = regionSelect.value || 'WW';
       const today = new Date().toISOString().slice(0, 10);
-      const upcoming = allMovies.filter(m => !m.release_date || m.release_date >= today);
-      const released = allMovies.filter(m => m.release_date && m.release_date < today);
+
+      function getDisplayDate(m) {
+        return (m.countryReleases && m.countryReleases[region]) || m.release_date || null;
+      }
+
+      const upcoming = allMovies.filter(m => { const d = getDisplayDate(m); return !d || d >= today; });
+      const released = allMovies.filter(m => { const d = getDisplayDate(m); return d && d < today; });
       const movies = allMovies; // keep reference for event listeners
 
       function renderItems(list) {
         return list.map(m => {
-          const date = m.release_date
-            ? new Date(m.release_date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+          const rawDate = getDisplayDate(m);
+          const date = rawDate
+            ? new Date(rawDate + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
             : 'TBA';
           return `
             <div class="watchlist-item" data-id="${m.id}">
@@ -2359,7 +2365,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }).join('');
       }
 
-      released.sort((a, b) => (b.release_date || '').localeCompare(a.release_date || ''));
+      allMovies.sort((a, b) => (getDisplayDate(a) || '').localeCompare(getDisplayDate(b) || ''));
+      released.sort((a, b) => (getDisplayDate(b) || '').localeCompare(getDisplayDate(a) || ''));
 
       let html = '';
       if (upcoming.length) {
