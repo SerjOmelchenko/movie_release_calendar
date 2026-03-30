@@ -714,7 +714,7 @@ const TOP_SHARED_CSS = `
       header { padding: 1rem; }
       .header-inner { flex-direction: row; align-items: center; }
       .site-brand { flex: 0 0 50%; }
-      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
     }`;
 
 const TOP_PAGE_HEADER = `
