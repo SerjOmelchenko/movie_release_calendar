@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1644085@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1644085@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260727\r\nDTEND;VALUE=DATE:20260728\r\nSUMMARY:The Ultimate Linemarker (2026)\r\nDESCRIPTION:We follow Borus\\, a road line marker who treats asphalt like a sacred canvas\\, as he passionately explains the emotional and deep importance of straight lines\\, proper spacing\\, and precision. His manager and a rival crew who see the job as “just paint” are brought into the world of Borus\\, who always has a new way of sharing his passion of the job. His world is thrown into chaos when a reckless young teammate commits the ultimate workplace sin: unauthorized road doodling. As Borus spirals over compr\\n\\nMore info: https://moviereleaseradar.com/movie/the-ultimate-linemarker/\r\nURL:https://moviereleaseradar.com/movie/the-ultimate-linemarker/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "the-ultimate-linemarker-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

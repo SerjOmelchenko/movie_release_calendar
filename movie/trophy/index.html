@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1657017@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1657017@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260710\r\nDTEND;VALUE=DATE:20260711\r\nSUMMARY:TROPHY (2026)\r\nDESCRIPTION:The story follows So-hee\\, a 14-year-old Zainichi Korean girl. She goes to a Korean school and devotes herself to Korean traditional dance as her school club activities. One day\\, at an exchange event with a Japanese school\\, she befriends Mirai\\, a Japanese girl who shares her love of K-pop. Through this encounter\\, So-hee gradually begins to connect with the world beyond her own. As their friendship deepens\\, the two decide to sell unused items from So-hee's home on a flea market app to earn money f\\n\\nMore info: https://moviereleaseradar.com/movie/trophy/\r\nURL:https://moviereleaseradar.com/movie/trophy/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "trophy-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

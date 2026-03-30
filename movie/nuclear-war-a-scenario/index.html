@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1269595@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1269595@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260331\r\nDTEND;VALUE=DATE:20260401\r\nSUMMARY:Nuclear War: A Scenario (2026)\r\nDESCRIPTION:Explores a ticking-clock scenario about what would happen in the event of a nuclear war\\, based on dozens of exclusive new interviews with military and civilian experts who built the weapons and have been privy to the response plans and have been responsible for those decisions should they need to be made.\\n\\nMore info: https://moviereleaseradar.com/movie/nuclear-war-a-scenario/\r\nURL:https://moviereleaseradar.com/movie/nuclear-war-a-scenario/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "nuclear-war-a-scenario-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

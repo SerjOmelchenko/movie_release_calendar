@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1153576@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1153576@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261014\r\nDTEND;VALUE=DATE:20261015\r\nSUMMARY:Street Fighter (2026)\r\nDESCRIPTION:In 1993\\, estranged Street Fighters Ryu and Ken Masters are thrown back into combat when the mysterious Chun-Li recruits them for the next World Warrior Tournament: a brutal clash of fists\\, fate\\, and fury. But behind this battle royale lies a deadly conspiracy that forces them to face off against each other and the demons of their past. And if they don't\\, it's GAME OVER!\\n\\nMore info: https://moviereleaseradar.com/movie/street-fighter/\r\nURL:https://moviereleaseradar.com/movie/street-fighter/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "street-fighter-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

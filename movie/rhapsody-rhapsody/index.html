@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1657504@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1657504@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260501\r\nDTEND;VALUE=DATE:20260502\r\nSUMMARY:Rhapsody\\, Rhapsody (2026)\r\nDESCRIPTION:When Mikio Natsuno obtains a residency certificate\\, he is stunned to find the name of a woman he has never met listed as his wife. Apparently\\, he has been \"married\" for six months without knowing it. Who on earth is the stranger who decided to become his wife? After a frantic search\\, Mikio finally discovers her—an eccentric young woman with a striking personality who simply says\\, \"I thought I could keep myself together if I were at least married\\,\" oﬀering no further explanation. And so\\, their un\\n\\nMore info: https://moviereleaseradar.com/movie/rhapsody-rhapsody/\r\nURL:https://moviereleaseradar.com/movie/rhapsody-rhapsody/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "rhapsody-rhapsody-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

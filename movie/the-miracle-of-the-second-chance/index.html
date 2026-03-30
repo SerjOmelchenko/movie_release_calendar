@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1641958@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1641958@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260926\r\nDTEND;VALUE=DATE:20260927\r\nSUMMARY:The Miracle of the Second Chance (2026)\r\nDESCRIPTION:Based on a 2022 book by a 12 year old black girl The Miracle of the Second Chance is a soulful drama about family\\, tradition\\, and the supernatural bonds that tie us together. The story begins in a vibrant village\\, where young Kristine learns the heart of her culture from her mother. After mastering the family kitchen and teaching her older sisters the art of cooking rice and beans\\, Kristine grows into a determined woman.  Her journey leads her from the village to a bustling nail salon\\, but her l\\n\\nMore info: https://moviereleaseradar.com/movie/the-miracle-of-the-second-chance/\r\nURL:https://moviereleaseradar.com/movie/the-miracle-of-the-second-chance/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "the-miracle-of-the-second-chance-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

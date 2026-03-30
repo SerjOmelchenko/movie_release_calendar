@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1541196@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1541196@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270325\r\nDTEND;VALUE=DATE:20270326\r\nSUMMARY:Winnie-the-Pooh and all-all-all (2027)\r\nDESCRIPTION:Twelve-year-old Artyom discovers a portal to the magical Enchanted Forest at an abandoned dacha and meets its amazing inhabitants\\, Winnie the Pooh and his friends. But an attempt to show off his find to his peers turns into a disaster - Artyom is laughed at\\, because most people see ordinary toys rather than fairy-tale characters. The magic portal disappears\\, leaving Pooh and his friends in the human world. 20 years later\\, Artyom\\, who has forbidden himself to dream and has sunk into routine\\, find\\n\\nMore info: https://moviereleaseradar.com/movie/winnie-the-pooh-and-all-all-all/\r\nURL:https://moviereleaseradar.com/movie/winnie-the-pooh-and-all-all-all/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "winnie-the-pooh-and-all-all-all-2027-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

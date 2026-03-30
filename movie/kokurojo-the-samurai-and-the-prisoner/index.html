@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1620313@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1620313@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260619\r\nDTEND;VALUE=DATE:20260620\r\nSUMMARY:Kokurojo: The Samurai and the Prisoner (2026)\r\nDESCRIPTION:Provincial lord of the Arioka Castle\\, Murashige Araki\\, rebels against tyrannical despot Oda Nobunaga\\, and makes a stand at his stronghold castle. He decides to take siege but is subsequently surrounded by Oda's forces\\, leaving its denizens isolated and in need of allies. With the sensitive support of his wife Chiyoho\\, Murashige struggles to keep his hot-blooded retainers in check\\, while also protecting the castle and its people. One day\\, a young samurai is murdered within the fortress with the m\\n\\nMore info: https://moviereleaseradar.com/movie/kokurojo-the-samurai-and-the-prisoner/\r\nURL:https://moviereleaseradar.com/movie/kokurojo-the-samurai-and-the-prisoner/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "kokurojo-the-samurai-and-the-prisoner-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

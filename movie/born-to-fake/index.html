@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1489036@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1489036@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260528\r\nDTEND;VALUE=DATE:20260529\r\nSUMMARY:Born to Fake (2026)\r\nDESCRIPTION:In 1996\\, one of the biggest media scandals in German history shook the public: Michael Born\\, a self-made journalist\\, had faked over twenty reports for the newly established private television station between 1990 and 1996. Some seemed amateurish\\, others dealt with absurd topics: child labor for IKEA in India\\, drug addicts licking toads to get high\\, and the Ku Klux Klan in the Eifel region were just some of his numerous fabrications. How did it come to this? Was Michael Born an enlightened figure\\n\\nMore info: https://moviereleaseradar.com/movie/born-to-fake/\r\nURL:https://moviereleaseradar.com/movie/born-to-fake/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "born-to-fake-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

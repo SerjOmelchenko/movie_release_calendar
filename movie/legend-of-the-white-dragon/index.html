@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-843352@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-843352@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260828\r\nDTEND;VALUE=DATE:20260829\r\nSUMMARY:Legend of the White Dragon (2026)\r\nDESCRIPTION:The White Dragon\\, Erik Reed\\, has returned home to Virtuo City 3 years later after being defeated in a colossal battle against the ancient overlord\\, Ashtagor. The crystal he used to become the White Dragon was broken in two as a result of the epic battle\\, both pieces were subsequently lost. Being blamed for the destruction and collateral lives lost\\, his identity was outed after the battle thus making him a fugitive from the law. We now follow Erik on his journey as he teams up with treasure hunte\\n\\nMore info: https://moviereleaseradar.com/movie/legend-of-the-white-dragon/\r\nURL:https://moviereleaseradar.com/movie/legend-of-the-white-dragon/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "legend-of-the-white-dragon-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

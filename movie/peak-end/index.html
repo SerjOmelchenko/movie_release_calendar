@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1537860@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1537860@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260620\r\nDTEND;VALUE=DATE:20260621\r\nSUMMARY:PEAK END (2026)\r\nDESCRIPTION:\"Hey Rin\\, let’s send a jam sandwich to space.\" Rin came to Kyoto from Seoul\\, and Sola came to Kyoto from Okinawa. They met at university and have since pursued filmmaking together. They like having fun and they like filming funny things and laughing together. They want to fly a jam sandwich. They want to shoplift a film camera. They want to trace Sora's family roots in Okinawa. The two sublimate their desires to filmmaking. For the two\\, film is like a magic wand. They transform it into all kinds\\n\\nMore info: https://moviereleaseradar.com/movie/peak-end/\r\nURL:https://moviereleaseradar.com/movie/peak-end/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "peak-end-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

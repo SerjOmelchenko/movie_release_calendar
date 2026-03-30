@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1518801@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1518801@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260507\r\nDTEND;VALUE=DATE:20260508\r\nSUMMARY:Do You Love Me (2026)\r\nDESCRIPTION:A playful and personal journey through Lebanon’s audiovisual memory\\, composed entirely of archival footage. It is a love letter to Beirut\\, spanning 70 years of film\\, TV\\, home videos\\, and photography\\, exploring the Lebanese collective psyche – marked by joy and intimacy\\, destruction and loss. Through the eyes of citizens\\, filmmakers and artists\\, the film reconstructs a fragmented history in a country without a national archive\\, celebrating creative expression as both resistance\\, renewal and a way\\n\\nMore info: https://moviereleaseradar.com/movie/do-you-love-me/\r\nURL:https://moviereleaseradar.com/movie/do-you-love-me/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "do-you-love-me-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

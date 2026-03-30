@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1442922@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1442922@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260409\r\nDTEND;VALUE=DATE:20260410\r\nSUMMARY:A Year of School (2026)\r\nDESCRIPTION:2007. Fred\\, a 17-year-old girl who just moved from Sweden to Northeast Italy\\, enrolls for her high school senior year—finding herself the only female student in an all-male class. Lively and good-looking\\, she quickly becomes the center of attention\\, especially for three classmates: Antero\\, charming and reserved\\; Pasini\\, a cocky womanizer\\; Mitis\\, gruff and sagacious. The three have been best friends for as long as they can remember\\, but Fred's arrival puts their longstanding bond to the test. As \\n\\nMore info: https://moviereleaseradar.com/movie/a-year-of-school/\r\nURL:https://moviereleaseradar.com/movie/a-year-of-school/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "a-year-of-school-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

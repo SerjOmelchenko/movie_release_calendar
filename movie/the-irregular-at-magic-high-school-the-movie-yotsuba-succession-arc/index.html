@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1310387@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1310387@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260508\r\nDTEND;VALUE=DATE:20260509\r\nSUMMARY:The Irregular at Magic High School THE MOVIE - Yotsuba Succession Arc - (2026)\r\nDESCRIPTION:The invitation has arrived. It's time for the New Year's Reception at the Yotsuba family residence. This year\\, Miyuki and other candidates will gather there to decide who will be the next leader of their powerful clan. If chosen as successor\\, she would never again have to see her brother live as an outcast. At the same time\\, such a position would surely entail a political marriage\\, leaving her mind in complete turmoil. To complicate matters\\, the current head of the family sows doubt with a shock\\n\\nMore info: https://moviereleaseradar.com/movie/the-irregular-at-magic-high-school-the-movie-yotsuba-succession-arc/\r\nURL:https://moviereleaseradar.com/movie/the-irregular-at-magic-high-school-the-movie-yotsuba-succession-arc/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "the-irregular-at-magic-high-school-the-movie-yotsuba-succession-arc-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

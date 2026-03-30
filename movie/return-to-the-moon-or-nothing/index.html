@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1629790@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1629790@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260617\r\nDTEND;VALUE=DATE:20260618\r\nSUMMARY:Return to the Moon (or Nothing) (2026)\r\nDESCRIPTION:\"For months we experimented and represented ourselves\\, starting with simple walks in search of material for a thesis. How can we visually recreate a memory? We walked and filmed\\, photographed and painted\\, got to know each other and told our stories. An experience transformed into a story that speaks of a shared journey\\, made up of filming\\, changes of season\\, conversations about the moon\\, and exchanges of techniques. Inspired by “Dark Side of the Moon\\,” we tried to represent the intimate and pers\\n\\nMore info: https://moviereleaseradar.com/movie/return-to-the-moon-or-nothing/\r\nURL:https://moviereleaseradar.com/movie/return-to-the-moon-or-nothing/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "return-to-the-moon-or-nothing-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

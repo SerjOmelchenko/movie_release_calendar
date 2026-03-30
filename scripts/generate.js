@@ -663,27 +663,22 @@ function buildMoviePage(movie) {
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-${movie.id}@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\\,').replace(/;/g,'\\;'),
-          'DESCRIPTION:' + desc.replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\\r\\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob([${JSON.stringify(
+          ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Movie Release Radar//EN',
+           'BEGIN:VEVENT',
+           'UID:movie-' + movie.id + '@moviereleasecalendar.com',
+           'DTSTART;VALUE=DATE:' + movie.release_date.replace(/-/g,''),
+           'DTEND;VALUE=DATE:' + (() => { const d=new Date(movie.release_date+'T00:00:00Z'); d.setUTCDate(d.getUTCDate()+1); return d.toISOString().slice(0,10).replace(/-/g,''); })(),
+           'SUMMARY:' + (movie.title+(year?' ('+year+')':'')).replace(/[,;\\]/g,c=>'\\'+c),
+           'DESCRIPTION:' + ((movie.overview||'').slice(0,500)+'\n\nMore info: '+canonicalUrl).replace(/[\n,;\\]/g,c=>c==='\n'?'\\n':'\\'+c),
+           'URL:' + canonicalUrl,
+           'END:VEVENT','END:VCALENDAR'].join('\r\n')
+        )}], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = ${JSON.stringify((movie.title+(year?' ('+year+')':'')).replace(/[^a-z0-9]+/gi,'-').toLowerCase()+'.ics')};
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

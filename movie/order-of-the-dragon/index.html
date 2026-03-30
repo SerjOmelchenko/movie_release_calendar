@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1530062@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1530062@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261218\r\nDTEND;VALUE=DATE:20261219\r\nSUMMARY:Order of the Dragon (2026)\r\nDESCRIPTION:In a world teetering on chaos\\, elite assassin John Rico is the go-to solution when the government wants threats removed-quietly and permanently. But when a mission goes sideways\\, he's given one last shot at redemption: track down and eliminate Mason Ryker\\, the final ghost of the feared underground unit known as The Order of the Dragon. As Rico's mission leads him to a small\\, danger-ridden town in Serbia\\, the lines between good and evil begin to blur. Is Ryker the monster he's made out to be\\, or \\n\\nMore info: https://moviereleaseradar.com/movie/order-of-the-dragon/\r\nURL:https://moviereleaseradar.com/movie/order-of-the-dragon/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "order-of-the-dragon-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');

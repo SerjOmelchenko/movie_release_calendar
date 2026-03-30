@@ -271,28 +271,12 @@
       document.getElementById('cal-yahoo').target = '_blank';
       document.getElementById('cal-yahoo').rel = 'noopener';
 
-      document.getElementById('cal-ics').href = '#';
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var ics = [
-          'BEGIN:VCALENDAR',
-          'VERSION:2.0',
-          'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:movie-1416153@moviereleasecalendar.com',
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + title.replace(/,/g,'\,').replace(/;/g,'\;'),
-          'DESCRIPTION:' + desc.replace(/
-/g,'\n').replace(/,/g,'\,').replace(/;/g,'\;'),
-          'URL:' + pageUrl,
-          'END:VEVENT',
-          'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1416153@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261218\r\nDTEND;VALUE=DATE:20261219\r\nSUMMARY:Prodigal Son (2026)\r\nDESCRIPTION:Aaron \"Amadeus\" Overlake is a visionary filmmaker revered for his genius but plagued by his own demons—a volatile alcoholic whose life is consumed by anger\\, controversy\\, and from a bitter heartbreak. As tabloids revel in his self-destruction\\, Aaron’s only anchor is his best friend\\, Santiago \"Baron\" Gonzalez\\, a charismatic actor fresh out of rehab\\, fighting to rebuild his career.  Bound by shared struggles and a tangled history\\, Aaron and Santiago navigate the toxic undercurrents of fame and frie\\n\\nMore info: https://moviereleaseradar.com/movie/prodigal-son/\r\nURL:https://moviereleaseradar.com/movie/prodigal-son/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/[^a-z0-9]+/gi,'-').toLowerCase() + '.ics';
+        a.download = "prodigal-son-2026-.ics";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
