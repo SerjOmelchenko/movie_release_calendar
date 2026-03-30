@@ -499,6 +499,10 @@ function buildMoviePage(movie) {
     footer a:hover { text-decoration: underline; }
 
     @media (max-width: 640px) {
+      header { padding: 1rem; }
+      .header-inner { flex-direction: row; align-items: center; }
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
       .movie-page { padding: 1rem; }
       .movie-main { flex-direction: column; }
       .movie-poster { width: 140px; }
@@ -1095,8 +1099,8 @@ function buildTopMoviesIndexPage(allMonths, detailedMovies) {
     .month-card { display: flex; flex-direction: column; gap: 0.75rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 1.25rem 1rem; text-decoration: none; color: inherit; transition: border-color 0.15s, background 0.15s; }
     .month-card:hover { border-color: rgba(233,69,96,0.4); background: rgba(233,69,96,0.05); }
     .month-name { font-size: 1.05rem; font-weight: 700; color: #fff; }
-    .month-thumbs { display: flex; gap: 0.35rem; }
-    .month-thumbs img { width: 54px; height: 81px; object-fit: cover; border-radius: 6px; }
+    .month-thumbs { display: flex; gap: 0.35rem; overflow: hidden; }
+    .month-thumbs img { flex: 1 1 0; min-width: 0; width: 0; height: 81px; object-fit: cover; border-radius: 6px; }
     .view-label { font-size: 0.8rem; color: #e94560; font-weight: 600; }
     .updated-note { margin-top: 2.5rem; font-size: 0.78rem; color: #444; text-align: center; }
     .updated-note a { color: #e94560; }
