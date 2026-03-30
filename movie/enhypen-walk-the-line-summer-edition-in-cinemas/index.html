@@ -78,9 +78,18 @@
     .movie-crew strong { color: #ddd; }
     .movie-overview { font-size: 0.975rem; color: #bbb; line-height: 1.75; }
 
-    .wl-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem; padding: 0.6rem 1.3rem; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
+    .movie-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: 1.25rem; }
+    .wl-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.3rem; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
     .wl-btn:hover { border-color: #e94560; color: #e94560; background: rgba(233,69,96,0.07); }
     .wl-btn.wl-active { background: #e94560; border-color: #e94560; color: #fff; }
+
+    .cal-wrap { position: relative; display: inline-block; }
+    .cal-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.3rem; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
+    .cal-btn:hover, .cal-btn.open { border-color: #4a9eff; color: #4a9eff; background: rgba(74,158,255,0.07); }
+    .cal-menu { display: none; position: absolute; top: calc(100% + 6px); left: 0; min-width: 180px; background: #1a1a1a; border: 1px solid #2e2e2e; border-radius: 10px; overflow: hidden; z-index: 100; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+    .cal-menu.open { display: block; }
+    .cal-menu a { display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 1rem; color: #ccc; text-decoration: none; font-size: 0.85rem; transition: background 0.12s, color 0.12s; }
+    .cal-menu a:hover { background: rgba(74,158,255,0.1); color: #4a9eff; }
 
     .trailer-section { margin-top: 2.5rem; }
     .trailer-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 14px; overflow: hidden; background: #111; }
@@ -173,7 +182,10 @@
         <span>&#127775; Jungwon, Heeseung, Jay, Jake, Sunghoon</span>
       </div>
       <p class="movie-overview">Experience ENHYPEN WORLD TOUR 'WALK THE LINE' IN JAPAN – SUMMER EDITION on the big screen! From their very first meeting to the global stage they command today, ENHYPEN's journey is one of growth, unity, and connection. Rising to million-seller status within a year, achieving a record-breaking Tokyo Dome debut, earning their first grand prize in 2025, and delivering a headline-making performance at Coachella, the group's success has been shaped by the powerful bond they share with ENGENEs. This concert film captures that bond in full: electrifying live performances, the intensity of rehearsals, candid moments behind the scenes, and the everyday lives of the members as they travel through Japan in the heat of summer. More than a concert, it is a celebration of connection, a line that continues to extend forward, carrying ENHYPEN and ENGENEs toward the future, together.</p>
-      <button class="wl-btn" id="wl-btn" data-id="1624208">&#9825; Add to Watchlist</button>
+      <div class="movie-actions">
+        <button class="wl-btn" id="wl-btn" data-id="1624208">&#9825; Add to Watchlist</button>
+        
+      </div>
     </div>
   </div>
   <script>
@@ -198,6 +210,8 @@
       render();
     })();
   </script>
+
+  
 
   
   <section class="trailer-section">
