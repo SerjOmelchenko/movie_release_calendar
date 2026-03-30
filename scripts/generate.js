@@ -342,6 +342,8 @@ function buildMoviePage(movie) {
   const backdrop    = movie.backdrop_path ? `${IMG_BASE}w1280${movie.backdrop_path}` : '';
   const poster      = movie.poster_path   ? `${IMG_BASE}w500${movie.poster_path}`   : '';
   const canonicalUrl = `${SITE_BASE}/movie/${movie.slug}/`;
+  const today       = new Date().toISOString().slice(0, 10);
+  const isFuture    = !!movie.release_date && movie.release_date >= today;
 
   const releaseDate = movie.release_date
     ? new Date(movie.release_date + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' })
@@ -574,7 +576,7 @@ function buildMoviePage(movie) {
       <p class="movie-overview">${overview}</p>
       <div class="movie-actions">
         <button class="wl-btn" id="wl-btn" data-id="${movie.id}">&#9825; Add to Watchlist</button>
-        ${movie.release_date ? `
+        ${isFuture ? `
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
@@ -610,7 +612,7 @@ function buildMoviePage(movie) {
     })();
   </script>
 
-  ${movie.release_date ? `
+  ${isFuture ? `
   <script>
     (function(){
       var calBtn  = document.getElementById('cal-btn');
