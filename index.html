@@ -1653,7 +1653,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const urlM = new URLSearchParams(location.search).get('m');
     if (urlM) {
       const [y, m] = urlM.split('-').map(Number);
-      if (!isNaN(y) && !isNaN(m)) { currentYear = y; currentMonth = m; }
+      if (!isNaN(y) && !isNaN(m)) { currentYear = y; currentMonth = m - 1; }
       history.replaceState(null, '', location.pathname); // clean up the URL
     } else {
       const saved = sessionStorage.getItem('calendarMonth');
