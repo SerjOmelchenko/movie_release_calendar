@@ -581,9 +581,7 @@ function buildMoviePage(movie) {
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
             <a href="#" target="_blank" rel="noopener" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" target="_blank" rel="noopener" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" target="_blank" rel="noopener" id="cal-yahoo">&#128197; Yahoo Calendar</a>
-            <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
+            <a href="#" id="cal-ics">&#127822; Apple Calendar (.ics)</a>
           </div>
         </div>` : ''}
       </div>
@@ -643,8 +641,6 @@ function buildMoviePage(movie) {
       dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
       var startG = rd.replace(/-/g, '');
       var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
-      var startI = rd;
-      var endI   = dtEnd.getUTCFullYear() + '-' + pad(dtEnd.getUTCMonth()+1) + '-' + pad(dtEnd.getUTCDate());
       var te = encodeURIComponent(calTitle);
       var de = encodeURIComponent(calDesc);
 
@@ -652,13 +648,6 @@ function buildMoviePage(movie) {
       document.getElementById('cal-google').href =
         'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
         '&dates=' + startG + '/' + endG + '&details=' + de;
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + te +
-        '&startdt=' + startI + '&enddt=' + endI + '&allday=true&body=' + de;
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + te +
-        '&ST=' + startG + '&ET=' + endG + '&in_loc=&DESC=' + de;
-
       // ICS download
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
