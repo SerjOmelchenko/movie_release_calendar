@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Masters%20of%20the%20Universe%20(2026)&amp;dates=20260603/20260604&amp;details=After%20being%20separated%20for%2015%20years%2C%20the%20Sword%20of%20Power%20leads%20Prince%20Adam%20back%20to%20Eternia%2C%20where%20he%20discovers%20his%20home%20shattered%20under%20the%20fiendish%20rule%20of%20Skeletor.%20To%20save%20his%20family%20and%20his%20world%2C%20Adam%20must%20join%20forces%20with%20his%20closest%20allies%2C%20Teela%20and%20Duncan%2FMan-At-Arms%2C%20and%20embrace%20his%20true%20destiny%20as%20He-Man%20%E2%80%94%20the%20most%20powerful%20man%20in%20the%20universe.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmasters-of-the-universe%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Masters%20of%20the%20Universe%20(2026)&amp;startdt=2026-06-03&amp;enddt=2026-06-04&amp;allday=true&amp;body=After%20being%20separated%20for%2015%20years%2C%20the%20Sword%20of%20Power%20leads%20Prince%20Adam%20back%20to%20Eternia%2C%20where%20he%20discovers%20his%20home%20shattered%20under%20the%20fiendish%20rule%20of%20Skeletor.%20To%20save%20his%20family%20and%20his%20world%2C%20Adam%20must%20join%20forces%20with%20his%20closest%20allies%2C%20Teela%20and%20Duncan%2FMan-At-Arms%2C%20and%20embrace%20his%20true%20destiny%20as%20He-Man%20%E2%80%94%20the%20most%20powerful%20man%20in%20the%20universe.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmasters-of-the-universe%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Masters%20of%20the%20Universe%20(2026)&amp;ST=20260603&amp;ET=20260604&amp;in_loc=&amp;DESC=After%20being%20separated%20for%2015%20years%2C%20the%20Sword%20of%20Power%20leads%20Prince%20Adam%20back%20to%20Eternia%2C%20where%20he%20discovers%20his%20home%20shattered%20under%20the%20fiendish%20rule%20of%20Skeletor.%20To%20save%20his%20family%20and%20his%20world%2C%20Adam%20must%20join%20forces%20with%20his%20closest%20allies%2C%20Teela%20and%20Duncan%2FMan-At-Arms%2C%20and%20embrace%20his%20true%20destiny%20as%20He-Man%20%E2%80%94%20the%20most%20powerful%20man%20in%20the%20universe.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmasters-of-the-universe%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Masters of the Universe (2026)";
-      var overview = "After being separated for 15 years, the Sword of Power leads Prince Adam back to Eternia, where he discovers his home shattered under the fiendish rule of Skeletor. To save his family and his world, Adam must join forces with his closest allies, Teela and Duncan/Man-At-Arms, and embrace his true destiny as He-Man — the most powerful man in the universe.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/masters-of-the-universe/";
-      var rawDate  = "2026-06-03";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-454639@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260603\r\nDTEND;VALUE=DATE:20260604\r\nSUMMARY:Masters of the Universe (2026)\r\nDESCRIPTION:After being separated for 15 years\\, the Sword of Power leads Prince Adam back to Eternia\\, where he discovers his home shattered under the fiendish rule of Skeletor. To save his family and his world\\, Adam must join forces with his closest allies\\, Teela and Duncan/Man-At-Arms\\, and embrace his true destiny as He-Man — the most powerful man in the universe.\\n\\nMore info: https://moviereleaseradar.com/movie/masters-of-the-universe/\r\nURL:https://moviereleaseradar.com/movie/masters-of-the-universe/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

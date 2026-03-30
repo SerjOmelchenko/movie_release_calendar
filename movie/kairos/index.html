@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Ka%C3%AFros%20(2026)&amp;dates=20260515/20260516&amp;details=After%20a%20year%20of%20filming%20abroad%2C%20Manu%2C%20a%20once%20prominent%20actor%2C%20returns%20to%20his%20hometown.%20But%20getting%20back%20into%20the%20business%20isn't%20as%20easy%20as%20he%20thought.%20After%20several%20unsuccessful%20auditions%2C%20he's%20no%20longer%20sure%20of%20anything.%20Against%20all%20odds%2C%20he%20lands%20a%20job%20hosting%20a%20nighttime%20call-in%20radio%20show.%20His%20listeners%20are%20mainly%20newcomers%2C%20refugees%20and%20exiles%20with%20varied%20life%20experiences%2C%20working%20graveyard%20shifts.%20Manu%20gradually%20appropriates%20this%20space%2C%20this%20gathering%20of%20mixed%20voices%2C%20to%20launch%20philosophic%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fkairos%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Ka%C3%AFros%20(2026)&amp;startdt=2026-05-15&amp;enddt=2026-05-16&amp;allday=true&amp;body=After%20a%20year%20of%20filming%20abroad%2C%20Manu%2C%20a%20once%20prominent%20actor%2C%20returns%20to%20his%20hometown.%20But%20getting%20back%20into%20the%20business%20isn't%20as%20easy%20as%20he%20thought.%20After%20several%20unsuccessful%20auditions%2C%20he's%20no%20longer%20sure%20of%20anything.%20Against%20all%20odds%2C%20he%20lands%20a%20job%20hosting%20a%20nighttime%20call-in%20radio%20show.%20His%20listeners%20are%20mainly%20newcomers%2C%20refugees%20and%20exiles%20with%20varied%20life%20experiences%2C%20working%20graveyard%20shifts.%20Manu%20gradually%20appropriates%20this%20space%2C%20this%20gathering%20of%20mixed%20voices%2C%20to%20launch%20philosophic%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fkairos%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Ka%C3%AFros%20(2026)&amp;ST=20260515&amp;ET=20260516&amp;in_loc=&amp;DESC=After%20a%20year%20of%20filming%20abroad%2C%20Manu%2C%20a%20once%20prominent%20actor%2C%20returns%20to%20his%20hometown.%20But%20getting%20back%20into%20the%20business%20isn't%20as%20easy%20as%20he%20thought.%20After%20several%20unsuccessful%20auditions%2C%20he's%20no%20longer%20sure%20of%20anything.%20Against%20all%20odds%2C%20he%20lands%20a%20job%20hosting%20a%20nighttime%20call-in%20radio%20show.%20His%20listeners%20are%20mainly%20newcomers%2C%20refugees%20and%20exiles%20with%20varied%20life%20experiences%2C%20working%20graveyard%20shifts.%20Manu%20gradually%20appropriates%20this%20space%2C%20this%20gathering%20of%20mixed%20voices%2C%20to%20launch%20philosophic%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fkairos%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Kaïros (2026)";
-      var overview = "After a year of filming abroad, Manu, a once prominent actor, returns to his hometown. But getting back into the business isn't as easy as he thought. After several unsuccessful auditions, he's no longer sure of anything. Against all odds, he lands a job hosting a nighttime call-in radio show. His listeners are mainly newcomers, refugees and exiles with varied life experiences, working graveyard shifts. Manu gradually appropriates this space, this gathering of mixed voices, to launch philosophic";
-      var pageUrl  = "https://moviereleaseradar.com/movie/kairos/";
-      var rawDate  = "2026-05-15";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1073591@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260515\r\nDTEND;VALUE=DATE:20260516\r\nSUMMARY:Kaïros (2026)\r\nDESCRIPTION:After a year of filming abroad\\, Manu\\, a once prominent actor\\, returns to his hometown. But getting back into the business isn't as easy as he thought. After several unsuccessful auditions\\, he's no longer sure of anything. Against all odds\\, he lands a job hosting a nighttime call-in radio show. His listeners are mainly newcomers\\, refugees and exiles with varied life experiences\\, working graveyard shifts. Manu gradually appropriates this space\\, this gathering of mixed voices\\, to launch philosophic\\n\\nMore info: https://moviereleaseradar.com/movie/kairos/\r\nURL:https://moviereleaseradar.com/movie/kairos/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

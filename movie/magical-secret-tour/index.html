@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Magical%20Secret%20Tour%20(2026)&amp;dates=20260619/20260620&amp;details=A%20mother%20of%20two%20who%20suddenly%20learns%20of%20her%20husband%E2%80%99s%20embezzlement%20and%20crushing%20debts%3B%20a%20researcher%20buried%20in%20debt%3B%20and%20an%20unmarried%2C%20pregnant%20woman%20with%20no%20savings.%20Three%20women%20who%20seem%20to%20have%20nothing%20to%20do%20with%20crime%20cross%20paths%20by%20chance%20and%2C%20through%20gold%20smuggling%2C%20form%20an%20unexpected%20bond%20as%20partners%20in%20crime.%20As%20they%20seize%20money%20and%20freedom%2C%20a%20revenge%20game%20begins%E2%80%94one%20that%20allows%20each%20of%20them%20to%20reclaim%20and%20rebuild%20their%20lives.%20The%20sight%20of%20women%20who%20have%20long%20gone%20with%20the%20flow%20of%20life%2C%20cho%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmagical-secret-tour%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Magical%20Secret%20Tour%20(2026)&amp;startdt=2026-06-19&amp;enddt=2026-06-20&amp;allday=true&amp;body=A%20mother%20of%20two%20who%20suddenly%20learns%20of%20her%20husband%E2%80%99s%20embezzlement%20and%20crushing%20debts%3B%20a%20researcher%20buried%20in%20debt%3B%20and%20an%20unmarried%2C%20pregnant%20woman%20with%20no%20savings.%20Three%20women%20who%20seem%20to%20have%20nothing%20to%20do%20with%20crime%20cross%20paths%20by%20chance%20and%2C%20through%20gold%20smuggling%2C%20form%20an%20unexpected%20bond%20as%20partners%20in%20crime.%20As%20they%20seize%20money%20and%20freedom%2C%20a%20revenge%20game%20begins%E2%80%94one%20that%20allows%20each%20of%20them%20to%20reclaim%20and%20rebuild%20their%20lives.%20The%20sight%20of%20women%20who%20have%20long%20gone%20with%20the%20flow%20of%20life%2C%20cho%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmagical-secret-tour%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Magical%20Secret%20Tour%20(2026)&amp;ST=20260619&amp;ET=20260620&amp;in_loc=&amp;DESC=A%20mother%20of%20two%20who%20suddenly%20learns%20of%20her%20husband%E2%80%99s%20embezzlement%20and%20crushing%20debts%3B%20a%20researcher%20buried%20in%20debt%3B%20and%20an%20unmarried%2C%20pregnant%20woman%20with%20no%20savings.%20Three%20women%20who%20seem%20to%20have%20nothing%20to%20do%20with%20crime%20cross%20paths%20by%20chance%20and%2C%20through%20gold%20smuggling%2C%20form%20an%20unexpected%20bond%20as%20partners%20in%20crime.%20As%20they%20seize%20money%20and%20freedom%2C%20a%20revenge%20game%20begins%E2%80%94one%20that%20allows%20each%20of%20them%20to%20reclaim%20and%20rebuild%20their%20lives.%20The%20sight%20of%20women%20who%20have%20long%20gone%20with%20the%20flow%20of%20life%2C%20cho%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmagical-secret-tour%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Magical Secret Tour (2026)";
-      var overview = "A mother of two who suddenly learns of her husband’s embezzlement and crushing debts; a researcher buried in debt; and an unmarried, pregnant woman with no savings. Three women who seem to have nothing to do with crime cross paths by chance and, through gold smuggling, form an unexpected bond as partners in crime. As they seize money and freedom, a revenge game begins—one that allows each of them to reclaim and rebuild their lives. The sight of women who have long gone with the flow of life, cho";
-      var pageUrl  = "https://moviereleaseradar.com/movie/magical-secret-tour/";
-      var rawDate  = "2026-06-19";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1624812@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260619\r\nDTEND;VALUE=DATE:20260620\r\nSUMMARY:Magical Secret Tour (2026)\r\nDESCRIPTION:A mother of two who suddenly learns of her husband’s embezzlement and crushing debts\\; a researcher buried in debt\\; and an unmarried\\, pregnant woman with no savings. Three women who seem to have nothing to do with crime cross paths by chance and\\, through gold smuggling\\, form an unexpected bond as partners in crime. As they seize money and freedom\\, a revenge game begins—one that allows each of them to reclaim and rebuild their lives. The sight of women who have long gone with the flow of life\\, cho\\n\\nMore info: https://moviereleaseradar.com/movie/magical-secret-tour/\r\nURL:https://moviereleaseradar.com/movie/magical-secret-tour/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

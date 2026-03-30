@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Sultana%20(2026)&amp;dates=20260418/20260419&amp;details=Sultana%20is%20a%20drama%20set%20in%20Istanbul's%20one%20and%20only%20strip%20club%2C%20telling%20a%20story%20of%20a%20women%2C%20power%2C%20rivalry%20and%20solidarity.%20A%20new%20Turkish%20story%20where%20women%20are%20not%20victims%20in%20a%20fairy%20tale%2C%20but%20warriors%20learning%20that%20the%20'handsome%20prince'%20is%20often%20the%20real%20monster-%20and%20their%20only%20salvation%20is%20each%20other.%20Meral%20the%20long%20reigning%20queen%20of%20the%20one%20and%20only%20strip%20club%20of%20Istanbul%20which%20is%20Sultana%2C%20takes%20a%20talented%20new%20Belarusian%20dancer%20named%20Anna%20under%20her%20wing.%20But%20she%20soon%20realizes%20she%20has%20created%20a%20r%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fsultana%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Sultana%20(2026)&amp;startdt=2026-04-18&amp;enddt=2026-04-19&amp;allday=true&amp;body=Sultana%20is%20a%20drama%20set%20in%20Istanbul's%20one%20and%20only%20strip%20club%2C%20telling%20a%20story%20of%20a%20women%2C%20power%2C%20rivalry%20and%20solidarity.%20A%20new%20Turkish%20story%20where%20women%20are%20not%20victims%20in%20a%20fairy%20tale%2C%20but%20warriors%20learning%20that%20the%20'handsome%20prince'%20is%20often%20the%20real%20monster-%20and%20their%20only%20salvation%20is%20each%20other.%20Meral%20the%20long%20reigning%20queen%20of%20the%20one%20and%20only%20strip%20club%20of%20Istanbul%20which%20is%20Sultana%2C%20takes%20a%20talented%20new%20Belarusian%20dancer%20named%20Anna%20under%20her%20wing.%20But%20she%20soon%20realizes%20she%20has%20created%20a%20r%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fsultana%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Sultana%20(2026)&amp;ST=20260418&amp;ET=20260419&amp;in_loc=&amp;DESC=Sultana%20is%20a%20drama%20set%20in%20Istanbul's%20one%20and%20only%20strip%20club%2C%20telling%20a%20story%20of%20a%20women%2C%20power%2C%20rivalry%20and%20solidarity.%20A%20new%20Turkish%20story%20where%20women%20are%20not%20victims%20in%20a%20fairy%20tale%2C%20but%20warriors%20learning%20that%20the%20'handsome%20prince'%20is%20often%20the%20real%20monster-%20and%20their%20only%20salvation%20is%20each%20other.%20Meral%20the%20long%20reigning%20queen%20of%20the%20one%20and%20only%20strip%20club%20of%20Istanbul%20which%20is%20Sultana%2C%20takes%20a%20talented%20new%20Belarusian%20dancer%20named%20Anna%20under%20her%20wing.%20But%20she%20soon%20realizes%20she%20has%20created%20a%20r%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fsultana%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Sultana (2026)";
-      var overview = "Sultana is a drama set in Istanbul's one and only strip club, telling a story of a women, power, rivalry and solidarity. A new Turkish story where women are not victims in a fairy tale, but warriors learning that the 'handsome prince' is often the real monster- and their only salvation is each other. Meral the long reigning queen of the one and only strip club of Istanbul which is Sultana, takes a talented new Belarusian dancer named Anna under her wing. But she soon realizes she has created a r";
-      var pageUrl  = "https://moviereleaseradar.com/movie/sultana/";
-      var rawDate  = "2026-04-18";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1656489@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260418\r\nDTEND;VALUE=DATE:20260419\r\nSUMMARY:Sultana (2026)\r\nDESCRIPTION:Sultana is a drama set in Istanbul's one and only strip club\\, telling a story of a women\\, power\\, rivalry and solidarity. A new Turkish story where women are not victims in a fairy tale\\, but warriors learning that the 'handsome prince' is often the real monster- and their only salvation is each other. Meral the long reigning queen of the one and only strip club of Istanbul which is Sultana\\, takes a talented new Belarusian dancer named Anna under her wing. But she soon realizes she has created a r\\n\\nMore info: https://moviereleaseradar.com/movie/sultana/\r\nURL:https://moviereleaseradar.com/movie/sultana/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

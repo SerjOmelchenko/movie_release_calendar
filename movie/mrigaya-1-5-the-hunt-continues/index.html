@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Mrigaya%201.5%3A%20The%20Hunt%20Continues%20(2026)&amp;dates=20260710/20260711&amp;details=Officer-in-Charge%20Debanjan%20Dutta%20of%20the%20Kolkata%20Police%20and%20his%20team%20face%20mounting%20danger%20while%20investigating%20a%20gruesome%20crime%20that%20shakes%20their%20neighborhood.%20As%20twists%20derail%20the%20probe%2C%20a%20ruthless%20gang%20spreads%20chaos%20across%20the%20city.%20With%20tensions%20rising%20and%20violence%20erupting%2C%20the%20hunt%20intensifies.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmrigaya-1-5-the-hunt-continues%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Mrigaya%201.5%3A%20The%20Hunt%20Continues%20(2026)&amp;startdt=2026-07-10&amp;enddt=2026-07-11&amp;allday=true&amp;body=Officer-in-Charge%20Debanjan%20Dutta%20of%20the%20Kolkata%20Police%20and%20his%20team%20face%20mounting%20danger%20while%20investigating%20a%20gruesome%20crime%20that%20shakes%20their%20neighborhood.%20As%20twists%20derail%20the%20probe%2C%20a%20ruthless%20gang%20spreads%20chaos%20across%20the%20city.%20With%20tensions%20rising%20and%20violence%20erupting%2C%20the%20hunt%20intensifies.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmrigaya-1-5-the-hunt-continues%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Mrigaya%201.5%3A%20The%20Hunt%20Continues%20(2026)&amp;ST=20260710&amp;ET=20260711&amp;in_loc=&amp;DESC=Officer-in-Charge%20Debanjan%20Dutta%20of%20the%20Kolkata%20Police%20and%20his%20team%20face%20mounting%20danger%20while%20investigating%20a%20gruesome%20crime%20that%20shakes%20their%20neighborhood.%20As%20twists%20derail%20the%20probe%2C%20a%20ruthless%20gang%20spreads%20chaos%20across%20the%20city.%20With%20tensions%20rising%20and%20violence%20erupting%2C%20the%20hunt%20intensifies.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmrigaya-1-5-the-hunt-continues%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Mrigaya 1.5: The Hunt Continues (2026)";
-      var overview = "Officer-in-Charge Debanjan Dutta of the Kolkata Police and his team face mounting danger while investigating a gruesome crime that shakes their neighborhood. As twists derail the probe, a ruthless gang spreads chaos across the city. With tensions rising and violence erupting, the hunt intensifies.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/mrigaya-1-5-the-hunt-continues/";
-      var rawDate  = "2026-07-10";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1636756@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260710\r\nDTEND;VALUE=DATE:20260711\r\nSUMMARY:Mrigaya 1.5: The Hunt Continues (2026)\r\nDESCRIPTION:Officer-in-Charge Debanjan Dutta of the Kolkata Police and his team face mounting danger while investigating a gruesome crime that shakes their neighborhood. As twists derail the probe\\, a ruthless gang spreads chaos across the city. With tensions rising and violence erupting\\, the hunt intensifies.\\n\\nMore info: https://moviereleaseradar.com/movie/mrigaya-1-5-the-hunt-continues/\r\nURL:https://moviereleaseradar.com/movie/mrigaya-1-5-the-hunt-continues/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

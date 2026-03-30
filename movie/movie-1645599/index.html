@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%D0%A2%D1%80%D0%B0%D1%81%D1%81%D0%B0%20%C2%AB%D0%9C%D0%BE%D1%80%D0%B5%20%E2%80%94%20%D0%BC%D0%BE%D1%80%D0%B5%C2%BB%20(2026)&amp;dates=20260709/20260710&amp;details=A%20red%20convertible%20is%20speeding%20from%20St.%20Petersburg%20to%20Sochi%2C%20driven%20by%20the%20brazen%20photographer%20Tyoma.%20With%20him%20are%20his%20ex-wife%2C%20Sasha%2C%20and%20her%20new%20fianc%C3%A9.%20Tyoma%20will%20do%20anything%20to%20prevent%20Sasha's%20new%20wedding.%20And%20the%20fatal%20hitchhiker%20Kira%2C%20rescued%20by%20the%20guys%2C%20will%20help%20him.%20Tyoma%20has%20only%20one%20way%20across%20the%20country%20to%20change%20and%20win%20back%20the%20love%20of%20his%20life%E2%80%94if%20his%20brakes%20don't%20fail.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmovie-1645599%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=%D0%A2%D1%80%D0%B0%D1%81%D1%81%D0%B0%20%C2%AB%D0%9C%D0%BE%D1%80%D0%B5%20%E2%80%94%20%D0%BC%D0%BE%D1%80%D0%B5%C2%BB%20(2026)&amp;startdt=2026-07-09&amp;enddt=2026-07-10&amp;allday=true&amp;body=A%20red%20convertible%20is%20speeding%20from%20St.%20Petersburg%20to%20Sochi%2C%20driven%20by%20the%20brazen%20photographer%20Tyoma.%20With%20him%20are%20his%20ex-wife%2C%20Sasha%2C%20and%20her%20new%20fianc%C3%A9.%20Tyoma%20will%20do%20anything%20to%20prevent%20Sasha's%20new%20wedding.%20And%20the%20fatal%20hitchhiker%20Kira%2C%20rescued%20by%20the%20guys%2C%20will%20help%20him.%20Tyoma%20has%20only%20one%20way%20across%20the%20country%20to%20change%20and%20win%20back%20the%20love%20of%20his%20life%E2%80%94if%20his%20brakes%20don't%20fail.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmovie-1645599%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=%D0%A2%D1%80%D0%B0%D1%81%D1%81%D0%B0%20%C2%AB%D0%9C%D0%BE%D1%80%D0%B5%20%E2%80%94%20%D0%BC%D0%BE%D1%80%D0%B5%C2%BB%20(2026)&amp;ST=20260709&amp;ET=20260710&amp;in_loc=&amp;DESC=A%20red%20convertible%20is%20speeding%20from%20St.%20Petersburg%20to%20Sochi%2C%20driven%20by%20the%20brazen%20photographer%20Tyoma.%20With%20him%20are%20his%20ex-wife%2C%20Sasha%2C%20and%20her%20new%20fianc%C3%A9.%20Tyoma%20will%20do%20anything%20to%20prevent%20Sasha's%20new%20wedding.%20And%20the%20fatal%20hitchhiker%20Kira%2C%20rescued%20by%20the%20guys%2C%20will%20help%20him.%20Tyoma%20has%20only%20one%20way%20across%20the%20country%20to%20change%20and%20win%20back%20the%20love%20of%20his%20life%E2%80%94if%20his%20brakes%20don't%20fail.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmovie-1645599%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Трасса «Море — море» (2026)";
-      var overview = "A red convertible is speeding from St. Petersburg to Sochi, driven by the brazen photographer Tyoma. With him are his ex-wife, Sasha, and her new fiancé. Tyoma will do anything to prevent Sasha's new wedding. And the fatal hitchhiker Kira, rescued by the guys, will help him. Tyoma has only one way across the country to change and win back the love of his life—if his brakes don't fail.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/movie-1645599/";
-      var rawDate  = "2026-07-09";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1645599@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260709\r\nDTEND;VALUE=DATE:20260710\r\nSUMMARY:Трасса «Море — море» (2026)\r\nDESCRIPTION:A red convertible is speeding from St. Petersburg to Sochi\\, driven by the brazen photographer Tyoma. With him are his ex-wife\\, Sasha\\, and her new fiancé. Tyoma will do anything to prevent Sasha's new wedding. And the fatal hitchhiker Kira\\, rescued by the guys\\, will help him. Tyoma has only one way across the country to change and win back the love of his life—if his brakes don't fail.\\n\\nMore info: https://moviereleaseradar.com/movie/movie-1645599/\r\nURL:https://moviereleaseradar.com/movie/movie-1645599/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

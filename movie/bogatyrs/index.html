@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Bogatyrs%20(2026)&amp;dates=20260521/20260522&amp;details=Ancient%20Rus.%20The%20hero%20Svyatogor%20defeated%20the%20evil%20Sorcerer%20who%20wanted%20to%20conquer%20Rus%20-%20to%20do%20this%2C%20he%20used%20magic%20to%20turn%20into%20a%20Dragon.%20Svyatogor%20hid%20three%20artifacts%20(the%20claw%2C%20eye%2C%20and%20vein%20of%20the%20Dragon)%20in%20the%20modern%20world%20so%20that%20evil%20would%20never%20return.%20But%20because%20of%20the%20schoolboy%20Vanya%2C%20the%20Sorcerer's%20beloved%20enters%20our%20time.%20She%20wants%20to%20find%20these%20artifacts%2C%20resurrect%20the%20Dragon%2C%20and%20bring%20her%20betrothed%20back%20to%20life.%20Together%20with%20two%20heroes%20from%20ancient%20Rus%2C%20Vanya%20must%20find%20the%20villain%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fbogatyrs%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Bogatyrs%20(2026)&amp;startdt=2026-05-21&amp;enddt=2026-05-22&amp;allday=true&amp;body=Ancient%20Rus.%20The%20hero%20Svyatogor%20defeated%20the%20evil%20Sorcerer%20who%20wanted%20to%20conquer%20Rus%20-%20to%20do%20this%2C%20he%20used%20magic%20to%20turn%20into%20a%20Dragon.%20Svyatogor%20hid%20three%20artifacts%20(the%20claw%2C%20eye%2C%20and%20vein%20of%20the%20Dragon)%20in%20the%20modern%20world%20so%20that%20evil%20would%20never%20return.%20But%20because%20of%20the%20schoolboy%20Vanya%2C%20the%20Sorcerer's%20beloved%20enters%20our%20time.%20She%20wants%20to%20find%20these%20artifacts%2C%20resurrect%20the%20Dragon%2C%20and%20bring%20her%20betrothed%20back%20to%20life.%20Together%20with%20two%20heroes%20from%20ancient%20Rus%2C%20Vanya%20must%20find%20the%20villain%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fbogatyrs%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Bogatyrs%20(2026)&amp;ST=20260521&amp;ET=20260522&amp;in_loc=&amp;DESC=Ancient%20Rus.%20The%20hero%20Svyatogor%20defeated%20the%20evil%20Sorcerer%20who%20wanted%20to%20conquer%20Rus%20-%20to%20do%20this%2C%20he%20used%20magic%20to%20turn%20into%20a%20Dragon.%20Svyatogor%20hid%20three%20artifacts%20(the%20claw%2C%20eye%2C%20and%20vein%20of%20the%20Dragon)%20in%20the%20modern%20world%20so%20that%20evil%20would%20never%20return.%20But%20because%20of%20the%20schoolboy%20Vanya%2C%20the%20Sorcerer's%20beloved%20enters%20our%20time.%20She%20wants%20to%20find%20these%20artifacts%2C%20resurrect%20the%20Dragon%2C%20and%20bring%20her%20betrothed%20back%20to%20life.%20Together%20with%20two%20heroes%20from%20ancient%20Rus%2C%20Vanya%20must%20find%20the%20villain%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fbogatyrs%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Bogatyrs (2026)";
-      var overview = "Ancient Rus. The hero Svyatogor defeated the evil Sorcerer who wanted to conquer Rus - to do this, he used magic to turn into a Dragon. Svyatogor hid three artifacts (the claw, eye, and vein of the Dragon) in the modern world so that evil would never return. But because of the schoolboy Vanya, the Sorcerer's beloved enters our time. She wants to find these artifacts, resurrect the Dragon, and bring her betrothed back to life. Together with two heroes from ancient Rus, Vanya must find the villain";
-      var pageUrl  = "https://moviereleaseradar.com/movie/bogatyrs/";
-      var rawDate  = "2026-05-21";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1494142@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260521\r\nDTEND;VALUE=DATE:20260522\r\nSUMMARY:Bogatyrs (2026)\r\nDESCRIPTION:Ancient Rus. The hero Svyatogor defeated the evil Sorcerer who wanted to conquer Rus - to do this\\, he used magic to turn into a Dragon. Svyatogor hid three artifacts (the claw\\, eye\\, and vein of the Dragon) in the modern world so that evil would never return. But because of the schoolboy Vanya\\, the Sorcerer's beloved enters our time. She wants to find these artifacts\\, resurrect the Dragon\\, and bring her betrothed back to life. Together with two heroes from ancient Rus\\, Vanya must find the villain\\n\\nMore info: https://moviereleaseradar.com/movie/bogatyrs/\r\nURL:https://moviereleaseradar.com/movie/bogatyrs/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Killer's%20Game%3A%20Marai%20Mugam%20(2026)&amp;dates=20260719/20260720&amp;details=After%20the%20assassination%20of%20a%20powerful%20crime%20syndicate%20heir%2C%20a%20coastal%20township%20is%20thrown%20into%20chaos.%20Inspector%20Anand%20Kumar%20is%20assigned%20to%20investigate%20the%20sudden%20rise%20in%20violence%2C%20only%20to%20uncover%20a%20trail%20leading%20to%20a%20mysterious%20vigilante%20known%20as%20the%20Sweet%20Rogue%20Killer.%20As%20the%20ruthless%20Forelli%20syndicate%20returns%20to%20reclaim%20control%2C%20hidden%20truths%20from%20the%20past%20begin%20to%20surface.%20Caught%20between%20law%20and%20justice%2C%20Anand%20must%20navigate%20a%20dangerous%20path%20as%20the%20vigilante%20steps%20out%20of%20the%20shadows%2C%20leading%20to%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-killer-s-game-marai-mugam%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Killer's%20Game%3A%20Marai%20Mugam%20(2026)&amp;startdt=2026-07-19&amp;enddt=2026-07-20&amp;allday=true&amp;body=After%20the%20assassination%20of%20a%20powerful%20crime%20syndicate%20heir%2C%20a%20coastal%20township%20is%20thrown%20into%20chaos.%20Inspector%20Anand%20Kumar%20is%20assigned%20to%20investigate%20the%20sudden%20rise%20in%20violence%2C%20only%20to%20uncover%20a%20trail%20leading%20to%20a%20mysterious%20vigilante%20known%20as%20the%20Sweet%20Rogue%20Killer.%20As%20the%20ruthless%20Forelli%20syndicate%20returns%20to%20reclaim%20control%2C%20hidden%20truths%20from%20the%20past%20begin%20to%20surface.%20Caught%20between%20law%20and%20justice%2C%20Anand%20must%20navigate%20a%20dangerous%20path%20as%20the%20vigilante%20steps%20out%20of%20the%20shadows%2C%20leading%20to%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-killer-s-game-marai-mugam%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Killer's%20Game%3A%20Marai%20Mugam%20(2026)&amp;ST=20260719&amp;ET=20260720&amp;in_loc=&amp;DESC=After%20the%20assassination%20of%20a%20powerful%20crime%20syndicate%20heir%2C%20a%20coastal%20township%20is%20thrown%20into%20chaos.%20Inspector%20Anand%20Kumar%20is%20assigned%20to%20investigate%20the%20sudden%20rise%20in%20violence%2C%20only%20to%20uncover%20a%20trail%20leading%20to%20a%20mysterious%20vigilante%20known%20as%20the%20Sweet%20Rogue%20Killer.%20As%20the%20ruthless%20Forelli%20syndicate%20returns%20to%20reclaim%20control%2C%20hidden%20truths%20from%20the%20past%20begin%20to%20surface.%20Caught%20between%20law%20and%20justice%2C%20Anand%20must%20navigate%20a%20dangerous%20path%20as%20the%20vigilante%20steps%20out%20of%20the%20shadows%2C%20leading%20to%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-killer-s-game-marai-mugam%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "The Killer's Game: Marai Mugam (2026)";
-      var overview = "After the assassination of a powerful crime syndicate heir, a coastal township is thrown into chaos. Inspector Anand Kumar is assigned to investigate the sudden rise in violence, only to uncover a trail leading to a mysterious vigilante known as the Sweet Rogue Killer. As the ruthless Forelli syndicate returns to reclaim control, hidden truths from the past begin to surface. Caught between law and justice, Anand must navigate a dangerous path as the vigilante steps out of the shadows, leading to";
-      var pageUrl  = "https://moviereleaseradar.com/movie/the-killer-s-game-marai-mugam/";
-      var rawDate  = "2026-07-19";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1654365@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260719\r\nDTEND;VALUE=DATE:20260720\r\nSUMMARY:The Killer's Game: Marai Mugam (2026)\r\nDESCRIPTION:After the assassination of a powerful crime syndicate heir\\, a coastal township is thrown into chaos. Inspector Anand Kumar is assigned to investigate the sudden rise in violence\\, only to uncover a trail leading to a mysterious vigilante known as the Sweet Rogue Killer. As the ruthless Forelli syndicate returns to reclaim control\\, hidden truths from the past begin to surface. Caught between law and justice\\, Anand must navigate a dangerous path as the vigilante steps out of the shadows\\, leading to\\n\\nMore info: https://moviereleaseradar.com/movie/the-killer-s-game-marai-mugam/\r\nURL:https://moviereleaseradar.com/movie/the-killer-s-game-marai-mugam/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

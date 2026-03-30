@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=If%20You%20Can%20Make%20It%20Here%20(2026)&amp;dates=20261001/20261002&amp;details=Kingsley%2C%20Kevin%2C%20and%20Hailey%20are%20three%20ambitious%20eighth%20graders%20preparing%20for%20a%20single%20exam%20that%20could%20determine%20their%20futures.%20They%E2%80%99re%20competing%20for%20admission%20to%20New%20York%20City%E2%80%99s%20Specialized%20High%20Schools%2C%20elite%20public%20institutions%20that%20have%20produced%20Nobel%20Prize%20laureates%2C%20astronauts%2C%20judges%2C%20artists%2C%20and%20national%20leaders.%20But%20as%20the%20kids%20await%20their%20test%20results%2C%20a%20citywide%20battle%20is%20raging%20over%20who%20should%20attend%20these%20schools%E2%80%94the%20kids%20who%20score%20highest%20on%20the%20entrance%20exam%20or%20the%20kids%20who%20improv%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fif-you-can-make-it-here%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=If%20You%20Can%20Make%20It%20Here%20(2026)&amp;startdt=2026-10-01&amp;enddt=2026-10-02&amp;allday=true&amp;body=Kingsley%2C%20Kevin%2C%20and%20Hailey%20are%20three%20ambitious%20eighth%20graders%20preparing%20for%20a%20single%20exam%20that%20could%20determine%20their%20futures.%20They%E2%80%99re%20competing%20for%20admission%20to%20New%20York%20City%E2%80%99s%20Specialized%20High%20Schools%2C%20elite%20public%20institutions%20that%20have%20produced%20Nobel%20Prize%20laureates%2C%20astronauts%2C%20judges%2C%20artists%2C%20and%20national%20leaders.%20But%20as%20the%20kids%20await%20their%20test%20results%2C%20a%20citywide%20battle%20is%20raging%20over%20who%20should%20attend%20these%20schools%E2%80%94the%20kids%20who%20score%20highest%20on%20the%20entrance%20exam%20or%20the%20kids%20who%20improv%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fif-you-can-make-it-here%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=If%20You%20Can%20Make%20It%20Here%20(2026)&amp;ST=20261001&amp;ET=20261002&amp;in_loc=&amp;DESC=Kingsley%2C%20Kevin%2C%20and%20Hailey%20are%20three%20ambitious%20eighth%20graders%20preparing%20for%20a%20single%20exam%20that%20could%20determine%20their%20futures.%20They%E2%80%99re%20competing%20for%20admission%20to%20New%20York%20City%E2%80%99s%20Specialized%20High%20Schools%2C%20elite%20public%20institutions%20that%20have%20produced%20Nobel%20Prize%20laureates%2C%20astronauts%2C%20judges%2C%20artists%2C%20and%20national%20leaders.%20But%20as%20the%20kids%20await%20their%20test%20results%2C%20a%20citywide%20battle%20is%20raging%20over%20who%20should%20attend%20these%20schools%E2%80%94the%20kids%20who%20score%20highest%20on%20the%20entrance%20exam%20or%20the%20kids%20who%20improv%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fif-you-can-make-it-here%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "If You Can Make It Here (2026)";
-      var overview = "Kingsley, Kevin, and Hailey are three ambitious eighth graders preparing for a single exam that could determine their futures. They’re competing for admission to New York City’s Specialized High Schools, elite public institutions that have produced Nobel Prize laureates, astronauts, judges, artists, and national leaders. But as the kids await their test results, a citywide battle is raging over who should attend these schools—the kids who score highest on the entrance exam or the kids who improv";
-      var pageUrl  = "https://moviereleaseradar.com/movie/if-you-can-make-it-here/";
-      var rawDate  = "2026-10-01";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1623855@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261001\r\nDTEND;VALUE=DATE:20261002\r\nSUMMARY:If You Can Make It Here (2026)\r\nDESCRIPTION:Kingsley\\, Kevin\\, and Hailey are three ambitious eighth graders preparing for a single exam that could determine their futures. They’re competing for admission to New York City’s Specialized High Schools\\, elite public institutions that have produced Nobel Prize laureates\\, astronauts\\, judges\\, artists\\, and national leaders. But as the kids await their test results\\, a citywide battle is raging over who should attend these schools—the kids who score highest on the entrance exam or the kids who improv\\n\\nMore info: https://moviereleaseradar.com/movie/if-you-can-make-it-here/\r\nURL:https://moviereleaseradar.com/movie/if-you-can-make-it-here/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

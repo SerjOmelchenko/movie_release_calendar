@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Amityville%20Alone%20(2026)&amp;dates=20260818/20260819&amp;details=Meet%20Ricky%2C%20an%208%20year%20old%20boy%20neglected%20by%20his%20father.%20When%20Santa%20forgets%20to%20put%20his%20presents%20under%20the%20tree%2C%20Ricky%20gets%20granted%20three%20Christmas%20miracles%20by%20the%20Tree%20Witch.%20He%20wishes%20to%20be%20BIG%2C%20he%20wishes%20to%20be%20HOME%20ALONE%2C%20and%20finally%2C%20he%20wishes%20for%20his%20E.T.special%20friend%20Tito%20to%20go%20from%20being%20a%20dog%20to%20a%20full%20speaking%20humanoid.%20But%20once%20Ricky%20gets%20in%20trouble%20with%20a%20local%20gangster%2C%20he%20and%20Tito%20will%20have%20to%20fight%20for%20their%20right...%20to%20party!%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Famityville-alone%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Amityville%20Alone%20(2026)&amp;startdt=2026-08-18&amp;enddt=2026-08-19&amp;allday=true&amp;body=Meet%20Ricky%2C%20an%208%20year%20old%20boy%20neglected%20by%20his%20father.%20When%20Santa%20forgets%20to%20put%20his%20presents%20under%20the%20tree%2C%20Ricky%20gets%20granted%20three%20Christmas%20miracles%20by%20the%20Tree%20Witch.%20He%20wishes%20to%20be%20BIG%2C%20he%20wishes%20to%20be%20HOME%20ALONE%2C%20and%20finally%2C%20he%20wishes%20for%20his%20E.T.special%20friend%20Tito%20to%20go%20from%20being%20a%20dog%20to%20a%20full%20speaking%20humanoid.%20But%20once%20Ricky%20gets%20in%20trouble%20with%20a%20local%20gangster%2C%20he%20and%20Tito%20will%20have%20to%20fight%20for%20their%20right...%20to%20party!%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Famityville-alone%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Amityville%20Alone%20(2026)&amp;ST=20260818&amp;ET=20260819&amp;in_loc=&amp;DESC=Meet%20Ricky%2C%20an%208%20year%20old%20boy%20neglected%20by%20his%20father.%20When%20Santa%20forgets%20to%20put%20his%20presents%20under%20the%20tree%2C%20Ricky%20gets%20granted%20three%20Christmas%20miracles%20by%20the%20Tree%20Witch.%20He%20wishes%20to%20be%20BIG%2C%20he%20wishes%20to%20be%20HOME%20ALONE%2C%20and%20finally%2C%20he%20wishes%20for%20his%20E.T.special%20friend%20Tito%20to%20go%20from%20being%20a%20dog%20to%20a%20full%20speaking%20humanoid.%20But%20once%20Ricky%20gets%20in%20trouble%20with%20a%20local%20gangster%2C%20he%20and%20Tito%20will%20have%20to%20fight%20for%20their%20right...%20to%20party!%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Famityville-alone%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Amityville Alone (2026)";
-      var overview = "Meet Ricky, an 8 year old boy neglected by his father. When Santa forgets to put his presents under the tree, Ricky gets granted three Christmas miracles by the Tree Witch. He wishes to be BIG, he wishes to be HOME ALONE, and finally, he wishes for his E.T.special friend Tito to go from being a dog to a full speaking humanoid. But once Ricky gets in trouble with a local gangster, he and Tito will have to fight for their right... to party!";
-      var pageUrl  = "https://moviereleaseradar.com/movie/amityville-alone/";
-      var rawDate  = "2026-08-18";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1465155@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260818\r\nDTEND;VALUE=DATE:20260819\r\nSUMMARY:Amityville Alone (2026)\r\nDESCRIPTION:Meet Ricky\\, an 8 year old boy neglected by his father. When Santa forgets to put his presents under the tree\\, Ricky gets granted three Christmas miracles by the Tree Witch. He wishes to be BIG\\, he wishes to be HOME ALONE\\, and finally\\, he wishes for his E.T.special friend Tito to go from being a dog to a full speaking humanoid. But once Ricky gets in trouble with a local gangster\\, he and Tito will have to fight for their right... to party!\\n\\nMore info: https://moviereleaseradar.com/movie/amityville-alone/\r\nURL:https://moviereleaseradar.com/movie/amityville-alone/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

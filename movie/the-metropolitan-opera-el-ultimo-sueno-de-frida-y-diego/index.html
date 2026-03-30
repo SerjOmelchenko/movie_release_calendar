@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Metropolitan%20Opera%3A%20El%20%C3%9Altimo%20Sue%C3%B1o%20de%20Frida%20y%20Diego%20(2026)&amp;dates=20260530/20260531&amp;details=American%20composer%20Gabriela%20Lena%20Frank%E2%80%99s%20first%20opera%2C%20a%20magical-realist%20portrait%20of%20Mexico%E2%80%99s%20painterly%20power%20couple%20Frida%20Kahlo%20and%20Diego%20Rivera%2C%20with%20libretto%20by%20Pulitzer%20Prize%E2%80%93winning%20playwright%20Nilo%20Cruz.%20Fashioned%20as%20a%20reversal%20of%20the%20Orpheus%20and%20Euridice%20myth%2C%20the%20story%20depicts%20Frida%2C%20sung%20by%20leading%20mezzo-soprano%20Isabel%20Leonard%2C%20leaving%20the%20underworld%20on%20the%20Day%20of%20the%20Dead%20and%20reuniting%20with%20Diego%2C%20portrayed%20by%20baritone%20Carlos%20%C3%81lvarez.%20The%20famously%20feuding%20pair%20briefly%20relive%20their%20tumultu%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-metropolitan-opera-el-ultimo-sueno-de-frida-y-diego%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Metropolitan%20Opera%3A%20El%20%C3%9Altimo%20Sue%C3%B1o%20de%20Frida%20y%20Diego%20(2026)&amp;startdt=2026-05-30&amp;enddt=2026-05-31&amp;allday=true&amp;body=American%20composer%20Gabriela%20Lena%20Frank%E2%80%99s%20first%20opera%2C%20a%20magical-realist%20portrait%20of%20Mexico%E2%80%99s%20painterly%20power%20couple%20Frida%20Kahlo%20and%20Diego%20Rivera%2C%20with%20libretto%20by%20Pulitzer%20Prize%E2%80%93winning%20playwright%20Nilo%20Cruz.%20Fashioned%20as%20a%20reversal%20of%20the%20Orpheus%20and%20Euridice%20myth%2C%20the%20story%20depicts%20Frida%2C%20sung%20by%20leading%20mezzo-soprano%20Isabel%20Leonard%2C%20leaving%20the%20underworld%20on%20the%20Day%20of%20the%20Dead%20and%20reuniting%20with%20Diego%2C%20portrayed%20by%20baritone%20Carlos%20%C3%81lvarez.%20The%20famously%20feuding%20pair%20briefly%20relive%20their%20tumultu%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-metropolitan-opera-el-ultimo-sueno-de-frida-y-diego%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Metropolitan%20Opera%3A%20El%20%C3%9Altimo%20Sue%C3%B1o%20de%20Frida%20y%20Diego%20(2026)&amp;ST=20260530&amp;ET=20260531&amp;in_loc=&amp;DESC=American%20composer%20Gabriela%20Lena%20Frank%E2%80%99s%20first%20opera%2C%20a%20magical-realist%20portrait%20of%20Mexico%E2%80%99s%20painterly%20power%20couple%20Frida%20Kahlo%20and%20Diego%20Rivera%2C%20with%20libretto%20by%20Pulitzer%20Prize%E2%80%93winning%20playwright%20Nilo%20Cruz.%20Fashioned%20as%20a%20reversal%20of%20the%20Orpheus%20and%20Euridice%20myth%2C%20the%20story%20depicts%20Frida%2C%20sung%20by%20leading%20mezzo-soprano%20Isabel%20Leonard%2C%20leaving%20the%20underworld%20on%20the%20Day%20of%20the%20Dead%20and%20reuniting%20with%20Diego%2C%20portrayed%20by%20baritone%20Carlos%20%C3%81lvarez.%20The%20famously%20feuding%20pair%20briefly%20relive%20their%20tumultu%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-metropolitan-opera-el-ultimo-sueno-de-frida-y-diego%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "The Metropolitan Opera: El Último Sueño de Frida y Diego (2026)";
-      var overview = "American composer Gabriela Lena Frank’s first opera, a magical-realist portrait of Mexico’s painterly power couple Frida Kahlo and Diego Rivera, with libretto by Pulitzer Prize–winning playwright Nilo Cruz. Fashioned as a reversal of the Orpheus and Euridice myth, the story depicts Frida, sung by leading mezzo-soprano Isabel Leonard, leaving the underworld on the Day of the Dead and reuniting with Diego, portrayed by baritone Carlos Álvarez. The famously feuding pair briefly relive their tumultu";
-      var pageUrl  = "https://moviereleaseradar.com/movie/the-metropolitan-opera-el-ultimo-sueno-de-frida-y-diego/";
-      var rawDate  = "2026-05-30";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1479653@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260530\r\nDTEND;VALUE=DATE:20260531\r\nSUMMARY:The Metropolitan Opera: El Último Sueño de Frida y Diego (2026)\r\nDESCRIPTION:American composer Gabriela Lena Frank’s first opera\\, a magical-realist portrait of Mexico’s painterly power couple Frida Kahlo and Diego Rivera\\, with libretto by Pulitzer Prize–winning playwright Nilo Cruz. Fashioned as a reversal of the Orpheus and Euridice myth\\, the story depicts Frida\\, sung by leading mezzo-soprano Isabel Leonard\\, leaving the underworld on the Day of the Dead and reuniting with Diego\\, portrayed by baritone Carlos Álvarez. The famously feuding pair briefly relive their tumultu\\n\\nMore info: https://moviereleaseradar.com/movie/the-metropolitan-opera-el-ultimo-sueno-de-frida-y-diego/\r\nURL:https://moviereleaseradar.com/movie/the-metropolitan-opera-el-ultimo-sueno-de-frida-y-diego/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Dovzhenko.%20First%20Sight%20(2026)&amp;dates=20260901/20260902&amp;details=Ukrainian%20Odesa%2C%201926%3A%20a%20city%20recovering%20from%20the%20war%2C%20a%20city%20where%20jazz%20sounds%20and%20cinema%20is%20born.%20Young%20artist%20Sashko%20Dovzhenko%20seeks%20freedom%20in%20art%20-%20and%20stumbles%20upon%20a%20system%20that%20does%20not%20forgive%20dreams.%20His%20first%20film%20may%20be%20his%20last.%20And%20he%20does%20not%20yet%20know%20that%20soon%20his%20name%20will%20be%20known%20to%20the%20whole%20world.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fdovzhenko-first-sight%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Dovzhenko.%20First%20Sight%20(2026)&amp;startdt=2026-09-01&amp;enddt=2026-09-02&amp;allday=true&amp;body=Ukrainian%20Odesa%2C%201926%3A%20a%20city%20recovering%20from%20the%20war%2C%20a%20city%20where%20jazz%20sounds%20and%20cinema%20is%20born.%20Young%20artist%20Sashko%20Dovzhenko%20seeks%20freedom%20in%20art%20-%20and%20stumbles%20upon%20a%20system%20that%20does%20not%20forgive%20dreams.%20His%20first%20film%20may%20be%20his%20last.%20And%20he%20does%20not%20yet%20know%20that%20soon%20his%20name%20will%20be%20known%20to%20the%20whole%20world.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fdovzhenko-first-sight%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Dovzhenko.%20First%20Sight%20(2026)&amp;ST=20260901&amp;ET=20260902&amp;in_loc=&amp;DESC=Ukrainian%20Odesa%2C%201926%3A%20a%20city%20recovering%20from%20the%20war%2C%20a%20city%20where%20jazz%20sounds%20and%20cinema%20is%20born.%20Young%20artist%20Sashko%20Dovzhenko%20seeks%20freedom%20in%20art%20-%20and%20stumbles%20upon%20a%20system%20that%20does%20not%20forgive%20dreams.%20His%20first%20film%20may%20be%20his%20last.%20And%20he%20does%20not%20yet%20know%20that%20soon%20his%20name%20will%20be%20known%20to%20the%20whole%20world.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fdovzhenko-first-sight%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Dovzhenko. First Sight (2026)";
-      var overview = "Ukrainian Odesa, 1926: a city recovering from the war, a city where jazz sounds and cinema is born. Young artist Sashko Dovzhenko seeks freedom in art - and stumbles upon a system that does not forgive dreams. His first film may be his last. And he does not yet know that soon his name will be known to the whole world.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/dovzhenko-first-sight/";
-      var rawDate  = "2026-09-01";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1483101@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260901\r\nDTEND;VALUE=DATE:20260902\r\nSUMMARY:Dovzhenko. First Sight (2026)\r\nDESCRIPTION:Ukrainian Odesa\\, 1926: a city recovering from the war\\, a city where jazz sounds and cinema is born. Young artist Sashko Dovzhenko seeks freedom in art - and stumbles upon a system that does not forgive dreams. His first film may be his last. And he does not yet know that soon his name will be known to the whole world.\\n\\nMore info: https://moviereleaseradar.com/movie/dovzhenko-first-sight/\r\nURL:https://moviereleaseradar.com/movie/dovzhenko-first-sight/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

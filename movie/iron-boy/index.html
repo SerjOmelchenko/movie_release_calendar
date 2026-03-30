@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Iron%20Boy%20(2026)&amp;dates=20261014/20261015&amp;details=In%20rural%20France%2C%20Christophe%20(10)%20tries%20to%20live%20up%20to%20his%20rigid%20and%20distant%20father%20on%20the%20family%20farm.%20But%20the%20young%20boy%20starts%20to%20lean%20over%20and%20collapse%20without%20warning%20%E2%80%94%20on%20the%20tractor%2C%20at%20school%2C%20at%20dinner...%20A%20doctor%20finds%20the%20solution%3A%20Christophe%20must%20wear%20an%20iron%20corset%20to%20keep%20himself%20upright.%20Forced%20to%20reinvent%20his%20life%20away%20from%20the%20farm%2C%20Christophe%20discovers%20a%20new%20passion%20for%20music%2C%20meets%20a%20new%20friend%2C%20and%20follows%20her%20into%20his%20first%20mischief.%20But%20will%20any%20of%20this%20really%20fix%20what%20is%20out%20%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Firon-boy%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Iron%20Boy%20(2026)&amp;startdt=2026-10-14&amp;enddt=2026-10-15&amp;allday=true&amp;body=In%20rural%20France%2C%20Christophe%20(10)%20tries%20to%20live%20up%20to%20his%20rigid%20and%20distant%20father%20on%20the%20family%20farm.%20But%20the%20young%20boy%20starts%20to%20lean%20over%20and%20collapse%20without%20warning%20%E2%80%94%20on%20the%20tractor%2C%20at%20school%2C%20at%20dinner...%20A%20doctor%20finds%20the%20solution%3A%20Christophe%20must%20wear%20an%20iron%20corset%20to%20keep%20himself%20upright.%20Forced%20to%20reinvent%20his%20life%20away%20from%20the%20farm%2C%20Christophe%20discovers%20a%20new%20passion%20for%20music%2C%20meets%20a%20new%20friend%2C%20and%20follows%20her%20into%20his%20first%20mischief.%20But%20will%20any%20of%20this%20really%20fix%20what%20is%20out%20%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Firon-boy%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Iron%20Boy%20(2026)&amp;ST=20261014&amp;ET=20261015&amp;in_loc=&amp;DESC=In%20rural%20France%2C%20Christophe%20(10)%20tries%20to%20live%20up%20to%20his%20rigid%20and%20distant%20father%20on%20the%20family%20farm.%20But%20the%20young%20boy%20starts%20to%20lean%20over%20and%20collapse%20without%20warning%20%E2%80%94%20on%20the%20tractor%2C%20at%20school%2C%20at%20dinner...%20A%20doctor%20finds%20the%20solution%3A%20Christophe%20must%20wear%20an%20iron%20corset%20to%20keep%20himself%20upright.%20Forced%20to%20reinvent%20his%20life%20away%20from%20the%20farm%2C%20Christophe%20discovers%20a%20new%20passion%20for%20music%2C%20meets%20a%20new%20friend%2C%20and%20follows%20her%20into%20his%20first%20mischief.%20But%20will%20any%20of%20this%20really%20fix%20what%20is%20out%20%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Firon-boy%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Iron Boy (2026)";
-      var overview = "In rural France, Christophe (10) tries to live up to his rigid and distant father on the family farm. But the young boy starts to lean over and collapse without warning — on the tractor, at school, at dinner... A doctor finds the solution: Christophe must wear an iron corset to keep himself upright. Forced to reinvent his life away from the farm, Christophe discovers a new passion for music, meets a new friend, and follows her into his first mischief. But will any of this really fix what is out ";
-      var pageUrl  = "https://moviereleaseradar.com/movie/iron-boy/";
-      var rawDate  = "2026-10-14";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-947493@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261014\r\nDTEND;VALUE=DATE:20261015\r\nSUMMARY:Iron Boy (2026)\r\nDESCRIPTION:In rural France\\, Christophe (10) tries to live up to his rigid and distant father on the family farm. But the young boy starts to lean over and collapse without warning — on the tractor\\, at school\\, at dinner... A doctor finds the solution: Christophe must wear an iron corset to keep himself upright. Forced to reinvent his life away from the farm\\, Christophe discovers a new passion for music\\, meets a new friend\\, and follows her into his first mischief. But will any of this really fix what is out \\n\\nMore info: https://moviereleaseradar.com/movie/iron-boy/\r\nURL:https://moviereleaseradar.com/movie/iron-boy/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

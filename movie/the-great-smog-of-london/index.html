@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Great%20Smog%20of%20London%20(2026)&amp;dates=20260402/20260403&amp;details=For%20five%20days%20in%20December%201952%2C%20a%20thick%20smog%20suffocated%20the%20British%20capital%20causing%20the%20death%20of%20thousands%20of%20Londoners.%20The%20health%20catastrophe%20lead%20to%20a%20realisation%2C%20in%20Britain%20and%20around%20the%20world%2C%20that%20air%20pollution%20was%20a%20serious%20threat%20to%20human%20health.%20This%20documentary%20reveals%20what%20happened%2C%20hour%20by%20hour%2C%20in%20one%20of%20the%20worst%20peacetime%20disasters%20of%20the%2020th%20century.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-great-smog-of-london%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Great%20Smog%20of%20London%20(2026)&amp;startdt=2026-04-02&amp;enddt=2026-04-03&amp;allday=true&amp;body=For%20five%20days%20in%20December%201952%2C%20a%20thick%20smog%20suffocated%20the%20British%20capital%20causing%20the%20death%20of%20thousands%20of%20Londoners.%20The%20health%20catastrophe%20lead%20to%20a%20realisation%2C%20in%20Britain%20and%20around%20the%20world%2C%20that%20air%20pollution%20was%20a%20serious%20threat%20to%20human%20health.%20This%20documentary%20reveals%20what%20happened%2C%20hour%20by%20hour%2C%20in%20one%20of%20the%20worst%20peacetime%20disasters%20of%20the%2020th%20century.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-great-smog-of-london%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Great%20Smog%20of%20London%20(2026)&amp;ST=20260402&amp;ET=20260403&amp;in_loc=&amp;DESC=For%20five%20days%20in%20December%201952%2C%20a%20thick%20smog%20suffocated%20the%20British%20capital%20causing%20the%20death%20of%20thousands%20of%20Londoners.%20The%20health%20catastrophe%20lead%20to%20a%20realisation%2C%20in%20Britain%20and%20around%20the%20world%2C%20that%20air%20pollution%20was%20a%20serious%20threat%20to%20human%20health.%20This%20documentary%20reveals%20what%20happened%2C%20hour%20by%20hour%2C%20in%20one%20of%20the%20worst%20peacetime%20disasters%20of%20the%2020th%20century.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-great-smog-of-london%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "The Great Smog of London (2026)";
-      var overview = "For five days in December 1952, a thick smog suffocated the British capital causing the death of thousands of Londoners. The health catastrophe lead to a realisation, in Britain and around the world, that air pollution was a serious threat to human health. This documentary reveals what happened, hour by hour, in one of the worst peacetime disasters of the 20th century.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/the-great-smog-of-london/";
-      var rawDate  = "2026-04-02";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1638207@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260402\r\nDTEND;VALUE=DATE:20260403\r\nSUMMARY:The Great Smog of London (2026)\r\nDESCRIPTION:For five days in December 1952\\, a thick smog suffocated the British capital causing the death of thousands of Londoners. The health catastrophe lead to a realisation\\, in Britain and around the world\\, that air pollution was a serious threat to human health. This documentary reveals what happened\\, hour by hour\\, in one of the worst peacetime disasters of the 20th century.\\n\\nMore info: https://moviereleaseradar.com/movie/the-great-smog-of-london/\r\nURL:https://moviereleaseradar.com/movie/the-great-smog-of-london/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Morten%20(2026)&amp;dates=20260911/20260912&amp;details=A%20coming-of-age%20tale%20told%20in%20a%20magical-realism%20style%20about%20a%20teenage%20boy%2C%20Morten%2C%20who%20feels%20out%20of%20place%20among%20his%20wealthier%20classmates.%20While%20they%20enjoy%20expensive%20school%20trips%2C%20he%20spends%20his%20days%20in%20his%20family%E2%80%99s%20dilapidated%20farmhouse%2C%20finding%20solace%20only%20in%20a%20camera%20gifted%20by%20his%20grandfather%2C%20a%20lens%20through%20which%20the%20world%20seems%20brighter.%20When%20two%20girls%20enter%20his%20life%20-%20Miia%2C%20a%20street%20artist%2C%20and%20Emilie%2C%20a%20mysterious%20girl%20from%20the%20marsh%20-%20Morten%E2%80%99s%20world%20is%20turned%20upside%20down%20as%20he%20struggles%20to%20%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmorten%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Morten%20(2026)&amp;startdt=2026-09-11&amp;enddt=2026-09-12&amp;allday=true&amp;body=A%20coming-of-age%20tale%20told%20in%20a%20magical-realism%20style%20about%20a%20teenage%20boy%2C%20Morten%2C%20who%20feels%20out%20of%20place%20among%20his%20wealthier%20classmates.%20While%20they%20enjoy%20expensive%20school%20trips%2C%20he%20spends%20his%20days%20in%20his%20family%E2%80%99s%20dilapidated%20farmhouse%2C%20finding%20solace%20only%20in%20a%20camera%20gifted%20by%20his%20grandfather%2C%20a%20lens%20through%20which%20the%20world%20seems%20brighter.%20When%20two%20girls%20enter%20his%20life%20-%20Miia%2C%20a%20street%20artist%2C%20and%20Emilie%2C%20a%20mysterious%20girl%20from%20the%20marsh%20-%20Morten%E2%80%99s%20world%20is%20turned%20upside%20down%20as%20he%20struggles%20to%20%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmorten%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Morten%20(2026)&amp;ST=20260911&amp;ET=20260912&amp;in_loc=&amp;DESC=A%20coming-of-age%20tale%20told%20in%20a%20magical-realism%20style%20about%20a%20teenage%20boy%2C%20Morten%2C%20who%20feels%20out%20of%20place%20among%20his%20wealthier%20classmates.%20While%20they%20enjoy%20expensive%20school%20trips%2C%20he%20spends%20his%20days%20in%20his%20family%E2%80%99s%20dilapidated%20farmhouse%2C%20finding%20solace%20only%20in%20a%20camera%20gifted%20by%20his%20grandfather%2C%20a%20lens%20through%20which%20the%20world%20seems%20brighter.%20When%20two%20girls%20enter%20his%20life%20-%20Miia%2C%20a%20street%20artist%2C%20and%20Emilie%2C%20a%20mysterious%20girl%20from%20the%20marsh%20-%20Morten%E2%80%99s%20world%20is%20turned%20upside%20down%20as%20he%20struggles%20to%20%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fmorten%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Morten (2026)";
-      var overview = "A coming-of-age tale told in a magical-realism style about a teenage boy, Morten, who feels out of place among his wealthier classmates. While they enjoy expensive school trips, he spends his days in his family’s dilapidated farmhouse, finding solace only in a camera gifted by his grandfather, a lens through which the world seems brighter. When two girls enter his life - Miia, a street artist, and Emilie, a mysterious girl from the marsh - Morten’s world is turned upside down as he struggles to ";
-      var pageUrl  = "https://moviereleaseradar.com/movie/morten/";
-      var rawDate  = "2026-09-11";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1496862@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260911\r\nDTEND;VALUE=DATE:20260912\r\nSUMMARY:Morten (2026)\r\nDESCRIPTION:A coming-of-age tale told in a magical-realism style about a teenage boy\\, Morten\\, who feels out of place among his wealthier classmates. While they enjoy expensive school trips\\, he spends his days in his family’s dilapidated farmhouse\\, finding solace only in a camera gifted by his grandfather\\, a lens through which the world seems brighter. When two girls enter his life - Miia\\, a street artist\\, and Emilie\\, a mysterious girl from the marsh - Morten’s world is turned upside down as he struggles to \\n\\nMore info: https://moviereleaseradar.com/movie/morten/\r\nURL:https://moviereleaseradar.com/movie/morten/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

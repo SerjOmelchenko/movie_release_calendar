@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Living%20Corpse%20(2026)&amp;dates=20260701/20260702&amp;details=Yosuke%20Shinkai%20is%20haunted%20by%20a%20past%20he%20cannot%20recall%20-%20and%20a%20body%20that%20is%20rapidly%20decomposing.%20He%20is%20a%20living%20corpse%2C%20unclear%20who%20he%20is%20or%20why%20he%20has%20been%20brought%20back%20to%20life%20only%20to%20suffer%20again%20a%20slow%20gruesome%20death.%20Based%20on%20the%201986%20horror%20manga%20by%20Hideshi%20Hino.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fliving-corpse%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Living%20Corpse%20(2026)&amp;startdt=2026-07-01&amp;enddt=2026-07-02&amp;allday=true&amp;body=Yosuke%20Shinkai%20is%20haunted%20by%20a%20past%20he%20cannot%20recall%20-%20and%20a%20body%20that%20is%20rapidly%20decomposing.%20He%20is%20a%20living%20corpse%2C%20unclear%20who%20he%20is%20or%20why%20he%20has%20been%20brought%20back%20to%20life%20only%20to%20suffer%20again%20a%20slow%20gruesome%20death.%20Based%20on%20the%201986%20horror%20manga%20by%20Hideshi%20Hino.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fliving-corpse%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Living%20Corpse%20(2026)&amp;ST=20260701&amp;ET=20260702&amp;in_loc=&amp;DESC=Yosuke%20Shinkai%20is%20haunted%20by%20a%20past%20he%20cannot%20recall%20-%20and%20a%20body%20that%20is%20rapidly%20decomposing.%20He%20is%20a%20living%20corpse%2C%20unclear%20who%20he%20is%20or%20why%20he%20has%20been%20brought%20back%20to%20life%20only%20to%20suffer%20again%20a%20slow%20gruesome%20death.%20Based%20on%20the%201986%20horror%20manga%20by%20Hideshi%20Hino.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fliving-corpse%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Living Corpse (2026)";
-      var overview = "Yosuke Shinkai is haunted by a past he cannot recall - and a body that is rapidly decomposing. He is a living corpse, unclear who he is or why he has been brought back to life only to suffer again a slow gruesome death. Based on the 1986 horror manga by Hideshi Hino.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/living-corpse/";
-      var rawDate  = "2026-07-01";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1634820@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260701\r\nDTEND;VALUE=DATE:20260702\r\nSUMMARY:Living Corpse (2026)\r\nDESCRIPTION:Yosuke Shinkai is haunted by a past he cannot recall - and a body that is rapidly decomposing. He is a living corpse\\, unclear who he is or why he has been brought back to life only to suffer again a slow gruesome death. Based on the 1986 horror manga by Hideshi Hino.\\n\\nMore info: https://moviereleaseradar.com/movie/living-corpse/\r\nURL:https://moviereleaseradar.com/movie/living-corpse/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

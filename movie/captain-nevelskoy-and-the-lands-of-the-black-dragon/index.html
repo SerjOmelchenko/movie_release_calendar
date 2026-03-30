@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Captain%20Nevelskoy%20and%20the%20Lands%20of%20the%20Black%20Dragon%20(2026)&amp;dates=20260910/20260911&amp;details=Captain%20Gennady%20Nevelskoy%2C%20an%20excellent%20student%20at%20the%20Naval%20Academy%2C%20because%20of%20his%20talent%2C%20instead%20of%20conquering%20distant%20seas%2C%20he%20is%20forced%20to%20teach%20marine%20science%20to%20the%20Tsarevich%2C%20watching%20as%20other%20people's%20dreams%20replace%20his%20own.%2014-year-old%20Nadezhda%2C%20a%20young%20pupil%20of%20the%20Institute%20of%20noble%20maidens%2C%20has%20not%20managed%20to%20find%20her%20place%20in%20the%20capital.%20In%20her%20heart%2C%20she%20knows%20that%20her%20real%20home%20is%20lost%20somewhere%20in%20the%20lands%20of%20the%20Far%20East%2C%20and%20she%20needs%20to%20return%20there.%20Having%20met%20each%20other%2C%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fcaptain-nevelskoy-and-the-lands-of-the-black-dragon%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Captain%20Nevelskoy%20and%20the%20Lands%20of%20the%20Black%20Dragon%20(2026)&amp;startdt=2026-09-10&amp;enddt=2026-09-11&amp;allday=true&amp;body=Captain%20Gennady%20Nevelskoy%2C%20an%20excellent%20student%20at%20the%20Naval%20Academy%2C%20because%20of%20his%20talent%2C%20instead%20of%20conquering%20distant%20seas%2C%20he%20is%20forced%20to%20teach%20marine%20science%20to%20the%20Tsarevich%2C%20watching%20as%20other%20people's%20dreams%20replace%20his%20own.%2014-year-old%20Nadezhda%2C%20a%20young%20pupil%20of%20the%20Institute%20of%20noble%20maidens%2C%20has%20not%20managed%20to%20find%20her%20place%20in%20the%20capital.%20In%20her%20heart%2C%20she%20knows%20that%20her%20real%20home%20is%20lost%20somewhere%20in%20the%20lands%20of%20the%20Far%20East%2C%20and%20she%20needs%20to%20return%20there.%20Having%20met%20each%20other%2C%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fcaptain-nevelskoy-and-the-lands-of-the-black-dragon%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Captain%20Nevelskoy%20and%20the%20Lands%20of%20the%20Black%20Dragon%20(2026)&amp;ST=20260910&amp;ET=20260911&amp;in_loc=&amp;DESC=Captain%20Gennady%20Nevelskoy%2C%20an%20excellent%20student%20at%20the%20Naval%20Academy%2C%20because%20of%20his%20talent%2C%20instead%20of%20conquering%20distant%20seas%2C%20he%20is%20forced%20to%20teach%20marine%20science%20to%20the%20Tsarevich%2C%20watching%20as%20other%20people's%20dreams%20replace%20his%20own.%2014-year-old%20Nadezhda%2C%20a%20young%20pupil%20of%20the%20Institute%20of%20noble%20maidens%2C%20has%20not%20managed%20to%20find%20her%20place%20in%20the%20capital.%20In%20her%20heart%2C%20she%20knows%20that%20her%20real%20home%20is%20lost%20somewhere%20in%20the%20lands%20of%20the%20Far%20East%2C%20and%20she%20needs%20to%20return%20there.%20Having%20met%20each%20other%2C%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fcaptain-nevelskoy-and-the-lands-of-the-black-dragon%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Captain Nevelskoy and the Lands of the Black Dragon (2026)";
-      var overview = "Captain Gennady Nevelskoy, an excellent student at the Naval Academy, because of his talent, instead of conquering distant seas, he is forced to teach marine science to the Tsarevich, watching as other people's dreams replace his own. 14-year-old Nadezhda, a young pupil of the Institute of noble maidens, has not managed to find her place in the capital. In her heart, she knows that her real home is lost somewhere in the lands of the Far East, and she needs to return there. Having met each other,";
-      var pageUrl  = "https://moviereleaseradar.com/movie/captain-nevelskoy-and-the-lands-of-the-black-dragon/";
-      var rawDate  = "2026-09-10";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1652306@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260910\r\nDTEND;VALUE=DATE:20260911\r\nSUMMARY:Captain Nevelskoy and the Lands of the Black Dragon (2026)\r\nDESCRIPTION:Captain Gennady Nevelskoy\\, an excellent student at the Naval Academy\\, because of his talent\\, instead of conquering distant seas\\, he is forced to teach marine science to the Tsarevich\\, watching as other people's dreams replace his own. 14-year-old Nadezhda\\, a young pupil of the Institute of noble maidens\\, has not managed to find her place in the capital. In her heart\\, she knows that her real home is lost somewhere in the lands of the Far East\\, and she needs to return there. Having met each other\\,\\n\\nMore info: https://moviereleaseradar.com/movie/captain-nevelskoy-and-the-lands-of-the-black-dragon/\r\nURL:https://moviereleaseradar.com/movie/captain-nevelskoy-and-the-lands-of-the-black-dragon/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

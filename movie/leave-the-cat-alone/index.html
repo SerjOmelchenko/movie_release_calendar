@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Leave%20the%20Cat%20Alone%20(2026)&amp;dates=20260502/20260503&amp;details=Plagued%20by%20insomnia%20and%20lethargy%2C%20Mori%20lets%20time%20drift%20aimlessly%2C%20unable%20to%20create%20any%20meaningful%20music%2C%20all%20while%20uneasily%20sharing%20a%20home%20with%20his%20wife%2C%20Maiko%2C%20a%20successful%20and%20driven%20photographer.%20When%20Mori%20and%20his%20former%20lover%2C%20Asako%2C%20reunite%20by%20chance%20and%20catch%20up%2C%20they%20confront%20different%20versions%20of%20the%20past%20within%20their%20own%20recalled%20memories.%20After%20they%20part%20ways%2C%20Asako%20comes%20home%20to%20a%20warm%20meal%20lovingly%20prepared%20by%20her%20partner%2C%20and%20a%20rekindled%20desire%20to%20paint%20again.%20At%20the%20same%20time%2C%20Mori%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fleave-the-cat-alone%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Leave%20the%20Cat%20Alone%20(2026)&amp;startdt=2026-05-02&amp;enddt=2026-05-03&amp;allday=true&amp;body=Plagued%20by%20insomnia%20and%20lethargy%2C%20Mori%20lets%20time%20drift%20aimlessly%2C%20unable%20to%20create%20any%20meaningful%20music%2C%20all%20while%20uneasily%20sharing%20a%20home%20with%20his%20wife%2C%20Maiko%2C%20a%20successful%20and%20driven%20photographer.%20When%20Mori%20and%20his%20former%20lover%2C%20Asako%2C%20reunite%20by%20chance%20and%20catch%20up%2C%20they%20confront%20different%20versions%20of%20the%20past%20within%20their%20own%20recalled%20memories.%20After%20they%20part%20ways%2C%20Asako%20comes%20home%20to%20a%20warm%20meal%20lovingly%20prepared%20by%20her%20partner%2C%20and%20a%20rekindled%20desire%20to%20paint%20again.%20At%20the%20same%20time%2C%20Mori%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fleave-the-cat-alone%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Leave%20the%20Cat%20Alone%20(2026)&amp;ST=20260502&amp;ET=20260503&amp;in_loc=&amp;DESC=Plagued%20by%20insomnia%20and%20lethargy%2C%20Mori%20lets%20time%20drift%20aimlessly%2C%20unable%20to%20create%20any%20meaningful%20music%2C%20all%20while%20uneasily%20sharing%20a%20home%20with%20his%20wife%2C%20Maiko%2C%20a%20successful%20and%20driven%20photographer.%20When%20Mori%20and%20his%20former%20lover%2C%20Asako%2C%20reunite%20by%20chance%20and%20catch%20up%2C%20they%20confront%20different%20versions%20of%20the%20past%20within%20their%20own%20recalled%20memories.%20After%20they%20part%20ways%2C%20Asako%20comes%20home%20to%20a%20warm%20meal%20lovingly%20prepared%20by%20her%20partner%2C%20and%20a%20rekindled%20desire%20to%20paint%20again.%20At%20the%20same%20time%2C%20Mori%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fleave-the-cat-alone%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Leave the Cat Alone (2026)";
-      var overview = "Plagued by insomnia and lethargy, Mori lets time drift aimlessly, unable to create any meaningful music, all while uneasily sharing a home with his wife, Maiko, a successful and driven photographer. When Mori and his former lover, Asako, reunite by chance and catch up, they confront different versions of the past within their own recalled memories. After they part ways, Asako comes home to a warm meal lovingly prepared by her partner, and a rekindled desire to paint again. At the same time, Mori";
-      var pageUrl  = "https://moviereleaseradar.com/movie/leave-the-cat-alone/";
-      var rawDate  = "2026-05-02";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1535944@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260502\r\nDTEND;VALUE=DATE:20260503\r\nSUMMARY:Leave the Cat Alone (2026)\r\nDESCRIPTION:Plagued by insomnia and lethargy\\, Mori lets time drift aimlessly\\, unable to create any meaningful music\\, all while uneasily sharing a home with his wife\\, Maiko\\, a successful and driven photographer. When Mori and his former lover\\, Asako\\, reunite by chance and catch up\\, they confront different versions of the past within their own recalled memories. After they part ways\\, Asako comes home to a warm meal lovingly prepared by her partner\\, and a rekindled desire to paint again. At the same time\\, Mori\\n\\nMore info: https://moviereleaseradar.com/movie/leave-the-cat-alone/\r\nURL:https://moviereleaseradar.com/movie/leave-the-cat-alone/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

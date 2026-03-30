@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Pretty%20Ugly%3A%20The%20Story%20of%20the%20Lunachicks%20(2026)&amp;dates=20260424/20260425&amp;details=Punk%20music%20icons%2C%20Lunachicks%2C%20reunite%20after%2020%20years%20in%20an%20unfiltered%2C%20hilarious%2C%20and%20electric%20documentary.%20Packed%20with%20rare%20archival%20footage%2C%20the%20film%20traces%20their%20rise%20from%20gritty%20NYC%20teens%20to%20feminist%20trailblazers%20of%20the%2090s%20grunge%20era.%20Fans%20and%20newcomers%20alike%20will%20thrill%20as%20the%20band%20recounts%20old%20antics%2C%20rekindles%20bonds%2C%20and%20embarks%20on%20their%20long-awaited%20journey%20back%20to%20the%20stage.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fpretty-ugly-the-story-of-the-lunachicks%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Pretty%20Ugly%3A%20The%20Story%20of%20the%20Lunachicks%20(2026)&amp;startdt=2026-04-24&amp;enddt=2026-04-25&amp;allday=true&amp;body=Punk%20music%20icons%2C%20Lunachicks%2C%20reunite%20after%2020%20years%20in%20an%20unfiltered%2C%20hilarious%2C%20and%20electric%20documentary.%20Packed%20with%20rare%20archival%20footage%2C%20the%20film%20traces%20their%20rise%20from%20gritty%20NYC%20teens%20to%20feminist%20trailblazers%20of%20the%2090s%20grunge%20era.%20Fans%20and%20newcomers%20alike%20will%20thrill%20as%20the%20band%20recounts%20old%20antics%2C%20rekindles%20bonds%2C%20and%20embarks%20on%20their%20long-awaited%20journey%20back%20to%20the%20stage.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fpretty-ugly-the-story-of-the-lunachicks%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Pretty%20Ugly%3A%20The%20Story%20of%20the%20Lunachicks%20(2026)&amp;ST=20260424&amp;ET=20260425&amp;in_loc=&amp;DESC=Punk%20music%20icons%2C%20Lunachicks%2C%20reunite%20after%2020%20years%20in%20an%20unfiltered%2C%20hilarious%2C%20and%20electric%20documentary.%20Packed%20with%20rare%20archival%20footage%2C%20the%20film%20traces%20their%20rise%20from%20gritty%20NYC%20teens%20to%20feminist%20trailblazers%20of%20the%2090s%20grunge%20era.%20Fans%20and%20newcomers%20alike%20will%20thrill%20as%20the%20band%20recounts%20old%20antics%2C%20rekindles%20bonds%2C%20and%20embarks%20on%20their%20long-awaited%20journey%20back%20to%20the%20stage.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fpretty-ugly-the-story-of-the-lunachicks%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Pretty Ugly: The Story of the Lunachicks (2026)";
-      var overview = "Punk music icons, Lunachicks, reunite after 20 years in an unfiltered, hilarious, and electric documentary. Packed with rare archival footage, the film traces their rise from gritty NYC teens to feminist trailblazers of the 90s grunge era. Fans and newcomers alike will thrill as the band recounts old antics, rekindles bonds, and embarks on their long-awaited journey back to the stage.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/pretty-ugly-the-story-of-the-lunachicks/";
-      var rawDate  = "2026-04-24";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1201457@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260424\r\nDTEND;VALUE=DATE:20260425\r\nSUMMARY:Pretty Ugly: The Story of the Lunachicks (2026)\r\nDESCRIPTION:Punk music icons\\, Lunachicks\\, reunite after 20 years in an unfiltered\\, hilarious\\, and electric documentary. Packed with rare archival footage\\, the film traces their rise from gritty NYC teens to feminist trailblazers of the 90s grunge era. Fans and newcomers alike will thrill as the band recounts old antics\\, rekindles bonds\\, and embarks on their long-awaited journey back to the stage.\\n\\nMore info: https://moviereleaseradar.com/movie/pretty-ugly-the-story-of-the-lunachicks/\r\nURL:https://moviereleaseradar.com/movie/pretty-ugly-the-story-of-the-lunachicks/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

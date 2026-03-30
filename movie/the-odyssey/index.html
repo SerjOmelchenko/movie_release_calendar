@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Odyssey%20(2026)&amp;dates=20260715/20260716&amp;details=Odysseus%2C%20the%20legendary%20Greek%20king%20of%20Ithaca%2C%20embarks%20on%20a%20long%20and%20perilous%20journey%20home%20following%20the%20Trojan%20War%2C%20chronicling%20his%20encounters%20with%20mythical%20beings%20such%20as%20the%20Cyclops%20Polyphemus%2C%20the%20Sirens%2C%20and%20the%20witch-goddess%20Circe%2C%20while%20attempting%20to%20reunite%20with%20his%20wife%2C%20Penelope.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-odyssey%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Odyssey%20(2026)&amp;startdt=2026-07-15&amp;enddt=2026-07-16&amp;allday=true&amp;body=Odysseus%2C%20the%20legendary%20Greek%20king%20of%20Ithaca%2C%20embarks%20on%20a%20long%20and%20perilous%20journey%20home%20following%20the%20Trojan%20War%2C%20chronicling%20his%20encounters%20with%20mythical%20beings%20such%20as%20the%20Cyclops%20Polyphemus%2C%20the%20Sirens%2C%20and%20the%20witch-goddess%20Circe%2C%20while%20attempting%20to%20reunite%20with%20his%20wife%2C%20Penelope.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-odyssey%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Odyssey%20(2026)&amp;ST=20260715&amp;ET=20260716&amp;in_loc=&amp;DESC=Odysseus%2C%20the%20legendary%20Greek%20king%20of%20Ithaca%2C%20embarks%20on%20a%20long%20and%20perilous%20journey%20home%20following%20the%20Trojan%20War%2C%20chronicling%20his%20encounters%20with%20mythical%20beings%20such%20as%20the%20Cyclops%20Polyphemus%2C%20the%20Sirens%2C%20and%20the%20witch-goddess%20Circe%2C%20while%20attempting%20to%20reunite%20with%20his%20wife%2C%20Penelope.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-odyssey%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "The Odyssey (2026)";
-      var overview = "Odysseus, the legendary Greek king of Ithaca, embarks on a long and perilous journey home following the Trojan War, chronicling his encounters with mythical beings such as the Cyclops Polyphemus, the Sirens, and the witch-goddess Circe, while attempting to reunite with his wife, Penelope.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/the-odyssey/";
-      var rawDate  = "2026-07-15";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1368337@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260715\r\nDTEND;VALUE=DATE:20260716\r\nSUMMARY:The Odyssey (2026)\r\nDESCRIPTION:Odysseus\\, the legendary Greek king of Ithaca\\, embarks on a long and perilous journey home following the Trojan War\\, chronicling his encounters with mythical beings such as the Cyclops Polyphemus\\, the Sirens\\, and the witch-goddess Circe\\, while attempting to reunite with his wife\\, Penelope.\\n\\nMore info: https://moviereleaseradar.com/movie/the-odyssey/\r\nURL:https://moviereleaseradar.com/movie/the-odyssey/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

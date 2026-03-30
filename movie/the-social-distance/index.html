@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Social%20Distance%20(2026)&amp;dates=20260701/20260702&amp;details=In%20an%20attempt%20to%20make%20the%20most%20of%20their%20limited%20fun%20during%20the%20summer%20of%20the%20%20Covid-19%20lockdown%2C%20a%20science%20nerd%20and%20her%20boy-crazy%20best%20friend%20decide%20to%20build%20%20a%20spaceship%20to%20escape%20the%20quarantine%20before%20the%20summer%20ends%20and%20they%20start%20at%20%20different%20highschools%2C%20but%20as%20the%20lift-off%20draws%20near%2C%20they%20find%20that%20building%20a%20%20rocket%20may%20prove%20easier%20than%20maintaining%20their%20friendship.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-social-distance%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Social%20Distance%20(2026)&amp;startdt=2026-07-01&amp;enddt=2026-07-02&amp;allday=true&amp;body=In%20an%20attempt%20to%20make%20the%20most%20of%20their%20limited%20fun%20during%20the%20summer%20of%20the%20%20Covid-19%20lockdown%2C%20a%20science%20nerd%20and%20her%20boy-crazy%20best%20friend%20decide%20to%20build%20%20a%20spaceship%20to%20escape%20the%20quarantine%20before%20the%20summer%20ends%20and%20they%20start%20at%20%20different%20highschools%2C%20but%20as%20the%20lift-off%20draws%20near%2C%20they%20find%20that%20building%20a%20%20rocket%20may%20prove%20easier%20than%20maintaining%20their%20friendship.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-social-distance%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Social%20Distance%20(2026)&amp;ST=20260701&amp;ET=20260702&amp;in_loc=&amp;DESC=In%20an%20attempt%20to%20make%20the%20most%20of%20their%20limited%20fun%20during%20the%20summer%20of%20the%20%20Covid-19%20lockdown%2C%20a%20science%20nerd%20and%20her%20boy-crazy%20best%20friend%20decide%20to%20build%20%20a%20spaceship%20to%20escape%20the%20quarantine%20before%20the%20summer%20ends%20and%20they%20start%20at%20%20different%20highschools%2C%20but%20as%20the%20lift-off%20draws%20near%2C%20they%20find%20that%20building%20a%20%20rocket%20may%20prove%20easier%20than%20maintaining%20their%20friendship.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-social-distance%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "The Social Distance (2026)";
-      var overview = "In an attempt to make the most of their limited fun during the summer of the  Covid-19 lockdown, a science nerd and her boy-crazy best friend decide to build  a spaceship to escape the quarantine before the summer ends and they start at  different highschools, but as the lift-off draws near, they find that building a  rocket may prove easier than maintaining their friendship.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/the-social-distance/";
-      var rawDate  = "2026-07-01";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1515519@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260701\r\nDTEND;VALUE=DATE:20260702\r\nSUMMARY:The Social Distance (2026)\r\nDESCRIPTION:In an attempt to make the most of their limited fun during the summer of the  Covid-19 lockdown\\, a science nerd and her boy-crazy best friend decide to build  a spaceship to escape the quarantine before the summer ends and they start at  different highschools\\, but as the lift-off draws near\\, they find that building a  rocket may prove easier than maintaining their friendship.\\n\\nMore info: https://moviereleaseradar.com/movie/the-social-distance/\r\nURL:https://moviereleaseradar.com/movie/the-social-distance/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

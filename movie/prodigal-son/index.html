@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Prodigal%20Son%20(2026)&amp;dates=20261218/20261219&amp;details=Aaron%20%22Amadeus%22%20Overlake%20is%20a%20visionary%20filmmaker%20revered%20for%20his%20genius%20but%20plagued%20by%20his%20own%20demons%E2%80%94a%20volatile%20alcoholic%20whose%20life%20is%20consumed%20by%20anger%2C%20controversy%2C%20and%20from%20a%20bitter%20heartbreak.%20As%20tabloids%20revel%20in%20his%20self-destruction%2C%20Aaron%E2%80%99s%20only%20anchor%20is%20his%20best%20friend%2C%20Santiago%20%22Baron%22%20Gonzalez%2C%20a%20charismatic%20actor%20fresh%20out%20of%20rehab%2C%20fighting%20to%20rebuild%20his%20career.%20%20Bound%20by%20shared%20struggles%20and%20a%20tangled%20history%2C%20Aaron%20and%20Santiago%20navigate%20the%20toxic%20undercurrents%20of%20fame%20and%20frie%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fprodigal-son%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Prodigal%20Son%20(2026)&amp;startdt=2026-12-18&amp;enddt=2026-12-19&amp;allday=true&amp;body=Aaron%20%22Amadeus%22%20Overlake%20is%20a%20visionary%20filmmaker%20revered%20for%20his%20genius%20but%20plagued%20by%20his%20own%20demons%E2%80%94a%20volatile%20alcoholic%20whose%20life%20is%20consumed%20by%20anger%2C%20controversy%2C%20and%20from%20a%20bitter%20heartbreak.%20As%20tabloids%20revel%20in%20his%20self-destruction%2C%20Aaron%E2%80%99s%20only%20anchor%20is%20his%20best%20friend%2C%20Santiago%20%22Baron%22%20Gonzalez%2C%20a%20charismatic%20actor%20fresh%20out%20of%20rehab%2C%20fighting%20to%20rebuild%20his%20career.%20%20Bound%20by%20shared%20struggles%20and%20a%20tangled%20history%2C%20Aaron%20and%20Santiago%20navigate%20the%20toxic%20undercurrents%20of%20fame%20and%20frie%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fprodigal-son%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Prodigal%20Son%20(2026)&amp;ST=20261218&amp;ET=20261219&amp;in_loc=&amp;DESC=Aaron%20%22Amadeus%22%20Overlake%20is%20a%20visionary%20filmmaker%20revered%20for%20his%20genius%20but%20plagued%20by%20his%20own%20demons%E2%80%94a%20volatile%20alcoholic%20whose%20life%20is%20consumed%20by%20anger%2C%20controversy%2C%20and%20from%20a%20bitter%20heartbreak.%20As%20tabloids%20revel%20in%20his%20self-destruction%2C%20Aaron%E2%80%99s%20only%20anchor%20is%20his%20best%20friend%2C%20Santiago%20%22Baron%22%20Gonzalez%2C%20a%20charismatic%20actor%20fresh%20out%20of%20rehab%2C%20fighting%20to%20rebuild%20his%20career.%20%20Bound%20by%20shared%20struggles%20and%20a%20tangled%20history%2C%20Aaron%20and%20Santiago%20navigate%20the%20toxic%20undercurrents%20of%20fame%20and%20frie%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fprodigal-son%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Prodigal Son (2026)";
-      var overview = "Aaron \"Amadeus\" Overlake is a visionary filmmaker revered for his genius but plagued by his own demons—a volatile alcoholic whose life is consumed by anger, controversy, and from a bitter heartbreak. As tabloids revel in his self-destruction, Aaron’s only anchor is his best friend, Santiago \"Baron\" Gonzalez, a charismatic actor fresh out of rehab, fighting to rebuild his career.  Bound by shared struggles and a tangled history, Aaron and Santiago navigate the toxic undercurrents of fame and frie";
-      var pageUrl  = "https://moviereleaseradar.com/movie/prodigal-son/";
-      var rawDate  = "2026-12-18";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1416153@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261218\r\nDTEND;VALUE=DATE:20261219\r\nSUMMARY:Prodigal Son (2026)\r\nDESCRIPTION:Aaron \"Amadeus\" Overlake is a visionary filmmaker revered for his genius but plagued by his own demons—a volatile alcoholic whose life is consumed by anger\\, controversy\\, and from a bitter heartbreak. As tabloids revel in his self-destruction\\, Aaron’s only anchor is his best friend\\, Santiago \"Baron\" Gonzalez\\, a charismatic actor fresh out of rehab\\, fighting to rebuild his career.  Bound by shared struggles and a tangled history\\, Aaron and Santiago navigate the toxic undercurrents of fame and frie\\n\\nMore info: https://moviereleaseradar.com/movie/prodigal-son/\r\nURL:https://moviereleaseradar.com/movie/prodigal-son/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

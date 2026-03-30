@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Ganggang%20(2026)&amp;dates=20260807/20260808&amp;details=At%20the%20first%20clash%20of%20their%20fighting%20spiders%2C%20Ilay%20and%20Ten-ten%20knew%20they%20would%20go%20home%20as%20losers.%20Anton%2C%20the%20winner%20of%20the%20fight%2C%20will%20once%20again%20lord%20over%20their%20school.%20At%20the%20sideline%20is%20Mel%2C%20a%20newcomer%20and%20a%20city%20boy%2C%20watching%20the%20rowdy%20play%20in%20awe%2C%20unaware%20that%20soon%20he%20will%20become%20an%20ally%20of%20Ilay%20and%20Ten-ten%20against%20the%20real%20neighborhood%20bully.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fganggang%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Ganggang%20(2026)&amp;startdt=2026-08-07&amp;enddt=2026-08-08&amp;allday=true&amp;body=At%20the%20first%20clash%20of%20their%20fighting%20spiders%2C%20Ilay%20and%20Ten-ten%20knew%20they%20would%20go%20home%20as%20losers.%20Anton%2C%20the%20winner%20of%20the%20fight%2C%20will%20once%20again%20lord%20over%20their%20school.%20At%20the%20sideline%20is%20Mel%2C%20a%20newcomer%20and%20a%20city%20boy%2C%20watching%20the%20rowdy%20play%20in%20awe%2C%20unaware%20that%20soon%20he%20will%20become%20an%20ally%20of%20Ilay%20and%20Ten-ten%20against%20the%20real%20neighborhood%20bully.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fganggang%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Ganggang%20(2026)&amp;ST=20260807&amp;ET=20260808&amp;in_loc=&amp;DESC=At%20the%20first%20clash%20of%20their%20fighting%20spiders%2C%20Ilay%20and%20Ten-ten%20knew%20they%20would%20go%20home%20as%20losers.%20Anton%2C%20the%20winner%20of%20the%20fight%2C%20will%20once%20again%20lord%20over%20their%20school.%20At%20the%20sideline%20is%20Mel%2C%20a%20newcomer%20and%20a%20city%20boy%2C%20watching%20the%20rowdy%20play%20in%20awe%2C%20unaware%20that%20soon%20he%20will%20become%20an%20ally%20of%20Ilay%20and%20Ten-ten%20against%20the%20real%20neighborhood%20bully.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fganggang%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Ganggang (2026)";
-      var overview = "At the first clash of their fighting spiders, Ilay and Ten-ten knew they would go home as losers. Anton, the winner of the fight, will once again lord over their school. At the sideline is Mel, a newcomer and a city boy, watching the rowdy play in awe, unaware that soon he will become an ally of Ilay and Ten-ten against the real neighborhood bully.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/ganggang/";
-      var rawDate  = "2026-08-07";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1561318@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260807\r\nDTEND;VALUE=DATE:20260808\r\nSUMMARY:Ganggang (2026)\r\nDESCRIPTION:At the first clash of their fighting spiders\\, Ilay and Ten-ten knew they would go home as losers. Anton\\, the winner of the fight\\, will once again lord over their school. At the sideline is Mel\\, a newcomer and a city boy\\, watching the rowdy play in awe\\, unaware that soon he will become an ally of Ilay and Ten-ten against the real neighborhood bully.\\n\\nMore info: https://moviereleaseradar.com/movie/ganggang/\r\nURL:https://moviereleaseradar.com/movie/ganggang/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

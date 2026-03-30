@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=H%C3%B6sten%20med%20G%C3%B6ran%20(2026)&amp;dates=20261225/20261226&amp;details=The%20film%20follows%20the%20narcissist%20and%20divorced%20father%20G%C3%B6ran%20as%20he%20tries%20to%20balance%20his%20life%20between%20having%20children%2C%20an%20expensive%20ADHD%20diagnosis%20and%20the%20search%20for%20love.%20At%20the%20same%20time%2C%20his%20best%20friend%20Alex%20struggles%20with%20a%20failing%20marriage.%20Together%2C%20they%20try%20to%20find%20joy%20in%20life%2C%20hope%20and%20maybe%20even%20love.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fhosten-med-goran%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=H%C3%B6sten%20med%20G%C3%B6ran%20(2026)&amp;startdt=2026-12-25&amp;enddt=2026-12-26&amp;allday=true&amp;body=The%20film%20follows%20the%20narcissist%20and%20divorced%20father%20G%C3%B6ran%20as%20he%20tries%20to%20balance%20his%20life%20between%20having%20children%2C%20an%20expensive%20ADHD%20diagnosis%20and%20the%20search%20for%20love.%20At%20the%20same%20time%2C%20his%20best%20friend%20Alex%20struggles%20with%20a%20failing%20marriage.%20Together%2C%20they%20try%20to%20find%20joy%20in%20life%2C%20hope%20and%20maybe%20even%20love.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fhosten-med-goran%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=H%C3%B6sten%20med%20G%C3%B6ran%20(2026)&amp;ST=20261225&amp;ET=20261226&amp;in_loc=&amp;DESC=The%20film%20follows%20the%20narcissist%20and%20divorced%20father%20G%C3%B6ran%20as%20he%20tries%20to%20balance%20his%20life%20between%20having%20children%2C%20an%20expensive%20ADHD%20diagnosis%20and%20the%20search%20for%20love.%20At%20the%20same%20time%2C%20his%20best%20friend%20Alex%20struggles%20with%20a%20failing%20marriage.%20Together%2C%20they%20try%20to%20find%20joy%20in%20life%2C%20hope%20and%20maybe%20even%20love.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fhosten-med-goran%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Hösten med Göran (2026)";
-      var overview = "The film follows the narcissist and divorced father Göran as he tries to balance his life between having children, an expensive ADHD diagnosis and the search for love. At the same time, his best friend Alex struggles with a failing marriage. Together, they try to find joy in life, hope and maybe even love.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/hosten-med-goran/";
-      var rawDate  = "2026-12-25";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1530151@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261225\r\nDTEND;VALUE=DATE:20261226\r\nSUMMARY:Hösten med Göran (2026)\r\nDESCRIPTION:The film follows the narcissist and divorced father Göran as he tries to balance his life between having children\\, an expensive ADHD diagnosis and the search for love. At the same time\\, his best friend Alex struggles with a failing marriage. Together\\, they try to find joy in life\\, hope and maybe even love.\\n\\nMore info: https://moviereleaseradar.com/movie/hosten-med-goran/\r\nURL:https://moviereleaseradar.com/movie/hosten-med-goran/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

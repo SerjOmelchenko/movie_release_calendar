@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Black%20Tides%20(2026)&amp;dates=20261008/20261009&amp;details=Rebecca%20reunites%20with%20her%20estranged%20father%2C%20Bill%2C%20in%20sunny%20M%C3%A1laga%20expecting%20a%20healing%20family%20trip%20with%20her%20young%20son%2C%20Sebastian.%20Instead%2C%20their%20voyage%20across%20the%20Strait%20of%20Gibraltar%20becomes%20a%20nightmare%20as%20they%E2%80%99re%20relentlessly%20attacked%20by%20rogue%20orcas.%20Rebecca%2C%20confronting%20deep%20emotional%20wounds%2C%20must%20rise%20as%20an%20unlikely%20hero%20in%20a%20battle%20for%20survival.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fblack-tides%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Black%20Tides%20(2026)&amp;startdt=2026-10-08&amp;enddt=2026-10-09&amp;allday=true&amp;body=Rebecca%20reunites%20with%20her%20estranged%20father%2C%20Bill%2C%20in%20sunny%20M%C3%A1laga%20expecting%20a%20healing%20family%20trip%20with%20her%20young%20son%2C%20Sebastian.%20Instead%2C%20their%20voyage%20across%20the%20Strait%20of%20Gibraltar%20becomes%20a%20nightmare%20as%20they%E2%80%99re%20relentlessly%20attacked%20by%20rogue%20orcas.%20Rebecca%2C%20confronting%20deep%20emotional%20wounds%2C%20must%20rise%20as%20an%20unlikely%20hero%20in%20a%20battle%20for%20survival.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fblack-tides%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Black%20Tides%20(2026)&amp;ST=20261008&amp;ET=20261009&amp;in_loc=&amp;DESC=Rebecca%20reunites%20with%20her%20estranged%20father%2C%20Bill%2C%20in%20sunny%20M%C3%A1laga%20expecting%20a%20healing%20family%20trip%20with%20her%20young%20son%2C%20Sebastian.%20Instead%2C%20their%20voyage%20across%20the%20Strait%20of%20Gibraltar%20becomes%20a%20nightmare%20as%20they%E2%80%99re%20relentlessly%20attacked%20by%20rogue%20orcas.%20Rebecca%2C%20confronting%20deep%20emotional%20wounds%2C%20must%20rise%20as%20an%20unlikely%20hero%20in%20a%20battle%20for%20survival.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fblack-tides%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Black Tides (2026)";
-      var overview = "Rebecca reunites with her estranged father, Bill, in sunny Málaga expecting a healing family trip with her young son, Sebastian. Instead, their voyage across the Strait of Gibraltar becomes a nightmare as they’re relentlessly attacked by rogue orcas. Rebecca, confronting deep emotional wounds, must rise as an unlikely hero in a battle for survival.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/black-tides/";
-      var rawDate  = "2026-10-08";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1477199@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261008\r\nDTEND;VALUE=DATE:20261009\r\nSUMMARY:Black Tides (2026)\r\nDESCRIPTION:Rebecca reunites with her estranged father\\, Bill\\, in sunny Málaga expecting a healing family trip with her young son\\, Sebastian. Instead\\, their voyage across the Strait of Gibraltar becomes a nightmare as they’re relentlessly attacked by rogue orcas. Rebecca\\, confronting deep emotional wounds\\, must rise as an unlikely hero in a battle for survival.\\n\\nMore info: https://moviereleaseradar.com/movie/black-tides/\r\nURL:https://moviereleaseradar.com/movie/black-tides/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

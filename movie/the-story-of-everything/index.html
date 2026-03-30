@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Story%20of%20Everything%20(2026)&amp;dates=20260430/20260501&amp;details=The%20Story%20of%20Everything%20is%20a%20cinematic%20exploration%20of%20the%20cosmos%20that%20reveals%20the%20hidden%20hand%20behind%20our%20universe.%20From%20the%20precise%20laws%20that%20govern%20the%20stars%20to%20the%20intricate%20patterns%20found%20in%20every%20living%20cell%2C%20the%20film%20traces%20evidence%20of%20intentional%20design%20throughout%20nature.%20Whether%20examining%20distant%20star-forming%20clouds%20or%20the%20spiral%20structure%20of%20DNA%2C%20we%20discover%20a%20consistent%20signature%20woven%20into%20the%20fabric%20of%20existence.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-story-of-everything%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Story%20of%20Everything%20(2026)&amp;startdt=2026-04-30&amp;enddt=2026-05-01&amp;allday=true&amp;body=The%20Story%20of%20Everything%20is%20a%20cinematic%20exploration%20of%20the%20cosmos%20that%20reveals%20the%20hidden%20hand%20behind%20our%20universe.%20From%20the%20precise%20laws%20that%20govern%20the%20stars%20to%20the%20intricate%20patterns%20found%20in%20every%20living%20cell%2C%20the%20film%20traces%20evidence%20of%20intentional%20design%20throughout%20nature.%20Whether%20examining%20distant%20star-forming%20clouds%20or%20the%20spiral%20structure%20of%20DNA%2C%20we%20discover%20a%20consistent%20signature%20woven%20into%20the%20fabric%20of%20existence.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-story-of-everything%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Story%20of%20Everything%20(2026)&amp;ST=20260430&amp;ET=20260501&amp;in_loc=&amp;DESC=The%20Story%20of%20Everything%20is%20a%20cinematic%20exploration%20of%20the%20cosmos%20that%20reveals%20the%20hidden%20hand%20behind%20our%20universe.%20From%20the%20precise%20laws%20that%20govern%20the%20stars%20to%20the%20intricate%20patterns%20found%20in%20every%20living%20cell%2C%20the%20film%20traces%20evidence%20of%20intentional%20design%20throughout%20nature.%20Whether%20examining%20distant%20star-forming%20clouds%20or%20the%20spiral%20structure%20of%20DNA%2C%20we%20discover%20a%20consistent%20signature%20woven%20into%20the%20fabric%20of%20existence.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-story-of-everything%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "The Story of Everything (2026)";
-      var overview = "The Story of Everything is a cinematic exploration of the cosmos that reveals the hidden hand behind our universe. From the precise laws that govern the stars to the intricate patterns found in every living cell, the film traces evidence of intentional design throughout nature. Whether examining distant star-forming clouds or the spiral structure of DNA, we discover a consistent signature woven into the fabric of existence.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/the-story-of-everything/";
-      var rawDate  = "2026-04-30";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1650789@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260430\r\nDTEND;VALUE=DATE:20260501\r\nSUMMARY:The Story of Everything (2026)\r\nDESCRIPTION:The Story of Everything is a cinematic exploration of the cosmos that reveals the hidden hand behind our universe. From the precise laws that govern the stars to the intricate patterns found in every living cell\\, the film traces evidence of intentional design throughout nature. Whether examining distant star-forming clouds or the spiral structure of DNA\\, we discover a consistent signature woven into the fabric of existence.\\n\\nMore info: https://moviereleaseradar.com/movie/the-story-of-everything/\r\nURL:https://moviereleaseradar.com/movie/the-story-of-everything/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

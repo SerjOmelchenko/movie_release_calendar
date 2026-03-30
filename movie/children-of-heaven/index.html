@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Children%20of%20Heaven%20(2026)&amp;dates=20260527/20260528&amp;details=Two%20siblings%2C%20Ali%20and%20Zahra%2C%20who%20agreed%20to%20keep%20the%20matter%20of%20Zahra's%20missing%20shoes%20a%20secret%2C%20which%20Ali%20had%20brought%20in%20for%20repair.%20To%20solve%20the%20problem%2C%20they%20decided%20to%20share%20Ali's%20worn-out%20shoes.%20Zahra%20would%20wear%20them%20in%20the%20morning%20during%20her%20school%20schedule%2C%20and%20after%20returning%20home%2C%20she%20would%20run%20as%20fast%20as%20she%20could%20so%20Ali%20could%20wear%20them%20to%20school%20in%20the%20afternoon.%20New%20hope%20emerged%20when%20Ali%20learned%20of%20an%20inter-school%20running%20competition%20with%20a%20prize%20of%20a%20pair%20of%20shoes%20for%20the%20third-place%20w%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fchildren-of-heaven%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Children%20of%20Heaven%20(2026)&amp;startdt=2026-05-27&amp;enddt=2026-05-28&amp;allday=true&amp;body=Two%20siblings%2C%20Ali%20and%20Zahra%2C%20who%20agreed%20to%20keep%20the%20matter%20of%20Zahra's%20missing%20shoes%20a%20secret%2C%20which%20Ali%20had%20brought%20in%20for%20repair.%20To%20solve%20the%20problem%2C%20they%20decided%20to%20share%20Ali's%20worn-out%20shoes.%20Zahra%20would%20wear%20them%20in%20the%20morning%20during%20her%20school%20schedule%2C%20and%20after%20returning%20home%2C%20she%20would%20run%20as%20fast%20as%20she%20could%20so%20Ali%20could%20wear%20them%20to%20school%20in%20the%20afternoon.%20New%20hope%20emerged%20when%20Ali%20learned%20of%20an%20inter-school%20running%20competition%20with%20a%20prize%20of%20a%20pair%20of%20shoes%20for%20the%20third-place%20w%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fchildren-of-heaven%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Children%20of%20Heaven%20(2026)&amp;ST=20260527&amp;ET=20260528&amp;in_loc=&amp;DESC=Two%20siblings%2C%20Ali%20and%20Zahra%2C%20who%20agreed%20to%20keep%20the%20matter%20of%20Zahra's%20missing%20shoes%20a%20secret%2C%20which%20Ali%20had%20brought%20in%20for%20repair.%20To%20solve%20the%20problem%2C%20they%20decided%20to%20share%20Ali's%20worn-out%20shoes.%20Zahra%20would%20wear%20them%20in%20the%20morning%20during%20her%20school%20schedule%2C%20and%20after%20returning%20home%2C%20she%20would%20run%20as%20fast%20as%20she%20could%20so%20Ali%20could%20wear%20them%20to%20school%20in%20the%20afternoon.%20New%20hope%20emerged%20when%20Ali%20learned%20of%20an%20inter-school%20running%20competition%20with%20a%20prize%20of%20a%20pair%20of%20shoes%20for%20the%20third-place%20w%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fchildren-of-heaven%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Children of Heaven (2026)";
-      var overview = "Two siblings, Ali and Zahra, who agreed to keep the matter of Zahra's missing shoes a secret, which Ali had brought in for repair. To solve the problem, they decided to share Ali's worn-out shoes. Zahra would wear them in the morning during her school schedule, and after returning home, she would run as fast as she could so Ali could wear them to school in the afternoon. New hope emerged when Ali learned of an inter-school running competition with a prize of a pair of shoes for the third-place w";
-      var pageUrl  = "https://moviereleaseradar.com/movie/children-of-heaven/";
-      var rawDate  = "2026-05-27";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1415360@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260527\r\nDTEND;VALUE=DATE:20260528\r\nSUMMARY:Children of Heaven (2026)\r\nDESCRIPTION:Two siblings\\, Ali and Zahra\\, who agreed to keep the matter of Zahra's missing shoes a secret\\, which Ali had brought in for repair. To solve the problem\\, they decided to share Ali's worn-out shoes. Zahra would wear them in the morning during her school schedule\\, and after returning home\\, she would run as fast as she could so Ali could wear them to school in the afternoon. New hope emerged when Ali learned of an inter-school running competition with a prize of a pair of shoes for the third-place w\\n\\nMore info: https://moviereleaseradar.com/movie/children-of-heaven/\r\nURL:https://moviereleaseradar.com/movie/children-of-heaven/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

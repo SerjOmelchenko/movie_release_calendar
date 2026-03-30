@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Une%20fille%20en%20or%20(2026)&amp;dates=20260415/20260416&amp;details=On%20the%20day%20Cl%C3%A9mence%20realizes%20that%20no%20one%20has%20ever%20admired%20her%2C%20her%20father%20dies.%20Lulled%20by%20the%20illusions%20of%20the%20remnants%20of%20a%20complicated%20childhood%2C%20Cl%C3%A9mence%20has%20no%20choice%20but%20to%20rebuild%20her%20self-esteem%2C%20which%20she%20never%20thought%20could%20be%20so%20low.%20When%20fate%20brings%20her%20together%20with%20a%20certain%20Paul%2C%20whom%20everyone%20nicknames%20Paul%20Pot%20because%20of%20his%20strong%20tendency%20toward%20tyranny%2C%20Cl%C3%A9mence%20asks%20herself%20the%20only%20question%20that%20matters%3A%20is%20this%20the%20right%20person%3F%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fune-fille-en-or%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Une%20fille%20en%20or%20(2026)&amp;startdt=2026-04-15&amp;enddt=2026-04-16&amp;allday=true&amp;body=On%20the%20day%20Cl%C3%A9mence%20realizes%20that%20no%20one%20has%20ever%20admired%20her%2C%20her%20father%20dies.%20Lulled%20by%20the%20illusions%20of%20the%20remnants%20of%20a%20complicated%20childhood%2C%20Cl%C3%A9mence%20has%20no%20choice%20but%20to%20rebuild%20her%20self-esteem%2C%20which%20she%20never%20thought%20could%20be%20so%20low.%20When%20fate%20brings%20her%20together%20with%20a%20certain%20Paul%2C%20whom%20everyone%20nicknames%20Paul%20Pot%20because%20of%20his%20strong%20tendency%20toward%20tyranny%2C%20Cl%C3%A9mence%20asks%20herself%20the%20only%20question%20that%20matters%3A%20is%20this%20the%20right%20person%3F%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fune-fille-en-or%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Une%20fille%20en%20or%20(2026)&amp;ST=20260415&amp;ET=20260416&amp;in_loc=&amp;DESC=On%20the%20day%20Cl%C3%A9mence%20realizes%20that%20no%20one%20has%20ever%20admired%20her%2C%20her%20father%20dies.%20Lulled%20by%20the%20illusions%20of%20the%20remnants%20of%20a%20complicated%20childhood%2C%20Cl%C3%A9mence%20has%20no%20choice%20but%20to%20rebuild%20her%20self-esteem%2C%20which%20she%20never%20thought%20could%20be%20so%20low.%20When%20fate%20brings%20her%20together%20with%20a%20certain%20Paul%2C%20whom%20everyone%20nicknames%20Paul%20Pot%20because%20of%20his%20strong%20tendency%20toward%20tyranny%2C%20Cl%C3%A9mence%20asks%20herself%20the%20only%20question%20that%20matters%3A%20is%20this%20the%20right%20person%3F%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fune-fille-en-or%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Une fille en or (2026)";
-      var overview = "On the day Clémence realizes that no one has ever admired her, her father dies. Lulled by the illusions of the remnants of a complicated childhood, Clémence has no choice but to rebuild her self-esteem, which she never thought could be so low. When fate brings her together with a certain Paul, whom everyone nicknames Paul Pot because of his strong tendency toward tyranny, Clémence asks herself the only question that matters: is this the right person?";
-      var pageUrl  = "https://moviereleaseradar.com/movie/une-fille-en-or/";
-      var rawDate  = "2026-04-15";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1255779@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260415\r\nDTEND;VALUE=DATE:20260416\r\nSUMMARY:Une fille en or (2026)\r\nDESCRIPTION:On the day Clémence realizes that no one has ever admired her\\, her father dies. Lulled by the illusions of the remnants of a complicated childhood\\, Clémence has no choice but to rebuild her self-esteem\\, which she never thought could be so low. When fate brings her together with a certain Paul\\, whom everyone nicknames Paul Pot because of his strong tendency toward tyranny\\, Clémence asks herself the only question that matters: is this the right person?\\n\\nMore info: https://moviereleaseradar.com/movie/une-fille-en-or/\r\nURL:https://moviereleaseradar.com/movie/une-fille-en-or/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

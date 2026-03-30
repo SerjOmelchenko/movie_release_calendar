@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=All%20We%20Ever%20Wanted%20(2026)&amp;dates=20260409/20260410&amp;details=The%20carefree%20lifestyle%20vacation%20of%20D%C3%A9sir%C3%A9e%2C%20her%20white%20lover%20Elias%20and%20her%20gay%20friend%20Sal%20turns%20into%20a%20journey%20of%20self-discovery%20in%20the%20desert.%20D%C3%A9sir%C3%A9e%E2%80%99s%20mother%20has%20cut%20her%20off%20and%20gets%20them%20thrown%20out%20of%20the%20vacation%20home%20with%20pool.%20In%20the%20barren%20landscape%20of%20Fuerteventura%2C%20the%20friends%20move%20around%20as%20if%20on%20an%20empty%20field%20in%20search%20of%20meaning.%20They%20desire%20each%20other%2C%20challenge%20each%20other%2C%20slip%20into%20new%20roles.%20A%20game%20with%20the%20overarching%20triangle%20of%20class%2C%20race%20and%20gender.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fall-we-ever-wanted%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=All%20We%20Ever%20Wanted%20(2026)&amp;startdt=2026-04-09&amp;enddt=2026-04-10&amp;allday=true&amp;body=The%20carefree%20lifestyle%20vacation%20of%20D%C3%A9sir%C3%A9e%2C%20her%20white%20lover%20Elias%20and%20her%20gay%20friend%20Sal%20turns%20into%20a%20journey%20of%20self-discovery%20in%20the%20desert.%20D%C3%A9sir%C3%A9e%E2%80%99s%20mother%20has%20cut%20her%20off%20and%20gets%20them%20thrown%20out%20of%20the%20vacation%20home%20with%20pool.%20In%20the%20barren%20landscape%20of%20Fuerteventura%2C%20the%20friends%20move%20around%20as%20if%20on%20an%20empty%20field%20in%20search%20of%20meaning.%20They%20desire%20each%20other%2C%20challenge%20each%20other%2C%20slip%20into%20new%20roles.%20A%20game%20with%20the%20overarching%20triangle%20of%20class%2C%20race%20and%20gender.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fall-we-ever-wanted%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=All%20We%20Ever%20Wanted%20(2026)&amp;ST=20260409&amp;ET=20260410&amp;in_loc=&amp;DESC=The%20carefree%20lifestyle%20vacation%20of%20D%C3%A9sir%C3%A9e%2C%20her%20white%20lover%20Elias%20and%20her%20gay%20friend%20Sal%20turns%20into%20a%20journey%20of%20self-discovery%20in%20the%20desert.%20D%C3%A9sir%C3%A9e%E2%80%99s%20mother%20has%20cut%20her%20off%20and%20gets%20them%20thrown%20out%20of%20the%20vacation%20home%20with%20pool.%20In%20the%20barren%20landscape%20of%20Fuerteventura%2C%20the%20friends%20move%20around%20as%20if%20on%20an%20empty%20field%20in%20search%20of%20meaning.%20They%20desire%20each%20other%2C%20challenge%20each%20other%2C%20slip%20into%20new%20roles.%20A%20game%20with%20the%20overarching%20triangle%20of%20class%2C%20race%20and%20gender.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fall-we-ever-wanted%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "All We Ever Wanted (2026)";
-      var overview = "The carefree lifestyle vacation of Désirée, her white lover Elias and her gay friend Sal turns into a journey of self-discovery in the desert. Désirée’s mother has cut her off and gets them thrown out of the vacation home with pool. In the barren landscape of Fuerteventura, the friends move around as if on an empty field in search of meaning. They desire each other, challenge each other, slip into new roles. A game with the overarching triangle of class, race and gender.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/all-we-ever-wanted/";
-      var rawDate  = "2026-04-09";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1301832@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260409\r\nDTEND;VALUE=DATE:20260410\r\nSUMMARY:All We Ever Wanted (2026)\r\nDESCRIPTION:The carefree lifestyle vacation of Désirée\\, her white lover Elias and her gay friend Sal turns into a journey of self-discovery in the desert. Désirée’s mother has cut her off and gets them thrown out of the vacation home with pool. In the barren landscape of Fuerteventura\\, the friends move around as if on an empty field in search of meaning. They desire each other\\, challenge each other\\, slip into new roles. A game with the overarching triangle of class\\, race and gender.\\n\\nMore info: https://moviereleaseradar.com/movie/all-we-ever-wanted/\r\nURL:https://moviereleaseradar.com/movie/all-we-ever-wanted/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

@@ -576,16 +576,34 @@ function buildMoviePage(movie) {
       <p class="movie-overview">${overview}</p>
       <div class="movie-actions">
         <button class="wl-btn" id="wl-btn" data-id="${movie.id}">&#9825; Add to Watchlist</button>
-        ${isFuture ? `
+        ${(() => {
+          if (!isFuture) return '';
+          const [ry, rm, rday] = movie.release_date.split('-');
+          const dtNext = new Date(Date.UTC(+ry, +rm - 1, +rday));
+          dtNext.setUTCDate(dtNext.getUTCDate() + 1);
+          const p2 = n => String(n).padStart(2, '0');
+          const startG = movie.release_date.replace(/-/g, '');
+          const endG   = `${dtNext.getUTCFullYear()}${p2(dtNext.getUTCMonth()+1)}${p2(dtNext.getUTCDate())}`;
+          const startI = movie.release_date;
+          const endI   = `${dtNext.getUTCFullYear()}-${p2(dtNext.getUTCMonth()+1)}-${p2(dtNext.getUTCDate())}`;
+          const calTitle = movie.title + (year ? ` (${year})` : '');
+          const desc = ((movie.overview || '').slice(0, 500) + '\n\nMore info: ' + canonicalUrl);
+          const te = encodeURIComponent(calTitle);
+          const de = encodeURIComponent(desc);
+          const googleUrl  = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${te}&dates=${startG}/${endG}&details=${de}`;
+          const outlookUrl = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${te}&startdt=${startI}&enddt=${endI}&allday=true&body=${de}`;
+          const yahooUrl   = `https://calendar.yahoo.com/?v=60&TITLE=${te}&ST=${startG}&ET=${endG}&in_loc=&DESC=${de}`;
+          return `
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="${escHtml(googleUrl)}"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="${escHtml(outlookUrl)}" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="${escHtml(yahooUrl)}"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
-        </div>` : ''}
+        </div>`;
+        })()}
       </div>
     </div>
   </div>
@@ -612,92 +630,57 @@ function buildMoviePage(movie) {
     })();
   </script>
 
-  ${isFuture ? `
+  ${(() => {
+    if (!isFuture) return '';
+    const calTitle = movie.title + (year ? ` (${year})` : '');
+    const [ry, rm, rday] = movie.release_date.split('-');
+    const dtNext = new Date(Date.UTC(+ry, +rm - 1, +rday));
+    dtNext.setUTCDate(dtNext.getUTCDate() + 1);
+    const p2 = n => String(n).padStart(2, '0');
+    const startG = movie.release_date.replace(/-/g, '');
+    const endG   = `${dtNext.getUTCFullYear()}${p2(dtNext.getUTCMonth()+1)}${p2(dtNext.getUTCDate())}`;
+    const icsBody = [
+      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
+      'BEGIN:VEVENT',
+      `UID:movie-${movie.id}@moviereleasecalendar.com`,
+      `DTSTART;VALUE=DATE:${startG}`,
+      `DTEND;VALUE=DATE:${endG}`,
+      `SUMMARY:${calTitle.replace(/[,;\\]/g, c => '\\' + c)}`,
+      `DESCRIPTION:${((movie.overview || '').slice(0, 500) + '\n\nMore info: ' + canonicalUrl).replace(/[\n,;\\]/g, c => c === '\n' ? '\\n' : '\\' + c)}`,
+      `URL:${canonicalUrl}`,
+      'END:VEVENT', 'END:VCALENDAR',
+    ].join('\r\n');
+    const icsFile = calTitle.replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '.ics';
+    return `
   <script>
     (function(){
       var calBtn  = document.getElementById('cal-btn');
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = ${JSON.stringify(movie.title + (year ? ' (' + year + ')' : ''))};
-      var overview = ${JSON.stringify((movie.overview || '').replace(/\n/g, '\\n').slice(0, 500))};
-      var pageUrl  = ${JSON.stringify(canonicalUrl)};
-      var rawDate  = ${JSON.stringify(movie.release_date)};
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\\n\\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
-        var blob = new Blob([${JSON.stringify(
-          ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Movie Release Radar//EN',
-           'BEGIN:VEVENT',
-           'UID:movie-' + movie.id + '@moviereleasecalendar.com',
-           'DTSTART;VALUE=DATE:' + movie.release_date.replace(/-/g,''),
-           'DTEND;VALUE=DATE:' + (() => { const d=new Date(movie.release_date+'T00:00:00Z'); d.setUTCDate(d.getUTCDate()+1); return d.toISOString().slice(0,10).replace(/-/g,''); })(),
-           'SUMMARY:' + (movie.title+(year?' ('+year+')':'')).replace(/[,;\\]/g,c=>'\\'+c),
-           'DESCRIPTION:' + ((movie.overview||'').slice(0,500)+'\n\nMore info: '+canonicalUrl).replace(/[\n,;\\]/g,c=>c==='\n'?'\\n':'\\'+c),
-           'URL:' + canonicalUrl,
-           'END:VEVENT','END:VCALENDAR'].join('\r\n')
-        )}], {type:'text/calendar;charset=utf-8'});
+        var blob = new Blob([${JSON.stringify(icsBody)}], {type:'text/calendar;charset=utf-8'});
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = ${JSON.stringify((movie.title+(year?' ('+year+')':'')).replace(/[^a-z0-9]+/gi,'-').toLowerCase()+'.ics')};
+        a.download = ${JSON.stringify(icsFile)};
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');
         }
       });
     })();
-  </script>` : ''}
+  </script>`;
+  })()}
 
   ${movie.trailerKey ? `
   <section class="trailer-section">

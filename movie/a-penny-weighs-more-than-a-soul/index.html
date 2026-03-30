@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=A%20Penny%20Weighs%20More%20Than%20a%20Soul%20(2026)&amp;dates=20261212/20261213&amp;details=%22A%20Penny%20Weighs%20More%20Than%20a%20Soul%22%20is%20a%20powerful%20documentary%20by%20Tobias%20Demetz%20(TD%20Films)%20that%20takes%20viewers%20deep%20into%20the%20untouched%20nature%20of%20the%20Dolomites.%20The%20story%20centers%20on%20the%20extraordinary%20life%20of%20Ulrich%20Senoner%2C%20who%20lives%20far%20from%20modern%20civilization%20at%20the%20secluded%20Malga%20Futura.%20Without%20electricity%20or%20running%20water%2C%20he%20embodies%20a%20nearly%20forgotten%20human%20resilience.%20This%20film%20is%20a%20visual%20tribute%20to%20the%20silent%20strength%20of%20a%20man%20who%20chooses%20the%20wilderness%20over%20comfort%2C%20showcasing%20the%20fragile%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fa-penny-weighs-more-than-a-soul%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=A%20Penny%20Weighs%20More%20Than%20a%20Soul%20(2026)&amp;startdt=2026-12-12&amp;enddt=2026-12-13&amp;allday=true&amp;body=%22A%20Penny%20Weighs%20More%20Than%20a%20Soul%22%20is%20a%20powerful%20documentary%20by%20Tobias%20Demetz%20(TD%20Films)%20that%20takes%20viewers%20deep%20into%20the%20untouched%20nature%20of%20the%20Dolomites.%20The%20story%20centers%20on%20the%20extraordinary%20life%20of%20Ulrich%20Senoner%2C%20who%20lives%20far%20from%20modern%20civilization%20at%20the%20secluded%20Malga%20Futura.%20Without%20electricity%20or%20running%20water%2C%20he%20embodies%20a%20nearly%20forgotten%20human%20resilience.%20This%20film%20is%20a%20visual%20tribute%20to%20the%20silent%20strength%20of%20a%20man%20who%20chooses%20the%20wilderness%20over%20comfort%2C%20showcasing%20the%20fragile%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fa-penny-weighs-more-than-a-soul%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=A%20Penny%20Weighs%20More%20Than%20a%20Soul%20(2026)&amp;ST=20261212&amp;ET=20261213&amp;in_loc=&amp;DESC=%22A%20Penny%20Weighs%20More%20Than%20a%20Soul%22%20is%20a%20powerful%20documentary%20by%20Tobias%20Demetz%20(TD%20Films)%20that%20takes%20viewers%20deep%20into%20the%20untouched%20nature%20of%20the%20Dolomites.%20The%20story%20centers%20on%20the%20extraordinary%20life%20of%20Ulrich%20Senoner%2C%20who%20lives%20far%20from%20modern%20civilization%20at%20the%20secluded%20Malga%20Futura.%20Without%20electricity%20or%20running%20water%2C%20he%20embodies%20a%20nearly%20forgotten%20human%20resilience.%20This%20film%20is%20a%20visual%20tribute%20to%20the%20silent%20strength%20of%20a%20man%20who%20chooses%20the%20wilderness%20over%20comfort%2C%20showcasing%20the%20fragile%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fa-penny-weighs-more-than-a-soul%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "A Penny Weighs More Than a Soul (2026)";
-      var overview = "\"A Penny Weighs More Than a Soul\" is a powerful documentary by Tobias Demetz (TD Films) that takes viewers deep into the untouched nature of the Dolomites. The story centers on the extraordinary life of Ulrich Senoner, who lives far from modern civilization at the secluded Malga Futura. Without electricity or running water, he embodies a nearly forgotten human resilience. This film is a visual tribute to the silent strength of a man who chooses the wilderness over comfort, showcasing the fragile";
-      var pageUrl  = "https://moviereleaseradar.com/movie/a-penny-weighs-more-than-a-soul/";
-      var rawDate  = "2026-12-12";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1551969@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261212\r\nDTEND;VALUE=DATE:20261213\r\nSUMMARY:A Penny Weighs More Than a Soul (2026)\r\nDESCRIPTION:\"A Penny Weighs More Than a Soul\" is a powerful documentary by Tobias Demetz (TD Films) that takes viewers deep into the untouched nature of the Dolomites. The story centers on the extraordinary life of Ulrich Senoner\\, who lives far from modern civilization at the secluded Malga Futura. Without electricity or running water\\, he embodies a nearly forgotten human resilience. This film is a visual tribute to the silent strength of a man who chooses the wilderness over comfort\\, showcasing the fragile\\n\\nMore info: https://moviereleaseradar.com/movie/a-penny-weighs-more-than-a-soul/\r\nURL:https://moviereleaseradar.com/movie/a-penny-weighs-more-than-a-soul/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

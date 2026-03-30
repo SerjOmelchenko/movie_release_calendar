@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=On%20the%20Road%20(2026)&amp;dates=20260604/20260605&amp;details=Veneno%2C%20a%20rebellious%20young%20drifter%2C%20frequents%20roadside%20diners%20where%20he%20sleeps%20with%20truck%20drivers.%20Urgently%20needing%20a%20ride%2C%20he%20meets%20Mun%CC%83eco%2C%20a%20hard-edged%20driver%20who%20keeps%20to%20himself.%20He%20convinces%20Mun%CC%83eco%20to%20take%20him%20deep%20into%20the%20hyper-masculine%20world%20of%20long-haul%20trucking%20across%20the%20north%20of%20Mexico.%20As%20they%20travel%20together%20and%20an%20unexpected%20intimacy%20builds%20between%20them%2C%20shadows%20from%20Veneno%E2%80%99s%20past%20resurface%2C%20putting%20both%20their%20lives%20at%20risk.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fon-the-road%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=On%20the%20Road%20(2026)&amp;startdt=2026-06-04&amp;enddt=2026-06-05&amp;allday=true&amp;body=Veneno%2C%20a%20rebellious%20young%20drifter%2C%20frequents%20roadside%20diners%20where%20he%20sleeps%20with%20truck%20drivers.%20Urgently%20needing%20a%20ride%2C%20he%20meets%20Mun%CC%83eco%2C%20a%20hard-edged%20driver%20who%20keeps%20to%20himself.%20He%20convinces%20Mun%CC%83eco%20to%20take%20him%20deep%20into%20the%20hyper-masculine%20world%20of%20long-haul%20trucking%20across%20the%20north%20of%20Mexico.%20As%20they%20travel%20together%20and%20an%20unexpected%20intimacy%20builds%20between%20them%2C%20shadows%20from%20Veneno%E2%80%99s%20past%20resurface%2C%20putting%20both%20their%20lives%20at%20risk.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fon-the-road%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=On%20the%20Road%20(2026)&amp;ST=20260604&amp;ET=20260605&amp;in_loc=&amp;DESC=Veneno%2C%20a%20rebellious%20young%20drifter%2C%20frequents%20roadside%20diners%20where%20he%20sleeps%20with%20truck%20drivers.%20Urgently%20needing%20a%20ride%2C%20he%20meets%20Mun%CC%83eco%2C%20a%20hard-edged%20driver%20who%20keeps%20to%20himself.%20He%20convinces%20Mun%CC%83eco%20to%20take%20him%20deep%20into%20the%20hyper-masculine%20world%20of%20long-haul%20trucking%20across%20the%20north%20of%20Mexico.%20As%20they%20travel%20together%20and%20an%20unexpected%20intimacy%20builds%20between%20them%2C%20shadows%20from%20Veneno%E2%80%99s%20past%20resurface%2C%20putting%20both%20their%20lives%20at%20risk.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fon-the-road%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "On the Road (2026)";
-      var overview = "Veneno, a rebellious young drifter, frequents roadside diners where he sleeps with truck drivers. Urgently needing a ride, he meets Muñeco, a hard-edged driver who keeps to himself. He convinces Muñeco to take him deep into the hyper-masculine world of long-haul trucking across the north of Mexico. As they travel together and an unexpected intimacy builds between them, shadows from Veneno’s past resurface, putting both their lives at risk.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/on-the-road/";
-      var rawDate  = "2026-06-04";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1517123@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260604\r\nDTEND;VALUE=DATE:20260605\r\nSUMMARY:On the Road (2026)\r\nDESCRIPTION:Veneno\\, a rebellious young drifter\\, frequents roadside diners where he sleeps with truck drivers. Urgently needing a ride\\, he meets Muñeco\\, a hard-edged driver who keeps to himself. He convinces Muñeco to take him deep into the hyper-masculine world of long-haul trucking across the north of Mexico. As they travel together and an unexpected intimacy builds between them\\, shadows from Veneno’s past resurface\\, putting both their lives at risk.\\n\\nMore info: https://moviereleaseradar.com/movie/on-the-road/\r\nURL:https://moviereleaseradar.com/movie/on-the-road/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

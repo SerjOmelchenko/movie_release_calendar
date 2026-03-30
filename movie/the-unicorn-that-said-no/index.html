@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Unicorn%20That%20Said%20No%20(2027)&amp;dates=20270101/20270102&amp;details=In%20the%20Forest%20of%20Hearts%2C%20a%20little%2C%20sweepity%2C%20swoopity%2C%20swappity%2C%20sweet%20unicorn%20is%20born.%20But%20even%20though%20everyone%20is%20very%20lilacly-loving%20to%20it%20and%20constantly%20feeds%20it%20with%20sweet%20lucky%20clover%2C%20the%20little%20critter%20does%20not%20behave%20unicorn-like%20at%20all.%20It%20just%20keeps%20saying%20no%2C%20so%20soon%20its%20family%20just%20calls%20it%20uNOcorn.%20One%20day%2C%20the%20uNOcorn%20breaks%20out%20of%20its%20cotton%20candy%20world%20and%20sets%20off%20to%20NOWHERE.%20On%20the%20way%2C%20he%20unexpectedly%20meets%20a%20raccoon%20that%20refuses%20to%20listen%20(HUHcoon)%2C%20a%20watchdog%20that%20doesn%E2%80%98t%20s%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-unicorn-that-said-no%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Unicorn%20That%20Said%20No%20(2027)&amp;startdt=2027-01-01&amp;enddt=2027-01-02&amp;allday=true&amp;body=In%20the%20Forest%20of%20Hearts%2C%20a%20little%2C%20sweepity%2C%20swoopity%2C%20swappity%2C%20sweet%20unicorn%20is%20born.%20But%20even%20though%20everyone%20is%20very%20lilacly-loving%20to%20it%20and%20constantly%20feeds%20it%20with%20sweet%20lucky%20clover%2C%20the%20little%20critter%20does%20not%20behave%20unicorn-like%20at%20all.%20It%20just%20keeps%20saying%20no%2C%20so%20soon%20its%20family%20just%20calls%20it%20uNOcorn.%20One%20day%2C%20the%20uNOcorn%20breaks%20out%20of%20its%20cotton%20candy%20world%20and%20sets%20off%20to%20NOWHERE.%20On%20the%20way%2C%20he%20unexpectedly%20meets%20a%20raccoon%20that%20refuses%20to%20listen%20(HUHcoon)%2C%20a%20watchdog%20that%20doesn%E2%80%98t%20s%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-unicorn-that-said-no%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Unicorn%20That%20Said%20No%20(2027)&amp;ST=20270101&amp;ET=20270102&amp;in_loc=&amp;DESC=In%20the%20Forest%20of%20Hearts%2C%20a%20little%2C%20sweepity%2C%20swoopity%2C%20swappity%2C%20sweet%20unicorn%20is%20born.%20But%20even%20though%20everyone%20is%20very%20lilacly-loving%20to%20it%20and%20constantly%20feeds%20it%20with%20sweet%20lucky%20clover%2C%20the%20little%20critter%20does%20not%20behave%20unicorn-like%20at%20all.%20It%20just%20keeps%20saying%20no%2C%20so%20soon%20its%20family%20just%20calls%20it%20uNOcorn.%20One%20day%2C%20the%20uNOcorn%20breaks%20out%20of%20its%20cotton%20candy%20world%20and%20sets%20off%20to%20NOWHERE.%20On%20the%20way%2C%20he%20unexpectedly%20meets%20a%20raccoon%20that%20refuses%20to%20listen%20(HUHcoon)%2C%20a%20watchdog%20that%20doesn%E2%80%98t%20s%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-unicorn-that-said-no%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "The Unicorn That Said No (2027)";
-      var overview = "In the Forest of Hearts, a little, sweepity, swoopity, swappity, sweet unicorn is born. But even though everyone is very lilacly-loving to it and constantly feeds it with sweet lucky clover, the little critter does not behave unicorn-like at all. It just keeps saying no, so soon its family just calls it uNOcorn. One day, the uNOcorn breaks out of its cotton candy world and sets off to NOWHERE. On the way, he unexpectedly meets a raccoon that refuses to listen (HUHcoon), a watchdog that doesn‘t s";
-      var pageUrl  = "https://moviereleaseradar.com/movie/the-unicorn-that-said-no/";
-      var rawDate  = "2027-01-01";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1619903@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20270101\r\nDTEND;VALUE=DATE:20270102\r\nSUMMARY:The Unicorn That Said No (2027)\r\nDESCRIPTION:In the Forest of Hearts\\, a little\\, sweepity\\, swoopity\\, swappity\\, sweet unicorn is born. But even though everyone is very lilacly-loving to it and constantly feeds it with sweet lucky clover\\, the little critter does not behave unicorn-like at all. It just keeps saying no\\, so soon its family just calls it uNOcorn. One day\\, the uNOcorn breaks out of its cotton candy world and sets off to NOWHERE. On the way\\, he unexpectedly meets a raccoon that refuses to listen (HUHcoon)\\, a watchdog that doesn‘t s\\n\\nMore info: https://moviereleaseradar.com/movie/the-unicorn-that-said-no/\r\nURL:https://moviereleaseradar.com/movie/the-unicorn-that-said-no/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

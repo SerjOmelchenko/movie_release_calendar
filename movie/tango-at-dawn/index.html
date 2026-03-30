@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Tango%20at%20Dawn%20(2026)&amp;dates=20260422/20260423&amp;details=Ji-won%2C%20who%20had%20cut%20ties%20with%20everyone%2C%20takes%20a%20job%20at%20a%20factory%20that%20provides%20lodging%20and%20meals.%20She%20finds%20her%20roommate%20Ju-hee%2C%20a%20girl%20who%20dances%20the%20Tango%20all%20the%20time%2C%20both%20burdensome%20and%20intriguing.%20Ji-won%20gets%20involved%20in%20Hyun-woo's%20accident%20and%20feels%20uneasy%20as%20she%20watches%20Ju-hee%20try%20to%20take%20all%20the%20responsibility%20herself.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Ftango-at-dawn%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Tango%20at%20Dawn%20(2026)&amp;startdt=2026-04-22&amp;enddt=2026-04-23&amp;allday=true&amp;body=Ji-won%2C%20who%20had%20cut%20ties%20with%20everyone%2C%20takes%20a%20job%20at%20a%20factory%20that%20provides%20lodging%20and%20meals.%20She%20finds%20her%20roommate%20Ju-hee%2C%20a%20girl%20who%20dances%20the%20Tango%20all%20the%20time%2C%20both%20burdensome%20and%20intriguing.%20Ji-won%20gets%20involved%20in%20Hyun-woo's%20accident%20and%20feels%20uneasy%20as%20she%20watches%20Ju-hee%20try%20to%20take%20all%20the%20responsibility%20herself.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Ftango-at-dawn%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Tango%20at%20Dawn%20(2026)&amp;ST=20260422&amp;ET=20260423&amp;in_loc=&amp;DESC=Ji-won%2C%20who%20had%20cut%20ties%20with%20everyone%2C%20takes%20a%20job%20at%20a%20factory%20that%20provides%20lodging%20and%20meals.%20She%20finds%20her%20roommate%20Ju-hee%2C%20a%20girl%20who%20dances%20the%20Tango%20all%20the%20time%2C%20both%20burdensome%20and%20intriguing.%20Ji-won%20gets%20involved%20in%20Hyun-woo's%20accident%20and%20feels%20uneasy%20as%20she%20watches%20Ju-hee%20try%20to%20take%20all%20the%20responsibility%20herself.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Ftango-at-dawn%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Tango at Dawn (2026)";
-      var overview = "Ji-won, who had cut ties with everyone, takes a job at a factory that provides lodging and meals. She finds her roommate Ju-hee, a girl who dances the Tango all the time, both burdensome and intriguing. Ji-won gets involved in Hyun-woo's accident and feels uneasy as she watches Ju-hee try to take all the responsibility herself.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/tango-at-dawn/";
-      var rawDate  = "2026-04-22";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1208270@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260422\r\nDTEND;VALUE=DATE:20260423\r\nSUMMARY:Tango at Dawn (2026)\r\nDESCRIPTION:Ji-won\\, who had cut ties with everyone\\, takes a job at a factory that provides lodging and meals. She finds her roommate Ju-hee\\, a girl who dances the Tango all the time\\, both burdensome and intriguing. Ji-won gets involved in Hyun-woo's accident and feels uneasy as she watches Ju-hee try to take all the responsibility herself.\\n\\nMore info: https://moviereleaseradar.com/movie/tango-at-dawn/\r\nURL:https://moviereleaseradar.com/movie/tango-at-dawn/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

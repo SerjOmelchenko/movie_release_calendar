@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Rise%20of%20the%20Conqueror%20(2026)&amp;dates=20260410/20260411&amp;details=In%20the%2014th-century%2C%20as%20the%20Silk%20Road%20crumbles%20and%20rival%20factions%20tear%20the%20land%20apart%2C%20fearless%20warrior%20Timur%20emerges%20from%20exile.%20Stripped%20of%20everything%2C%20he%20fights%20to%20unite%20the%20fractured%20kingdoms%2C%20using%20strategy%20and%20sheer%20will%20to%20carve%20an%20empire%20from%20chaos.%20Undefeated%20in%20battle%20and%20widely%20regarded%20as%20one%20of%20history%E2%80%99s%20greatest%20military%20leaders%20and%20tacticians%2C%20not%20to%20mention%20one%20of%20its%20most%20brutal%2C%20Timur%20would%20found%20the%20Timurid%20Empire%2C%20which%20ruled%20over%20modern-day%20Afghanistan%2C%20Iran%20and%20Central%20Asia%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Frise-of-the-conqueror%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Rise%20of%20the%20Conqueror%20(2026)&amp;startdt=2026-04-10&amp;enddt=2026-04-11&amp;allday=true&amp;body=In%20the%2014th-century%2C%20as%20the%20Silk%20Road%20crumbles%20and%20rival%20factions%20tear%20the%20land%20apart%2C%20fearless%20warrior%20Timur%20emerges%20from%20exile.%20Stripped%20of%20everything%2C%20he%20fights%20to%20unite%20the%20fractured%20kingdoms%2C%20using%20strategy%20and%20sheer%20will%20to%20carve%20an%20empire%20from%20chaos.%20Undefeated%20in%20battle%20and%20widely%20regarded%20as%20one%20of%20history%E2%80%99s%20greatest%20military%20leaders%20and%20tacticians%2C%20not%20to%20mention%20one%20of%20its%20most%20brutal%2C%20Timur%20would%20found%20the%20Timurid%20Empire%2C%20which%20ruled%20over%20modern-day%20Afghanistan%2C%20Iran%20and%20Central%20Asia%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Frise-of-the-conqueror%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Rise%20of%20the%20Conqueror%20(2026)&amp;ST=20260410&amp;ET=20260411&amp;in_loc=&amp;DESC=In%20the%2014th-century%2C%20as%20the%20Silk%20Road%20crumbles%20and%20rival%20factions%20tear%20the%20land%20apart%2C%20fearless%20warrior%20Timur%20emerges%20from%20exile.%20Stripped%20of%20everything%2C%20he%20fights%20to%20unite%20the%20fractured%20kingdoms%2C%20using%20strategy%20and%20sheer%20will%20to%20carve%20an%20empire%20from%20chaos.%20Undefeated%20in%20battle%20and%20widely%20regarded%20as%20one%20of%20history%E2%80%99s%20greatest%20military%20leaders%20and%20tacticians%2C%20not%20to%20mention%20one%20of%20its%20most%20brutal%2C%20Timur%20would%20found%20the%20Timurid%20Empire%2C%20which%20ruled%20over%20modern-day%20Afghanistan%2C%20Iran%20and%20Central%20Asia%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Frise-of-the-conqueror%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Rise of the Conqueror (2026)";
-      var overview = "In the 14th-century, as the Silk Road crumbles and rival factions tear the land apart, fearless warrior Timur emerges from exile. Stripped of everything, he fights to unite the fractured kingdoms, using strategy and sheer will to carve an empire from chaos. Undefeated in battle and widely regarded as one of history’s greatest military leaders and tacticians, not to mention one of its most brutal, Timur would found the Timurid Empire, which ruled over modern-day Afghanistan, Iran and Central Asia";
-      var pageUrl  = "https://moviereleaseradar.com/movie/rise-of-the-conqueror/";
-      var rawDate  = "2026-04-10";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1207162@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260410\r\nDTEND;VALUE=DATE:20260411\r\nSUMMARY:Rise of the Conqueror (2026)\r\nDESCRIPTION:In the 14th-century\\, as the Silk Road crumbles and rival factions tear the land apart\\, fearless warrior Timur emerges from exile. Stripped of everything\\, he fights to unite the fractured kingdoms\\, using strategy and sheer will to carve an empire from chaos. Undefeated in battle and widely regarded as one of history’s greatest military leaders and tacticians\\, not to mention one of its most brutal\\, Timur would found the Timurid Empire\\, which ruled over modern-day Afghanistan\\, Iran and Central Asia\\n\\nMore info: https://moviereleaseradar.com/movie/rise-of-the-conqueror/\r\nURL:https://moviereleaseradar.com/movie/rise-of-the-conqueror/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

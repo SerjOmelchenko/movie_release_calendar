@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=YURIE%20(2026)&amp;dates=20260620/20260621&amp;details=%E2%80%8B%E2%80%8BThree%20years%20have%20passed%20since%20Joji%20Uehara%20lost%20his%20father%20and%20took%20over%20his%20eatery%20%22Yurie%22.%20Despite%20Joji's%20impressive%20culinary%20skills%2C%20his%20business%20continues%20to%20dwindle.%20One%20day%2C%20Kim%20Joo-ri%2C%20who%20came%20from%20South%20Korea%20to%20learn%20Japanese%20cuisine%2C%20arrives%20at%20the%20restaurant%20by%20coincidence.%20Although%20they%20clash%20over%20their%20differing%20values%2C%20the%20two%20of%20them%20gradually%20become%20closer%20as%20they%20work%20together%20to%20revive%20the%20struggling%20business.%20Guided%20by%20Kim's%20charmingly%20unconventional%20approach%20to%20life%2C%20the%20pe%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fyurie%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=YURIE%20(2026)&amp;startdt=2026-06-20&amp;enddt=2026-06-21&amp;allday=true&amp;body=%E2%80%8B%E2%80%8BThree%20years%20have%20passed%20since%20Joji%20Uehara%20lost%20his%20father%20and%20took%20over%20his%20eatery%20%22Yurie%22.%20Despite%20Joji's%20impressive%20culinary%20skills%2C%20his%20business%20continues%20to%20dwindle.%20One%20day%2C%20Kim%20Joo-ri%2C%20who%20came%20from%20South%20Korea%20to%20learn%20Japanese%20cuisine%2C%20arrives%20at%20the%20restaurant%20by%20coincidence.%20Although%20they%20clash%20over%20their%20differing%20values%2C%20the%20two%20of%20them%20gradually%20become%20closer%20as%20they%20work%20together%20to%20revive%20the%20struggling%20business.%20Guided%20by%20Kim's%20charmingly%20unconventional%20approach%20to%20life%2C%20the%20pe%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fyurie%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=YURIE%20(2026)&amp;ST=20260620&amp;ET=20260621&amp;in_loc=&amp;DESC=%E2%80%8B%E2%80%8BThree%20years%20have%20passed%20since%20Joji%20Uehara%20lost%20his%20father%20and%20took%20over%20his%20eatery%20%22Yurie%22.%20Despite%20Joji's%20impressive%20culinary%20skills%2C%20his%20business%20continues%20to%20dwindle.%20One%20day%2C%20Kim%20Joo-ri%2C%20who%20came%20from%20South%20Korea%20to%20learn%20Japanese%20cuisine%2C%20arrives%20at%20the%20restaurant%20by%20coincidence.%20Although%20they%20clash%20over%20their%20differing%20values%2C%20the%20two%20of%20them%20gradually%20become%20closer%20as%20they%20work%20together%20to%20revive%20the%20struggling%20business.%20Guided%20by%20Kim's%20charmingly%20unconventional%20approach%20to%20life%2C%20the%20pe%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fyurie%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "YURIE (2026)";
-      var overview = "​​Three years have passed since Joji Uehara lost his father and took over his eatery \"Yurie\". Despite Joji's impressive culinary skills, his business continues to dwindle. One day, Kim Joo-ri, who came from South Korea to learn Japanese cuisine, arrives at the restaurant by coincidence. Although they clash over their differing values, the two of them gradually become closer as they work together to revive the struggling business. Guided by Kim's charmingly unconventional approach to life, the pe";
-      var pageUrl  = "https://moviereleaseradar.com/movie/yurie/";
-      var rawDate  = "2026-06-20";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1601204@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260620\r\nDTEND;VALUE=DATE:20260621\r\nSUMMARY:YURIE (2026)\r\nDESCRIPTION:​​Three years have passed since Joji Uehara lost his father and took over his eatery \"Yurie\". Despite Joji's impressive culinary skills\\, his business continues to dwindle. One day\\, Kim Joo-ri\\, who came from South Korea to learn Japanese cuisine\\, arrives at the restaurant by coincidence. Although they clash over their differing values\\, the two of them gradually become closer as they work together to revive the struggling business. Guided by Kim's charmingly unconventional approach to life\\, the pe\\n\\nMore info: https://moviereleaseradar.com/movie/yurie/\r\nURL:https://moviereleaseradar.com/movie/yurie/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

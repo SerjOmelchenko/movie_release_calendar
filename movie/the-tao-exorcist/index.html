@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Tao%20Exorcist%20(2026)&amp;dates=20260430/20260501&amp;details=Late%20at%20night%2C%20a%20father%20throws%20his%20children%20into%20a%20kiln%2C%20muttering%2C%20%E2%80%9CThey%E2%80%99re%20no%20longer%20ours.%E2%80%9D%20Their%20screams%20fade%20into%20the%20flames.%20Young%20exorcist%20Xiao%20Tuo%20suspects%20his%20classmate%20Nianqi%20is%20possessed%2C%20uncovering%20her%20stepfather%20Zhen-Kai%E2%80%99s%20use%20of%20dark%20rituals.%20As%20her%20siblings%20show%20disturbing%20behavior%2C%20Zhen-Kai%20plans%20a%20deadly%20purge.%20Xiao%20Tuo%20links%20the%20evil%20spirit%20to%20his%20own%20injured%20father%2C%20and%20together%20with%20Nianqi%2C%20uncovers%20a%20horrifying%20truth%20tied%20to%20a%20missing%20persons%20case%20from%20fifteen%20years%20ago.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-tao-exorcist%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=The%20Tao%20Exorcist%20(2026)&amp;startdt=2026-04-30&amp;enddt=2026-05-01&amp;allday=true&amp;body=Late%20at%20night%2C%20a%20father%20throws%20his%20children%20into%20a%20kiln%2C%20muttering%2C%20%E2%80%9CThey%E2%80%99re%20no%20longer%20ours.%E2%80%9D%20Their%20screams%20fade%20into%20the%20flames.%20Young%20exorcist%20Xiao%20Tuo%20suspects%20his%20classmate%20Nianqi%20is%20possessed%2C%20uncovering%20her%20stepfather%20Zhen-Kai%E2%80%99s%20use%20of%20dark%20rituals.%20As%20her%20siblings%20show%20disturbing%20behavior%2C%20Zhen-Kai%20plans%20a%20deadly%20purge.%20Xiao%20Tuo%20links%20the%20evil%20spirit%20to%20his%20own%20injured%20father%2C%20and%20together%20with%20Nianqi%2C%20uncovers%20a%20horrifying%20truth%20tied%20to%20a%20missing%20persons%20case%20from%20fifteen%20years%20ago.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-tao-exorcist%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=The%20Tao%20Exorcist%20(2026)&amp;ST=20260430&amp;ET=20260501&amp;in_loc=&amp;DESC=Late%20at%20night%2C%20a%20father%20throws%20his%20children%20into%20a%20kiln%2C%20muttering%2C%20%E2%80%9CThey%E2%80%99re%20no%20longer%20ours.%E2%80%9D%20Their%20screams%20fade%20into%20the%20flames.%20Young%20exorcist%20Xiao%20Tuo%20suspects%20his%20classmate%20Nianqi%20is%20possessed%2C%20uncovering%20her%20stepfather%20Zhen-Kai%E2%80%99s%20use%20of%20dark%20rituals.%20As%20her%20siblings%20show%20disturbing%20behavior%2C%20Zhen-Kai%20plans%20a%20deadly%20purge.%20Xiao%20Tuo%20links%20the%20evil%20spirit%20to%20his%20own%20injured%20father%2C%20and%20together%20with%20Nianqi%2C%20uncovers%20a%20horrifying%20truth%20tied%20to%20a%20missing%20persons%20case%20from%20fifteen%20years%20ago.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fthe-tao-exorcist%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "The Tao Exorcist (2026)";
-      var overview = "Late at night, a father throws his children into a kiln, muttering, “They’re no longer ours.” Their screams fade into the flames. Young exorcist Xiao Tuo suspects his classmate Nianqi is possessed, uncovering her stepfather Zhen-Kai’s use of dark rituals. As her siblings show disturbing behavior, Zhen-Kai plans a deadly purge. Xiao Tuo links the evil spirit to his own injured father, and together with Nianqi, uncovers a horrifying truth tied to a missing persons case from fifteen years ago.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/the-tao-exorcist/";
-      var rawDate  = "2026-04-30";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1474133@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260430\r\nDTEND;VALUE=DATE:20260501\r\nSUMMARY:The Tao Exorcist (2026)\r\nDESCRIPTION:Late at night\\, a father throws his children into a kiln\\, muttering\\, “They’re no longer ours.” Their screams fade into the flames. Young exorcist Xiao Tuo suspects his classmate Nianqi is possessed\\, uncovering her stepfather Zhen-Kai’s use of dark rituals. As her siblings show disturbing behavior\\, Zhen-Kai plans a deadly purge. Xiao Tuo links the evil spirit to his own injured father\\, and together with Nianqi\\, uncovers a horrifying truth tied to a missing persons case from fifteen years ago.\\n\\nMore info: https://moviereleaseradar.com/movie/the-tao-exorcist/\r\nURL:https://moviereleaseradar.com/movie/the-tao-exorcist/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

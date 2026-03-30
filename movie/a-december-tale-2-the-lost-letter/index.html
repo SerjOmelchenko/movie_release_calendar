@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=A%20December%20Tale%202%3A%20The%20Lost%20Letter%20(2026)&amp;dates=20261126/20261127&amp;details=Whilst%20preparing%20for%20yet%20another%20round%20of%20spreading%20holiday%20cheer%2C%20saint%20Nicholas%20discovers%20an%20unopened%20letter%20that%20had%20been%20sent%20to%20him%20by%20a%20young%20boy%20named%20Borys%2030%20years%20ago.%20Now%20the%20latter%20is%20a%20sucssesful%20businessman%20who%20had%20lost%20the%20abbility%20to%20see%20the%20joys%20and%20whimsy%20of%20life%20after%20being%20severly%20beaten%20down%20by%20the%20world%20around%20him.%20The%20legendary%20giftgiver%20enters%20a%20race%20against%20time%20to%20help%20the%20broken%20man%20regain%20his%20childlike%20wonder%2C%20or%20else%20one%20will%20forever%20loose%20the%20abbility%20to%20feel%20joy%20an%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fa-december-tale-2-the-lost-letter%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=A%20December%20Tale%202%3A%20The%20Lost%20Letter%20(2026)&amp;startdt=2026-11-26&amp;enddt=2026-11-27&amp;allday=true&amp;body=Whilst%20preparing%20for%20yet%20another%20round%20of%20spreading%20holiday%20cheer%2C%20saint%20Nicholas%20discovers%20an%20unopened%20letter%20that%20had%20been%20sent%20to%20him%20by%20a%20young%20boy%20named%20Borys%2030%20years%20ago.%20Now%20the%20latter%20is%20a%20sucssesful%20businessman%20who%20had%20lost%20the%20abbility%20to%20see%20the%20joys%20and%20whimsy%20of%20life%20after%20being%20severly%20beaten%20down%20by%20the%20world%20around%20him.%20The%20legendary%20giftgiver%20enters%20a%20race%20against%20time%20to%20help%20the%20broken%20man%20regain%20his%20childlike%20wonder%2C%20or%20else%20one%20will%20forever%20loose%20the%20abbility%20to%20feel%20joy%20an%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fa-december-tale-2-the-lost-letter%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=A%20December%20Tale%202%3A%20The%20Lost%20Letter%20(2026)&amp;ST=20261126&amp;ET=20261127&amp;in_loc=&amp;DESC=Whilst%20preparing%20for%20yet%20another%20round%20of%20spreading%20holiday%20cheer%2C%20saint%20Nicholas%20discovers%20an%20unopened%20letter%20that%20had%20been%20sent%20to%20him%20by%20a%20young%20boy%20named%20Borys%2030%20years%20ago.%20Now%20the%20latter%20is%20a%20sucssesful%20businessman%20who%20had%20lost%20the%20abbility%20to%20see%20the%20joys%20and%20whimsy%20of%20life%20after%20being%20severly%20beaten%20down%20by%20the%20world%20around%20him.%20The%20legendary%20giftgiver%20enters%20a%20race%20against%20time%20to%20help%20the%20broken%20man%20regain%20his%20childlike%20wonder%2C%20or%20else%20one%20will%20forever%20loose%20the%20abbility%20to%20feel%20joy%20an%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fa-december-tale-2-the-lost-letter%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "A December Tale 2: The Lost Letter (2026)";
-      var overview = "Whilst preparing for yet another round of spreading holiday cheer, saint Nicholas discovers an unopened letter that had been sent to him by a young boy named Borys 30 years ago. Now the latter is a sucssesful businessman who had lost the abbility to see the joys and whimsy of life after being severly beaten down by the world around him. The legendary giftgiver enters a race against time to help the broken man regain his childlike wonder, or else one will forever loose the abbility to feel joy an";
-      var pageUrl  = "https://moviereleaseradar.com/movie/a-december-tale-2-the-lost-letter/";
-      var rawDate  = "2026-11-26";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1658835@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261126\r\nDTEND;VALUE=DATE:20261127\r\nSUMMARY:A December Tale 2: The Lost Letter (2026)\r\nDESCRIPTION:Whilst preparing for yet another round of spreading holiday cheer\\, saint Nicholas discovers an unopened letter that had been sent to him by a young boy named Borys 30 years ago. Now the latter is a sucssesful businessman who had lost the abbility to see the joys and whimsy of life after being severly beaten down by the world around him. The legendary giftgiver enters a race against time to help the broken man regain his childlike wonder\\, or else one will forever loose the abbility to feel joy an\\n\\nMore info: https://moviereleaseradar.com/movie/a-december-tale-2-the-lost-letter/\r\nURL:https://moviereleaseradar.com/movie/a-december-tale-2-the-lost-letter/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

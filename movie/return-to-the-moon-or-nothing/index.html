@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Return%20to%20the%20Moon%20(or%20Nothing)%20(2026)&amp;dates=20260617/20260618&amp;details=%22For%20months%20we%20experimented%20and%20represented%20ourselves%2C%20starting%20with%20simple%20walks%20in%20search%20of%20material%20for%20a%20thesis.%20How%20can%20we%20visually%20recreate%20a%20memory%3F%20We%20walked%20and%20filmed%2C%20photographed%20and%20painted%2C%20got%20to%20know%20each%20other%20and%20told%20our%20stories.%20An%20experience%20transformed%20into%20a%20story%20that%20speaks%20of%20a%20shared%20journey%2C%20made%20up%20of%20filming%2C%20changes%20of%20season%2C%20conversations%20about%20the%20moon%2C%20and%20exchanges%20of%20techniques.%20Inspired%20by%20%E2%80%9CDark%20Side%20of%20the%20Moon%2C%E2%80%9D%20we%20tried%20to%20represent%20the%20intimate%20and%20pers%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Freturn-to-the-moon-or-nothing%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Return%20to%20the%20Moon%20(or%20Nothing)%20(2026)&amp;startdt=2026-06-17&amp;enddt=2026-06-18&amp;allday=true&amp;body=%22For%20months%20we%20experimented%20and%20represented%20ourselves%2C%20starting%20with%20simple%20walks%20in%20search%20of%20material%20for%20a%20thesis.%20How%20can%20we%20visually%20recreate%20a%20memory%3F%20We%20walked%20and%20filmed%2C%20photographed%20and%20painted%2C%20got%20to%20know%20each%20other%20and%20told%20our%20stories.%20An%20experience%20transformed%20into%20a%20story%20that%20speaks%20of%20a%20shared%20journey%2C%20made%20up%20of%20filming%2C%20changes%20of%20season%2C%20conversations%20about%20the%20moon%2C%20and%20exchanges%20of%20techniques.%20Inspired%20by%20%E2%80%9CDark%20Side%20of%20the%20Moon%2C%E2%80%9D%20we%20tried%20to%20represent%20the%20intimate%20and%20pers%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Freturn-to-the-moon-or-nothing%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Return%20to%20the%20Moon%20(or%20Nothing)%20(2026)&amp;ST=20260617&amp;ET=20260618&amp;in_loc=&amp;DESC=%22For%20months%20we%20experimented%20and%20represented%20ourselves%2C%20starting%20with%20simple%20walks%20in%20search%20of%20material%20for%20a%20thesis.%20How%20can%20we%20visually%20recreate%20a%20memory%3F%20We%20walked%20and%20filmed%2C%20photographed%20and%20painted%2C%20got%20to%20know%20each%20other%20and%20told%20our%20stories.%20An%20experience%20transformed%20into%20a%20story%20that%20speaks%20of%20a%20shared%20journey%2C%20made%20up%20of%20filming%2C%20changes%20of%20season%2C%20conversations%20about%20the%20moon%2C%20and%20exchanges%20of%20techniques.%20Inspired%20by%20%E2%80%9CDark%20Side%20of%20the%20Moon%2C%E2%80%9D%20we%20tried%20to%20represent%20the%20intimate%20and%20pers%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Freturn-to-the-moon-or-nothing%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Return to the Moon (or Nothing) (2026)";
-      var overview = "\"For months we experimented and represented ourselves, starting with simple walks in search of material for a thesis. How can we visually recreate a memory? We walked and filmed, photographed and painted, got to know each other and told our stories. An experience transformed into a story that speaks of a shared journey, made up of filming, changes of season, conversations about the moon, and exchanges of techniques. Inspired by “Dark Side of the Moon,” we tried to represent the intimate and pers";
-      var pageUrl  = "https://moviereleaseradar.com/movie/return-to-the-moon-or-nothing/";
-      var rawDate  = "2026-06-17";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1629790@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260617\r\nDTEND;VALUE=DATE:20260618\r\nSUMMARY:Return to the Moon (or Nothing) (2026)\r\nDESCRIPTION:\"For months we experimented and represented ourselves\\, starting with simple walks in search of material for a thesis. How can we visually recreate a memory? We walked and filmed\\, photographed and painted\\, got to know each other and told our stories. An experience transformed into a story that speaks of a shared journey\\, made up of filming\\, changes of season\\, conversations about the moon\\, and exchanges of techniques. Inspired by “Dark Side of the Moon\\,” we tried to represent the intimate and pers\\n\\nMore info: https://moviereleaseradar.com/movie/return-to-the-moon-or-nothing/\r\nURL:https://moviereleaseradar.com/movie/return-to-the-moon-or-nothing/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

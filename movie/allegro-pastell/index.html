@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Allegro%20Pastell%20(2026)&amp;dates=20260416/20260417&amp;details=In%20the%20summer%20of%202018%2C%20novelist%20Tanja%20Arnheim%20and%20web%20designer%20Jerome%20Daimler%20have%20a%20seemingly%20ideal%20long-distance%20relationship%20in%20the%20heat%20of%20Berlin%2C%20the%20idyll%20of%20an%20inherited%20bungalow%20in%20the%20Hessian%20Main%20Valley%20and%20many%20train%20journeys%20in%20between.%20But%20the%20carefully%20cultivated%20balance%20of%20trust%20and%20detachment%20between%20the%20two%20hyper-reflective%20millennials%20is%20shaken%20when%20Tanja%20realizes%20on%20the%20night%20of%20her%20thirtieth%20birthday%20that%20the%20relationship%20could%20become%20existential.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fallegro-pastell%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Allegro%20Pastell%20(2026)&amp;startdt=2026-04-16&amp;enddt=2026-04-17&amp;allday=true&amp;body=In%20the%20summer%20of%202018%2C%20novelist%20Tanja%20Arnheim%20and%20web%20designer%20Jerome%20Daimler%20have%20a%20seemingly%20ideal%20long-distance%20relationship%20in%20the%20heat%20of%20Berlin%2C%20the%20idyll%20of%20an%20inherited%20bungalow%20in%20the%20Hessian%20Main%20Valley%20and%20many%20train%20journeys%20in%20between.%20But%20the%20carefully%20cultivated%20balance%20of%20trust%20and%20detachment%20between%20the%20two%20hyper-reflective%20millennials%20is%20shaken%20when%20Tanja%20realizes%20on%20the%20night%20of%20her%20thirtieth%20birthday%20that%20the%20relationship%20could%20become%20existential.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fallegro-pastell%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Allegro%20Pastell%20(2026)&amp;ST=20260416&amp;ET=20260417&amp;in_loc=&amp;DESC=In%20the%20summer%20of%202018%2C%20novelist%20Tanja%20Arnheim%20and%20web%20designer%20Jerome%20Daimler%20have%20a%20seemingly%20ideal%20long-distance%20relationship%20in%20the%20heat%20of%20Berlin%2C%20the%20idyll%20of%20an%20inherited%20bungalow%20in%20the%20Hessian%20Main%20Valley%20and%20many%20train%20journeys%20in%20between.%20But%20the%20carefully%20cultivated%20balance%20of%20trust%20and%20detachment%20between%20the%20two%20hyper-reflective%20millennials%20is%20shaken%20when%20Tanja%20realizes%20on%20the%20night%20of%20her%20thirtieth%20birthday%20that%20the%20relationship%20could%20become%20existential.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fallegro-pastell%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Allegro Pastell (2026)";
-      var overview = "In the summer of 2018, novelist Tanja Arnheim and web designer Jerome Daimler have a seemingly ideal long-distance relationship in the heat of Berlin, the idyll of an inherited bungalow in the Hessian Main Valley and many train journeys in between. But the carefully cultivated balance of trust and detachment between the two hyper-reflective millennials is shaken when Tanja realizes on the night of her thirtieth birthday that the relationship could become existential.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/allegro-pastell/";
-      var rawDate  = "2026-04-16";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1303657@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260416\r\nDTEND;VALUE=DATE:20260417\r\nSUMMARY:Allegro Pastell (2026)\r\nDESCRIPTION:In the summer of 2018\\, novelist Tanja Arnheim and web designer Jerome Daimler have a seemingly ideal long-distance relationship in the heat of Berlin\\, the idyll of an inherited bungalow in the Hessian Main Valley and many train journeys in between. But the carefully cultivated balance of trust and detachment between the two hyper-reflective millennials is shaken when Tanja realizes on the night of her thirtieth birthday that the relationship could become existential.\\n\\nMore info: https://moviereleaseradar.com/movie/allegro-pastell/\r\nURL:https://moviereleaseradar.com/movie/allegro-pastell/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

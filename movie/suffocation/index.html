@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Suffocation%20(2026)&amp;dates=20260416/20260417&amp;details=In%20an%20elite%20high%20school%20swimming%20team%20plagued%20by%20a%20sinister%20curse%2C%20five%20teens%20unwittingly%20unleash%20a%20chain%20of%20deadly%20events%20after%20exposing%20a%20forbidden%20teacher-student%20affair%20through%20a%20leaked%20video.%20As%20the%20curse%20reawakens%2C%20they%20must%20confront%20betrayal%20and%20despair%20while%20racing%20to%20uncover%20the%20truth%20and%20break%20the%20cycle%20of%20death%2C%20only%20to%20realize%20they%20are%20destined%20to%20become%20each%20other%E2%80%99s%20undoing.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fsuffocation%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Suffocation%20(2026)&amp;startdt=2026-04-16&amp;enddt=2026-04-17&amp;allday=true&amp;body=In%20an%20elite%20high%20school%20swimming%20team%20plagued%20by%20a%20sinister%20curse%2C%20five%20teens%20unwittingly%20unleash%20a%20chain%20of%20deadly%20events%20after%20exposing%20a%20forbidden%20teacher-student%20affair%20through%20a%20leaked%20video.%20As%20the%20curse%20reawakens%2C%20they%20must%20confront%20betrayal%20and%20despair%20while%20racing%20to%20uncover%20the%20truth%20and%20break%20the%20cycle%20of%20death%2C%20only%20to%20realize%20they%20are%20destined%20to%20become%20each%20other%E2%80%99s%20undoing.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fsuffocation%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Suffocation%20(2026)&amp;ST=20260416&amp;ET=20260417&amp;in_loc=&amp;DESC=In%20an%20elite%20high%20school%20swimming%20team%20plagued%20by%20a%20sinister%20curse%2C%20five%20teens%20unwittingly%20unleash%20a%20chain%20of%20deadly%20events%20after%20exposing%20a%20forbidden%20teacher-student%20affair%20through%20a%20leaked%20video.%20As%20the%20curse%20reawakens%2C%20they%20must%20confront%20betrayal%20and%20despair%20while%20racing%20to%20uncover%20the%20truth%20and%20break%20the%20cycle%20of%20death%2C%20only%20to%20realize%20they%20are%20destined%20to%20become%20each%20other%E2%80%99s%20undoing.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fsuffocation%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Suffocation (2026)";
-      var overview = "In an elite high school swimming team plagued by a sinister curse, five teens unwittingly unleash a chain of deadly events after exposing a forbidden teacher-student affair through a leaked video. As the curse reawakens, they must confront betrayal and despair while racing to uncover the truth and break the cycle of death, only to realize they are destined to become each other’s undoing.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/suffocation/";
-      var rawDate  = "2026-04-16";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1433055@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260416\r\nDTEND;VALUE=DATE:20260417\r\nSUMMARY:Suffocation (2026)\r\nDESCRIPTION:In an elite high school swimming team plagued by a sinister curse\\, five teens unwittingly unleash a chain of deadly events after exposing a forbidden teacher-student affair through a leaked video. As the curse reawakens\\, they must confront betrayal and despair while racing to uncover the truth and break the cycle of death\\, only to realize they are destined to become each other’s undoing.\\n\\nMore info: https://moviereleaseradar.com/movie/suffocation/\r\nURL:https://moviereleaseradar.com/movie/suffocation/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

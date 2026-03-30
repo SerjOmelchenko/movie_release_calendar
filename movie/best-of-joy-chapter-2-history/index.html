@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Best%20Of%20Joy%3A%20Chapter%202%20-%20History%20(2026)&amp;dates=20261223/20261224&amp;details=Michael%20Jackson%2C%20now%20a%20world-saving%20hero%20and%20musical%20icon%2C%20finds%20himself%20adrift%20after%20the%20chaos%20of%20the%20Spotlight%20Seven.%20Haunted%20by%20fame%20and%20fractured%20family%20ties%2C%20Michael%20embarks%20on%20a%20personal%20journey%20to%20reunite%20the%20Jackson%20Five%E2%80%94his%20brothers%2C%20his%20roots%2C%20and%20the%20harmony%20he%20lost.%20But%20the%20path%20to%20healing%20is%20far%20from%20simple.%20As%20old%20tensions%20resurface%20and%20new%20wounds%20emerge%2C%20Michael%20must%20navigate%20the%20complex%20legacy%20of%20his%20past%20while%20staying%20true%20to%20the%20joy%20that%20first%20ignited%20his%20voice.%20%20Set%20against%20th%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fbest-of-joy-chapter-2-history%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Best%20Of%20Joy%3A%20Chapter%202%20-%20History%20(2026)&amp;startdt=2026-12-23&amp;enddt=2026-12-24&amp;allday=true&amp;body=Michael%20Jackson%2C%20now%20a%20world-saving%20hero%20and%20musical%20icon%2C%20finds%20himself%20adrift%20after%20the%20chaos%20of%20the%20Spotlight%20Seven.%20Haunted%20by%20fame%20and%20fractured%20family%20ties%2C%20Michael%20embarks%20on%20a%20personal%20journey%20to%20reunite%20the%20Jackson%20Five%E2%80%94his%20brothers%2C%20his%20roots%2C%20and%20the%20harmony%20he%20lost.%20But%20the%20path%20to%20healing%20is%20far%20from%20simple.%20As%20old%20tensions%20resurface%20and%20new%20wounds%20emerge%2C%20Michael%20must%20navigate%20the%20complex%20legacy%20of%20his%20past%20while%20staying%20true%20to%20the%20joy%20that%20first%20ignited%20his%20voice.%20%20Set%20against%20th%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fbest-of-joy-chapter-2-history%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=Best%20Of%20Joy%3A%20Chapter%202%20-%20History%20(2026)&amp;ST=20261223&amp;ET=20261224&amp;in_loc=&amp;DESC=Michael%20Jackson%2C%20now%20a%20world-saving%20hero%20and%20musical%20icon%2C%20finds%20himself%20adrift%20after%20the%20chaos%20of%20the%20Spotlight%20Seven.%20Haunted%20by%20fame%20and%20fractured%20family%20ties%2C%20Michael%20embarks%20on%20a%20personal%20journey%20to%20reunite%20the%20Jackson%20Five%E2%80%94his%20brothers%2C%20his%20roots%2C%20and%20the%20harmony%20he%20lost.%20But%20the%20path%20to%20healing%20is%20far%20from%20simple.%20As%20old%20tensions%20resurface%20and%20new%20wounds%20emerge%2C%20Michael%20must%20navigate%20the%20complex%20legacy%20of%20his%20past%20while%20staying%20true%20to%20the%20joy%20that%20first%20ignited%20his%20voice.%20%20Set%20against%20th%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fbest-of-joy-chapter-2-history%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "Best Of Joy: Chapter 2 - History (2026)";
-      var overview = "Michael Jackson, now a world-saving hero and musical icon, finds himself adrift after the chaos of the Spotlight Seven. Haunted by fame and fractured family ties, Michael embarks on a personal journey to reunite the Jackson Five—his brothers, his roots, and the harmony he lost. But the path to healing is far from simple. As old tensions resurface and new wounds emerge, Michael must navigate the complex legacy of his past while staying true to the joy that first ignited his voice.  Set against th";
-      var pageUrl  = "https://moviereleaseradar.com/movie/best-of-joy-chapter-2-history/";
-      var rawDate  = "2026-12-23";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1482879@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20261223\r\nDTEND;VALUE=DATE:20261224\r\nSUMMARY:Best Of Joy: Chapter 2 - History (2026)\r\nDESCRIPTION:Michael Jackson\\, now a world-saving hero and musical icon\\, finds himself adrift after the chaos of the Spotlight Seven. Haunted by fame and fractured family ties\\, Michael embarks on a personal journey to reunite the Jackson Five—his brothers\\, his roots\\, and the harmony he lost. But the path to healing is far from simple. As old tensions resurface and new wounds emerge\\, Michael must navigate the complex legacy of his past while staying true to the joy that first ignited his voice.  Set against th\\n\\nMore info: https://moviereleaseradar.com/movie/best-of-joy-chapter-2-history/\r\nURL:https://moviereleaseradar.com/movie/best-of-joy-chapter-2-history/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');

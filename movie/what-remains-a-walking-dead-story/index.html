@@ -188,9 +188,9 @@
         <div class="cal-wrap" id="cal-wrap">
           <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
           <div class="cal-menu" id="cal-menu">
-            <a href="#" id="cal-google">&#127381; Google Calendar</a>
-            <a href="#" id="cal-outlook">&#128232; Outlook</a>
-            <a href="#" id="cal-yahoo">&#128197; Yahoo Calendar</a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=What%20Remains...%20-%20A%20Walking%20Dead%20Story%20(2026)&amp;dates=20260519/20260520&amp;details=Inspired%20by%20the%20hit%20show%20'The%20Walking%20Dead'%2C%20A%20Year%20after%20the%20Wildfire%20Virus%20attacked%20the%20nation%2C%20two%20teenagers%2C%20Aaron%20and%20Lara%2C%20traverse%20through%20the%20deserted%2C%20walker-infested%20countryside%20of%20England%20when%20they%20come%20across%20another%20survivor.%20Will%20they%20be%20able%20to%20trust%20this%20new%20foe%3F%20Or%20will%20they%20become%20one%20of%20them%3F%20%20Fanmade%20Short%20film%20written%20and%20directed%20by%20A.B%20Morey.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fwhat-remains-a-walking-dead-story%2F"  target="_blank" rel="noopener">&#127381; Google Calendar</a>
+            <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=What%20Remains...%20-%20A%20Walking%20Dead%20Story%20(2026)&amp;startdt=2026-05-19&amp;enddt=2026-05-20&amp;allday=true&amp;body=Inspired%20by%20the%20hit%20show%20'The%20Walking%20Dead'%2C%20A%20Year%20after%20the%20Wildfire%20Virus%20attacked%20the%20nation%2C%20two%20teenagers%2C%20Aaron%20and%20Lara%2C%20traverse%20through%20the%20deserted%2C%20walker-infested%20countryside%20of%20England%20when%20they%20come%20across%20another%20survivor.%20Will%20they%20be%20able%20to%20trust%20this%20new%20foe%3F%20Or%20will%20they%20become%20one%20of%20them%3F%20%20Fanmade%20Short%20film%20written%20and%20directed%20by%20A.B%20Morey.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fwhat-remains-a-walking-dead-story%2F" target="_blank" rel="noopener">&#128232; Outlook</a>
+            <a href="https://calendar.yahoo.com/?v=60&amp;TITLE=What%20Remains...%20-%20A%20Walking%20Dead%20Story%20(2026)&amp;ST=20260519&amp;ET=20260520&amp;in_loc=&amp;DESC=Inspired%20by%20the%20hit%20show%20'The%20Walking%20Dead'%2C%20A%20Year%20after%20the%20Wildfire%20Virus%20attacked%20the%20nation%2C%20two%20teenagers%2C%20Aaron%20and%20Lara%2C%20traverse%20through%20the%20deserted%2C%20walker-infested%20countryside%20of%20England%20when%20they%20come%20across%20another%20survivor.%20Will%20they%20be%20able%20to%20trust%20this%20new%20foe%3F%20Or%20will%20they%20become%20one%20of%20them%3F%20%20Fanmade%20Short%20film%20written%20and%20directed%20by%20A.B%20Morey.%0A%0AMore%20info%3A%20https%3A%2F%2Fmoviereleaseradar.com%2Fmovie%2Fwhat-remains-a-walking-dead-story%2F"   target="_blank" rel="noopener">&#128197; Yahoo Calendar</a>
             <a href="#" id="cal-ics">&#127822; Apple / iCal (.ics)</a>
           </div>
         </div>
@@ -227,50 +227,6 @@
       var calMenu = document.getElementById('cal-menu');
       var calWrap = document.getElementById('cal-wrap');
       if (!calBtn) return;
-
-      var title    = "What Remains... - A Walking Dead Story (2026)";
-      var overview = "Inspired by the hit show 'The Walking Dead', A Year after the Wildfire Virus attacked the nation, two teenagers, Aaron and Lara, traverse through the deserted, walker-infested countryside of England when they come across another survivor. Will they be able to trust this new foe? Or will they become one of them?  Fanmade Short film written and directed by A.B Morey.";
-      var pageUrl  = "https://moviereleaseradar.com/movie/what-remains-a-walking-dead-story/";
-      var rawDate  = "2026-05-19";
-
-      // Build dates: all-day event, end = next day
-      var parts   = rawDate.split('-');
-      var dateObj = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      var nextDay = new Date(dateObj); nextDay.setUTCDate(nextDay.getUTCDate() + 1);
-      function pad(n){ return String(n).padStart(2,'0'); }
-      function toGcal(d){ return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate()); }
-      function toIso(d){ return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate()); }
-
-      var startG = toGcal(dateObj);
-      var endG   = toGcal(nextDay);
-      var startI = toIso(dateObj);
-      var endI   = toIso(nextDay);
-      var desc   = (overview ? overview + '\n\n' : '') + 'More info: ' + pageUrl;
-      var descEnc = encodeURIComponent(desc);
-      var titleEnc = encodeURIComponent(title);
-
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + titleEnc +
-        '&dates=' + startG + '/' + endG +
-        '&details=' + descEnc;
-      document.getElementById('cal-google').target = '_blank';
-      document.getElementById('cal-google').rel = 'noopener';
-
-      document.getElementById('cal-outlook').href =
-        'https://outlook.live.com/calendar/0/deeplink/compose?subject=' + titleEnc +
-        '&startdt=' + startI + '&enddt=' + endI +
-        '&allday=true&body=' + descEnc;
-      document.getElementById('cal-outlook').target = '_blank';
-      document.getElementById('cal-outlook').rel = 'noopener';
-
-      document.getElementById('cal-yahoo').href =
-        'https://calendar.yahoo.com/?v=60&TITLE=' + titleEnc +
-        '&ST=' + startG + '&ET=' + endG +
-        '&in_loc=&DESC=' + descEnc;
-      document.getElementById('cal-yahoo').target = '_blank';
-      document.getElementById('cal-yahoo').rel = 'noopener';
-
       document.getElementById('cal-ics').addEventListener('click', function(e){
         e.preventDefault();
         var blob = new Blob(["BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Movie Release Radar//EN\r\nBEGIN:VEVENT\r\nUID:movie-1648588@moviereleasecalendar.com\r\nDTSTART;VALUE=DATE:20260519\r\nDTEND;VALUE=DATE:20260520\r\nSUMMARY:What Remains... - A Walking Dead Story (2026)\r\nDESCRIPTION:Inspired by the hit show 'The Walking Dead'\\, A Year after the Wildfire Virus attacked the nation\\, two teenagers\\, Aaron and Lara\\, traverse through the deserted\\, walker-infested countryside of England when they come across another survivor. Will they be able to trust this new foe? Or will they become one of them?  Fanmade Short film written and directed by A.B Morey.\\n\\nMore info: https://moviereleaseradar.com/movie/what-remains-a-walking-dead-story/\r\nURL:https://moviereleaseradar.com/movie/what-remains-a-walking-dead-story/\r\nEND:VEVENT\r\nEND:VCALENDAR"], {type:'text/calendar;charset=utf-8'});
@@ -281,14 +237,11 @@
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
         calMenu.classList.remove('open'); calBtn.classList.remove('open');
       });
-
-      // Toggle dropdown
       calBtn.addEventListener('click', function(e){
         e.stopPropagation();
         var open = calMenu.classList.toggle('open');
         calBtn.classList.toggle('open', open);
       });
-      // Close on outside click
       document.addEventListener('click', function(e){
         if (!calWrap.contains(e.target)){
           calMenu.classList.remove('open'); calBtn.classList.remove('open');
