@@ -709,7 +709,13 @@ const TOP_SHARED_CSS = `
     .footer-brand { font-size: 0.78rem; font-weight: 700; color: #333; letter-spacing: 0.1em; text-transform: uppercase; }
     .footer-attr { font-size: 0.75rem; color: #888; }
     footer a { color: #e94560; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }`;
+    footer a:hover { text-decoration: underline; }
+    @media (max-width: 600px) {
+      header { padding: 1rem; }
+      .header-inner { flex-direction: row; align-items: center; }
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+    }`;
 
 const TOP_PAGE_HEADER = `
 <header>
@@ -882,7 +888,8 @@ function buildTopMoviesPage(ym, topMovies) {
     @media (max-width: 600px) {
       .top-page { padding: 1rem; }
       .page-header h1 { font-size: 1.5rem; }
-      .poster-wrap { width: 72px; }
+      .top-item { padding: 0.875rem; gap: 0.875rem; }
+      .poster-wrap { width: 110px; }
       .movie-info h2 { font-size: 1rem; }
     }
   </style>

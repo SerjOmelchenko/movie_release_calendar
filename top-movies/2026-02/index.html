@@ -85,9 +85,14 @@
     .overview { font-size: 0.875rem; color: #888; line-height: 1.65; }
     .updated-note { margin-top: 2rem; font-size: 0.78rem; color: #444; text-align: center; }
     @media (max-width: 600px) {
+      header { padding: 1rem; }
+      .header-inner { flex-direction: row; align-items: center; }
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
       .top-page { padding: 1rem; }
       .page-header h1 { font-size: 1.5rem; }
-      .poster-wrap { width: 72px; }
+      .top-item { padding: 0.875rem; gap: 0.875rem; }
+      .poster-wrap { width: 110px; }
       .movie-info h2 { font-size: 1rem; }
     }
   </style>
