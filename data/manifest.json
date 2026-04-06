@@ -6222,6 +6222,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "949536": {
+    "title": "Kill Code",
+    "slug": "kill-code",
+    "previousSlugs": [],
+    "certification": null
+  },
   "950028": {
     "title": "The Invite",
     "slug": "the-invite",
@@ -10136,6 +10142,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1207380": {
+    "title": "The Wig",
+    "slug": "the-wig",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1207627": {
     "title": "Leonora in the Morning Light",
     "slug": "leonora-in-the-morning-light",
@@ -12723,6 +12735,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1286030": {
+    "title": "Apophis 2029",
+    "slug": "apophis-2029",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1286185": {
     "title": "The Carpenter's Son",
     "slug": "the-carpenter-s-son",
@@ -14183,6 +14201,12 @@
     ],
     "certification": null
   },
+  "1318621": {
+    "title": "Descendants: Wicked Wonderland",
+    "slug": "descendants-wicked-wonderland",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1318818": {
     "title": "Lust",
     "slug": "lust",
@@ -14308,6 +14332,12 @@
     "slug": "terrifier-4",
     "previousSlugs": [],
     "certification": "NR"
+  },
+  "1321008": {
+    "title": "Black Box (Flight 298)",
+    "slug": "black-box-flight-298",
+    "previousSlugs": [],
+    "certification": null
   },
   "1321179": {
     "title": "The King's Warden",
@@ -14588,6 +14618,12 @@
   "1328501": {
     "title": "The Peril at Pincer Point",
     "slug": "the-peril-at-pincer-point",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1328580": {
+    "title": "Death Cycle",
+    "slug": "death-cycle",
     "previousSlugs": [],
     "certification": null
   },
@@ -15659,6 +15695,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1365928": {
+    "title": "Teaching Practice: Idiot Girls and School Ghost 2",
+    "slug": "teaching-practice-idiot-girls-and-school-ghost-2",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1366060": {
     "title": "Love Supreme",
     "slug": "love-supreme",
@@ -15932,6 +15974,12 @@
   "1372443": {
     "title": "Untitled Mr. Irrelevant Film",
     "slug": "untitled-mr-irrelevant-film",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1372572": {
+    "title": "Flamingos: Life After the Meteorite",
+    "slug": "flamingos-life-after-the-meteorite",
     "previousSlugs": [],
     "certification": null
   },
@@ -19412,6 +19460,12 @@
   "1441336": {
     "title": "Anything For A Dream",
     "slug": "anything-for-a-dream",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1441488": {
+    "title": "18 Holes to Paradise",
+    "slug": "18-holes-to-paradise",
     "previousSlugs": [],
     "certification": null
   },
@@ -23267,6 +23321,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1500449": {
+    "title": "Molly",
+    "slug": "molly",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1500522": {
     "title": "Never a Thief",
     "slug": "never-a-thief",
@@ -23276,6 +23336,12 @@
   "1500774": {
     "title": "Ugly Cry",
     "slug": "ugly-cry",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1500890": {
+    "title": "Winthrop",
+    "slug": "winthrop",
     "previousSlugs": [],
     "certification": null
   },
@@ -23612,9 +23678,11 @@
     "certification": null
   },
   "1508701": {
-    "title": "God Forgives All",
+    "title": "...God Forgives All",
     "slug": "god-forgives-all",
-    "previousSlugs": [],
+    "previousSlugs": [
+      "god-forgives-all"
+    ],
     "certification": null
   },
   "1508855": {
@@ -25234,9 +25302,11 @@
     "certification": null
   },
   "1530389": {
-    "title": "Not Home Alone 3",
-    "slug": "not-home-alone-3",
-    "previousSlugs": [],
+    "title": "Home Not Alone 3",
+    "slug": "home-not-alone-3",
+    "previousSlugs": [
+      "not-home-alone-3"
+    ],
     "certification": null
   },
   "1530391": {
@@ -26900,9 +26970,11 @@
     "certification": null
   },
   "1554116": {
-    "title": "Qualcosa di Lilla 2026",
-    "slug": "qualcosa-di-lilla-2026",
-    "previousSlugs": [],
+    "title": "Qualcosa di Lilla",
+    "slug": "qualcosa-di-lilla",
+    "previousSlugs": [
+      "qualcosa-di-lilla-2026"
+    ],
     "certification": null
   },
   "1554125": {
@@ -26914,6 +26986,12 @@
   "1554138": {
     "title": "Crazy Christmas",
     "slug": "crazy-christmas",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1554345": {
+    "title": "This Bloody Country",
+    "slug": "this-bloody-country",
     "previousSlugs": [],
     "certification": null
   },
@@ -30195,6 +30273,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1594520": {
+    "title": "True Justice Eye For An Eye",
+    "slug": "true-justice-eye-for-an-eye",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1594606": {
     "title": "The Hostage's Hero",
     "slug": "the-hostage-s-hero",
@@ -30716,9 +30800,11 @@
     "certification": null
   },
   "1598518": {
-    "title": "CICADA",
-    "slug": "cicada",
-    "previousSlugs": [],
+    "title": "Le Sommet: A Formula 1 Story",
+    "slug": "le-sommet-a-formula-1-story",
+    "previousSlugs": [
+      "cicada"
+    ],
     "certification": null
   },
   "1598661": {
@@ -31585,6 +31671,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1604280": {
+    "title": "God & Beer",
+    "slug": "god-beer",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1604405": {
     "title": "medyczne: PSYCHODELIKI",
     "slug": "medyczne-psychodeliki",
@@ -32242,6 +32334,12 @@
   "1610817": {
     "title": "Playback",
     "slug": "playback",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1610820": {
+    "title": "Santo António",
+    "slug": "santo-antonio",
     "previousSlugs": [],
     "certification": null
   },
@@ -41380,6 +41478,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1640350": {
+    "title": "hello?",
+    "slug": "hello",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1640353": {
     "title": "On Queer Aging and Endings",
     "slug": "on-queer-aging-and-endings",
@@ -42103,6 +42207,12 @@
   "1641770": {
     "title": "Gusanitos",
     "slug": "gusanitos",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1641775": {
+    "title": "LE 13E ROUND",
+    "slug": "le-13e-round",
     "previousSlugs": [],
     "certification": null
   },
@@ -48372,6 +48482,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1652188": {
+    "title": "The Way Things Seem to Be",
+    "slug": "the-way-things-seem-to-be",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1652198": {
     "title": "My Daughter Was Taken",
     "slug": "my-daughter-was-taken",
@@ -49697,9 +49813,11 @@
     "certification": null
   },
   "1654313": {
-    "title": "Sword Art Online: Unanswered//butterfly",
-    "slug": "sword-art-online-unanswered-butterfly",
-    "previousSlugs": [],
+    "title": "Unanswered//butterfly: Sword Art Online",
+    "slug": "unanswered-butterfly-sword-art-online",
+    "previousSlugs": [
+      "sword-art-online-unanswered-butterfly"
+    ],
     "certification": null
   },
   "1654350": {
@@ -52304,6 +52422,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1657803": {
+    "title": "X Room",
+    "slug": "x-room",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1657813": {
     "title": "Your business is a pipe",
     "slug": "your-business-is-a-pipe",
@@ -52498,6 +52622,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1658141": {
+    "title": "Dentro",
+    "slug": "dentro",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1658143": {
     "title": "Me in a Nutshell",
     "slug": "me-in-a-nutshell",
@@ -52657,6 +52787,12 @@
   "1658299": {
     "title": "Man on Loop",
     "slug": "man-on-loop",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1658304": {
+    "title": "The Distance We Drift",
+    "slug": "the-distance-we-drift",
     "previousSlugs": [],
     "certification": null
   },
@@ -53616,6 +53752,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1660070": {
+    "title": "NOAH Legacy Rise 2026",
+    "slug": "noah-legacy-rise-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1660150": {
     "title": "Justiciar",
     "slug": "justiciar",
@@ -53705,6 +53847,12 @@
   "1660612": {
     "title": "Wanda Sykes: Legacy",
     "slug": "wanda-sykes-legacy",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1660659": {
+    "title": "Babies",
+    "slug": "babies",
     "previousSlugs": [],
     "certification": null
   },
@@ -53822,6 +53970,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1661044": {
+    "title": "Rabsha",
+    "slug": "rabsha",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1661050": {
     "title": "Robbed",
     "slug": "robbed",
@@ -53853,10 +54007,11 @@
     "certification": null
   },
   "1661218": {
-    "title": "Cold War in Philly: Flyers vs Russia 1976",
-    "slug": "cold-war-in-philly-flyers-vs-russia-1976",
+    "title": "Cold War in Philly",
+    "slug": "cold-war-in-philly",
     "previousSlugs": [
-      "cold-war-in-philly-flyers-vs-russia"
+      "cold-war-in-philly-flyers-vs-russia",
+      "cold-war-in-philly-flyers-vs-russia-1976"
     ],
     "certification": null
   },
@@ -54040,6 +54195,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1662222": {
+    "title": "The Salinas Decoder",
+    "slug": "the-salinas-decoder",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1662270": {
     "title": "All's Fair in Love and Mahjong",
     "slug": "all-s-fair-in-love-and-mahjong",
@@ -54176,15 +54337,57 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1663116": {
+    "title": "To Dine For",
+    "slug": "to-dine-for",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1663142": {
+    "title": "CALL",
+    "slug": "call",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1663234": {
+    "title": "Pinecone",
+    "slug": "pinecone",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1663311": {
     "title": "Abadameva Jayathe",
     "slug": "abadameva-jayathe",
     "previousSlugs": [],
     "certification": null
   },
+  "1663312": {
+    "title": "All My Friends Are Back In Brisbane",
+    "slug": "all-my-friends-are-back-in-brisbane",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1663449": {
+    "title": "Loin des yeux, près du coeur",
+    "slug": "loin-des-yeux-pres-du-coeur",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1663504": {
+    "title": "Chaser Game W: Suigyo no Majiwari",
+    "slug": "chaser-game-w-suigyo-no-majiwari",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1663557": {
     "title": "Archaeologies of the future",
     "slug": "archaeologies-of-the-future",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1663577": {
+    "title": "Cronache 2037",
+    "slug": "cronache-2037",
     "previousSlugs": [],
     "certification": null
   },
@@ -54207,14 +54410,54 @@
     "certification": null
   },
   "1663937": {
-    "title": "映画名探偵プリキュア！",
-    "slug": "movie-1663937",
-    "previousSlugs": [],
+    "title": "Star Detective Pretty Cure! The Movie",
+    "slug": "star-detective-pretty-cure-the-movie",
+    "previousSlugs": [
+      "movie-1663937"
+    ],
     "certification": null
   },
   "1663977": {
-    "title": "The Pinecrest Lost Tapes: Chaos! Blood! & Violence (Prologue Short Film)",
-    "slug": "the-pinecrest-lost-tapes-chaos-blood-violence-prologue-short-film",
+    "title": "The Pinecrest Lost Tapes: Chaos! Blood! & Violence (Prologue Film)",
+    "slug": "the-pinecrest-lost-tapes-chaos-blood-violence-prologue-film",
+    "previousSlugs": [
+      "the-pinecrest-lost-tapes-chaos-blood-violence-prologue-short-film"
+    ],
+    "certification": null
+  },
+  "1664119": {
+    "title": "Малыш-каратист",
+    "slug": "movie-1664119",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1664187": {
+    "title": "Late Night At The Movies",
+    "slug": "late-night-at-the-movies",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1664237": {
+    "title": "TEENAGERS",
+    "slug": "teenagers",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1664241": {
+    "title": "Lajna - konečně film!",
+    "slug": "lajna-konecne-film",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1664286": {
+    "title": "The Road That Jack Hit",
+    "slug": "the-road-that-jack-hit",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1664550": {
+    "title": "Ícaro",
+    "slug": "icaro",
     "previousSlugs": [],
     "certification": null
   }
