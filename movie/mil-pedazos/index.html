@@ -36,13 +36,18 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0d0d0d; color: #e0e0e0; min-height: 100vh; }
 
-    header { background: #0d0d0d; padding: 1.4rem 2rem; border-bottom: 1px solid #1e1e1e; display: flex; align-items: center; justify-content: center; }
+    header { background: #0d0d0d; padding: 1.4rem 2rem; border-bottom: 1px solid #1e1e1e; }
+    .header-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
     .site-brand { display: flex; align-items: center; gap: 0.85rem; text-decoration: none; }
     .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
     .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
     @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
     .brand-name span { color: #e94560; }
+    .header-nav { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
+    .nav-link:hover { color: #fff; }
+    .nav-link.active { color: #fff; }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -73,9 +78,18 @@
     .movie-crew strong { color: #ddd; }
     .movie-overview { font-size: 0.975rem; color: #bbb; line-height: 1.75; }
 
-    .wl-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem; padding: 0.6rem 1.3rem; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
+    .movie-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: 1.25rem; }
+    .wl-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.3rem; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
     .wl-btn:hover { border-color: #e94560; color: #e94560; background: rgba(233,69,96,0.07); }
     .wl-btn.wl-active { background: #e94560; border-color: #e94560; color: #fff; }
+
+    .cal-wrap { position: relative; display: inline-block; }
+    .cal-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.3rem; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
+    .cal-btn:hover, .cal-btn.open { border-color: #4a9eff; color: #4a9eff; background: rgba(74,158,255,0.07); }
+    .cal-menu { display: none; position: absolute; top: calc(100% + 6px); left: 0; min-width: 180px; background: #1a1a1a; border: 1px solid #2e2e2e; border-radius: 10px; overflow: hidden; z-index: 100; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+    .cal-menu.open { display: block; }
+    .cal-menu a { display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 1rem; color: #ccc; text-decoration: none; font-size: 0.85rem; transition: background 0.12s, color 0.12s; }
+    .cal-menu a:hover { background: rgba(74,158,255,0.1); color: #4a9eff; }
 
     .trailer-section { margin-top: 2.5rem; }
     .trailer-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 14px; overflow: hidden; background: #111; }
@@ -112,21 +126,27 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <header>
-  <a href="/" class="site-brand">
-    <svg class="brand-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="22" cy="22" r="20"   stroke="#2a2a2a" stroke-width="1.2"/>
-      <circle cx="22" cy="22" r="13.5" stroke="#2a2a2a" stroke-width="1.2"/>
-      <circle cx="22" cy="22" r="7"    stroke="#2a2a2a" stroke-width="1.2"/>
-      <line x1="22" y1="2"  x2="22" y2="42" stroke="#1e1e1e" stroke-width="1"/>
-      <line x1="2"  y1="22" x2="42" y2="22" stroke="#1e1e1e" stroke-width="1"/>
-      <g class="sweep-group">
-        <line x1="22" y1="22" x2="42" y2="22" stroke="#e94560" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
-        <circle cx="36" cy="22" r="2" fill="#e94560" opacity="0.85"/>
-      </g>
-      <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
-    </svg>
-    <span class="brand-name">Movie Release <span>Radar</span></span>
-  </a>
+  <div class="header-inner">
+    <a href="/" class="site-brand">
+      <svg class="brand-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="22" cy="22" r="20"   stroke="#2a2a2a" stroke-width="1.2"/>
+        <circle cx="22" cy="22" r="13.5" stroke="#2a2a2a" stroke-width="1.2"/>
+        <circle cx="22" cy="22" r="7"    stroke="#2a2a2a" stroke-width="1.2"/>
+        <line x1="22" y1="2"  x2="22" y2="42" stroke="#1e1e1e" stroke-width="1"/>
+        <line x1="2"  y1="22" x2="42" y2="22" stroke="#1e1e1e" stroke-width="1"/>
+        <g class="sweep-group">
+          <line x1="22" y1="22" x2="42" y2="22" stroke="#e94560" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+          <circle cx="36" cy="22" r="2" fill="#e94560" opacity="0.85"/>
+        </g>
+        <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
+      </svg>
+      <span class="brand-name">Movie Release <span>Radar</span></span>
+    </a>
+    <nav class="header-nav">
+      <a href="/" class="nav-link">Calendar</a>
+      <a href="/top-movies/" class="nav-link">Top Movies</a>
+    </nav>
+  </div>
 </header>
 
 <main class="movie-page">
@@ -166,7 +186,10 @@
         <span>&#127775; Paola Giannini, Daniel Muñoz, Emilia Rodriguez, Francisco Pérez-Bannen, Ximena Martín</span>
       </div>
       <p class="movie-overview">Miguel (55), Isabel (45), and Emilia (9) go on vacation with their dog, Eve. Suddenly, an accident in the middle of the desert leaves the mother seriously injured. Miguel, trying to save Emilia, embarks on a personal journey with his daughter to find answers about what happened. Three months later, Isabel awakens from a coma and begins a personal, loving, and intuitive quest to rebuild her family.</p>
-      <button class="wl-btn" id="wl-btn" data-id="1646433">&#9825; Add to Watchlist</button>
+      <div class="movie-actions">
+        <button class="wl-btn" id="wl-btn" data-id="1646433">&#9825; Add to Watchlist</button>
+        
+      </div>
     </div>
   </div>
   <script>
@@ -195,9 +218,11 @@
   
 
   
+
+  
   <section class="releases-section">
     <div class="section-heading">Release Dates by Country</div>
-    <div class="releases-grid"><div class="release-item"><span class="release-country">Spain</span><span class="release-date">Mar 10, 2026</span></div></div>
+    <div class="releases-grid"><div class="release-item"><span class="release-country">Australia</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Austria</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Belgium</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Brazil</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Bulgaria</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Canada</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">China</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Croatia</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Cyprus</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Czech Republic</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Denmark</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Estonia</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Finland</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">France</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Germany</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Greece</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Hungary</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">India</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Ireland</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Italy</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Japan</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Latvia</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Lithuania</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Luxembourg</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Malta</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Netherlands</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Poland</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Portugal</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Romania</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Slovakia</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Slovenia</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">South Korea</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Spain</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Sweden</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">United Kingdom</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">Ukraine</span><span class="release-date">Mar 10, 2026</span></div><div class="release-item"><span class="release-country">United States</span><span class="release-date">Mar 10, 2026</span></div></div>
   </section>
 </main>
 
