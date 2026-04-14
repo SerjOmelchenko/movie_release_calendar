@@ -2963,6 +2963,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "192139": {
+    "title": "The Brink Of War",
+    "slug": "the-brink-of-war",
+    "previousSlugs": [],
+    "certification": null
+  },
   "201478": {
     "title": "Roots of Evil",
     "slug": "roots-of-evil",
@@ -5426,6 +5432,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "832676": {
+    "title": "Wind",
+    "slug": "wind-832676",
+    "previousSlugs": [],
+    "certification": null
+  },
   "837273": {
     "title": "La Mort est dans le pré",
     "slug": "la-mort-est-dans-le-pre",
@@ -5591,6 +5603,12 @@
   "858024": {
     "title": "Hamnet",
     "slug": "hamnet",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "858035": {
+    "title": "Klara and the Sun",
+    "slug": "klara-and-the-sun",
     "previousSlugs": [],
     "certification": null
   },
@@ -7809,6 +7827,12 @@
   "1070170": {
     "title": "Derby",
     "slug": "derby",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1070754": {
+    "title": "O Horizon",
+    "slug": "o-horizon",
     "previousSlugs": [],
     "certification": null
   },
@@ -10931,6 +10955,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1231204": {
+    "title": "Indian 3: War Mode",
+    "slug": "indian-3-war-mode",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1231322": {
     "title": "The Wandering Earth III",
     "slug": "the-wandering-earth-iii",
@@ -13188,9 +13218,11 @@
     "certification": null
   },
   "1291595": {
-    "title": "Insidious: The Bleeding World",
-    "slug": "insidious-the-bleeding-world",
-    "previousSlugs": [],
+    "title": "Insidious: Out of the Further",
+    "slug": "insidious-out-of-the-further",
+    "previousSlugs": [
+      "insidious-the-bleeding-world"
+    ],
     "certification": null
   },
   "1291659": {
@@ -15763,6 +15795,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1363685": {
+    "title": "Juvenile Inspektor: The Shadow Over Jõhvi",
+    "slug": "juvenile-inspektor-the-shadow-over-johvi",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1363974": {
     "title": "That Time I Got Reincarnated as a Slime the Movie: Tears of the Azure Sea",
     "slug": "that-time-i-got-reincarnated-as-a-slime-the-movie-tears-of-the-azure-sea",
@@ -16747,6 +16785,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1385104": {
+    "title": "Switzattack",
+    "slug": "switzattack",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1385536": {
     "title": "Sore: A Wife from the Future",
     "slug": "sore-a-wife-from-the-future",
@@ -17059,6 +17103,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1393728": {
+    "title": "The Cholesterol Code",
+    "slug": "the-cholesterol-code",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1393942": {
     "title": "Jitters",
     "slug": "jitters",
@@ -17170,6 +17220,12 @@
   "1396351": {
     "title": "Les parents terribles",
     "slug": "les-parents-terribles",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1396368": {
+    "title": "A Son",
+    "slug": "a-son",
     "previousSlugs": [],
     "certification": null
   },
@@ -17628,6 +17684,12 @@
   "1402827": {
     "title": "Curtains",
     "slug": "curtains",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1402984": {
+    "title": "I Blew Out the Candles Before Making a Wish",
+    "slug": "i-blew-out-the-candles-before-making-a-wish",
     "previousSlugs": [],
     "certification": null
   },
@@ -19411,6 +19473,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1435047": {
+    "title": "爱是愤怒",
+    "slug": "movie-1435047",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1435393": {
     "title": "More Beautiful Perversions",
     "slug": "more-beautiful-perversions",
@@ -19524,6 +19592,12 @@
   "1437873": {
     "title": "Band Together",
     "slug": "band-together",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1437882": {
+    "title": "A Place in Hell",
+    "slug": "a-place-in-hell",
     "previousSlugs": [],
     "certification": null
   },
@@ -21532,6 +21606,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1468688": {
+    "title": "An island away from you",
+    "slug": "an-island-away-from-you",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1468698": {
     "title": "King & Jester: Forever",
     "slug": "king-jester-forever",
@@ -23478,6 +23558,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1496012": {
+    "title": "L’Ordre pourpre",
+    "slug": "l-ordre-pourpre",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1496049": {
     "title": "Never One",
     "slug": "never-one",
@@ -23521,9 +23607,11 @@
     "certification": null
   },
   "1496491": {
-    "title": "De la comédie française",
-    "slug": "de-la-comedie-francaise",
-    "previousSlugs": [],
+    "title": "Comédie-Française",
+    "slug": "comedie-francaise",
+    "previousSlugs": [
+      "de-la-comedie-francaise"
+    ],
     "certification": null
   },
   "1496630": {
@@ -24439,6 +24527,12 @@
   "1512014": {
     "title": "Bound By Lies",
     "slug": "bound-by-lies",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1512084": {
+    "title": "Baby Do Die Do",
+    "slug": "baby-do-die-do",
     "previousSlugs": [],
     "certification": null
   },
@@ -25399,6 +25493,12 @@
   "1525441": {
     "title": "Naše léto",
     "slug": "nase-leto",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1525482": {
+    "title": "Side Heroes",
+    "slug": "side-heroes",
     "previousSlugs": [],
     "certification": null
   },
@@ -26463,6 +26563,12 @@
   "1538592": {
     "title": "Albas",
     "slug": "albas",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1538622": {
+    "title": "Incomplete Chairs",
+    "slug": "incomplete-chairs",
     "previousSlugs": [],
     "certification": null
   },
@@ -27916,6 +28022,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1559512": {
+    "title": "The Killing Cell",
+    "slug": "the-killing-cell",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1559535": {
     "title": "Time Hoppers: The Silk Road",
     "slug": "time-hoppers-the-silk-road",
@@ -29146,6 +29258,12 @@
   "1573054": {
     "title": "Play House",
     "slug": "play-house",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1573100": {
+    "title": "This Body of Mine",
+    "slug": "this-body-of-mine",
     "previousSlugs": [],
     "certification": null
   },
@@ -30508,6 +30626,12 @@
   "1590907": {
     "title": "Ein Sommer in Italien - WM 1990",
     "slug": "ein-sommer-in-italien-wm-1990",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1590933": {
+    "title": "You, Like a Star",
+    "slug": "you-like-a-star",
     "previousSlugs": [],
     "certification": null
   },
@@ -31889,6 +32013,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1601137": {
+    "title": "Jerry the Ginger Eater",
+    "slug": "jerry-the-ginger-eater",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1601148": {
     "title": "Malvina",
     "slug": "malvina",
@@ -32280,9 +32410,11 @@
     "certification": null
   },
   "1604970": {
-    "title": "AEW Revolution",
-    "slug": "aew-revolution",
-    "previousSlugs": [],
+    "title": "AEW Revolution 2026",
+    "slug": "aew-revolution-2026",
+    "previousSlugs": [
+      "aew-revolution"
+    ],
     "certification": null
   },
   "1604975": {
@@ -32534,6 +32666,12 @@
   "1607762": {
     "title": "Honey",
     "slug": "honey",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1607833": {
+    "title": "Bohurupi: The Golden Daku",
+    "slug": "bohurupi-the-golden-daku",
     "previousSlugs": [],
     "certification": null
   },
@@ -35846,9 +35984,11 @@
     "certification": null
   },
   "1625086": {
-    "title": "Artemis: A Horizon Special",
-    "slug": "artemis-a-horizon-special",
-    "previousSlugs": [],
+    "title": "Artemis: To the Moon and Back",
+    "slug": "artemis-to-the-moon-and-back",
+    "previousSlugs": [
+      "artemis-a-horizon-special"
+    ],
     "certification": null
   },
   "1625091": {
@@ -48331,6 +48471,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1650512": {
+    "title": "Meat",
+    "slug": "meat",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1650520": {
     "title": "Somos Miraflores",
     "slug": "somos-miraflores",
@@ -48682,6 +48828,12 @@
   "1651217": {
     "title": "No Money So Lonely or (Clarence)",
     "slug": "no-money-so-lonely-or-clarence",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1651224": {
+    "title": "Dear Fatima",
+    "slug": "dear-fatima",
     "previousSlugs": [],
     "certification": null
   },
@@ -53505,6 +53657,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1658033": {
+    "title": "LAEROTAUAFE",
+    "slug": "laerotauafe",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1658057": {
     "title": "Parasomnia",
     "slug": "parasomnia",
@@ -55534,9 +55692,21 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1662989": {
+    "title": "NJPW Road to Wrestling Dontaku 2026 - Day 8",
+    "slug": "njpw-road-to-wrestling-dontaku-2026-day-8",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1662996": {
     "title": "Stardom in Hamamatsu 2026 Apr.",
     "slug": "stardom-in-hamamatsu-2026-apr",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1662999": {
+    "title": "NJPW Wrestling Dontaku 2026 - Day 1",
+    "slug": "njpw-wrestling-dontaku-2026-day-1",
     "previousSlugs": [],
     "certification": null
   },
@@ -55802,6 +55972,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1664453": {
+    "title": "Murphy Hates Humans",
+    "slug": "murphy-hates-humans",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1664518": {
     "title": "Nightmares Unleashed 2: Joseph's Revenge",
     "slug": "nightmares-unleashed-2-joseph-s-revenge",
@@ -55841,6 +56017,12 @@
   "1664760": {
     "title": "Possessed",
     "slug": "possessed",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1664910": {
+    "title": "You Are Here",
+    "slug": "you-are-here",
     "previousSlugs": [],
     "certification": null
   },
@@ -56230,6 +56412,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1667622": {
+    "title": "K3 Originals, The Reunion",
+    "slug": "k3-originals-the-reunion",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1667671": {
     "title": "two ice creams please",
     "slug": "two-ice-creams-please",
@@ -56298,9 +56486,21 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1668284": {
+    "title": "Ergolavos",
+    "slug": "ergolavos",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1668320": {
     "title": "ALLOY OF FEAR",
     "slug": "alloy-of-fear",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1668337": {
+    "title": "The Strange Adventures of Inspector Dulac, Part 8: The Mystery of the Lost Hortensia",
+    "slug": "the-strange-adventures-of-inspector-dulac-part-8-the-mystery-of-the-lost-hortensia",
     "previousSlugs": [],
     "certification": null
   },
@@ -56310,9 +56510,27 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1668353": {
+    "title": "FISHCALL",
+    "slug": "fishcall",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1668462": {
+    "title": "White Masked Men",
+    "slug": "white-masked-men",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1668470": {
     "title": "Glory/Us",
     "slug": "glory-us",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1668667": {
+    "title": "Lalibazar",
+    "slug": "lalibazar",
     "previousSlugs": [],
     "certification": null
   },
@@ -56328,6 +56546,18 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1669057": {
+    "title": "Check-In",
+    "slug": "check-in",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1669061": {
+    "title": "Pasakalye",
+    "slug": "pasakalye",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1669180": {
     "title": "Life Coach",
     "slug": "life-coach",
@@ -56337,6 +56567,48 @@
   "1669191": {
     "title": "'Mr. Paradise'",
     "slug": "mr-paradise",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1669263": {
+    "title": "Fake Hundreds",
+    "slug": "fake-hundreds",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1669765": {
+    "title": "Za Short Film",
+    "slug": "za-short-film",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1669809": {
+    "title": "Avatar: Aang, The Last Airbender",
+    "slug": "avatar-aang-the-last-airbender",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1669841": {
+    "title": "Bleach: Thousand-Year Blood War – The Calamity",
+    "slug": "bleach-thousand-year-blood-war-the-calamity",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1669970": {
+    "title": "93 DERGREES AT MIDNIGHT",
+    "slug": "93-dergrees-at-midnight",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1669984": {
+    "title": "Accidental Truth: Next - Beyond UFO Disclosure",
+    "slug": "accidental-truth-next-beyond-ufo-disclosure",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1670061": {
+    "title": "藁にもすがる獣たち",
+    "slug": "movie-1670061",
     "previousSlugs": [],
     "certification": null
   }
