@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://moviereleaseradar.com/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-brink-of-war/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -68,7 +68,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/animal-farm/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -109,12 +109,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/children-of-blood-and-bone/</loc>
-    <lastmod>2026-04-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/litvyak/</loc>
     <lastmod>2026-04-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -129,6 +123,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/nick-and-the-jade-tree/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/our-land/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -151,14 +151,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/the-squirrel/</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/project-hail-mary/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -223,12 +217,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/je-m-appelle-agneta/</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/wind-832676/</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -249,12 +237,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/gorgona/</loc>
     <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/the-lake/</loc>
-    <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -284,7 +266,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/klara-and-the-sun/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -302,7 +284,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/peaky-blinders-the-immortal-man/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -338,7 +320,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/desert-warrior/</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -351,6 +333,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/jeweler/</loc>
     <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/butterfly-jam/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -374,7 +362,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/mortal-kombat-ii/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -392,13 +380,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/wardriver/</loc>
-    <lastmod>2026-04-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/lateral-thinking/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -458,13 +440,13 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/spider-man-brand-new-day/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/cotton-queen/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -475,8 +457,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/the-legend-of-aang-the-last-airbender/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://moviereleaseradar.com/movie/avatar-aang-the-last-airbender-2026/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -494,7 +476,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/do-not-enter/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -512,7 +494,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/mrs/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -554,7 +536,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/l-affaire-marie-claire/</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -662,7 +644,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/outcome/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -740,7 +722,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-beloved/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -758,7 +740,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/supergirl/</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -776,7 +758,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/pretty-lethal/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -788,7 +770,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/balls-up/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -806,7 +788,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/bitter-christmas/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -836,7 +818,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/fall-2/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -866,7 +848,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/mike-nick-nick-alice/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -902,7 +884,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/in-the-grey/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -968,7 +950,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/flavia/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1034,7 +1016,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-magic-faraway-tree/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1112,7 +1094,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-bride/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1131,6 +1113,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/18-youth/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/sloppy-sunday/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1209,12 +1197,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/finding-my-voice/</loc>
     <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/emelianenko/</loc>
-    <lastmod>2026-04-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1321,12 +1303,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/everybody-loves-sohrab-handa/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/bad-apples/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -1400,7 +1376,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/love-insurance-kompany/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1430,7 +1406,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/evil-dead-burn/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1484,7 +1460,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/torrente-for-president/</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1519,14 +1495,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/yohanna/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/dacoit/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1544,7 +1514,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-super-mario-galaxy-movie/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1562,7 +1532,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/i-love-boosters/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1593,12 +1563,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/indian-3-war-mode/</loc>
     <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/the-wandering-earth-iii/</loc>
-    <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1694,13 +1658,13 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/fuze/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/normal/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1719,6 +1683,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/tow/</loc>
     <lastmod>2026-04-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/deathkeeper/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1814,7 +1784,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/a-table-for-two/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1843,12 +1813,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/the-planet/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/sanding-dreams/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -1862,7 +1826,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-fence/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1886,7 +1850,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/my-best-friend/</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1927,8 +1891,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/jumanji-3/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://moviereleaseradar.com/movie/jumanji-open-world/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1941,12 +1905,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/get-lite/</loc>
     <lastmod>2026-04-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/chhatrapati-shivaji-maharaj/</loc>
-    <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1982,19 +1940,19 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/ready-or-not-here-i-come/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/alter-ego/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-desert-child/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2077,12 +2035,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/the-wizard-of-the-emerald-city-part-ii/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/race-to-monte-carlo/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -2132,7 +2084,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/53-sundays/</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2174,12 +2126,6 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-whistler/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/death-always-craves/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -2330,7 +2276,13 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/thrash/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/oru-durooha-saahacharyathil/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2354,7 +2306,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/insidious-out-of-the-further/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2407,6 +2359,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/a-man-and-a-woman-2026/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/slanted/</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -2444,7 +2402,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-hunger-games-sunrise-on-the-reaping/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2468,13 +2426,13 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/allegro-pastell/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/lee-cronin-s-the-mummy/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2534,7 +2492,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/young-washington/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2582,7 +2540,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/agent-zeta/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2600,7 +2558,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/yellow-letters/</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2624,13 +2582,13 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-vanished-girl/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-rays-and-shadows/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2774,7 +2732,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-drama/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2786,7 +2744,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/hoppers/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2804,7 +2762,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/grind/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -2924,19 +2882,13 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/a-great-awakening/</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/spa-weekend/</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/4-kids-walk-into-a-bank/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3026,7 +2978,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/little-lorraine/</loc>
-    <lastmod>2026-04-04</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3039,6 +2991,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/reflections-in-the-lake/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/office-romance/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3079,6 +3037,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/earth-wind-fire-to-be-celestial-vs-that-s-the-weight-of-the-world/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/sophia/</loc>
     <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -3104,7 +3068,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/velhos-bandidos/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3164,7 +3128,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/marama/</loc>
-    <lastmod>2026-04-04</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3193,6 +3157,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/disco/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/teaching-practice-idiot-girls-and-school-ghost-2/</loc>
     <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -3200,13 +3170,13 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-gates/</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/karuppu/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3218,7 +3188,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/reminders-of-him/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3230,7 +3200,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/passenger/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3260,7 +3230,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/chand-mera-dil/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3325,12 +3295,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/faces/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/mata/</loc>
     <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -3374,13 +3338,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/runner/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/leaving-eden/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3404,7 +3362,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/tom-clancy-s-jack-ryan-ghost-war/</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3427,6 +3385,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/mirror/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/sweetness/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -3434,13 +3398,13 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/good-boy/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/godzilla-minus-zero/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3452,7 +3416,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/chili-finger/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3488,7 +3452,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/protector/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3517,14 +3481,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/switzattack/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/songko/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3537,6 +3495,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/ranger/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/the-double/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3614,13 +3578,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/ghost-in-the-cell/</loc>
-    <lastmod>2026-04-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/the-cholesterol-code/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3668,7 +3626,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/wild-sing/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3699,12 +3657,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/georgia/</loc>
     <lastmod>2026-04-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/panic-carefully/</loc>
-    <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3746,7 +3698,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/focker-in-law/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3781,14 +3733,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/salvation/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/tropical-fractals/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3824,7 +3770,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/i-blew-out-the-candles-before-making-a-wish/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3872,7 +3818,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/compostelle/</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3920,7 +3866,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/illusione/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -3973,6 +3919,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/worm/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/slackers/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -3992,7 +3944,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/shakti-shalini/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4106,7 +4058,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-yeti/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4155,12 +4107,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/the-other-side/</loc>
     <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/time-keeps-marching-on/</loc>
-    <lastmod>2026-04-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4376,7 +4322,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/mrithyunjay/</loc>
-    <lastmod>2026-04-08</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4555,6 +4501,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/more-beautiful-perversions/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/pizza-movies/</loc>
     <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -4627,12 +4579,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/dorian-gray-or-narcissus-through-the-looking-glass/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/imposters/</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -4640,7 +4586,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-punisher-one-last-kill/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4669,12 +4615,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/itllu-arjuna/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/the-beekeeper-2/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -4694,7 +4634,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/18-holes-to-paradise/</loc>
-    <lastmod>2026-04-08</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4718,13 +4658,13 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/la-venus-electrique/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/a-year-of-school/</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4749,6 +4689,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/l-uvre-invisible/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/deviens-genial/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -4933,6 +4879,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/tied-together/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/forbidden-fruits/</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -4987,12 +4939,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/karma-1453297/</loc>
-    <lastmod>2026-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/veronica-s-secret/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -5018,7 +4964,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/pewaris-susuk/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5036,7 +4982,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/fujiko/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5048,7 +4994,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/you-me-tuscany/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5161,6 +5107,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/hershey/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/black-men-in-uniform/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -5168,7 +5120,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/s4-the-bob-lazar-story/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5198,7 +5150,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/warung-pocong/</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5312,7 +5264,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/crescendo-2026/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5395,8 +5347,14 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/her-private-hell/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/sambhavam-adhyayam-onnu/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5426,19 +5384,13 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/nobody-but-you-2/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/murder-in-the-building/</loc>
     <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/a-man-worth-killing/</loc>
-    <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5479,6 +5431,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/plan-c/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/original-sound/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -5492,7 +5450,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/un-bel-giorno/</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5510,7 +5468,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/infiltrate/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5547,12 +5505,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/rumah-sakit-angker-korea/</loc>
     <lastmod>2026-04-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/so-haben-wir-dich-nicht-erzogen/</loc>
-    <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5635,8 +5587,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/bachmann-es-war-mord/</loc>
-    <lastmod>2026-04-13</lastmod>
+    <loc>https://moviereleaseradar.com/movie/ingeborg-bachmann-jemand-der-einmal-ich-war/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5761,12 +5713,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/cine-dore/</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/inherit/</loc>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -5774,7 +5720,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/undertone/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5810,7 +5756,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-sin-trade/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5840,7 +5786,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-rise-of-the-red-hot-chili-peppers-our-brother-hillel/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5859,6 +5805,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/dovzhenko-first-sight/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/shana/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -5954,7 +5906,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-giant-falls/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -6062,7 +6014,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/noah-kahan-out-of-body/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -6134,7 +6086,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/pizza-movie/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -6230,13 +6182,19 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/all-that-we-never-were/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/gatto/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/the-film-about-edith/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -6278,7 +6236,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/cold-war-1994/</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -6445,12 +6403,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/nosso-lar-3-vida-eterna/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/the-crush/</loc>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -6471,6 +6423,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/we-re-nothing-at-all/</loc>
     <lastmod>2026-04-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/the-furious-2026/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -6518,7 +6476,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/bojovnik/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -6548,7 +6506,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/roommates/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -6655,12 +6613,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/american-muscle/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/maya-samar/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -6705,12 +6657,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/madonna-non-grata/</loc>
     <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/mascara/</loc>
-    <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -6763,12 +6709,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/k-pop-superstar/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/notte-prima-degli-esami-3-0/</loc>
     <lastmod>2026-04-05</lastmod>
     <changefreq>weekly</changefreq>
@@ -6788,7 +6728,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/maddie-s-secret/</loc>
-    <lastmod>2026-04-08</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -6871,12 +6811,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/louma-familie-ist-kein-kinderspiel/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/fausse-note/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -6931,8 +6865,14 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/la-salita/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/your-heart-will-be-broken/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -7005,12 +6945,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/side-heroes/</loc>
     <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/the-yearbook-waiting-for-the-teacher/</loc>
-    <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -7095,6 +7029,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/kyoto-hippocrates/</loc>
     <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/we-were-here/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -7243,8 +7183,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/mega-158/</loc>
-    <lastmod>2026-04-07</lastmod>
+    <loc>https://moviereleaseradar.com/movie/the-revenge-of-la-llorona/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -7328,7 +7268,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/frankie-maniac-woman/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -7353,12 +7293,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/peak-end/</loc>
     <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/no-one-home/</loc>
-    <lastmod>2026-04-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -7448,7 +7382,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/mccartney-the-hunt-for-the-lost-bass/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -7526,7 +7460,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/bonolota-express/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -7599,6 +7533,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/auftrag/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/scenes-of-friendly-ties/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -7933,12 +7873,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/the-killing-cell/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/in-case-we-never-meet-again/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -7964,7 +7898,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/madhuvidhu/</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -8077,6 +8011,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/basic/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/daughter-of-nectar/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -8179,20 +8119,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/the-fatal-dealz/</loc>
-    <lastmod>2026-04-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/zac-power/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/presenting-the-end-of-the-world/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/the-drive/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -8306,7 +8240,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/s-urs-et-demie/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -8449,6 +8383,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/the-chosen-one/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/black-hollow/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -8503,6 +8443,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/keluarga-suami-adalah-hama/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/needle-the-chronic/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -8511,6 +8457,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/despues-de-kim/</loc>
     <lastmod>2026-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/1026/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -8593,6 +8545,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/mantra-muugdha/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/susana-and-elvira-the-movie/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -8618,7 +8576,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/gudang-merica/</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -8666,7 +8624,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/dhurandhar-the-revenge/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -8695,26 +8653,20 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/the-inmate/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/the-curse-of-the-silver-chain/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/castration-movie-expansion-pack-i-you-re-weird-but-i-love-you/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://moviereleaseradar.com/movie/recep-ivedik-8/</loc>
+    <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/recep-ivedik-8/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <loc>https://moviereleaseradar.com/movie/all-the-queens-houses/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -8745,12 +8697,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/men-too/</loc>
     <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/king-of-my-love/</loc>
-    <lastmod>2026-04-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -8815,6 +8761,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/crash-land/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/tabardillos-jazz-punk/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -8841,12 +8793,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/thomas/</loc>
     <lastmod>2026-04-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/stay-alive-defy-overcome/</loc>
-    <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -8954,7 +8900,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/ai-tiec-trang-mau-8/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -9079,6 +9025,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/othello/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/boulevard/</loc>
     <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -9099,12 +9051,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/puro-r-a-p/</loc>
     <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/the-quiet-beekeeper/</loc>
-    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -9213,6 +9159,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/national-theatre-live-the-playboy-of-the-western-world/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/90-meters/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -9332,7 +9284,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/jerry-the-ginger-eater/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -9363,12 +9315,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/przepis-na-swieta/</loc>
     <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/champagne/</loc>
-    <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -9416,13 +9362,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/ayah-ini-arahnya-ke-mana-ya/</loc>
-    <lastmod>2026-04-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/god-beer/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -9499,12 +9439,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/we-everyday/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/knock-knock-knock/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -9548,7 +9482,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/phool-pishi-o-edward/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -9787,6 +9721,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/poison/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/nikola-tesla-s-19hz/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/camembert/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -9871,12 +9817,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/the-dream-of-a-ridiculous-man/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/golden-bullet/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -9890,7 +9830,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/roya/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -9903,6 +9843,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/dj-gabe-the-movie/</loc>
     <lastmod>2026-04-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/skyking/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -9937,6 +9883,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/he-calls-me-daughter/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/the-book-of-dreams/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -9957,6 +9909,18 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/anymart/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/aurora-what-happened-to-the-earth-live-from-mexico-city/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/vengeance/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -10033,6 +9997,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/teste-para-cardiaco/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/carpenter/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -10093,14 +10063,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/das-gewicht-der-welt/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/feel-my-voice/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -10123,8 +10087,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/bring-me-the-horizon-l-i-v-e-in-sao-paulo-live-immersive-virtual-experiment/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <loc>https://moviereleaseradar.com/movie/bring-me-the-horizon-l-i-v-e-in-sao-paulo/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/narciso-2026/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -10177,8 +10147,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/no-one-can-hear-you/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/songe/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/tna-sacrifice-2026/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -10197,6 +10179,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/nelly-knows-mysteries-all-manners-of-murder/</loc>
     <lastmod>2026-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/the-day-it-snowed/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -10435,6 +10423,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/last-call/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/it-s-murder/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -10489,26 +10483,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/wooden-buddha/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/the-three-urns/</loc>
     <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/tourists/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/two-for-tee/</loc>
-    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -10604,7 +10580,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-truth-and-tragedy-of-moriah-wilson/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -10652,7 +10628,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-red-line/</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -10766,7 +10742,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/socias-por-accidente/</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -10801,6 +10777,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/do-not-open/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/lo-que-nos-faltaba/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -10819,6 +10801,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/wowsabout/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/wonderful-nightmare/</loc>
     <lastmod>2026-04-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -10826,7 +10814,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/louis-theroux-inside-the-manosphere/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -10843,6 +10831,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/haim/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/patlabor-ezy-file-2/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -10851,12 +10845,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/mallorca-confidential/</loc>
     <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/bluey-at-the-cinema-playdates-with-friends/</loc>
-    <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -10885,14 +10873,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/the-specials/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/the-guest-who-wouldn-t-leave/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://moviereleaseradar.com/movie/i-killed-him-in-my-sleep/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -10915,13 +10897,13 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/carlo-acutis-the-millennial-saint/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <loc>https://moviereleaseradar.com/movie/shakira-no-rio/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/bhoyongkar-shundor/</loc>
+    <loc>https://moviereleaseradar.com/movie/carlo-acutis-the-millennial-saint/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -10939,6 +10921,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/stokstaartjes-cyclus-1-opwekking-2026/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/breaking-cover/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -10946,7 +10934,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/eat-pray-bark/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -10965,6 +10953,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/materia-prima/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/zero-meets-hero/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -11059,6 +11053,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/ten-thousand-reasons-for-revenge/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/nocturne-in-white/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -11078,19 +11078,13 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/hannah-montana-20th-anniversary-special/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/memorizu/</loc>
     <lastmod>2026-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/jazz-city/</loc>
-    <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -11155,6 +11149,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/apnas/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/codes/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -11192,7 +11192,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/voice-of-the-heart/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -11257,8 +11257,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/transforming-the-beautiful-game-the-clyde-best-story/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://moviereleaseradar.com/movie/crossfaded-thesis-film/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -11295,12 +11295,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/venesterio/</loc>
     <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/billions-club-live-with-bad-bunny-a-concert-film/</loc>
-    <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -11342,7 +11336,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/sniper-no-nation/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -11521,6 +11515,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/the-couple-across-the-street/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/san-expedito/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -11529,6 +11529,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/ataahua/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/onobiren/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -11611,12 +11617,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/i-am-with-you-now/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/ligo/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -11624,19 +11624,13 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/a-little-park-music/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/to-philly-with-love/</loc>
     <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/effortless-the-eddie-fiola-story/</loc>
-    <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -11677,12 +11671,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/a-butler-s-job/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/lovestruck/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -11709,12 +11697,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/rory-mcilroy-the-masters-wait/</loc>
     <lastmod>2026-04-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/le-train-de-minuit-sous-l-emprise-de-luisa/</loc>
-    <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -11809,6 +11791,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/movie-1647210/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/apology/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -11863,12 +11851,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/the-fall-of-the-nighthawk/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/movie-1647782/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -11917,12 +11899,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/nasty/</loc>
-    <lastmod>2026-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/orangutan/</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -11941,6 +11917,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/finding-satoshi/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/bullah/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -11949,12 +11931,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/against-the-skin/</loc>
     <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/movie-1649433/</loc>
-    <lastmod>2026-04-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12002,13 +11978,19 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/fast-perfekte-frauen/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/g-o-a-t/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/girls-und-panzer-motto-love-love-sakusen-desu-act-4/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12091,20 +12073,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/touch-took/</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/the-garden-plot/</loc>
     <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/phototropism/</loc>
-    <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12115,20 +12085,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/hana-and-the-missing-sock/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <loc>https://moviereleaseradar.com/movie/walking-the-spiral/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/fly-mountain-hawk-eagle/</loc>
     <lastmod>2026-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/meat/</loc>
-    <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12187,6 +12151,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/pitt-siyapa/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/the-reunion-laguna-beach/</loc>
     <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -12201,6 +12171,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/why-wait-just-die/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/landa/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12231,6 +12207,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/before-me/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/ramyaa/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12337,6 +12319,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/kinaesthesia/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/corpse-pose/</loc>
     <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -12351,6 +12339,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/dead-breakfast/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/super-duperr/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12421,12 +12415,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/movie-1653289/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/prasert/</loc>
     <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -12457,18 +12445,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/one-ok-rock-detox-japan-tour-at-nissan-stadium-2025-in-cinemas/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/a-generation-of-men-who-do-not-cry/</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/3/</loc>
     <lastmod>2026-04-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -12481,20 +12457,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/cuntri/</loc>
-    <lastmod>2026-04-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/almost-us-2026/</loc>
     <lastmod>2026-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/maid-robot-2/</loc>
-    <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12572,19 +12536,13 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/crush-the-wicked/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-waiting-man/</loc>
     <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/unsung-heroes-rise-again/</loc>
-    <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12649,8 +12607,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/miss-universe-philippines-2026/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/return-from-tomorrow/</loc>
     <lastmod>2026-04-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/the-call/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12806,13 +12776,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/jerry-west-the-logo/</loc>
-    <lastmod>2026-04-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/surprise/</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12843,6 +12807,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/sihirli-annem-periler-okulu/</loc>
     <lastmod>2026-04-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/noah-lethal-odyssey-tour-2026-1657325/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12901,20 +12871,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/reminiscence/</loc>
-    <lastmod>2026-04-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/your-business-is-a-pipe/</loc>
     <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/ganas-de-vivir/</loc>
-    <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12931,20 +12889,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/killers-of-the-flower-moon-a-historic-collaboration/</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/black-dove/</loc>
     <lastmod>2026-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/live-like-that/</loc>
-    <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12956,13 +12902,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/laerotauafe/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/parasomnia/</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12975,12 +12915,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/suyodhana/</loc>
     <lastmod>2026-04-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/como-llegar-a-cancun/</loc>
-    <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -12998,7 +12932,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/sawsawan/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -13117,12 +13051,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/follow/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/in-vain/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -13183,12 +13111,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/manong/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/the-roast-of-kevin-hart/</loc>
     <lastmod>2026-04-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -13227,6 +13149,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/sleeping-dog/</loc>
     <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/melodrama/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -13315,18 +13243,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/it-all-starts-with-a-dream/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/the-idolm-ster-million-live-itsuka-mannaka-de/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/saming-2026/</loc>
     <lastmod>2026-04-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -13351,12 +13267,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/soul-sucker-uncut/</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/doremi-dalimi-the-movie-sing-along-party/</loc>
     <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -13365,12 +13275,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/sarbmuang/</loc>
     <lastmod>2026-04-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/2026-nct-wish-1st-concert-tour-into-the-wish-our-wish-encore-in-seoul-in-cinemas/</loc>
-    <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -13393,12 +13297,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/precious/</loc>
-    <lastmod>2026-04-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/karma-2026/</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -13413,6 +13311,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/wanda-sykes-legacy/</loc>
     <lastmod>2026-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/destino-de-guerrero-la-historia-de-carlos-salcido/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -13453,18 +13357,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/punk-rockula-the-curse-of-uglor/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/salut-dad/</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/the-father/</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -13473,12 +13365,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/him/</loc>
     <lastmod>2026-04-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/grave-robbery/</loc>
-    <lastmod>2026-04-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -13508,18 +13394,6 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/la-plante-dansante-de-desastres/</loc>
-    <lastmod>2026-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/aaron-chen-funny-garden/</loc>
-    <lastmod>2026-04-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/dark-beginnings/</loc>
     <lastmod>2026-04-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -13556,7 +13430,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/robbed/</loc>
-    <lastmod>2026-04-08</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -13629,12 +13503,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/prize/</loc>
     <lastmod>2026-04-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/next-door/</loc>
-    <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -13723,6 +13591,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/eveything-goes-punk/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/watching-mr-pearson/</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -13807,6 +13681,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/cha-gorom/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/eb/</loc>
     <lastmod>2026-04-05</lastmod>
     <changefreq>weekly</changefreq>
@@ -13827,12 +13707,6 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/njpw-road-to-wrestling-dontaku-2026-day-8/</loc>
     <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/stardom-in-hamamatsu-2026-apr/</loc>
-    <lastmod>2026-04-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -13891,6 +13765,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/haunted-harmony-mysteries-key-to-the-castle/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/beyond-files/</loc>
     <lastmod>2026-04-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -13927,12 +13807,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/two-christmases-one-lesya/</loc>
-    <lastmod>2026-04-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/invisible-ink/</loc>
     <lastmod>2026-04-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -13941,6 +13815,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/jaspreet-singh-grown-up/</loc>
     <lastmod>2026-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/living-containers/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -13987,12 +13867,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/she-and-her-two-minutes/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/teenagers/</loc>
     <lastmod>2026-04-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -14011,8 +13885,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/murphy-hates-humans/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://moviereleaseradar.com/movie/le-royaume-des-nuages/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -14024,13 +13898,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/the-source/</loc>
-    <lastmod>2026-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/restart/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -14053,18 +13921,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/you-are-here/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://moviereleaseradar.com/movie/strand-45/</loc>
-    <lastmod>2026-04-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/whispers-of-forgotten-videos/</loc>
     <lastmod>2026-04-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -14073,6 +13929,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/patton-oswalt-tea-scotch/</loc>
     <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/evacation/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -14095,14 +13957,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/enervo/</loc>
-    <lastmod>2026-04-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://moviereleaseradar.com/movie/sheng-wang-purple/</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -14127,6 +13983,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/haunters/</loc>
     <lastmod>2026-04-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/lisa-ann-walter-it-was-an-accident/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -14174,7 +14036,7 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/that-night-our-decaf/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -14203,8 +14065,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/the-sin-trade-2026/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://moviereleaseradar.com/movie/mot-thoi-ta-a-yeu/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -14227,6 +14089,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/yo-yo-springs/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/for-if-night-leaves-something-undone-the-day-undertakes-to-complete-it/</loc>
     <lastmod>2026-04-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -14241,6 +14109,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/hya-wa-nawa-a-journey-within/</loc>
     <lastmod>2026-04-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/gasolina/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -14323,14 +14197,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/queen-of-the-night-vs-night-king-2/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/wolf-hunters-2/</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/transylvania-tapes/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -14390,13 +14270,13 @@
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/kippah-power/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/your-silent-face/</loc>
-    <lastmod>2026-04-12</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -14419,8 +14299,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/before-it-s-too-late/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/one-night-stand/</loc>
     <lastmod>2026-04-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/dragon-ball-z-buu-god-of-destruction/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -14455,8 +14347,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/white-masked-men/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://moviereleaseradar.com/movie/waking-up-from-a-nap-on-a-long-day-of-doing-nothing/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/terror-falls-on-crimson-eyes/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -14467,8 +14365,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/lalibazar/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://moviereleaseradar.com/movie/o-golpe-do-banco-master/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -14485,6 +14383,30 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://moviereleaseradar.com/movie/halina-ni-aliya/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/tayuan-2/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/kesong-puti/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/barurot-2/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://moviereleaseradar.com/movie/check-in/</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -14493,6 +14415,12 @@
   <url>
     <loc>https://moviereleaseradar.com/movie/pasakalye/</loc>
     <lastmod>2026-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/wanted-wasted-and-washed/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -14515,68 +14443,140 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/za-short-film/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://moviereleaseradar.com/movie/see-the-person/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/avatar-aang-the-last-airbender/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://moviereleaseradar.com/movie/new-neighbors-association/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/muse-2026/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/za-short-film/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/bleach-thousand-year-blood-war-the-calamity/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/un-castello/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/93-dergrees-at-midnight/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/movie/accidental-truth-next-beyond-ufo-disclosure/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://moviereleaseradar.com/movie/movie-1670061/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <loc>https://moviereleaseradar.com/movie/beasts-clawing-at-straws/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/tajemstvi-kristalove-planety/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/locked-in/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/butterfly-effect-azzam/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/the-rental-reaper/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/6-gramu/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/almost-cupid/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/law-s-world-lipstick-bandit/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/movie-1671541/</loc>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://moviereleaseradar.com/movie/perrydox/</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/top-movies/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/top-movies/2026-02/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/top-movies/2026-03/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/top-movies/2026-04/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://moviereleaseradar.com/top-movies/2026-05/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
