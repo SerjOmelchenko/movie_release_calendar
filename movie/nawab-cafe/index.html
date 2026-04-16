@@ -31,7 +31,7 @@
   <meta property="og:title"       content="Nawab Cafe (2026)" />
   <meta property="og:description" content="Nawab Cafe (2026) release dates by country. Drama. A family grapples with communication barriers as a father and son circle around conversations they desperately need but ..." />
   <meta property="og:image" content="https://image.tmdb.org/t/p/w500/318rq88OAqNFlDhlh1HwWnHBTK4.jpg" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Movie","name":"Nawab Cafe","url":"https://moviereleaseradar.com/movie/nawab-cafe/","description":"A family grapples with communication barriers as a father and son circle around conversations they desperately need but cannot bring themselves to have.","datePublished":"2026-03-12","image":"https://image.tmdb.org/t/p/w500/318rq88OAqNFlDhlh1HwWnHBTK4.jpg","genre":["Drama"],"duration":"PT2H11M","director":[{"@type":"Person","name":"Pramod Harsha"}],"actor":[{"@type":"Person","name":"Shiva Kandukuri"},{"@type":"Person","name":"Rajiv Kanakala"},{"@type":"Person","name":"Rajkumar Kasireddy"},{"@type":"Person","name":"Teju Ashwini"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://moviereleaseradar.com/"},{"@type":"ListItem","position":2,"name":"Nawab Cafe (2026)","item":"https://moviereleaseradar.com/movie/nawab-cafe/"}]},{"@type":"VideoObject","name":"Nawab Cafe – Official Trailer","description":"A family grapples with communication barriers as a father and son circle around conversations they desperately need but cannot bring themselves to have.","thumbnailUrl":"https://img.youtube.com/vi/954CLpj3sFQ/maxresdefault.jpg","embedUrl":"https://www.youtube.com/embed/954CLpj3sFQ","url":"https://www.youtube.com/watch?v=954CLpj3sFQ","uploadDate":"2026-03-11T07:30:03.000Z"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Movie","name":"Nawab Cafe","url":"https://moviereleaseradar.com/movie/nawab-cafe/","description":"A family grapples with communication barriers as a father and son circle around conversations they desperately need but cannot bring themselves to have.","datePublished":"2026-03-12","image":"https://image.tmdb.org/t/p/w500/318rq88OAqNFlDhlh1HwWnHBTK4.jpg","genre":["Drama"],"duration":"PT2H11M","director":[{"@type":"Person","name":"Pramod Harsha"}],"actor":[{"@type":"Person","name":"Shiva Kandukuri"},{"@type":"Person","name":"Rajiv Kanakala"},{"@type":"Person","name":"Rajkumar Kasireddy"},{"@type":"Person","name":"Teju Ashwini"},{"@type":"Person","name":"Liam"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://moviereleaseradar.com/"},{"@type":"ListItem","position":2,"name":"Nawab Cafe (2026)","item":"https://moviereleaseradar.com/movie/nawab-cafe/"}]},{"@type":"VideoObject","name":"Nawab Cafe – Official Trailer","description":"A family grapples with communication barriers as a father and son circle around conversations they desperately need but cannot bring themselves to have.","thumbnailUrl":"https://img.youtube.com/vi/954CLpj3sFQ/maxresdefault.jpg","embedUrl":"https://www.youtube.com/embed/954CLpj3sFQ","url":"https://www.youtube.com/watch?v=954CLpj3sFQ","uploadDate":"2026-03-11T07:30:03.000Z"}]}</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0d0d0d; color: #e0e0e0; min-height: 100vh; }
@@ -78,9 +78,18 @@
     .movie-crew strong { color: #ddd; }
     .movie-overview { font-size: 0.975rem; color: #bbb; line-height: 1.75; }
 
-    .wl-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem; padding: 0.6rem 1.3rem; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
+    .movie-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: 1.25rem; }
+    .wl-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.3rem; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
     .wl-btn:hover { border-color: #e94560; color: #e94560; background: rgba(233,69,96,0.07); }
     .wl-btn.wl-active { background: #e94560; border-color: #e94560; color: #fff; }
+
+    .cal-wrap { position: relative; display: inline-block; }
+    .cal-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.3rem; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
+    .cal-btn:hover, .cal-btn.open { border-color: #4a9eff; color: #4a9eff; background: rgba(74,158,255,0.07); }
+    .cal-menu { display: none; position: absolute; top: calc(100% + 6px); left: 0; min-width: 180px; background: #1a1a1a; border: 1px solid #2e2e2e; border-radius: 10px; overflow: hidden; z-index: 100; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+    .cal-menu.open { display: block; }
+    .cal-menu a { display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 1rem; color: #ccc; text-decoration: none; font-size: 0.85rem; transition: background 0.12s, color 0.12s; }
+    .cal-menu a:hover { background: rgba(74,158,255,0.1); color: #4a9eff; }
 
     .trailer-section { margin-top: 2.5rem; }
     .trailer-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 14px; overflow: hidden; background: #111; }
@@ -174,10 +183,13 @@
       <div class="movie-genres"><span class="genre-tag">Drama</span></div>
       <div class="movie-crew">
         <span>&#127916; Directed by <strong>Pramod Harsha</strong></span>
-        <span>&#127775; Shiva Kandukuri, Rajiv Kanakala, Rajkumar Kasireddy, Teju Ashwini</span>
+        <span>&#127775; Shiva Kandukuri, Rajiv Kanakala, Rajkumar Kasireddy, Teju Ashwini, Liam</span>
       </div>
       <p class="movie-overview">A family grapples with communication barriers as a father and son circle around conversations they desperately need but cannot bring themselves to have.</p>
-      <button class="wl-btn" id="wl-btn" data-id="1533735">&#9825; Add to Watchlist</button>
+      <div class="movie-actions">
+        <button class="wl-btn" id="wl-btn" data-id="1533735">&#9825; Add to Watchlist</button>
+        
+      </div>
     </div>
   </div>
   <script>
@@ -202,6 +214,8 @@
       render();
     })();
   </script>
+
+  
 
   
   <section class="trailer-section">
