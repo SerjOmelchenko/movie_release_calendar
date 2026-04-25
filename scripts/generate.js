@@ -378,11 +378,8 @@ function buildMoviePage(movie) {
     return `<div class="release-item"><span class="release-country">${name}</span><span class="release-date">${formatted}</span></div>`;
   }).join('');
 
-  const genreStr  = (movie.genres || []).slice(0, 3).join(', ');
   const metaDesc  = escHtml(
-    `${movie.title}${year ? ` (${year})` : ''} release dates by country.` +
-    `${genreStr ? ` ${genreStr}.` : ''}` +
-    `${movie.overview ? ' ' + movie.overview.slice(0, 120) + '...' : ''}`
+    `${movie.title} releases ${releaseDate}. See the release date in your country, cast, synopsis, trailers and more on Movie Release Radar!`
   );
   const ogImage = poster || (movie.backdrop_path ? `${IMG_BASE}w780${movie.backdrop_path}` : '');
 
@@ -407,7 +404,7 @@ function buildMoviePage(movie) {
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T3BJFZSV');</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${title}${year ? ` (${year})` : ''} &mdash; Release Dates &amp; Info | Movie Release Radar</title>
+  <title>${title}${year ? ` (${year})` : ''} - Release Dates, Info &amp; Trailers</title>
   <meta name="description" content="${metaDesc}" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="${canonicalUrl}" />
@@ -418,7 +415,7 @@ function buildMoviePage(movie) {
   <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="${canonicalUrl}" />
-  <meta property="og:title"       content="${title}${year ? ` (${year})` : ''}" />
+  <meta property="og:title"       content="${title}${year ? ` (${year})` : ''} - Release Dates, Info &amp; Trailers" />
   <meta property="og:description" content="${metaDesc}" />
   ${ogImage ? `<meta property="og:image" content="${escHtml(ogImage)}" />` : ''}
   <script type="application/ld+json">${buildSchema(movie, canonicalUrl)}</script>
