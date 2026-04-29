@@ -189,13 +189,6 @@
       <div class="movie-actions">
         <button class="wl-btn" id="wl-btn" data-id="1669055">&#9825; Add to Watchlist</button>
         
-        <div class="cal-wrap" id="cal-wrap">
-          <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
-          <div class="cal-menu" id="cal-menu">
-            <a href="#" target="_blank" rel="noopener" id="cal-google">Google Calendar</a>
-            <a href="#" id="cal-ics">Apple Calendar (.ics)</a>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -223,79 +216,6 @@
   </script>
 
   
-  <script>
-    (function(){
-      var calBtn  = document.getElementById('cal-btn');
-      var calMenu = document.getElementById('cal-menu');
-      var calWrap = document.getElementById('cal-wrap');
-      if (!calBtn) return;
-
-      // Build-time data
-      var countryDates = {"AU":"2026-04-28","AT":"2026-04-28","BE":"2026-04-28","BR":"2026-04-28","BG":"2026-04-28","CA":"2026-04-28","CN":"2026-04-28","HR":"2026-04-28","CY":"2026-04-28","CZ":"2026-04-28","DK":"2026-04-28","EE":"2026-04-28","FI":"2026-04-28","FR":"2026-04-28","GR":"2026-04-28","HU":"2026-04-28","IE":"2026-04-28","IT":"2026-04-28","JP":"2026-04-28","LV":"2026-04-28","LT":"2026-04-28","LU":"2026-04-28","MT":"2026-04-28","NL":"2026-04-28","PL":"2026-04-28","PT":"2026-04-28","RO":"2026-04-28","SK":"2026-04-28","SI":"2026-04-28","KR":"2026-04-28","ES":"2026-04-28","SE":"2026-04-28","GB":"2026-04-28","UA":"2026-04-28","US":"2026-04-28"};
-      var globalDate   = "2026-04-28";
-      var calTitle     = "Barurot 2 (2026)";
-      var calDesc      = "She is a call center agent turns to selling her body to save enough money to work abroad and change her destiny. Until Rap, a tricycle driver makes a difference in her life.\n\nMore info: https://moviereleaseradar.com/movie/barurot-2/";
-      var icsSummary   = "Barurot 2 (2026)";
-      var icsDescBody  = "She is a call center agent turns to selling her body to save enough money to work abroad and change her destiny. Until Rap\\, a tricycle driver makes a difference in her life.\\n\\nMore info: https://moviereleaseradar.com/movie/barurot-2/";
-      var icsUid       = "movie-1669055@moviereleasecalendar.com";
-      var icsCanonical = "https://moviereleaseradar.com/movie/barurot-2/";
-      var icsFile      = "barurot-2-2026-.ics";
-
-      // Pick release date for the user's chosen region, fall back to global
-      var region = 'WW';
-      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
-      var rd = countryDates[region] || globalDate;
-
-      // Date helpers
-      function pad(n){ return String(n).padStart(2, '0'); }
-      var parts = rd.split('-');
-      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
-      var startG = rd.replace(/-/g, '');
-      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
-      var te = encodeURIComponent(calTitle);
-      var de = encodeURIComponent(calDesc);
-
-      // Set calendar links
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
-        '&dates=' + startG + '/' + endG + '&details=' + de;
-      // ICS download
-      document.getElementById('cal-ics').addEventListener('click', function(e){
-        e.preventDefault();
-        var icsBody = [
-          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:' + icsUid,
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + icsSummary,
-          'DESCRIPTION:' + icsDescBody,
-          'URL:' + icsCanonical,
-          'END:VEVENT', 'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
-        var a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = icsFile;
-        document.body.appendChild(a); a.click();
-        setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
-        calMenu.classList.remove('open'); calBtn.classList.remove('open');
-      });
-
-      // Toggle dropdown
-      calBtn.addEventListener('click', function(e){
-        e.stopPropagation();
-        var open = calMenu.classList.toggle('open');
-        calBtn.classList.toggle('open', open);
-      });
-      document.addEventListener('click', function(e){
-        if (!calWrap.contains(e.target)){
-          calMenu.classList.remove('open'); calBtn.classList.remove('open');
-        }
-      });
-    })();
-  </script>
 
   
   <section class="trailer-section">
@@ -308,7 +228,7 @@
   
   <section class="releases-section">
     <div class="section-heading">Release Dates by Country</div>
-    <div class="releases-grid"><div class="release-item"><span class="release-country">Australia</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Austria</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Belgium</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Brazil</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Bulgaria</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Canada</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">China</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Croatia</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Cyprus</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Czech Republic</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Denmark</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Estonia</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Finland</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">France</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Greece</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Hungary</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Ireland</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Italy</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Japan</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Latvia</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Lithuania</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Luxembourg</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Malta</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Netherlands</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Poland</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Portugal</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Romania</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Slovakia</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Slovenia</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">South Korea</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Spain</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Sweden</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">United Kingdom</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Ukraine</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">United States</span><span class="release-date">Apr 28, 2026</span></div></div>
+    <div class="releases-grid"><div class="release-item"><span class="release-country">Australia</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Austria</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Belgium</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Brazil</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Bulgaria</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Canada</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">China</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Croatia</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Cyprus</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Czech Republic</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Denmark</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Estonia</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Finland</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">France</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Germany</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Greece</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Hungary</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">India</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Ireland</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Italy</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Japan</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Latvia</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Lithuania</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Luxembourg</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Malta</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Netherlands</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Poland</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Portugal</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Romania</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Slovakia</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Slovenia</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">South Korea</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Spain</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Sweden</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">United Kingdom</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">Ukraine</span><span class="release-date">Apr 28, 2026</span></div><div class="release-item"><span class="release-country">United States</span><span class="release-date">Apr 28, 2026</span></div></div>
   </section>
 </main>
 
