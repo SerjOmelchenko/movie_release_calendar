@@ -7183,6 +7183,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1011966": {
+    "title": "Takeover",
+    "slug": "takeover",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1011985": {
     "title": "Kung Fu Panda 4",
     "slug": "kung-fu-panda-4",
@@ -9293,6 +9299,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1145348": {
+    "title": "The Fuzzies",
+    "slug": "the-fuzzies",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1145899": {
     "title": "Marsupilami",
     "slug": "marsupilami",
@@ -9516,6 +9528,12 @@
   "1154800": {
     "title": "Love Live! Nijigasaki High School Idol Club Final Chapter Part 2",
     "slug": "love-live-nijigasaki-high-school-idol-club-final-chapter-part-2",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1154844": {
+    "title": "Abar Hawa Bodol",
+    "slug": "abar-hawa-bodol",
     "previousSlugs": [],
     "certification": null
   },
@@ -11221,9 +11239,11 @@
     "certification": null
   },
   "1228723": {
-    "title": "呼叫休士頓",
-    "slug": "movie-1228723",
-    "previousSlugs": [],
+    "title": "Do You Copy?",
+    "slug": "do-you-copy",
+    "previousSlugs": [
+      "movie-1228723"
+    ],
     "certification": null
   },
   "1228992": {
@@ -11867,6 +11887,12 @@
   "1247729": {
     "title": "Amityvillenado",
     "slug": "amityvillenado",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1247890": {
+    "title": "Bird Flu",
+    "slug": "bird-flu",
     "previousSlugs": [],
     "certification": null
   },
@@ -18061,6 +18087,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1398411": {
+    "title": "Revolver Rinko",
+    "slug": "revolver-rinko",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1398460": {
     "title": "A Second Life",
     "slug": "a-second-life",
@@ -18831,6 +18863,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1410937": {
+    "title": "Balan - The Boy",
+    "slug": "balan-the-boy",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1410955": {
     "title": "In the Clear Moonlit Dusk",
     "slug": "in-the-clear-moonlit-dusk",
@@ -19507,6 +19545,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1422099": {
+    "title": "Night Light",
+    "slug": "night-light",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1422101": {
     "title": "Glorious Summer",
     "slug": "glorious-summer",
@@ -19564,6 +19608,12 @@
   "1422562": {
     "title": "The Moment",
     "slug": "the-moment",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1422612": {
+    "title": "The Giaccomo",
+    "slug": "the-giaccomo",
     "previousSlugs": [],
     "certification": null
   },
@@ -20924,6 +20974,12 @@
   "1444466": {
     "title": "Awarapan 2",
     "slug": "awarapan-2",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1444471": {
+    "title": "Sweet Milk Lake",
+    "slug": "sweet-milk-lake",
     "previousSlugs": [],
     "certification": null
   },
@@ -22972,9 +23028,11 @@
     "certification": null
   },
   "1474225": {
-    "title": "Alive",
-    "slug": "alive",
-    "previousSlugs": [],
+    "title": "Viva",
+    "slug": "viva",
+    "previousSlugs": [
+      "alive"
+    ],
     "certification": null
   },
   "1474226": {
@@ -24326,6 +24384,12 @@
   "1492232": {
     "title": "Papel y Carbón",
     "slug": "papel-y-carbon",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1492288": {
+    "title": "La chaleur",
+    "slug": "la-chaleur",
     "previousSlugs": [],
     "certification": null
   },
@@ -28747,6 +28811,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1548664": {
+    "title": "Under the Red Light",
+    "slug": "under-the-red-light",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1548708": {
     "title": "Sakamoto Days",
     "slug": "sakamoto-days",
@@ -30887,6 +30957,12 @@
   "1572116": {
     "title": "Monster Mia",
     "slug": "monster-mia",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1572196": {
+    "title": "Perilous Passage: Birth in America",
+    "slug": "perilous-passage-birth-in-america",
     "previousSlugs": [],
     "certification": null
   },
@@ -34271,6 +34347,12 @@
   "1604699": {
     "title": "The Brave Swing",
     "slug": "the-brave-swing",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1604702": {
+    "title": "Days Yet Unknown",
+    "slug": "days-yet-unknown",
     "previousSlugs": [],
     "certification": null
   },
@@ -42432,9 +42514,11 @@
     "certification": null
   },
   "1636593": {
-    "title": "Tayo sa Wakas",
-    "slug": "tayo-sa-wakas",
-    "previousSlugs": [],
+    "title": "Us in the End",
+    "slug": "us-in-the-end",
+    "previousSlugs": [
+      "tayo-sa-wakas"
+    ],
     "certification": null
   },
   "1636597": {
@@ -49646,6 +49730,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1648910": {
+    "title": "Momo 3000",
+    "slug": "momo-3000",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1648918": {
     "title": "Merantau",
     "slug": "merantau",
@@ -54783,6 +54873,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1655960": {
+    "title": "Der Saarland-Krimi - Bruder, Liebe, Tod",
+    "slug": "der-saarland-krimi-bruder-liebe-tod",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1655961": {
     "title": "Agad Om",
     "slug": "agad-om",
@@ -55518,6 +55614,12 @@
   "1657104": {
     "title": "Always watching",
     "slug": "always-watching",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1657110": {
+    "title": "CLBK - Cinta Lama Babak Kedua",
+    "slug": "clbk-cinta-lama-babak-kedua",
     "previousSlugs": [],
     "certification": null
   },
@@ -60305,6 +60407,12 @@
     ],
     "certification": null
   },
+  "1671556": {
+    "title": "Fabián brinda",
+    "slug": "fabian-brinda",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1671565": {
     "title": "Nueva correspondencia francesa",
     "slug": "nueva-correspondencia-francesa",
@@ -60482,6 +60590,12 @@
   "1673928": {
     "title": "Rod Quantock Comedy Warrior",
     "slug": "rod-quantock-comedy-warrior",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1673943": {
+    "title": "What Do You Seek in the Dark?",
+    "slug": "what-do-you-seek-in-the-dark",
     "previousSlugs": [],
     "certification": null
   },
@@ -60728,6 +60842,12 @@
   "1675383": {
     "title": "Façade",
     "slug": "facade",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1675676": {
+    "title": "Seven Millimeter",
+    "slug": "seven-millimeter",
     "previousSlugs": [],
     "certification": null
   },
@@ -61243,6 +61363,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1678782": {
+    "title": "Laser-Cat",
+    "slug": "laser-cat",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1678795": {
     "title": "Infinity Disclosed",
     "slug": "infinity-disclosed",
@@ -61489,6 +61615,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1680104": {
+    "title": "PASTIS",
+    "slug": "pastis",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1680402": {
     "title": "Hijacked",
     "slug": "hijacked-2026",
@@ -61531,6 +61663,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1680596": {
+    "title": "XYZ",
+    "slug": "xyz",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1680635": {
     "title": "Les Vacances de Golo & Ritchie",
     "slug": "les-vacances-de-golo-ritchie",
@@ -61570,6 +61708,12 @@
   "1680882": {
     "title": "The Founder5 II: Unfinished Business",
     "slug": "the-founder5-ii-unfinished-business",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1681059": {
+    "title": "No Miracles",
+    "slug": "no-miracles",
     "previousSlugs": [],
     "certification": null
   },
@@ -61675,6 +61819,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1682667": {
+    "title": "Christmas at Aunt Betty's",
+    "slug": "christmas-at-aunt-betty-s",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1682850": {
     "title": "CAMRip",
     "slug": "camrip",
@@ -61720,6 +61870,12 @@
   "1683101": {
     "title": "Ebre / Trarza",
     "slug": "ebre-trarza",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1683237": {
+    "title": "Pharmacy",
+    "slug": "pharmacy",
     "previousSlugs": [],
     "certification": null
   },
@@ -61821,6 +61977,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1684226": {
+    "title": "Bride of the Year",
+    "slug": "bride-of-the-year",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1684246": {
     "title": "Untold UK : Vinnie Jones",
     "slug": "untold-uk-vinnie-jones",
@@ -61842,6 +62004,12 @@
   "1684374": {
     "title": "NANA",
     "slug": "nana",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1684410": {
+    "title": "Disciples",
+    "slug": "disciples",
     "previousSlugs": [],
     "certification": null
   },
@@ -61887,6 +62055,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1684918": {
+    "title": "Should I Marry a Murderer?",
+    "slug": "should-i-marry-a-murderer",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1684989": {
     "title": "Ghatak Was Here",
     "slug": "ghatak-was-here",
@@ -61905,9 +62079,21 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1685036": {
+    "title": "浴血困牛山",
+    "slug": "movie-1685036",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1685253": {
     "title": "Почему она выбрала футбол",
     "slug": "movie-1685253",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1685266": {
+    "title": "Соседи в поместье лорда Голефорнака",
+    "slug": "movie-1685266",
     "previousSlugs": [],
     "certification": null
   },
@@ -61932,6 +62118,12 @@
   "1685464": {
     "title": "Little Wallflower",
     "slug": "little-wallflower",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1685471": {
+    "title": "Somebody's Watching Me",
+    "slug": "somebody-s-watching-me",
     "previousSlugs": [],
     "certification": null
   },
@@ -61980,6 +62172,12 @@
   "1685768": {
     "title": "The Boy Who Collects Spider-Man",
     "slug": "the-boy-who-collects-spider-man",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1685822": {
+    "title": "Odds On",
+    "slug": "odds-on",
     "previousSlugs": [],
     "certification": null
   },
@@ -62073,9 +62271,21 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1686197": {
+    "title": "The Wolf",
+    "slug": "the-wolf",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1686301": {
     "title": "Mala",
     "slug": "mala",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1686326": {
+    "title": "Emi Martínez: The Kid Who Stops Time",
+    "slug": "emi-martinez-the-kid-who-stops-time",
     "previousSlugs": [],
     "certification": null
   },
@@ -62145,9 +62355,87 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1686940": {
+    "title": "GCW: One Night Only 2026 (Philadelphia)",
+    "slug": "gcw-one-night-only-2026-philadelphia",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1686982": {
+    "title": "Yellow-Blue Butterflies",
+    "slug": "yellow-blue-butterflies",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1687009": {
+    "title": "Kaya",
+    "slug": "kaya",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1687187": {
+    "title": "If I Cant Have You",
+    "slug": "if-i-cant-have-you",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1687232": {
+    "title": "Дени и Мэни. В кино!",
+    "slug": "movie-1687232",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1687303": {
     "title": "Fest Godzilla II: Tokyo Disappears",
     "slug": "fest-godzilla-ii-tokyo-disappears",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1687358": {
+    "title": "Roots",
+    "slug": "roots",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1687478": {
+    "title": "The Longest Wait",
+    "slug": "the-longest-wait",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1687841": {
+    "title": "Return to My Blue",
+    "slug": "return-to-my-blue",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1687909": {
+    "title": "fly, little plane!",
+    "slug": "fly-little-plane",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1687928": {
+    "title": "The Flood: End of Mankind",
+    "slug": "the-flood-end-of-mankind",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1688029": {
+    "title": "Reiteration",
+    "slug": "reiteration",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1688308": {
+    "title": "Ramon's Revenge",
+    "slug": "ramon-s-revenge",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1688331": {
+    "title": "What Am I Looking At? Is It Someone’s Navel?",
+    "slug": "what-am-i-looking-at-is-it-someone-s-navel",
     "previousSlugs": [],
     "certification": null
   }
