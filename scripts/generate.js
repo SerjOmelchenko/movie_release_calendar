@@ -585,8 +585,8 @@ function buildMoviePage(movie) {
       ${(() => {
         const highRated = (movie.vote_average || 0) >= 7 && (movie.vote_count || 0) >= 50;
         const reasonText = highRated
-          ? `Highly rated — ${movie.vote_average.toFixed(1)}/10 from ${movie.vote_count.toLocaleString()} viewers.`
-          : `Among the most anticipated upcoming movie releases.`;
+          ? `★ ${movie.vote_average.toFixed(1)}/10 from ${movie.vote_count.toLocaleString()} viewers`
+          : `Most anticipated this month`;
         return `<div class="featured-banner"><span class="fb-tag">Featured</span><span class="fb-text">${reasonText}</span></div>`;
       })()}
       <h1 class="movie-title">${title}</h1>

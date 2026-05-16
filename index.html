@@ -833,15 +833,6 @@
       line-height: 1.2;
       flex-shrink: 0;
     }
-    .why-hit-banner .why-hit-title {
-      color: #e94560;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 2px;
-    }
 
     .day-number {
       font-size: 0.78rem;
@@ -2057,23 +2048,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const hasRating = (movie.vote_average || 0) >= 7 && (movie.vote_count || 0) >= 50;
     const isAnticipated = !!movie.isHit;
     if (!hasRating && !isAnticipated) return null;
+    const country = COUNTRY_NAMES[region] || region;
     if (hasRating && isAnticipated) {
-      const country = COUNTRY_NAMES[region] || region;
       return {
         short: `★ ${movie.vote_average.toFixed(1)} · TOP 15 IN ${region}`,
-        long: `Featured because it's both highly rated (${movie.vote_average.toFixed(1)}/10 from ${movie.vote_count.toLocaleString()} viewers) and among the 15 most anticipated releases in ${country} this month.`,
+        long: `★ ${movie.vote_average.toFixed(1)}/10 and top 15 most anticipated in ${country}.`,
       };
     }
     if (hasRating) {
       return {
         short: `★ ${movie.vote_average.toFixed(1)} / 10 — HIGHLY RATED`,
-        long: `Featured because of strong audience reception: rated ${movie.vote_average.toFixed(1)}/10 by ${movie.vote_count.toLocaleString()} viewers.`,
+        long: `★ ${movie.vote_average.toFixed(1)}/10 from ${movie.vote_count.toLocaleString()} viewers.`,
       };
     }
-    const country = COUNTRY_NAMES[region] || region;
     return {
       short: `TOP 15 ANTICIPATED IN ${region}`,
-      long: `Featured because it's among the 15 most anticipated movies releasing in ${country} this month, ranked by audience interest.`,
+      long: `Top 15 most anticipated in ${country} this month.`,
     };
   }
 
@@ -2328,7 +2318,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     const reason = hitReason(movie, regionSelect.value);
     const reasonHtml = reason
-      ? `<div class="why-hit-banner"><span class="why-hit-icon">🎯</span><span><span class="why-hit-title">Why featured</span>${escHtml(reason.long)}</span></div>`
+      ? `<div class="why-hit-banner"><span class="why-hit-icon">🎯</span><span>${escHtml(reason.long)}</span></div>`
       : '';
 
     listHoverPopup.innerHTML =
@@ -2575,7 +2565,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     const reason = hitReason(movie, regionSelect.value);
     document.getElementById('modal-why-hit').innerHTML = reason
-      ? `<div class="why-hit-banner"><span class="why-hit-icon">🎯</span><span><span class="why-hit-title">Why featured</span>${escHtml(reason.long)}</span></div>`
+      ? `<div class="why-hit-banner"><span class="why-hit-icon">🎯</span><span>${escHtml(reason.long)}</span></div>`
       : '';
 
     document.getElementById('modal-overview').textContent = movie.overview || 'No synopsis available.';
