@@ -2744,7 +2744,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const movieMap = {};
       moviesData.forEach(m => { movieMap[m.id] = m; });
 
-      const allMovies = ids.map(id => movieMap[id]).filter(Boolean);
+      // Fallback: use in-memory calendar data for any ID not found in movies.json
+      const calendarFallback = {};
+      Object.values(moviesByDate).forEach(dayMovies => {
+        dayMovies.forEach(m => { if (!movieMap[m.id]) calendarFallback[m.id] = m; });
+      });
+
+      const allMovies = ids.map(id => movieMap[id] || calendarFallback[id]).filter(Boolean);
 
       if (allMovies.length === 0) {
         content.innerHTML = '<p class="watchlist-empty">Could not load watchlist movies.</p>';
