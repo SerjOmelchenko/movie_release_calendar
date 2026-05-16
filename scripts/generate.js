@@ -1418,13 +1418,23 @@ async function main() {
 
     // Reconstruct calendarData + detailsMap from existing movies.json so we can
     // (re-)compute hits and (re-)build the per-country calendar JSON files.
+    // Limit the months to the same -1 → +12 window the full-fetch branch uses,
+    // otherwise stale countryReleases entries pull in long-ago / far-future
+    // months and generate phantom calendar files.
     const detailsMap = {};
     for (const m of detailedMovies) detailsMap[m.id] = m;
+    const padYm = n => String(n).padStart(2, '0');
+    const nowReg = new Date();
+    const allowedMonths = new Set();
+    for (let offset = -1; offset <= 12; offset++) {
+      const d = new Date(nowReg.getFullYear(), nowReg.getMonth() + offset, 1);
+      allowedMonths.add(`${d.getFullYear()}-${padYm(d.getMonth() + 1)}`);
+    }
     const calendarData = {};
     for (const m of detailedMovies) {
       for (const [country, releaseDate] of Object.entries(m.countryReleases || {})) {
         const ym = (releaseDate || '').slice(0, 7);
-        if (!ym) continue;
+        if (!ym || !allowedMonths.has(ym)) continue;
         if (!calendarData[ym])          calendarData[ym] = {};
         if (!calendarData[ym][country]) calendarData[ym][country] = [];
         if (!calendarData[ym][country].some(x => x.id === m.id)) {
