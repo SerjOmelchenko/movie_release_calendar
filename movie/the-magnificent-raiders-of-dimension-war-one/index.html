@@ -63,6 +63,20 @@
 
     .movie-info { flex: 1; min-width: 0; }
     .movie-title { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 1rem; }
+    .featured-banner {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 0.8rem; margin-bottom: 0.9rem;
+      background: rgba(233, 69, 96, 0.1);
+      border: 1px solid rgba(233, 69, 96, 0.35);
+      border-radius: 999px;
+      color: #f3a4b1; font-size: 0.78rem; line-height: 1.3;
+    }
+    .featured-banner .fb-tag {
+      background: #e94560; color: #fff;
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em;
+      padding: 2px 7px; border-radius: 999px; text-transform: uppercase;
+    }
+    .featured-banner .fb-text { color: #ddd; }
 
     .info-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.65rem; margin-bottom: 1.25rem; }
     .tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 0.85rem 0.9rem; display: flex; flex-direction: column; gap: 0.3rem; }
@@ -172,6 +186,7 @@
       <img src="https://image.tmdb.org/t/p/w500/grvdsNcfpWzpPO3qREUEDX12c3.jpg" alt="The Magnificent Raiders of Dimension War One poster" />
     </div>
     <div class="movie-info">
+      <div class="featured-banner"><span class="fb-tag">Featured</span><span class="fb-text">Most anticipated this month</span></div>
       <h1 class="movie-title">The Magnificent Raiders of Dimension War One</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">December 6, 2026</div></div>
