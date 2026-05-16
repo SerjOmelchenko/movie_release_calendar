@@ -499,6 +499,24 @@
       color: #ddd;
       border-color: #3a3a3a;
     }
+    .list-no-hits {
+      padding: 0.55rem 0.75rem;
+      margin-bottom: 6px;
+      font-size: 0.78rem;
+      color: #4a4a55;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: repeating-linear-gradient(
+        135deg,
+        #101015,
+        #101015 6px,
+        #14141a 6px,
+        #14141a 12px
+      );
+      border: 1px dashed #242430;
+      border-radius: 6px;
+    }
 
     #list-hover-popup {
       position: fixed;
@@ -2336,17 +2354,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     monthLabel.textContent = `${MONTH_NAMES[currentMonth]} ${currentYear}`;
 
-    // List view only surfaces featured releases. Days where every release
-    // is non-hit are skipped entirely; per-day non-hits are reachable via
-    // the "See N other releases" pill at the bottom of each date group.
-    const datesWithHits = {};
+    // Per-day buckets: dates that have hits get full cards for the hits + an
+    // "Other releases" pill for any non-hits; dates with only non-hits still
+    // appear in the list so users see something is happening, just with a
+    // "No major releases" stub + a "Show all releases" button. Dates with
+    // zero movies are skipped (filtered only contains dates with releases).
+    const byDate = {};
     for (const [date, dayMovies] of Object.entries(filtered)) {
       const hits = dayMovies.filter(m => m.isHit).sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
-      if (hits.length > 0) {
-        datesWithHits[date] = { hits, others: dayMovies.length - hits.length, all: dayMovies };
-      }
+      byDate[date] = { hits, others: dayMovies.length - hits.length, total: dayMovies.length };
     }
-    const allDates = Object.keys(datesWithHits).sort();
+    const allDates = Object.keys(byDate).sort();
     const isCurrentMonth = currentYear === today.getFullYear() && currentMonth === today.getMonth();
     const pastDates = allDates.filter(d => d < todayStr);
     const futureDates = allDates.filter(d => d >= todayStr);
@@ -2355,22 +2373,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     let html = '';
 
     if (isCurrentMonth && pastDates.length > 0 && !showEarlier) {
-      const n = pastDates.reduce((sum, d) => sum + datesWithHits[d].hits.length, 0);
-      html += `<button id="show-earlier-btn" class="show-earlier-btn">&#8593; Show ${n} earlier featured release${n !== 1 ? 's' : ''} this month</button>`;
+      const featuredN = pastDates.reduce((s, d) => s + byDate[d].hits.length, 0);
+      const label = featuredN > 0
+        ? `Show ${featuredN} earlier featured release${featuredN !== 1 ? 's' : ''} this month`
+        : `Show ${pastDates.length} earlier release day${pastDates.length !== 1 ? 's' : ''} this month`;
+      html += `<button id="show-earlier-btn" class="show-earlier-btn">&#8593; ${label}</button>`;
     }
 
     if (datesToShow.length === 0) {
-      const msg = isCurrentMonth ? 'No upcoming featured releases this month.' : 'No featured releases this month.';
-      html += `<p class="list-empty">${msg}<br><span style="font-size:0.82rem;color:#333;">Switch to Calendar view to see every release, or browse other months.</span></p>`;
+      const msg = isCurrentMonth ? 'No upcoming releases this month.' : 'No releases this month.';
+      html += `<p class="list-empty">${msg}<br><span style="font-size:0.82rem;color:#333;">Use the arrows to browse other months.</span></p>`;
     } else {
       datesToShow.forEach(dateStr => {
-        const { hits, others } = datesWithHits[dateStr];
+        const { hits, others, total } = byDate[dateStr];
         const isToday = dateStr === todayStr;
         const dateObj = new Date(dateStr + 'T00:00:00');
         const dateLabel = dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 
         html += `<div class="list-date-group">`;
         html += `<div class="list-date-heading${isToday ? ' is-today' : ''}">${escHtml(dateLabel)}${isToday ? ' <span class="today-pill">Today</span>' : ''}</div>`;
+
+        if (hits.length === 0) {
+          html += `<div class="list-no-hits">No major releases this day</div>`;
+          html += `<button class="list-other-releases" data-date="${escHtml(dateStr)}">Show ${total} other release${total !== 1 ? 's' : ''}</button>`;
+          html += `</div>`;
+          return;
+        }
 
         hits.forEach(m => {
           const inWl = watchlist.includes(m.id);
