@@ -12,9 +12,16 @@ const MOVIES_PATH   = path.join(DATA_DIR, 'movies.json');
 const MOVIE_DIR     = path.join(__dirname, '..', 'movie');
 const CALENDAR_DIR  = path.join(DATA_DIR, 'calendar');
 const TOP_MOVIES_DIR = path.join(__dirname, '..', 'top-movies');
+const HITS_PATH      = path.join(DATA_DIR, 'hits.json');
+const PUBLIC_MANIFEST_PATH = path.join(DATA_DIR, 'manifest-public.json');
 
 // First month tracked by the Top Movies series
 const TOP_MOVIES_START = '2026-02';
+
+// Hit-selection thresholds
+const HIT_TOP_N_PER_COUNTRY = 15;
+const HIT_RATING_MIN        = 7;
+const HIT_VOTE_COUNT_MIN    = 50;
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -715,42 +722,165 @@ function buildMoviePage(movie) {
 </html>`;
 }
 
-function generatePages(movies, manifest) {
+// ── Hit selection ─────────────────────────────────────────────────────────────
+
+// A movie qualifies as a "hit" (gets a full standalone page) if EITHER:
+//   A) it is in top-N by popularity for ANY supported country for its release month
+//      (union of per-country lists; WW is excluded — it is a fallback bucket only)
+//   B) it has vote_average >= HIT_RATING_MIN AND vote_count >= HIT_VOTE_COUNT_MIN
+//      (retroactive: catches already-released films that turn out to be well-received)
+function computeHits(calendarData, detailsMap) {
+  const hitsByCountry = {};   // hitsByCountry[country][ym] = Set<id>
+  const globalHitIds  = new Set();
+
+  for (const [ym, byCountry] of Object.entries(calendarData)) {
+    for (const [country, rawMovies] of Object.entries(byCountry)) {
+      if (country === 'WW') continue;
+      const ranked = rawMovies
+        .filter(m => detailsMap[m.id])
+        .sort((a, b) => (detailsMap[b.id].popularity || 0) - (detailsMap[a.id].popularity || 0))
+        .slice(0, HIT_TOP_N_PER_COUNTRY);
+      if (!hitsByCountry[country]) hitsByCountry[country] = {};
+      hitsByCountry[country][ym] = new Set(ranked.map(m => m.id));
+      for (const m of ranked) globalHitIds.add(m.id);
+    }
+  }
+  for (const d of Object.values(detailsMap)) {
+    if ((d.vote_average || 0) >= HIT_RATING_MIN && (d.vote_count || 0) >= HIT_VOTE_COUNT_MIN) {
+      globalHitIds.add(d.id);
+    }
+  }
+  console.log(`Hits: ${globalHitIds.size} unique movies promoted (out of ${Object.keys(detailsMap).length})`);
+  return { hitsByCountry, globalHitIds };
+}
+
+// Serialise hit data for REGEN_ONLY re-runs.
+function persistHits(hitsByCountry, globalHitIds) {
+  const flat = {};
+  for (const [country, byYm] of Object.entries(hitsByCountry)) {
+    flat[country] = {};
+    for (const [ym, set] of Object.entries(byYm)) {
+      flat[country][ym] = [...set];
+    }
+  }
+  fs.writeFileSync(HITS_PATH, JSON.stringify({
+    globalHitIds: [...globalHitIds],
+    hitsByCountry: flat,
+  }));
+}
+
+// Minimal page used for movies that are NOT hits. Contains noindex so Google
+// drops it from the index over time, plus a canonical link to the relevant
+// /top-movies/YYYY-MM/ landing page. The page is still discoverable directly
+// (via inbound links) so we render a tiny human fallback with a link back to
+// the calendar — keeps it from being treated as a soft-404.
+function buildDemotedPage(movie) {
+  const title         = escHtml(movie.title || 'Movie');
+  const releaseMonth  = (movie.release_date || '').slice(0, 7);
+  const canonicalHref = releaseMonth
+    ? `${SITE_BASE}/top-movies/${releaseMonth}/`
+    : `${SITE_BASE}/`;
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,follow" />
+<link rel="canonical" href="${canonicalHref}" />
+<title>${title} &middot; Movie Release Radar</title>
+<style>
+body { font-family: 'Segoe UI', system-ui, sans-serif; background:#0d0d0d; color:#e0e0e0; margin:0; padding:2rem; }
+.box { max-width:560px; margin:4rem auto; text-align:center; }
+h1 { font-size:1.4rem; margin:0 0 1rem; color:#fff; }
+p { color:#888; line-height:1.5; }
+a { color:#e94560; text-decoration:none; }
+a:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+<div class="box">
+<h1>${title}</h1>
+<p>Browse upcoming releases on the <a href="/">Movie Release Radar calendar</a>${releaseMonth ? ` or see the <a href="${canonicalHref}">most anticipated movies for ${escHtml(monthLabel(releaseMonth))}</a>` : ''}.</p>
+</div>
+</body>
+</html>`;
+}
+
+// ── Page generation ───────────────────────────────────────────────────────────
+
+function generatePages(movies, manifest, globalHitIds) {
   fs.mkdirSync(MOVIE_DIR, { recursive: true });
 
-  // Build set of current active slugs
-  const activeSlugs = new Set(movies.map(m => m.slug));
+  // Only HIT slugs count as "active" — demoted slugs must NOT be a redirect target
+  // for renamed-slug stubs (those would forward humans to a noindexed page).
+  const activeSlugs = new Set(
+    movies.filter(m => globalHitIds.has(m.id)).map(m => m.slug)
+  );
 
-  // Write a page for every movie in the current window
-  let written = 0;
+  // Track every slug we expect to exist on disk after this run, so the sweep
+  // pass at the end can identify stale slugs (movies that rolled out of the
+  // data window) and rewrite them as noindex pages.
+  const expectedSlugs = new Set(movies.map(m => m.slug));
+
+  // Write a page for every movie in the current window — full template for hits,
+  // minimal noindex page for everyone else.
+  let hits = 0, demoted = 0;
   for (const movie of movies) {
     const dir = path.join(MOVIE_DIR, movie.slug);
     fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(path.join(dir, 'index.html'), buildMoviePage(movie));
-    written++;
+    const html = globalHitIds.has(movie.id) ? buildMoviePage(movie) : buildDemotedPage(movie);
+    fs.writeFileSync(path.join(dir, 'index.html'), html);
+    if (globalHitIds.has(movie.id)) hits++; else demoted++;
   }
-  console.log(`Movie pages written: ${written}`);
+  console.log(`Movie pages written: ${hits} hit, ${demoted} demoted (noindex)`);
 
-  // Write redirect stubs for any previousSlugs whose target is still active
-  let redirects = 0;
-  for (const [, entry] of Object.entries(manifest)) {
-    if (!activeSlugs.has(entry.slug)) continue; // target page not in current window
-    for (const oldSlug of (entry.previousSlugs || [])) {
-      const redirectDir = path.join(MOVIE_DIR, oldSlug);
-      if (fs.existsSync(path.join(redirectDir, 'index.html'))) continue; // already exists
-      fs.mkdirSync(redirectDir, { recursive: true });
-      fs.writeFileSync(
-        path.join(redirectDir, 'index.html'),
-        `<!DOCTYPE html><html><head><meta charset="UTF-8" />`+
-        `<link rel="canonical" href="${SITE_BASE}/movie/${entry.slug}/" />`+
-        `<meta http-equiv="refresh" content="0;url=/movie/${entry.slug}/" />`+
-        `<title>Redirecting...</title></head>`+
-        `<body><a href="/movie/${entry.slug}/">Click here if not redirected.</a></body></html>`
-      );
-      redirects++;
-    }
+  // Build oldSlug → currentSlug map for renamed hit movies, so we can
+  // (re)write those old directories as redirect stubs pointing to the live page.
+  const redirectTargets = new Map();
+  for (const entry of Object.values(manifest)) {
+    if (!activeSlugs.has(entry.slug)) continue;
+    for (const oldSlug of (entry.previousSlugs || [])) redirectTargets.set(oldSlug, entry.slug);
   }
-  if (redirects > 0) console.log(`Redirect stubs written: ${redirects}`);
+
+  // (1) Write a redirect stub for every renamed hit slug — fresh renames may
+  // not have a directory yet, and old runs may have left a full-template
+  // duplicate that needs to be replaced with the stub. Skip self-redirects
+  // (historical manifest artifacts) and slugs that another hit movie now
+  // uses as its primary slug (writing a stub there would clobber the hit page).
+  let stubs = 0;
+  for (const [oldSlug, target] of redirectTargets) {
+    if (oldSlug === target)         continue;
+    if (activeSlugs.has(oldSlug))   continue;
+    const dir = path.join(MOVIE_DIR, oldSlug);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'index.html'),
+      `<!DOCTYPE html><html><head><meta charset="UTF-8" />`+
+      `<link rel="canonical" href="${SITE_BASE}/movie/${target}/" />`+
+      `<meta http-equiv="refresh" content="0;url=/movie/${target}/" />`+
+      `<title>Redirecting...</title></head>`+
+      `<body><a href="/movie/${target}/">Click here if not redirected.</a></body></html>`
+    );
+    stubs++;
+  }
+
+  // (2) Stale-page sweep: any leftover directory on disk that isn't an
+  // expected current-window slug and isn't a redirect stub gets rewritten as
+  // a minimal noindex page. This is the bulk SEO cleanup of the templated
+  // pages Google may be classifying as thin/spam.
+  let staleRewritten = 0;
+  for (const slug of fs.readdirSync(MOVIE_DIR)) {
+    const dir = path.join(MOVIE_DIR, slug);
+    if (!fs.statSync(dir).isDirectory()) continue;
+    if (expectedSlugs.has(slug))         continue;
+    if (redirectTargets.has(slug))       continue;
+    const entryPath = path.join(dir, 'index.html');
+    if (!fs.existsSync(entryPath))       continue;
+    fs.writeFileSync(entryPath, buildDemotedPage({ title: slug.replace(/-/g, ' '), release_date: '' }));
+    staleRewritten++;
+  }
+  if (stubs > 0)          console.log(`Renamed-slug redirect stubs: ${stubs}`);
+  if (staleRewritten > 0) console.log(`Stale pages rewritten as noindex: ${staleRewritten}`);
+
 }
 
 // ── Top Movies pages ──────────────────────────────────────────────────────────
@@ -1126,7 +1256,7 @@ ${TOP_PAGE_FOOTER}
 </html>`;
 }
 
-function generateTopMoviesPages(detailedMovies) {
+function generateTopMoviesPages(detailedMovies, globalHitIds = null) {
   const pad = n => String(n).padStart(2, '0');
   const now = new Date();
   const currentYm = `${now.getFullYear()}-${pad(now.getMonth() + 1)}`;
@@ -1153,6 +1283,13 @@ function generateTopMoviesPages(detailedMovies) {
       .slice(0, 10);
 
     if (topMovies.length === 0) continue;
+
+    // Safety net: every movie linked from a top-movies page must be a hit,
+    // otherwise we'd be sending users to a noindexed dead page.
+    if (globalHitIds) {
+      for (const tm of topMovies) globalHitIds.add(tm.id);
+    }
+
     fs.mkdirSync(path.join(TOP_MOVIES_DIR, ym), { recursive: true });
     fs.writeFileSync(outPath, buildTopMoviesPage(ym, topMovies));
     written++;
@@ -1165,10 +1302,16 @@ function generateTopMoviesPages(detailedMovies) {
 
 // ── Sitemap ───────────────────────────────────────────────────────────────────
 
-function generateSitemap(movies, topMonths = []) {
+function generateSitemap(movies, topMonths = [], globalHitIds = null) {
   const today = new Date().toISOString().slice(0, 10);
 
-  const movieUrls = movies.map(m => {
+  // Only include HIT movies in the sitemap. Demoted pages are noindex and
+  // should not be advertised to Google.
+  const sitemapMovies = globalHitIds
+    ? movies.filter(m => globalHitIds.has(m.id))
+    : movies;
+
+  const movieUrls = sitemapMovies.map(m => {
     const lastmod = m.dataUpdatedAt || today;
     return `  <url>\n    <loc>${SITE_BASE}/movie/${m.slug}/</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`;
   }).join('\n');
@@ -1193,24 +1336,25 @@ ${topMonthUrls}
 </urlset>`;
 
   fs.writeFileSync(path.join(__dirname, '..', 'sitemap.xml'), xml);
-  const totalUrls = movies.length + 1 + 1 + topMonths.length;
+  const totalUrls = sitemapMovies.length + 1 + 1 + topMonths.length;
   console.log(`sitemap.xml written (${totalUrls} URLs)`);
 }
 
 // ── Calendar file builder ─────────────────────────────────────────────────────
 
-function buildCalendarFiles(calendarData, detailsMap) {
+function buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitIds) {
   let written = 0;
   for (const [ym, byCountry] of Object.entries(calendarData)) {
     const monthDir = path.join(CALENDAR_DIR, ym);
     fs.mkdirSync(monthDir, { recursive: true });
 
     for (const [country, rawMovies] of Object.entries(byCountry)) {
+      const countryHits = hitsByCountry[country]?.[ym]; // undefined for 'WW'
       const slim = rawMovies
         .filter(m => detailsMap[m.id])
         .map(m => {
           const d = detailsMap[m.id];
-          return {
+          const entry = {
             id:                m.id,
             title:             d.title,
             release_date:      m.release_date,   // country-specific date from discover
@@ -1224,8 +1368,12 @@ function buildCalendarFiles(calendarData, detailsMap) {
             original_language: d.original_language,
             directors:         d.directors,
             cast:              d.cast,
-            slug:              d.slug,
+            isHit:             countryHits ? countryHits.has(m.id) : false,
           };
+          // Only expose slug for HIT movies — otherwise the client would
+          // navigate to a noindexed page instead of opening the modal.
+          if (globalHitIds.has(m.id)) entry.slug = d.slug;
+          return entry;
         })
         .sort((a, b) => a.release_date.localeCompare(b.release_date));
 
@@ -1249,6 +1397,7 @@ async function main() {
   const manifest = loadJSON(MANIFEST_PATH, {});
 
   let detailedMovies;
+  let hitsByCountry, globalHitIds;
 
   if (process.env.REGEN_ONLY === '1') {
     detailedMovies = loadJSON(MOVIES_PATH, []);
@@ -1266,6 +1415,28 @@ async function main() {
     // Bootstrap dataUpdatedAt for any movie that doesn't have it yet
     const todayBoot = new Date().toISOString().slice(0, 10);
     for (const m of detailedMovies) { if (!m.dataUpdatedAt) m.dataUpdatedAt = todayBoot; }
+
+    // Reconstruct calendarData + detailsMap from existing movies.json so we can
+    // (re-)compute hits and (re-)build the per-country calendar JSON files.
+    const detailsMap = {};
+    for (const m of detailedMovies) detailsMap[m.id] = m;
+    const calendarData = {};
+    for (const m of detailedMovies) {
+      for (const [country, releaseDate] of Object.entries(m.countryReleases || {})) {
+        const ym = (releaseDate || '').slice(0, 7);
+        if (!ym) continue;
+        if (!calendarData[ym])          calendarData[ym] = {};
+        if (!calendarData[ym][country]) calendarData[ym][country] = [];
+        if (!calendarData[ym][country].some(x => x.id === m.id)) {
+          calendarData[ym][country].push({ id: m.id, release_date: releaseDate });
+        }
+      }
+    }
+
+    ({ hitsByCountry, globalHitIds } = computeHits(calendarData, detailsMap));
+    promoteTopMoviesToHits(detailedMovies, globalHitIds);
+    persistHits(hitsByCountry, globalHitIds);
+    buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitIds);
   } else {
     // Build month range: 1 month back → 12 months forward
     const now = new Date();
@@ -1372,8 +1543,15 @@ async function main() {
     // Assign slugs first so buildCalendarFiles can embed them
     assignSlugs(detailedMovies, manifest);
 
-    // Write per-country per-month calendar JSON files
-    buildCalendarFiles(calendarData, detailsMap);
+    // Compute which movies qualify as "hits" (get a full standalone page)
+    ({ hitsByCountry, globalHitIds } = computeHits(calendarData, detailsMap));
+    // Promote /top-movies/ targets BEFORE writing calendar JSON, otherwise
+    // safety-net-promoted movies would be missing their slug in the calendar.
+    promoteTopMoviesToHits(detailedMovies, globalHitIds);
+    persistHits(hitsByCountry, globalHitIds);
+
+    // Write per-country per-month calendar JSON files (carries isHit + slug-for-hits)
+    buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitIds);
 
     // Persist manifest and full movie data
     fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2));
@@ -1383,10 +1561,55 @@ async function main() {
     console.log(`movies.json saved (${detailedMovies.length} movies)`);
   }
 
-  generatePages(detailedMovies, manifest);
+  // Write the slim public manifest the browser uses for slug lookups + certifications.
+  writePublicManifest(manifest, globalHitIds);
+
   const allMovies = process.env.REGEN_ONLY === '1' ? loadJSON(MOVIES_PATH, []) : detailedMovies;
-  const topMonths = generateTopMoviesPages(allMovies);
-  generateSitemap(allMovies, topMonths);
+  generatePages(detailedMovies, manifest, globalHitIds);
+  const topMonths = generateTopMoviesPages(allMovies, globalHitIds);
+  generateSitemap(allMovies, topMonths, globalHitIds);
+}
+
+// Pick the same top-10-by-popularity-per-month list that generateTopMoviesPages
+// will produce, and promote those IDs into the hit set so their /movie/ pages
+// get the full template (not the noindex stub).
+function promoteTopMoviesToHits(detailedMovies, globalHitIds) {
+  const pad = n => String(n).padStart(2, '0');
+  const now = new Date();
+  const currentYm = `${now.getFullYear()}-${pad(now.getMonth() + 1)}`;
+  const nextYm    = addMonths(currentYm, 1);
+  const months    = [];
+  let cursor = TOP_MOVIES_START;
+  while (cursor <= nextYm) { months.push(cursor); cursor = addMonths(cursor, 1); }
+
+  let promoted = 0;
+  for (const ym of months) {
+    const top = detailedMovies
+      .filter(m => m.release_date && m.release_date.startsWith(ym) && m.slug)
+      .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+      .slice(0, 10);
+    for (const m of top) {
+      if (!globalHitIds.has(m.id)) { globalHitIds.add(m.id); promoted++; }
+    }
+  }
+  if (promoted > 0) console.log(`Top-movies safety net: promoted ${promoted} extra movie(s) to hit status`);
+}
+
+// Slim manifest exposed to the browser. Contains slug ONLY for hit movies
+// (so the client can't navigate to a noindexed page) but keeps certification
+// for every movie (still used by the in-page modal + filter).
+function writePublicManifest(manifest, globalHitIds) {
+  const out = {};
+  for (const [id, entry] of Object.entries(manifest)) {
+    const numId = Number(id);
+    const isHit = globalHitIds.has(numId);
+    const obj = {};
+    if (isHit && entry.slug) obj.slug = entry.slug;
+    if (entry.certification) obj.certification = entry.certification;
+    if (Object.keys(obj).length > 0) out[id] = obj;
+  }
+  fs.writeFileSync(PUBLIC_MANIFEST_PATH, JSON.stringify(out));
+  console.log(`manifest-public.json saved (${Object.keys(out).length} entries)`);
 }
 
 main().catch(err => { console.error(err); process.exit(1); });

@@ -643,6 +643,54 @@
       background: #151520;
     }
 
+    .day-cell.has-hit {
+      border: 1.5px solid #e94560;
+      box-shadow: 0 0 14px rgba(233, 69, 96, 0.4);
+    }
+
+    .day-cell.has-hit::after {
+      content: "HIT";
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #e94560;
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 2px 7px;
+      border-bottom-left-radius: 6px;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .day-cell.has-hit .poster-thumb {
+      transform: scale(1.03);
+      transform-origin: center top;
+    }
+
+    .other-releases-pill {
+      display: block;
+      width: 100%;
+      margin-top: 6px;
+      padding: 4px 8px;
+      background: #1a1a1a;
+      color: #888;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+
+    .other-releases-pill:hover {
+      background: #222;
+      color: #ddd;
+      border-color: #3a3a3a;
+    }
+
     .day-number {
       font-size: 0.78rem;
       color: #555;
@@ -1728,7 +1776,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   async function loadManifest() {
     try {
-      const res = await fetch('/data/manifest.json');
+      const res = await fetch('/data/manifest-public.json');
       if (!res.ok) return;
       const manifest = await res.json();
       for (const [id, entry] of Object.entries(manifest)) {
@@ -1833,15 +1881,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const movies = filtered[dateStr] || [];
       const isToday = dateStr === todayStr;
 
+      // Pick the featured movie for this day: prefer a hit, fall back to the
+      // first movie. Hits get the spotlight (glow border + HIT ribbon); every
+      // other release on the day collapses into the "Other releases" pill,
+      // which opens the day modal — no per-non-hit page exists by design.
+      const hitMovie = movies.find(m => m.isHit);
+      const primary  = hitMovie || movies[0];
+      const others   = primary ? movies.filter(m => m !== primary) : [];
+
       let cls = 'day-cell';
       if (isToday) cls += ' today';
       if (movies.length > 0) cls += ' has-movies';
+      if (hitMovie) cls += ' has-hit';
 
       html += `<div class="${cls}" data-date="${dateStr}">`;
       html += `<div class="day-number">${d}</div>`;
 
-      if (movies.length >= 1) {
-        const m = movies[0];
+      if (primary) {
+        const m = primary;
         if (m.poster_path) {
           const inWl = watchlist.includes(m.id);
           html += `<div class="poster-wrap" data-id="${m.id}" data-date="${dateStr}">`;
@@ -1852,24 +1909,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         } else {
           html += `<div class="poster-placeholder">${escHtml(m.title)}</div>`;
         }
-        if (movies.length > 1) {
-          const rest = movies.slice(1);
-          const MAX_BARS = 6;
-          const bars = rest.slice(0, MAX_BARS);
-          const overflow = rest.length - MAX_BARS;
-          html += '<div class="cell-bars">';
-          bars.forEach(b => {
-            const style = b.poster_path
-              ? ` style="background-image:url('${IMG_BASE}w92${b.poster_path}')"`
-              : '';
-            const wlClass = watchlist.includes(b.id) ? ' wl' : '';
-            html += `<div class="cell-bar${wlClass}"${style} title="${escHtml(b.title)}" data-id="${b.id}"></div>`;
-          });
-          if (overflow > 0) {
-            html += `<div class="cell-bar-overflow">+${overflow}</div>`;
-          }
-          html += '</div>';
-          html += `<button class="view-all-btn" data-date="${dateStr}">View all ${movies.length}</button>`;
+        if (others.length > 0) {
+          html += `<button class="other-releases-pill" data-date="${dateStr}">Other releases (${others.length})</button>`;
         }
       }
 
@@ -1916,17 +1957,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       });
     });
 
-    calendarEl.querySelectorAll('.cell-bar[data-id]').forEach(bar => {
-      bar.addEventListener('click', e => {
-        e.stopPropagation();
-        const id = parseInt(bar.dataset.id, 10);
-        const dateStr = bar.closest('.day-cell').dataset.date;
-        const movie = (filtered[dateStr] || []).find(m => m.id === id);
-        if (movie) openOrNavigateMovie(movie);
-      });
-    });
-
-    calendarEl.querySelectorAll('.view-all-btn').forEach(btn => {
+    calendarEl.querySelectorAll('.other-releases-pill').forEach(btn => {
       btn.addEventListener('click', e => {
         e.stopPropagation();
         openDayModal(btn.dataset.date, filtered[btn.dataset.date] || []);
@@ -1952,23 +1983,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         });
       });
 
-      calendarEl.querySelectorAll('.cell-bar[data-id]').forEach(bar => {
-        bar.addEventListener('mouseenter', e => {
-          const id = parseInt(bar.dataset.id, 10);
-          const dateStr = bar.closest('.day-cell').dataset.date;
-          const movie = (filtered[dateStr] || []).find(m => m.id === id);
-          if (!movie) return;
-          clearTimeout(hoverTimeout);
-          hoverTimeout = setTimeout(() => showListHoverPopup(movie, e), 120);
-        });
-        bar.addEventListener('mousemove', e => {
-          if (listHoverPopup.classList.contains('visible')) positionListHoverPopup(e);
-        });
-        bar.addEventListener('mouseleave', () => {
-          clearTimeout(hoverTimeout);
-          listHoverPopup.classList.remove('visible');
-        });
-      });
     }
   }
 
