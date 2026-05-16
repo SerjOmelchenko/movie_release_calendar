@@ -812,88 +812,48 @@ function persistHits(hitsByCountry, globalHitIds) {
   }));
 }
 
-// Minimal page used for movies that are NOT hits. Contains noindex so Google
-// drops it from the index over time, plus a canonical link to the relevant
-// /top-movies/YYYY-MM/ landing page. The page is still discoverable directly
-// (via inbound links) so we render a tiny human fallback with a link back to
-// the calendar — keeps it from being treated as a soft-404.
-function buildDemotedPage(movie) {
-  const title         = escHtml(movie.title || 'Movie');
-  const releaseMonth  = (movie.release_date || '').slice(0, 7);
-  const canonicalHref = releaseMonth
-    ? `${SITE_BASE}/top-movies/${releaseMonth}/`
-    : `${SITE_BASE}/`;
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="robots" content="noindex,follow" />
-<link rel="canonical" href="${canonicalHref}" />
-<title>${title} &middot; Movie Release Radar</title>
-<style>
-body { font-family: 'Segoe UI', system-ui, sans-serif; background:#0d0d0d; color:#e0e0e0; margin:0; padding:2rem; }
-.box { max-width:560px; margin:4rem auto; text-align:center; }
-h1 { font-size:1.4rem; margin:0 0 1rem; color:#fff; }
-p { color:#888; line-height:1.5; }
-a { color:#e94560; text-decoration:none; }
-a:hover { text-decoration:underline; }
-</style>
-</head>
-<body>
-<div class="box">
-<h1>${title}</h1>
-<p>Browse upcoming releases on the <a href="/">Movie Release Radar calendar</a>${releaseMonth ? ` or see the <a href="${canonicalHref}">most anticipated movies for ${escHtml(monthLabel(releaseMonth))}</a>` : ''}.</p>
-</div>
-</body>
-</html>`;
-}
-
 // ── Page generation ───────────────────────────────────────────────────────────
 
 function generatePages(movies, manifest, globalHitIds) {
   fs.mkdirSync(MOVIE_DIR, { recursive: true });
 
-  // Only HIT slugs count as "active" — demoted slugs must NOT be a redirect target
-  // for renamed-slug stubs (those would forward humans to a noindexed page).
+  // Only HIT slugs count as "active" — every other slug must NOT exist on
+  // disk so its URL returns the site's 404 page with HTTP 404 status.
   const activeSlugs = new Set(
     movies.filter(m => globalHitIds.has(m.id)).map(m => m.slug)
   );
 
-  // Track every slug we expect to exist on disk after this run, so the sweep
-  // pass at the end can identify stale slugs (movies that rolled out of the
-  // data window) and rewrite them as noindex pages.
-  const expectedSlugs = new Set(movies.map(m => m.slug));
-
-  // Write a page for every movie in the current window — full template for hits,
-  // minimal noindex page for everyone else.
-  let hits = 0, demoted = 0;
+  // (1) Write a full page for every hit; delete any pre-existing page for
+  // a demoted movie so its URL 404s. We deliberately do not generate
+  // noindex stubs anymore — 404 is a stronger signal that the URL is gone.
+  let hits = 0, deleted = 0;
   for (const movie of movies) {
     const dir = path.join(MOVIE_DIR, movie.slug);
-    fs.mkdirSync(dir, { recursive: true });
-    const html = globalHitIds.has(movie.id) ? buildMoviePage(movie) : buildDemotedPage(movie);
-    fs.writeFileSync(path.join(dir, 'index.html'), html);
-    if (globalHitIds.has(movie.id)) hits++; else demoted++;
+    if (globalHitIds.has(movie.id)) {
+      fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(path.join(dir, 'index.html'), buildMoviePage(movie));
+      hits++;
+    } else if (fs.existsSync(dir)) {
+      fs.rmSync(dir, { recursive: true, force: true });
+      deleted++;
+    }
   }
-  console.log(`Movie pages written: ${hits} hit, ${demoted} demoted (noindex)`);
+  console.log(`Movie pages: ${hits} hit written, ${deleted} demoted removed (will 404)`);
 
-  // Build oldSlug → currentSlug map for renamed hit movies, so we can
-  // (re)write those old directories as redirect stubs pointing to the live page.
+  // Build oldSlug → currentSlug map for renamed HIT movies. Stubs for
+  // renamed slugs whose current target is demoted are skipped (they'd be
+  // redirects to a 404 — better to let the old slug 404 directly).
   const redirectTargets = new Map();
   for (const entry of Object.values(manifest)) {
     if (!activeSlugs.has(entry.slug)) continue;
     for (const oldSlug of (entry.previousSlugs || [])) redirectTargets.set(oldSlug, entry.slug);
   }
 
-  // (1) Write a redirect stub for every renamed hit slug — fresh renames may
-  // not have a directory yet, and old runs may have left a full-template
-  // duplicate that needs to be replaced with the stub. Skip self-redirects
-  // (historical manifest artifacts) and slugs that another hit movie now
-  // uses as its primary slug (writing a stub there would clobber the hit page).
+  // (2) Write redirect stubs for hit-target renamed slugs.
   let stubs = 0;
   for (const [oldSlug, target] of redirectTargets) {
-    if (oldSlug === target)         continue;
-    if (activeSlugs.has(oldSlug))   continue;
+    if (oldSlug === target)       continue;
+    if (activeSlugs.has(oldSlug)) continue;
     const dir = path.join(MOVIE_DIR, oldSlug);
     fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(path.join(dir, 'index.html'),
@@ -906,24 +866,21 @@ function generatePages(movies, manifest, globalHitIds) {
     stubs++;
   }
 
-  // (2) Stale-page sweep: any leftover directory on disk that isn't an
-  // expected current-window slug and isn't a redirect stub gets rewritten as
-  // a minimal noindex page. This is the bulk SEO cleanup of the templated
-  // pages Google may be classifying as thin/spam.
-  let staleRewritten = 0;
+  // (3) Stale-page sweep: delete any leftover directory on disk that isn't
+  // an active hit slug and isn't a live redirect-stub target. This catches
+  // orphans from prior runs whose movies have rolled off, plus stubs that
+  // used to point to a now-demoted target.
+  let staleDeleted = 0;
   for (const slug of fs.readdirSync(MOVIE_DIR)) {
     const dir = path.join(MOVIE_DIR, slug);
     if (!fs.statSync(dir).isDirectory()) continue;
-    if (expectedSlugs.has(slug))         continue;
-    if (redirectTargets.has(slug))       continue;
-    const entryPath = path.join(dir, 'index.html');
-    if (!fs.existsSync(entryPath))       continue;
-    fs.writeFileSync(entryPath, buildDemotedPage({ title: slug.replace(/-/g, ' '), release_date: '' }));
-    staleRewritten++;
+    if (activeSlugs.has(slug))     continue;
+    if (redirectTargets.has(slug)) continue;
+    fs.rmSync(dir, { recursive: true, force: true });
+    staleDeleted++;
   }
-  if (stubs > 0)          console.log(`Renamed-slug redirect stubs: ${stubs}`);
-  if (staleRewritten > 0) console.log(`Stale pages rewritten as noindex: ${staleRewritten}`);
-
+  if (stubs > 0)        console.log(`Renamed-slug redirect stubs: ${stubs}`);
+  if (staleDeleted > 0) console.log(`Stale pages deleted: ${staleDeleted}`);
 }
 
 // ── Top Movies pages ──────────────────────────────────────────────────────────
