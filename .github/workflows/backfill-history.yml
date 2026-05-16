@@ -1,0 +1,50 @@
+name: Backfill History
+
+# One-shot manual workflow to seed (or rebuild) the historical archive.
+# Trigger from the GitHub UI: Actions tab → "Backfill History" → "Run workflow".
+# Pick the earliest month you want fetched (defaults to 2026-01).
+#
+# The nightly workflow only fetches the rolling -1 → +12 window. This action
+# extends the fetch range backward so we can populate (or refresh) older
+# months. Movies and hits accumulate forever — running this is safe and
+# idempotent; nothing already on disk is deleted.
+
+on:
+  workflow_dispatch:
+    inputs:
+      backfill_from:
+        description: 'Earliest month to fetch (YYYY-MM). 2026-01 = full archive.'
+        required: true
+        default: '2026-01'
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Backfill movies data and pages
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          BACKFILL_FROM: ${{ inputs.backfill_from }}
+        run: node scripts/generate.js
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/manifest.json data/manifest-public.json data/movies.json data/hits.json data/calendar/ movie/ top-movies/ sitemap.xml
+          git diff --cached --quiet && echo "Nothing to commit" || \
+            git commit -m "data: backfill from ${{ inputs.backfill_from }} ($(date -u +%Y-%m-%d))" && \
+            git push

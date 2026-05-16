@@ -30,7 +30,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/manifest.json data/movies.json data/calendar/ movie/ top-movies/ sitemap.xml
+          git add data/manifest.json data/manifest-public.json data/movies.json data/hits.json data/calendar/ movie/ top-movies/ sitemap.xml
           git diff --cached --quiet && echo "Nothing to commit" || \
             git commit -m "chore: nightly movie data update $(date -u +%Y-%m-%d)" && \
             git push
