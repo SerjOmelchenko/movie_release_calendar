@@ -1220,6 +1220,61 @@
     }
     #region-picker-save:hover { background: #f3576f; }
 
+    @keyframes region-hint-pulse {
+      0%, 100% { border-color: #242424; box-shadow: none; }
+      50% { border-color: #e94560; box-shadow: 0 0 0 3px rgba(233,69,96,0.25); }
+    }
+    .region-hint-active select {
+      animation: region-hint-pulse 1.1s ease-in-out 3;
+      border-color: #e94560;
+    }
+    #region-hint {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      width: max-content;
+      max-width: 240px;
+      background: #1a1a24;
+      border: 1px solid #e94560;
+      border-radius: 10px;
+      padding: 0.5rem 2rem 0.5rem 0.75rem;
+      font-size: 0.78rem;
+      color: #bbb;
+      line-height: 1.45;
+      z-index: 500;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.55);
+      animation: region-hint-fade-in 0.3s ease both;
+    }
+    #region-hint::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: 14px;
+      width: 8px;
+      height: 8px;
+      background: #1a1a24;
+      border-left: 1px solid #e94560;
+      border-top: 1px solid #e94560;
+      transform: rotate(45deg);
+    }
+    #region-hint .rh-close {
+      position: absolute;
+      top: 5px;
+      right: 7px;
+      background: none;
+      border: none;
+      color: #555;
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 2px 4px;
+      line-height: 1;
+    }
+    #region-hint .rh-close:hover { color: #e94560; }
+    @keyframes region-hint-fade-in {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     #onboarding-overlay {
       display: none;
       position: fixed;
@@ -1832,16 +1887,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- First-visit region picker (mandatory, blocks calendar until chosen) -->
-<div id="region-picker-overlay">
-  <div id="region-picker">
-    <div class="rp-icon">🌍</div>
-    <div class="rp-title">Where are you watching from?</div>
-    <p class="rp-desc">We'll show you the most anticipated movies releasing in your country and tailor the calendar accordingly. You can change this anytime from the filter bar.</p>
-    <select id="region-picker-select" autofocus></select>
-    <button id="region-picker-save">Continue</button>
-  </div>
-</div>
-
 <!-- First-visit onboarding modal -->
 <div id="onboarding-overlay">
   <div id="onboarding-modal">
@@ -2631,6 +2676,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   });
 
   regionSelect.addEventListener('change', () => {
+    dismissRegionHint();
     try { localStorage.setItem('region', regionSelect.value); } catch(e) {}
     fetchMoviesForMonth(currentYear, currentMonth);
   });
@@ -2786,44 +2832,46 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   // Region must be chosen before we can render the calendar (no more "All
   // Regions" fallback — hit visuals are per-country, so we need to know which).
+  function dismissRegionHint() {
+    const hint = document.getElementById('region-hint');
+    if (hint) hint.remove();
+    const filterItem = regionSelect.closest('.filter-item');
+    if (filterItem) filterItem.classList.remove('region-hint-active');
+    try { localStorage.removeItem('region_was_guessed'); } catch(e) {}
+  }
+
+  function showRegionHint() {
+    try { if (!localStorage.getItem('region_was_guessed')) return; } catch(e) { return; }
+    const filterItem = regionSelect.closest('.filter-item');
+    if (!filterItem || document.getElementById('region-hint')) return;
+    filterItem.classList.add('region-hint-active');
+    const label = regionSelect.options[regionSelect.selectedIndex]?.textContent?.trim() || regionSelect.value;
+    const hint = document.createElement('div');
+    hint.id = 'region-hint';
+    hint.innerHTML = `Showing <strong>${label}</strong> releases &mdash; not your country? Switch above <button class="rh-close" title="Dismiss">&#x2715;</button>`;
+    filterItem.appendChild(hint);
+    hint.querySelector('.rh-close').addEventListener('click', dismissRegionHint);
+  }
+
   function ensureRegionThenBoot() {
     const savedRegion = (() => { try { return localStorage.getItem('region'); } catch(e) { return null; } })();
     const validRegions = Array.from(regionSelect.options).map(o => o.value);
     if (savedRegion && validRegions.includes(savedRegion)) {
+      regionSelect.value = savedRegion;
       loadManifest().then(() => fetchMoviesForMonth(currentYear, currentMonth));
       return;
     }
-    // First visit (or migrating from legacy empty-string "All Regions"):
-    // show blocking region picker. Default suggestion comes from browser locale.
-    const overlay = document.getElementById('region-picker-overlay');
-    const picker  = document.getElementById('region-picker-select');
-    // Populate picker with the same options as the filter dropdown.
-    picker.innerHTML = '';
-    Array.from(regionSelect.options).forEach(opt => {
-      const o = document.createElement('option');
-      o.value = opt.value; o.textContent = opt.textContent;
-      picker.appendChild(o);
-    });
+    // First visit: guess from browser locale, default US, load immediately.
     let guess = 'US';
     try {
       const lang = (navigator.language || '').toUpperCase();
       const cc = lang.includes('-') ? lang.split('-')[1] : lang;
       if (validRegions.includes(cc)) guess = cc;
     } catch(e) {}
-    picker.value = guess;
-
-    overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-
-    document.getElementById('region-picker-save').addEventListener('click', () => {
-      const chosen = picker.value;
-      if (!validRegions.includes(chosen)) return;
-      try { localStorage.setItem('region', chosen); } catch(e) {}
-      regionSelect.value = chosen;
-      overlay.classList.remove('open');
-      document.body.style.overflow = '';
-      loadManifest().then(() => fetchMoviesForMonth(currentYear, currentMonth));
-    });
+    regionSelect.value = guess;
+    try { localStorage.setItem('region', guess); localStorage.setItem('region_was_guessed', '1'); } catch(e) {}
+    loadManifest().then(() => fetchMoviesForMonth(currentYear, currentMonth));
+    setTimeout(showRegionHint, 700);
   }
   ensureRegionThenBoot();
 
