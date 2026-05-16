@@ -690,6 +690,30 @@
       border-color: #3a3a3a;
     }
 
+    /* Side-by-side hit posters when a day has 2+ hit releases */
+    .hits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+    }
+    .more-hits-pill {
+      display: block;
+      width: 100%;
+      margin-top: 6px;
+      padding: 4px 8px;
+      background: rgba(233, 69, 96, 0.12);
+      color: #e94560;
+      font-size: 0.7rem;
+      font-weight: 700;
+      border: 1px solid rgba(233, 69, 96, 0.35);
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: center;
+      letter-spacing: 0.03em;
+      transition: background 0.12s;
+    }
+    .more-hits-pill:hover { background: rgba(233, 69, 96, 0.22); }
+
     /* Day cell with non-hit movies only: no poster, just a "no hits today" stub + see-all button */
     .no-hits-block {
       width: 100%;
@@ -2087,41 +2111,62 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       // Only HIT movies get a poster on the calendar. If a day has releases
       // but none qualify as a hit, we show a "no hits today" stub plus a
-      // "See all releases" button that opens the day modal. This prevents
-      // the calendar from being dominated by low-interest titles.
-      const hitMovie = movies.find(m => m.isHit);
-      const others   = hitMovie ? movies.filter(m => m !== hitMovie) : movies;
+      // "See all releases" button that opens the day modal. Multiple hits
+      // on the same day render side-by-side (top 2 by popularity, with a
+      // "+N more featured" pill when there are 3 or more).
+      const hits = movies.filter(m => m.isHit)
+        .sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+      const nonHits = movies.filter(m => !m.isHit);
+      const VISIBLE_HITS = 2;
+      const shownHits = hits.slice(0, VISIBLE_HITS);
+      const extraHitCount = hits.length - shownHits.length;
 
       let cls = 'day-cell';
       if (isToday) cls += ' today';
       if (movies.length > 0) cls += ' has-movies';
-      if (hitMovie) cls += ' has-hit';
+      if (hits.length > 0) cls += ' has-hit';
 
       html += `<div class="${cls}" data-date="${dateStr}">`;
       html += `<div class="day-number">${d}</div>`;
 
-      if (hitMovie) {
-        const m = hitMovie;
+      function renderHitPoster(m) {
+        let out = '';
         if (m.poster_path) {
           const inWl = watchlist.includes(m.id);
-          html += `<div class="poster-wrap" data-id="${m.id}" data-date="${dateStr}">`;
-          html += `<img class="poster-thumb" src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`;
-          html += `<div class="heart-badge${inWl ? ' watchlisted' : ''}" data-id="${m.id}" title="${inWl ? 'Remove from watchlist' : 'Add to watchlist'}">${inWl ? '&#9829;' : '&#9825;'}</div>`;
-          if (m.vote_count > 0 && m.vote_average >= 1) html += `<div class="rating-badge">&#9733; ${m.vote_average.toFixed(1)}</div>`;
-          html += `</div>`;
+          out += `<div class="poster-wrap" data-id="${m.id}" data-date="${dateStr}">`;
+          out += `<img class="poster-thumb" src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`;
+          out += `<div class="heart-badge${inWl ? ' watchlisted' : ''}" data-id="${m.id}" title="${inWl ? 'Remove from watchlist' : 'Add to watchlist'}">${inWl ? '&#9829;' : '&#9825;'}</div>`;
+          if (m.vote_count > 0 && m.vote_average >= 1) out += `<div class="rating-badge">&#9733; ${m.vote_average.toFixed(1)}</div>`;
+          out += `</div>`;
         } else {
-          html += `<div class="poster-placeholder">${escHtml(m.title)}</div>`;
+          out += `<div class="poster-placeholder" data-id="${m.id}" data-date="${dateStr}">${escHtml(m.title)}</div>`;
         }
-        const reason = hitReason(m, regionSelect.value);
+        return out;
+      }
+
+      if (shownHits.length === 1) {
+        html += renderHitPoster(shownHits[0]);
+        const reason = hitReason(shownHits[0], regionSelect.value);
         if (reason) {
           html += `<div class="hit-reason" title="${escHtml(reason.long)}">${escHtml(reason.short)}</div>`;
         }
-        if (others.length > 0) {
-          html += `<button class="other-releases-pill" data-date="${dateStr}">Other releases (${others.length})</button>`;
-        }
-      } else if (movies.length > 0) {
+      } else if (shownHits.length >= 2) {
+        html += `<div class="hits-grid">`;
+        shownHits.forEach(m => { html += renderHitPoster(m); });
+        html += `</div>`;
+        const region = regionSelect.value;
+        const country = COUNTRY_NAMES[region] || region;
+        const totalFeatured = hits.length;
+        html += `<div class="hit-reason" title="${escHtml(`${totalFeatured} featured releases in ${country} this day — top picks ranked by audience interest.`)}">★ ${totalFeatured} FEATURED IN ${escHtml(region)}</div>`;
+      }
+      if (extraHitCount > 0) {
+        html += `<button class="more-hits-pill" data-date="${dateStr}">+${extraHitCount} more featured</button>`;
+      }
+      if (shownHits.length === 0 && movies.length > 0) {
         html += `<div class="no-hits-block">No major releases</div>`;
         html += `<button class="see-all-pill" data-date="${dateStr}">See all releases (${movies.length})</button>`;
+      } else if (nonHits.length > 0) {
+        html += `<button class="other-releases-pill" data-date="${dateStr}">Other releases (${nonHits.length})</button>`;
       }
 
       html += '</div>';
@@ -2161,13 +2206,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     calendarEl.querySelectorAll('.poster-placeholder').forEach(el => {
       el.addEventListener('click', e => {
         e.stopPropagation();
-        const dateStr = el.closest('.day-cell').dataset.date;
+        const dateStr = el.dataset.date || el.closest('.day-cell').dataset.date;
         const movies = filtered[dateStr] || [];
-        if (movies.length >= 1) openOrNavigateMovie(movies[0]);
+        const id = el.dataset.id ? parseInt(el.dataset.id, 10) : null;
+        const movie = id ? movies.find(m => m.id === id) : movies[0];
+        if (movie) openOrNavigateMovie(movie);
       });
     });
 
-    calendarEl.querySelectorAll('.other-releases-pill, .see-all-pill').forEach(btn => {
+    calendarEl.querySelectorAll('.other-releases-pill, .see-all-pill, .more-hits-pill').forEach(btn => {
       btn.addEventListener('click', e => {
         e.stopPropagation();
         openDayModal(btn.dataset.date, filtered[btn.dataset.date] || []);
