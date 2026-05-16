@@ -15,8 +15,11 @@ const TOP_MOVIES_DIR = path.join(__dirname, '..', 'top-movies');
 const HITS_PATH      = path.join(DATA_DIR, 'hits.json');
 const PUBLIC_MANIFEST_PATH = path.join(DATA_DIR, 'manifest-public.json');
 
-// First month tracked by the Top Movies series
-const TOP_MOVIES_START = '2026-02';
+// First month tracked by the Top Movies series. The site keeps full history
+// from this date forward — calendar data, hit pages, and top-movies landing
+// pages are all preserved permanently for months >= this constant.
+const TOP_MOVIES_START = '2026-01';
+const HISTORY_START    = '2026-01';
 
 // Hit-selection thresholds
 const HIT_TOP_N_PER_COUNTRY = 15;
@@ -775,7 +778,26 @@ function computeHits(calendarData, detailsMap) {
   return { hitsByCountry, globalHitIds };
 }
 
-// Serialise hit data for REGEN_ONLY re-runs.
+// Merge persisted hit data from previous runs into the in-memory sets so
+// historical hits (computed when their month was still in the fetch window)
+// stay marked as hits forever. Mutates the inputs in place.
+function accumulateHits(hitsByCountry, globalHitIds) {
+  const existing = loadJSON(HITS_PATH, { globalHitIds: [], hitsByCountry: {} });
+  let addedGlobal = 0;
+  for (const id of existing.globalHitIds || []) {
+    if (!globalHitIds.has(id)) { globalHitIds.add(id); addedGlobal++; }
+  }
+  for (const [country, byYm] of Object.entries(existing.hitsByCountry || {})) {
+    if (!hitsByCountry[country]) hitsByCountry[country] = {};
+    for (const [ym, ids] of Object.entries(byYm)) {
+      if (!hitsByCountry[country][ym]) hitsByCountry[country][ym] = new Set();
+      for (const id of ids) hitsByCountry[country][ym].add(id);
+    }
+  }
+  if (addedGlobal > 0) console.log(`Accumulated hits: kept ${addedGlobal} historical hits (total: ${globalHitIds.size})`);
+}
+
+// Serialise hit data for REGEN_ONLY re-runs and historical accumulation.
 function persistHits(hitsByCountry, globalHitIds) {
   const flat = {};
   for (const [country, byYm] of Object.entries(hitsByCountry)) {
@@ -1465,16 +1487,29 @@ async function main() {
     }
 
     ({ hitsByCountry, globalHitIds } = computeHits(calendarData, detailsMap));
+    accumulateHits(hitsByCountry, globalHitIds);
     promoteTopMoviesToHits(detailedMovies, globalHitIds);
     persistHits(hitsByCountry, globalHitIds);
     buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitIds);
   } else {
-    // Build month range: 1 month back → 12 months forward
+    // Build month range. Default: 1 month back → 12 months forward (nightly
+    // refresh). Override via BACKFILL_FROM=YYYY-MM to extend the window
+    // backward for a one-time historical fetch.
     const now = new Date();
     const pad = n => String(n).padStart(2, '0');
 
+    let startOffset = -1;
+    if (process.env.BACKFILL_FROM) {
+      const [bfY, bfM] = process.env.BACKFILL_FROM.split('-').map(Number);
+      if (Number.isFinite(bfY) && Number.isFinite(bfM)) {
+        const monthsBack = (now.getFullYear() - bfY) * 12 + (now.getMonth() + 1 - bfM);
+        if (monthsBack > Math.abs(startOffset)) startOffset = -monthsBack;
+        console.log(`Backfill mode: fetching from ${process.env.BACKFILL_FROM} (offset ${startOffset})`);
+      }
+    }
+
     const months = [];
-    for (let offset = -1; offset <= 12; offset++) {
+    for (let offset = startOffset; offset <= 12; offset++) {
       const d = new Date(now.getFullYear(), now.getMonth() + offset, 1);
       months.push(`${d.getFullYear()}-${pad(d.getMonth() + 1)}`);
     }
@@ -1531,37 +1566,69 @@ async function main() {
 
     console.log(`\nFound ${allMovieIds.size} unique movies — fetching details...`);
 
+    // Backfill optimisation: when running with BACKFILL_FROM, skip the 3-call
+    // detail fetch for any historical movie we already have cached in
+    // movies.json AND whose release falls outside the standard -1 → +12
+    // refresh window. The standard window's movies still get fresh details
+    // every run so popularity / ratings stay current.
+    const isBackfill = !!process.env.BACKFILL_FROM;
+    const existingMovieMap = {};
+    for (const m of loadJSON(MOVIES_PATH, [])) existingMovieMap[m.id] = m;
+
+    const freshWindowMonths = new Set();
+    for (let offset = -1; offset <= 12; offset++) {
+      const d = new Date(now.getFullYear(), now.getMonth() + offset, 1);
+      freshWindowMonths.add(`${d.getFullYear()}-${pad(d.getMonth() + 1)}`);
+    }
+
     // Fetch details for every unique movie (no /release_dates — dates come from discover)
     const movieIdArr = [...allMovieIds];
     const detailsMap = {};
     const BATCH = 10;
 
-    for (let i = 0; i < movieIdArr.length; i += BATCH) {
-      const batch = movieIdArr.slice(i, i + BATCH);
-      process.stdout.write(`  details ${i + 1}–${Math.min(i + BATCH, movieIdArr.length)} / ${movieIdArr.length}\r`);
+    const idsToFetch = movieIdArr.filter(id => {
+      const cached = existingMovieMap[id];
+      if (!cached) return true;                       // new movie — always fetch
+      if (!isBackfill) return true;                   // nightly run — refresh everything
+      const ymd = cached.release_date || '';
+      return freshWindowMonths.has(ymd.slice(0, 7));  // backfill but in fresh window
+    });
+    const idsToReuse = movieIdArr.filter(id => !idsToFetch.includes(id));
+    for (const id of idsToReuse) detailsMap[id] = existingMovieMap[id];
+    if (isBackfill) console.log(`Backfill detail-fetch plan: ${idsToFetch.length} fresh + ${idsToReuse.length} reused from movies.json`);
+
+    for (let i = 0; i < idsToFetch.length; i += BATCH) {
+      const batch = idsToFetch.slice(i, i + BATCH);
+      process.stdout.write(`  details ${i + 1}–${Math.min(i + BATCH, idsToFetch.length)} / ${idsToFetch.length}\r`);
 
       const results = await Promise.allSettled(batch.map(id => fetchMovieDetails(id)));
       results.forEach((r, idx) => {
         if (r.status === 'fulfilled') {
-          const movie = r.value;
-          movie.countryReleases = movieCountryReleases[movie.id] || {};
-          detailsMap[movie.id] = movie;
+          detailsMap[r.value.id] = r.value;
         } else {
           console.error(`\n  Failed movie ${batch[idx]}: ${r.reason.message}`);
         }
       });
 
-      if (i + BATCH < movieIdArr.length) await sleep(300);
+      if (i + BATCH < idsToFetch.length) await sleep(300);
     }
 
-    console.log(`\nFetched details for ${Object.keys(detailsMap).length} movies`);
+    // Stamp the per-country release dates discovered in this run onto every
+    // movie (fresh or reused), merging with whatever countryReleases the
+    // cached entry already had so older country dates aren't lost.
+    for (const movie of Object.values(detailsMap)) {
+      movie.countryReleases = {
+        ...(movie.countryReleases || {}),
+        ...(movieCountryReleases[movie.id] || {}),
+      };
+    }
+
+    console.log(`\nFetched details for ${Object.keys(detailsMap).length} movies (${idsToFetch.length} hit TMDB, ${idsToReuse.length} reused)`);
 
     detailedMovies = Object.values(detailsMap);
 
     // Stamp dataUpdatedAt — only advance when page-relevant data actually changed
     const today = new Date().toISOString().slice(0, 10);
-    const existingMovieMap = {};
-    for (const m of loadJSON(MOVIES_PATH, [])) existingMovieMap[m.id] = m;
     for (const movie of detailedMovies) {
       const prev = existingMovieMap[movie.id];
       if (!prev || movieFingerprint(movie) !== movieFingerprint(prev)) {
@@ -1571,11 +1638,26 @@ async function main() {
       }
     }
 
+    // Accumulate movies.json: merge freshly-fetched details over the existing
+    // dataset so historical movies that rolled out of the fetch window keep
+    // their last-known data instead of disappearing. This is what lets us
+    // keep all hit pages alive forever even though we only re-fetch the
+    // rolling -1 → +12 window each night.
+    const accumulatedMap = {};
+    for (const m of Object.values(existingMovieMap)) accumulatedMap[m.id] = m;
+    for (const m of detailedMovies)                  accumulatedMap[m.id] = m;
+    const freshCount = detailedMovies.length;
+    detailedMovies = Object.values(accumulatedMap);
+    console.log(`Accumulated movies.json: ${freshCount} fresh + ${detailedMovies.length - freshCount} historical = ${detailedMovies.length} total`);
+
     // Assign slugs first so buildCalendarFiles can embed them
     assignSlugs(detailedMovies, manifest);
 
     // Compute which movies qualify as "hits" (get a full standalone page)
     ({ hitsByCountry, globalHitIds } = computeHits(calendarData, detailsMap));
+    // Union with previously-persisted hits so historical month rankings —
+    // computed when those months were inside the fetch window — stay alive.
+    accumulateHits(hitsByCountry, globalHitIds);
     // Promote /top-movies/ targets BEFORE writing calendar JSON, otherwise
     // safety-net-promoted movies would be missing their slug in the calendar.
     promoteTopMoviesToHits(detailedMovies, globalHitIds);
