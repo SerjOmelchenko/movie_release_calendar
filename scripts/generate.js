@@ -457,6 +457,20 @@ function buildMoviePage(movie) {
 
     .movie-info { flex: 1; min-width: 0; }
     .movie-title { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 1rem; }
+    .featured-banner {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 0.8rem; margin-bottom: 0.9rem;
+      background: rgba(233, 69, 96, 0.1);
+      border: 1px solid rgba(233, 69, 96, 0.35);
+      border-radius: 999px;
+      color: #f3a4b1; font-size: 0.78rem; line-height: 1.3;
+    }
+    .featured-banner .fb-tag {
+      background: #e94560; color: #fff;
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em;
+      padding: 2px 7px; border-radius: 999px; text-transform: uppercase;
+    }
+    .featured-banner .fb-text { color: #ddd; }
 
     .info-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.65rem; margin-bottom: 1.25rem; }
     .tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 0.85rem 0.9rem; display: flex; flex-direction: column; gap: 0.3rem; }
@@ -568,6 +582,13 @@ function buildMoviePage(movie) {
         : `<div class="movie-poster-placeholder">${title}</div>`}
     </div>
     <div class="movie-info">
+      ${(() => {
+        const highRated = (movie.vote_average || 0) >= 7 && (movie.vote_count || 0) >= 50;
+        const reasonText = highRated
+          ? `Highly rated — ${movie.vote_average.toFixed(1)}/10 from ${movie.vote_count.toLocaleString()} viewers.`
+          : `Among the most anticipated upcoming movie releases.`;
+        return `<div class="featured-banner"><span class="fb-tag">Featured</span><span class="fb-text">${reasonText}</span></div>`;
+      })()}
       <h1 class="movie-title">${title}</h1>
       <div class="info-tiles">
         ${movie.release_date ? `<div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">${releaseDate}</div></div>` : ''}

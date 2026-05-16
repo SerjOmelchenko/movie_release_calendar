@@ -691,6 +691,103 @@
       border-color: #3a3a3a;
     }
 
+    /* Day cell with non-hit movies only: no poster, just a "no hits today" stub + see-all button */
+    .no-hits-block {
+      width: 100%;
+      aspect-ratio: 2/3;
+      background: repeating-linear-gradient(
+        135deg,
+        #141420,
+        #141420 6px,
+        #16161e 6px,
+        #16161e 12px
+      );
+      border: 1px dashed #2a2a2a;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0.4rem;
+      font-size: 0.62rem;
+      color: #4a4a55;
+      line-height: 1.35;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .see-all-pill {
+      display: block;
+      width: 100%;
+      margin-top: 6px;
+      padding: 4px 8px;
+      background: transparent;
+      color: #888;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+    .see-all-pill:hover {
+      background: #1c1c30;
+      color: #ddd;
+      border-color: #3a3a3a;
+    }
+
+    /* Hit reason badge shown on the calendar cell under the poster */
+    .hit-reason {
+      display: block;
+      width: 100%;
+      margin-top: 5px;
+      padding: 2px 6px;
+      background: rgba(233, 69, 96, 0.08);
+      color: #e94560;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(233, 69, 96, 0.25);
+      border-radius: 8px;
+      text-align: center;
+      cursor: help;
+      text-transform: uppercase;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* "Why HIT" explanation banner used inside hover popup and movie modal */
+    .why-hit-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      padding: 0.55rem 0.75rem;
+      margin: 0.5rem 0 0.6rem;
+      background: rgba(233, 69, 96, 0.1);
+      border: 1px solid rgba(233, 69, 96, 0.35);
+      border-radius: 8px;
+      color: #f8d3da;
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+    .why-hit-banner .why-hit-icon {
+      font-size: 1rem;
+      line-height: 1.2;
+      flex-shrink: 0;
+    }
+    .why-hit-banner .why-hit-title {
+      color: #e94560;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 2px;
+    }
+
     .day-number {
       font-size: 0.78rem;
       color: #555;
@@ -1003,6 +1100,58 @@
     #modal-close:hover { background: #e94560; }
 
     /* ── Onboarding modal ──────────────────────────────────────────────────── */
+    #region-picker-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(6px);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem;
+    }
+    #region-picker-overlay.open { display: flex; }
+    #region-picker {
+      width: 100%;
+      max-width: 420px;
+      background: #15151c;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 2rem 1.8rem 1.6rem;
+      text-align: center;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.7);
+    }
+    .rp-icon { font-size: 3rem; line-height: 1; margin-bottom: 0.8rem; }
+    .rp-title { font-size: 1.35rem; font-weight: 700; color: #fff; margin-bottom: 0.6rem; }
+    .rp-desc { font-size: 0.92rem; color: #999; line-height: 1.55; margin-bottom: 1.4rem; }
+    #region-picker-select {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      background: #0d0d12;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      color: #e0e0e0;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+    #region-picker-select:focus { outline: none; border-color: #e94560; }
+    #region-picker-save {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: #e94560;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.15s;
+    }
+    #region-picker-save:hover { background: #f3576f; }
+
     #onboarding-overlay {
       display: none;
       position: fixed;
@@ -1512,7 +1661,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="filters-bar">
   <div class="filter-item">
   <select id="region-select">
-    <option value="">🌍 All Regions</option>
     <option value="AU">🇦🇺 Australia</option>
     <option value="AT">🇦🇹 Austria</option>
     <option value="BE">🇧🇪 Belgium</option>
@@ -1604,6 +1752,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <button id="modal-back">&#8592; Back to list</button>
       <div class="modal-title" id="modal-title"></div>
       <div class="modal-meta" id="modal-meta"></div>
+      <div id="modal-why-hit"></div>
       <div class="modal-director" id="modal-director"></div>
       <p class="modal-overview" id="modal-overview"></p>
       <div class="modal-genres" id="modal-genres"></div>
@@ -1611,6 +1760,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <button id="modal-watchlist-btn" class="modal-heart-btn" data-movie-id="">&#9825; Add to Watchlist</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- First-visit region picker (mandatory, blocks calendar until chosen) -->
+<div id="region-picker-overlay">
+  <div id="region-picker">
+    <div class="rp-icon">🌍</div>
+    <div class="rp-title">Where are you watching from?</div>
+    <p class="rp-desc">We'll show you the most anticipated movies releasing in your country and tailor the calendar accordingly. You can change this anytime from the filter bar.</p>
+    <select id="region-picker-select" autofocus></select>
+    <button id="region-picker-save">Continue</button>
   </div>
 </div>
 
@@ -1636,12 +1796,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </p>
     </div>
 
-    <!-- Step 3: Region -->
+    <!-- Step 3: Hits explanation -->
     <div class="ob-step">
-      <div class="ob-icon">🌍</div>
-      <div class="ob-title">Filter by Country</div>
+      <div class="ob-icon">🎯</div>
+      <div class="ob-title">Hit Releases, Highlighted</div>
       <p class="ob-desc">
-        Use the <strong>Region</strong> dropdown to see only movies releasing in your country. Your choice is remembered the next time you visit.
+        Days with a glowing red border and a <strong>HIT</strong> ribbon mark the most anticipated movies for your country that month. Tap the poster for details, or hit <strong>"Other releases"</strong> to see everything else launching that day.
       </p>
     </div>
 
@@ -1752,7 +1912,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const regionSelect = document.getElementById('region-select');
   const genreSelect  = document.getElementById('genre-select');
   const ratingSelect = document.getElementById('rating-select');
-  try { const r = localStorage.getItem('region'); if (r !== null) regionSelect.value = r; } catch(e) {}
+  // Load saved region (empty string = legacy "All Regions", treated as unset).
+  try {
+    const r = localStorage.getItem('region');
+    if (r && Array.from(regionSelect.options).some(o => o.value === r)) {
+      regionSelect.value = r;
+    }
+  } catch(e) {}
 
   function populateGenreSelect() {
     const sorted = Object.entries(genres).sort((a, b) => a[1].localeCompare(b[1]));
@@ -1793,6 +1959,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     } else {
       openMovieModal(movie, backContext);
     }
+  }
+
+  const COUNTRY_NAMES = {
+    AU:'Australia', AT:'Austria', BE:'Belgium', BR:'Brazil', BG:'Bulgaria',
+    CA:'Canada', CN:'China', HR:'Croatia', CY:'Cyprus', CZ:'Czech Republic',
+    DK:'Denmark', EE:'Estonia', FI:'Finland', FR:'France', DE:'Germany',
+    GR:'Greece', HU:'Hungary', IN:'India', IE:'Ireland', IT:'Italy',
+    JP:'Japan', LV:'Latvia', LT:'Lithuania', LU:'Luxembourg', MT:'Malta',
+    NL:'Netherlands', PL:'Poland', PT:'Portugal', RO:'Romania', SK:'Slovakia',
+    SI:'Slovenia', KR:'South Korea', ES:'Spain', SE:'Sweden', GB:'United Kingdom',
+    UA:'Ukraine', US:'United States',
+  };
+
+  // Returns null if not a hit, otherwise { short, long } strings explaining why.
+  // Rule A (per-country): m.isHit (set server-side = top-15 popularity in the
+  // user's selected region for that month). Rule B (retroactive global):
+  // vote_average >= 7 AND vote_count >= 50.
+  function hitReason(movie, region) {
+    const hasRating = (movie.vote_average || 0) >= 7 && (movie.vote_count || 0) >= 50;
+    const isAnticipated = !!movie.isHit;
+    if (!hasRating && !isAnticipated) return null;
+    if (hasRating && isAnticipated) {
+      const country = COUNTRY_NAMES[region] || region;
+      return {
+        short: `★ ${movie.vote_average.toFixed(1)} · TOP 15 IN ${region}`,
+        long: `Featured because it's both highly rated (${movie.vote_average.toFixed(1)}/10 from ${movie.vote_count.toLocaleString()} viewers) and among the 15 most anticipated releases in ${country} this month.`,
+      };
+    }
+    if (hasRating) {
+      return {
+        short: `★ ${movie.vote_average.toFixed(1)} / 10 — HIGHLY RATED`,
+        long: `Featured because of strong audience reception: rated ${movie.vote_average.toFixed(1)}/10 by ${movie.vote_count.toLocaleString()} viewers.`,
+      };
+    }
+    const country = COUNTRY_NAMES[region] || region;
+    return {
+      short: `TOP 15 ANTICIPATED IN ${region}`,
+      long: `Featured because it's among the 15 most anticipated movies releasing in ${country} this month, ranked by audience interest.`,
+    };
   }
 
   async function fetchMoviesForMonth(year, month) {
@@ -1881,13 +2086,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const movies = filtered[dateStr] || [];
       const isToday = dateStr === todayStr;
 
-      // Pick the featured movie for this day: prefer a hit, fall back to the
-      // first movie. Hits get the spotlight (glow border + HIT ribbon); every
-      // other release on the day collapses into the "Other releases" pill,
-      // which opens the day modal — no per-non-hit page exists by design.
+      // Only HIT movies get a poster on the calendar. If a day has releases
+      // but none qualify as a hit, we show a "no hits today" stub plus a
+      // "See all releases" button that opens the day modal. This prevents
+      // the calendar from being dominated by low-interest titles.
       const hitMovie = movies.find(m => m.isHit);
-      const primary  = hitMovie || movies[0];
-      const others   = primary ? movies.filter(m => m !== primary) : [];
+      const others   = hitMovie ? movies.filter(m => m !== hitMovie) : movies;
 
       let cls = 'day-cell';
       if (isToday) cls += ' today';
@@ -1897,8 +2101,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       html += `<div class="${cls}" data-date="${dateStr}">`;
       html += `<div class="day-number">${d}</div>`;
 
-      if (primary) {
-        const m = primary;
+      if (hitMovie) {
+        const m = hitMovie;
         if (m.poster_path) {
           const inWl = watchlist.includes(m.id);
           html += `<div class="poster-wrap" data-id="${m.id}" data-date="${dateStr}">`;
@@ -1909,9 +2113,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         } else {
           html += `<div class="poster-placeholder">${escHtml(m.title)}</div>`;
         }
+        const reason = hitReason(m, regionSelect.value);
+        if (reason) {
+          html += `<div class="hit-reason" title="${escHtml(reason.long)}">${escHtml(reason.short)}</div>`;
+        }
         if (others.length > 0) {
           html += `<button class="other-releases-pill" data-date="${dateStr}">Other releases (${others.length})</button>`;
         }
+      } else if (movies.length > 0) {
+        html += `<div class="no-hits-block">No major releases</div>`;
+        html += `<button class="see-all-pill" data-date="${dateStr}">See all releases (${movies.length})</button>`;
       }
 
       html += '</div>';
@@ -1957,7 +2168,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       });
     });
 
-    calendarEl.querySelectorAll('.other-releases-pill').forEach(btn => {
+    calendarEl.querySelectorAll('.other-releases-pill, .see-all-pill').forEach(btn => {
       btn.addEventListener('click', e => {
         e.stopPropagation();
         openDayModal(btn.dataset.date, filtered[btn.dataset.date] || []);
@@ -2015,11 +2226,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const cast = Array.isArray(movie.cast) && movie.cast.length > 0
       ? movie.cast.slice(0, 3) : [];
 
+    const reason = hitReason(movie, regionSelect.value);
+    const reasonHtml = reason
+      ? `<div class="why-hit-banner"><span class="why-hit-icon">🎯</span><span><span class="why-hit-title">Why featured</span>${escHtml(reason.long)}</span></div>`
+      : '';
+
     listHoverPopup.innerHTML =
       (poster ? `<img class="lhp-poster" src="${escHtml(poster)}" alt="" />` : '<div class="lhp-poster-placeholder"></div>') +
       `<div class="lhp-body">` +
         `<div class="lhp-title">${escHtml(movie.title)}</div>` +
         `<div class="lhp-meta">${metaHtml}${certHtml ? (metaHtml ? ' ' : '') + certHtml : ''}</div>` +
+        reasonHtml +
         (directors.length > 0 ? `<div class="lhp-director">🎬 ${directors.map(d => escHtml(d)).join(', ')}</div>` : '') +
         (cast.length > 0 ? `<div class="lhp-cast">🎭 ${cast.map(c => escHtml(c)).join(', ')}</div>` : '') +
         (movie.overview ? `<div class="lhp-overview">${escHtml(movie.overview)}</div>` : '') +
@@ -2206,6 +2423,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       ${rating}
       ${movie.original_language ? `<span>&#127758; ${movie.original_language.toUpperCase()}</span>` : ''}
     `;
+
+    const reason = hitReason(movie, regionSelect.value);
+    document.getElementById('modal-why-hit').innerHTML = reason
+      ? `<div class="why-hit-banner"><span class="why-hit-icon">🎯</span><span><span class="why-hit-title">Why featured</span>${escHtml(reason.long)}</span></div>`
+      : '';
 
     document.getElementById('modal-overview').textContent = movie.overview || 'No synopsis available.';
 
@@ -2422,9 +2644,49 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   updateWatchlistCount();
   loadGenres();
   populateGenreSelect();
-  loadManifest().then(() => {
-    fetchMoviesForMonth(currentYear, currentMonth);
-  });
+
+  // Region must be chosen before we can render the calendar (no more "All
+  // Regions" fallback — hit visuals are per-country, so we need to know which).
+  function ensureRegionThenBoot() {
+    const savedRegion = (() => { try { return localStorage.getItem('region'); } catch(e) { return null; } })();
+    const validRegions = Array.from(regionSelect.options).map(o => o.value);
+    if (savedRegion && validRegions.includes(savedRegion)) {
+      loadManifest().then(() => fetchMoviesForMonth(currentYear, currentMonth));
+      return;
+    }
+    // First visit (or migrating from legacy empty-string "All Regions"):
+    // show blocking region picker. Default suggestion comes from browser locale.
+    const overlay = document.getElementById('region-picker-overlay');
+    const picker  = document.getElementById('region-picker-select');
+    // Populate picker with the same options as the filter dropdown.
+    picker.innerHTML = '';
+    Array.from(regionSelect.options).forEach(opt => {
+      const o = document.createElement('option');
+      o.value = opt.value; o.textContent = opt.textContent;
+      picker.appendChild(o);
+    });
+    let guess = 'US';
+    try {
+      const lang = (navigator.language || '').toUpperCase();
+      const cc = lang.includes('-') ? lang.split('-')[1] : lang;
+      if (validRegions.includes(cc)) guess = cc;
+    } catch(e) {}
+    picker.value = guess;
+
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    document.getElementById('region-picker-save').addEventListener('click', () => {
+      const chosen = picker.value;
+      if (!validRegions.includes(chosen)) return;
+      try { localStorage.setItem('region', chosen); } catch(e) {}
+      regionSelect.value = chosen;
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      loadManifest().then(() => fetchMoviesForMonth(currentYear, currentMonth));
+    });
+  }
+  ensureRegionThenBoot();
 
   // Onboarding modal (first visit only)
   (function() {
