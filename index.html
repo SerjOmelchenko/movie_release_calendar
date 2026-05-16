@@ -462,6 +462,44 @@
     .list-card-heart:hover { background: #e94560; border-color: #e94560; color: #fff; transform: scale(1.1); }
     .list-card-heart.watchlisted { background: #e94560; border-color: #e94560; color: #fff; }
 
+    .list-card-reason {
+      display: inline-block;
+      margin-top: 4px;
+      padding: 2px 7px;
+      background: rgba(233, 69, 96, 0.1);
+      color: #e94560;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 1px solid rgba(233, 69, 96, 0.3);
+      border-radius: 8px;
+      white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .list-other-releases {
+      display: block;
+      width: 100%;
+      margin: 0 0 1.2rem;
+      padding: 0.55rem 0.75rem;
+      background: transparent;
+      color: #888;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+    .list-other-releases:hover {
+      background: #1c1c1c;
+      color: #ddd;
+      border-color: #3a3a3a;
+    }
+
     #list-hover-popup {
       position: fixed;
       width: 220px;
@@ -2298,7 +2336,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     monthLabel.textContent = `${MONTH_NAMES[currentMonth]} ${currentYear}`;
 
-    const allDates = Object.keys(filtered).sort();
+    // List view only surfaces featured releases. Days where every release
+    // is non-hit are skipped entirely; per-day non-hits are reachable via
+    // the "See N other releases" pill at the bottom of each date group.
+    const datesWithHits = {};
+    for (const [date, dayMovies] of Object.entries(filtered)) {
+      const hits = dayMovies.filter(m => m.isHit).sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+      if (hits.length > 0) {
+        datesWithHits[date] = { hits, others: dayMovies.length - hits.length, all: dayMovies };
+      }
+    }
+    const allDates = Object.keys(datesWithHits).sort();
     const isCurrentMonth = currentYear === today.getFullYear() && currentMonth === today.getMonth();
     const pastDates = allDates.filter(d => d < todayStr);
     const futureDates = allDates.filter(d => d >= todayStr);
@@ -2307,16 +2355,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     let html = '';
 
     if (isCurrentMonth && pastDates.length > 0 && !showEarlier) {
-      const n = pastDates.reduce((sum, d) => sum + filtered[d].length, 0);
-      html += `<button id="show-earlier-btn" class="show-earlier-btn">&#8593; Show ${n} earlier release${n !== 1 ? 's' : ''} this month</button>`;
+      const n = pastDates.reduce((sum, d) => sum + datesWithHits[d].hits.length, 0);
+      html += `<button id="show-earlier-btn" class="show-earlier-btn">&#8593; Show ${n} earlier featured release${n !== 1 ? 's' : ''} this month</button>`;
     }
 
     if (datesToShow.length === 0) {
-      const msg = isCurrentMonth ? 'No upcoming releases this month.' : 'No releases this month.';
-      html += `<p class="list-empty">${msg}<br><span style="font-size:0.82rem;color:#333;">Use the arrows to browse other months.</span></p>`;
+      const msg = isCurrentMonth ? 'No upcoming featured releases this month.' : 'No featured releases this month.';
+      html += `<p class="list-empty">${msg}<br><span style="font-size:0.82rem;color:#333;">Switch to Calendar view to see every release, or browse other months.</span></p>`;
     } else {
       datesToShow.forEach(dateStr => {
-        const movies = filtered[dateStr];
+        const { hits, others } = datesWithHits[dateStr];
         const isToday = dateStr === todayStr;
         const dateObj = new Date(dateStr + 'T00:00:00');
         const dateLabel = dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
@@ -2324,7 +2372,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         html += `<div class="list-date-group">`;
         html += `<div class="list-date-heading${isToday ? ' is-today' : ''}">${escHtml(dateLabel)}${isToday ? ' <span class="today-pill">Today</span>' : ''}</div>`;
 
-        movies.forEach(m => {
+        hits.forEach(m => {
           const inWl = watchlist.includes(m.id);
           const genreNames = (m.genre_ids || []).slice(0, 2).map(id => genres[id]).filter(Boolean);
           const cert = certMap[String(m.id)] || '';
@@ -2335,6 +2383,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           const bgPath = m.backdrop_path || m.poster_path;
           const bgUrl = bgPath ? `${IMG_BASE}${m.backdrop_path ? 'w780' : 'w300'}${bgPath}` : '';
+          const reason = hitReason(m, regionSelect.value);
 
           html += `<div class="list-card" data-id="${m.id}" data-date="${escHtml(dateStr)}">`;
           if (bgUrl) html += `<img class="list-card-bg" src="${bgUrl}" alt="" loading="lazy" />`;
@@ -2352,11 +2401,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           html += `</div>`;
           if (directors.length > 0) html += `<div class="list-card-director">🎬 ${directors.map(d => escHtml(d)).join(', ')}</div>`;
           if (cast.length > 0) html += `<div class="list-card-cast">🎭 ${cast.map(c => escHtml(c)).join(', ')}</div>`;
+          if (reason) html += `<div class="list-card-reason" title="${escHtml(reason.long)}">${escHtml(reason.short)}</div>`;
           html += `</div>`;
           html += `<button class="list-card-heart${inWl ? ' watchlisted' : ''}" data-id="${m.id}" title="${inWl ? 'Remove from watchlist' : 'Add to watchlist'}">${inWl ? '&#9829;' : '&#9825;'}</button>`;
           html += `</div>`;
           html += `</div>`;
         });
+
+        if (others > 0) {
+          html += `<button class="list-other-releases" data-date="${escHtml(dateStr)}">+ ${others} other release${others !== 1 ? 's' : ''} this day</button>`;
+        }
 
         html += `</div>`;
       });
@@ -2368,6 +2422,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (showEarlierBtn) {
       showEarlierBtn.addEventListener('click', () => { showEarlier = true; renderListView(); });
     }
+
+    calendarEl.querySelectorAll('.list-other-releases').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        openDayModal(btn.dataset.date, filtered[btn.dataset.date] || []);
+      });
+    });
 
     calendarEl.querySelectorAll('.list-card').forEach(card => {
       card.addEventListener('click', e => {
