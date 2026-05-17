@@ -1704,8 +1704,45 @@
       .site-brand { flex: 0 0 50%; }
       .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
       .calendar-container { padding: 0.5rem; }
-      .day-cell { min-height: 80px; padding: 0.3rem; }
-      .day-number { font-size: 0.7rem; }
+
+      /* Compact dot-style calendar on mobile */
+      .calendar-grid { gap: 1px; }
+      .day-header {
+        padding: 0.35rem 0.1rem;
+        font-size: 0.6rem;
+        letter-spacing: 0;
+      }
+      .day-cell {
+        min-height: 52px;
+        padding: 0.25rem 0.2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      .day-number { font-size: 0.65rem; }
+
+      /* Hide posters, badges, pills — show only day number + dot */
+      .day-cell .poster-wrap,
+      .day-cell .poster-placeholder,
+      .day-cell .hits-grid,
+      .day-cell .no-hits-block,
+      .day-cell .hit-reason,
+      .day-cell .other-releases-pill,
+      .day-cell .more-hits-pill,
+      .day-cell .see-all-pill { display: none !important; }
+
+      /* Coloured dot for days with releases */
+      .day-cell.has-movies::after {
+        content: '';
+        display: block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #e94560;
+        flex-shrink: 0;
+      }
+      .day-cell.other-month.has-movies::after { background: #7a2535; }
 
       .controls-bar {
         flex-direction: column;
