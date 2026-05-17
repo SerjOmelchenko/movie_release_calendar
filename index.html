@@ -1738,12 +1738,14 @@
       }
       .day-cell.today .day-number { color: #e94560; }
 
-      /* Show the hits-grid but as a block so first poster fills full width */
+      /* hits-grid: keep 2-column layout so both posters show side by side */
       .day-cell .hits-grid {
-        display: block !important;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
       }
 
-      /* First poster fills the cell */
+      /* All hit posters visible */
       .day-cell .poster-wrap {
         display: block !important;
         width: 100%;
@@ -1755,14 +1757,22 @@
         border-radius: 0;
       }
 
-      /* Hide all extra posters, badges, and per-cell hearts */
-      .day-cell .hits-grid .poster-wrap:nth-child(n+2),
-      .day-cell .poster-placeholder,
-      .day-cell .no-hits-block,
-      .day-cell .hit-reason,
-      .day-cell .heart-badge { display: none !important; }
+      /* No-hits block: compact, strip the tall aspect-ratio */
+      .day-cell .no-hits-block {
+        display: flex !important;
+        aspect-ratio: unset !important;
+        min-height: 48px;
+        font-size: 0.48rem;
+        padding: 0.3rem;
+        border-radius: 2px;
+      }
 
-      /* Release count pills: tiny absolute badge at bottom of cell */
+      /* Hide heart badges, hit-reason labels, poster placeholders */
+      .day-cell .heart-badge,
+      .day-cell .hit-reason,
+      .day-cell .poster-placeholder { display: none !important; }
+
+      /* Pills: use data-short text, pinned to bottom of cell */
       .day-cell .other-releases-pill,
       .day-cell .more-hits-pill,
       .day-cell .see-all-pill {
@@ -1771,20 +1781,30 @@
         left: 0;
         right: 0;
         margin: 0;
+        padding: 2px 3px;
         border-radius: 0;
         border: none;
         border-top: 1px solid rgba(255,255,255,0.08);
-        font-size: 0.5rem;
-        padding: 2px 3px;
+        background: rgba(0,0,0,0.7);
+        color: #999;
+        font-size: 0;
         text-align: center;
+        z-index: 4;
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
-        z-index: 4;
-        background: rgba(0,0,0,0.65);
-        color: #bbb;
       }
-      .day-cell .more-hits-pill { color: #e94560; }
+      .day-cell .other-releases-pill::after,
+      .day-cell .see-all-pill::after {
+        content: attr(data-short);
+        font-size: 0.5rem;
+        font-weight: 600;
+      }
+      .day-cell .more-hits-pill::after {
+        content: attr(data-short);
+        font-size: 0.5rem;
+        font-weight: 700;
+        color: #e94560;
+      }
 
 
       .controls-bar {
@@ -2329,13 +2349,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         html += `<div class="hit-reason" title="${escHtml(`${totalFeatured} featured releases in ${country} this day — top picks ranked by audience interest.`)}">★ ${totalFeatured} FEATURED IN ${escHtml(region)}</div>`;
       }
       if (extraHitCount > 0) {
-        html += `<button class="more-hits-pill" data-date="${dateStr}">+${extraHitCount} more featured</button>`;
+        html += `<button class="more-hits-pill" data-date="${dateStr}" data-short="+${extraHitCount} more">+${extraHitCount} more featured</button>`;
       }
       if (shownHits.length === 0 && movies.length > 0) {
         html += `<div class="no-hits-block">No major releases</div>`;
-        html += `<button class="see-all-pill" data-date="${dateStr}">See all releases (${movies.length})</button>`;
+        html += `<button class="see-all-pill" data-date="${dateStr}" data-short="${movies.length} releases">See all releases (${movies.length})</button>`;
       } else if (nonHits.length > 0) {
-        html += `<button class="other-releases-pill" data-date="${dateStr}">Other releases (${nonHits.length})</button>`;
+        html += `<button class="other-releases-pill" data-date="${dateStr}" data-short="+${nonHits.length} more">Other releases (${nonHits.length})</button>`;
       }
 
       html += '</div>';
