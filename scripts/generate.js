@@ -754,7 +754,7 @@ function buildMoviePage(movie) {
 //   B) it has vote_average >= HIT_RATING_MIN AND vote_count >= HIT_VOTE_COUNT_MIN
 //      (retroactive: catches already-released films that turn out to be well-received)
 function computeHits(calendarData, detailsMap) {
-  const hitsByCountry = {};   // hitsByCountry[country][ym] = Set<id>
+  const hitsByCountry = {};   // hitsByCountry[country][ym] = Map<id, rank(1-based)>
   const globalHitIds  = new Set();
 
   for (const [ym, byCountry] of Object.entries(calendarData)) {
@@ -765,7 +765,7 @@ function computeHits(calendarData, detailsMap) {
         .sort((a, b) => (detailsMap[b.id].popularity || 0) - (detailsMap[a.id].popularity || 0))
         .slice(0, HIT_TOP_N_PER_COUNTRY);
       if (!hitsByCountry[country]) hitsByCountry[country] = {};
-      hitsByCountry[country][ym] = new Set(ranked.map(m => m.id));
+      hitsByCountry[country][ym] = new Map(ranked.map((m, i) => [m.id, i + 1]));
       for (const m of ranked) globalHitIds.add(m.id);
     }
   }
@@ -790,8 +790,11 @@ function accumulateHits(hitsByCountry, globalHitIds) {
   for (const [country, byYm] of Object.entries(existing.hitsByCountry || {})) {
     if (!hitsByCountry[country]) hitsByCountry[country] = {};
     for (const [ym, ids] of Object.entries(byYm)) {
-      if (!hitsByCountry[country][ym]) hitsByCountry[country][ym] = new Set();
-      for (const id of ids) hitsByCountry[country][ym].add(id);
+      if (!hitsByCountry[country][ym]) hitsByCountry[country][ym] = new Map();
+      for (const entry of ids) {
+        const [id, rank] = Array.isArray(entry) ? entry : [entry, null];
+        if (!hitsByCountry[country][ym].has(id)) hitsByCountry[country][ym].set(id, rank);
+      }
     }
   }
   if (addedGlobal > 0) console.log(`Accumulated hits: kept ${addedGlobal} historical hits (total: ${globalHitIds.size})`);
@@ -802,8 +805,8 @@ function persistHits(hitsByCountry, globalHitIds) {
   const flat = {};
   for (const [country, byYm] of Object.entries(hitsByCountry)) {
     flat[country] = {};
-    for (const [ym, set] of Object.entries(byYm)) {
-      flat[country][ym] = [...set];
+    for (const [ym, map] of Object.entries(byYm)) {
+      flat[country][ym] = [...map.entries()];
     }
   }
   fs.writeFileSync(HITS_PATH, JSON.stringify({
@@ -1369,6 +1372,7 @@ function buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitId
             directors:         d.directors,
             cast:              d.cast,
             isHit:             countryHits ? countryHits.has(m.id) : false,
+            hitRank:           countryHits ? (countryHits.get(m.id) ?? null) : null,
           };
           // Only expose slug for HIT movies — otherwise the client would
           // navigate to a noindexed page instead of opening the modal.

@@ -2194,21 +2194,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const isAnticipated = !!movie.isHit;
     if (!hasRating && !isAnticipated) return null;
     const country = COUNTRY_NAMES[region] || region;
+    const rankLabel = movie.hitRank ? `#${movie.hitRank} MOST ANTICIPATED IN ${region}` : `MOST ANTICIPATED IN ${region}`;
+    const rankLong  = movie.hitRank ? `Ranked #${movie.hitRank} most anticipated in ${country} this month.` : `Most anticipated in ${country} this month.`;
     if (hasRating && isAnticipated) {
       return {
-        short: `★ ${movie.vote_average.toFixed(1)} · TOP 15 IN ${region}`,
-        long: `★ ${movie.vote_average.toFixed(1)}/10 and top 15 most anticipated in ${country}.`,
+        short: `★ ${movie.vote_average.toFixed(1)} · ${rankLabel}`,
+        long: `★ ${movie.vote_average.toFixed(1)}/10 and ${rankLong.toLowerCase()}`,
       };
     }
     if (hasRating) {
       return {
-        short: `★ ${movie.vote_average.toFixed(1)} / 10 — HIGHLY RATED`,
+        short: `★ ${movie.vote_average.toFixed(1)} HIGHLY RATED IN ${region}`,
         long: `★ ${movie.vote_average.toFixed(1)}/10 from ${movie.vote_count.toLocaleString()} viewers.`,
       };
     }
     return {
-      short: `TOP 15 ANTICIPATED IN ${region}`,
-      long: `Top 15 most anticipated in ${country} this month.`,
+      short: rankLabel,
+      long: rankLong,
     };
   }
 
@@ -2343,10 +2345,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         html += `<div class="hits-grid">`;
         shownHits.forEach(m => { html += renderHitPoster(m); });
         html += `</div>`;
-        const region = regionSelect.value;
-        const country = COUNTRY_NAMES[region] || region;
-        const totalFeatured = hits.length;
-        html += `<div class="hit-reason" title="${escHtml(`${totalFeatured} featured releases in ${country} this day — top picks ranked by audience interest.`)}">★ ${totalFeatured} FEATURED IN ${escHtml(region)}</div>`;
       }
       if (extraHitCount > 0) {
         html += `<button class="more-hits-pill" data-date="${dateStr}" data-short="+${extraHitCount} more">+${extraHitCount} more featured</button>`;
