@@ -1765,18 +1765,6 @@
       .day-cell .more-hits-pill,
       .day-cell .see-all-pill { display: none !important; }
 
-      /* Tiny dot for days with only non-hit releases (no poster shown) */
-      .day-cell.has-movies:not(:has(.poster-wrap img))::after {
-        content: '';
-        position: absolute;
-        bottom: 5px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: #555;
-      }
 
       .controls-bar {
         flex-direction: column;
