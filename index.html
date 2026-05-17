@@ -2088,7 +2088,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   let genres = {};
   let slugMap = {}; // movieId (string) → slug, for movies that have a static page
   let certMap = {}; // movieId (string) → US MPAA certification string
-  let viewMode = 'calendar'; // 'calendar' | 'list'
+  let viewMode = window.innerWidth <= 700 ? 'list' : 'calendar'; // 'calendar' | 'list'
   let showEarlier = false;
   let hoverTimeout = null;
   const listHoverPopup = document.getElementById('list-hover-popup');
