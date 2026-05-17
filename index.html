@@ -1705,60 +1705,78 @@
       .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
       .calendar-container { padding: 0.5rem; }
 
-      /* Compact dot-style calendar on mobile */
-      .calendar-grid { gap: 1px; }
-
       /* Single-letter day headers */
       .day-header {
         padding: 0.3rem 0;
-        font-size: 0.6rem;
+        font-size: 0;
         letter-spacing: 0;
       }
       .day-header::after {
         content: attr(data-short);
+        font-size: 0.6rem;
+        font-weight: 700;
       }
-      .day-header > * { display: none; }
-      .day-header { font-size: 0; }
-      .day-header::after { font-size: 0.6rem; }
 
-      /* Fixed-size cells — no stretching */
+      /* Cells: zero padding, poster fills the whole cell */
       .day-cell {
-        min-height: 0;
-        height: 44px;
-        padding: 6px 0 4px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 3px;
+        min-height: 44px;
+        padding: 0;
+        position: relative;
         overflow: hidden;
       }
+
+      /* Day number floats over content top-left */
       .day-number {
-        font-size: 0.72rem;
+        position: absolute;
+        top: 3px;
+        left: 4px;
+        font-size: 0.6rem;
         line-height: 1;
+        z-index: 3;
+        color: #ccc;
+        text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+      }
+      .day-cell.today .day-number { color: #e94560; }
+
+      /* Show the hits-grid but as a block so first poster fills full width */
+      .day-cell .hits-grid {
+        display: block !important;
       }
 
-      /* Hide posters, badges, pills — show only day number + dot */
-      .day-cell .poster-wrap,
+      /* First poster fills the cell */
+      .day-cell .poster-wrap {
+        display: block !important;
+        width: 100%;
+      }
+      .day-cell .poster-wrap img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 0;
+      }
+
+      /* Hide all extra posters, badges, and pills */
+      .day-cell .hits-grid .poster-wrap:nth-child(n+2),
       .day-cell .poster-placeholder,
-      .day-cell .hits-grid,
       .day-cell .no-hits-block,
       .day-cell .hit-reason,
+      .day-cell .heart-badge,
       .day-cell .other-releases-pill,
       .day-cell .more-hits-pill,
       .day-cell .see-all-pill { display: none !important; }
 
-      /* Coloured dot for days with releases */
-      .day-cell.has-movies::after {
+      /* Tiny dot for days with only non-hit releases (no poster shown) */
+      .day-cell.has-movies:not(:has(.poster-wrap img))::after {
         content: '';
-        display: block;
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
         width: 5px;
         height: 5px;
         border-radius: 50%;
-        background: #e94560;
-        flex-shrink: 0;
+        background: #555;
       }
-      .day-cell.other-month.has-movies::after { background: #6b2030; }
 
       .controls-bar {
         flex-direction: column;
