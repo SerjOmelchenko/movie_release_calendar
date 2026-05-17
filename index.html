@@ -1755,15 +1755,36 @@
         border-radius: 0;
       }
 
-      /* Hide all extra posters, badges, and pills */
+      /* Hide all extra posters, badges, and per-cell hearts */
       .day-cell .hits-grid .poster-wrap:nth-child(n+2),
       .day-cell .poster-placeholder,
       .day-cell .no-hits-block,
       .day-cell .hit-reason,
-      .day-cell .heart-badge,
+      .day-cell .heart-badge { display: none !important; }
+
+      /* Release count pills: tiny absolute badge at bottom of cell */
       .day-cell .other-releases-pill,
       .day-cell .more-hits-pill,
-      .day-cell .see-all-pill { display: none !important; }
+      .day-cell .see-all-pill {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 0;
+        border-radius: 0;
+        border: none;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        font-size: 0.5rem;
+        padding: 2px 3px;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        z-index: 4;
+        background: rgba(0,0,0,0.65);
+        color: #bbb;
+      }
+      .day-cell .more-hits-pill { color: #e94560; }
 
 
       .controls-bar {
