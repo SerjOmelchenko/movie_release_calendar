@@ -20017,6 +20017,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1419076": {
+    "title": "Funky Freaky Freaks",
+    "slug": "funky-freaky-freaks",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1419224": {
     "title": "Sweet Home",
     "slug": "sweet-home",
@@ -24453,9 +24459,11 @@
     "certification": null
   },
   "1479369": {
-    "title": "Chervona Ruta Train",
-    "slug": "chervona-ruta-train",
-    "previousSlugs": [],
+    "title": "Chervona Ruta Express",
+    "slug": "chervona-ruta-express",
+    "previousSlugs": [
+      "chervona-ruta-train"
+    ],
     "certification": null
   },
   "1479498": {
@@ -25759,6 +25767,12 @@
   "1496012": {
     "title": "L’Ordre pourpre",
     "slug": "l-ordre-pourpre",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1496021": {
+    "title": "The making of \"The Kaptain: The story of Francesco Silvestre\"",
+    "slug": "the-making-of-the-kaptain-the-story-of-francesco-silvestre",
     "previousSlugs": [],
     "certification": null
   },
@@ -30185,9 +30199,11 @@
     "certification": null
   },
   "1549128": {
-    "title": "Stella gemella",
-    "slug": "stella-gemella",
-    "previousSlugs": [],
+    "title": "Twin Stars",
+    "slug": "twin-stars",
+    "previousSlugs": [
+      "stella-gemella"
+    ],
     "certification": null
   },
   "1549191": {
@@ -65648,6 +65664,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1684791": {
+    "title": "Infinity Mirror",
+    "slug": "infinity-mirror",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1684805": {
     "title": "A Tree Without Roots",
     "slug": "a-tree-without-roots",
@@ -67579,6 +67601,12 @@
   "1696569": {
     "title": "Demônio da Morte",
     "slug": "demonio-da-morte",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1696577": {
+    "title": "Is This Life?",
+    "slug": "is-this-life",
     "previousSlugs": [],
     "certification": null
   }
