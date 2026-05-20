@@ -12267,6 +12267,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1249021": {
+    "title": "A Sunken Place",
+    "slug": "a-sunken-place",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1249152": {
     "title": "Four Minus Three",
     "slug": "four-minus-three",
@@ -13191,9 +13197,11 @@
     "certification": null
   },
   "1272129": {
-    "title": "O Rei da Internet",
-    "slug": "o-rei-da-internet",
-    "previousSlugs": [],
+    "title": "The King of The Internet",
+    "slug": "the-king-of-the-internet",
+    "previousSlugs": [
+      "o-rei-da-internet"
+    ],
     "certification": null
   },
   "1272149": {
@@ -16032,6 +16040,12 @@
   "1335784": {
     "title": "South Wind 3: Full Throttle",
     "slug": "south-wind-3-full-throttle",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1335821": {
+    "title": "Meadowhawk",
+    "slug": "meadowhawk",
     "previousSlugs": [],
     "certification": null
   },
@@ -19290,6 +19304,12 @@
   "1404604": {
     "title": "Compostelle",
     "slug": "compostelle",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1404615": {
+    "title": "Sight Unseen",
+    "slug": "sight-unseen",
     "previousSlugs": [],
     "certification": null
   },
@@ -24552,6 +24572,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1479537": {
+    "title": "Bad Counselors",
+    "slug": "bad-counselors",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1479650": {
     "title": "The Metropolitan Opera: Tristan und Isolde",
     "slug": "the-metropolitan-opera-tristan-und-isolde",
@@ -28441,6 +28467,12 @@
   "1528845": {
     "title": "Kyoto Hippocrates",
     "slug": "kyoto-hippocrates",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1528856": {
+    "title": "Maya",
+    "slug": "maya",
     "previousSlugs": [],
     "certification": null
   },
@@ -32539,6 +32571,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1571164": {
+    "title": "571: Rahmet Peygamberi Hz. Muhammed",
+    "slug": "571-rahmet-peygamberi-hz-muhammed",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1571238": {
     "title": "Kapralova",
     "slug": "kapralova",
@@ -34349,6 +34387,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1590671": {
+    "title": "The Four-Top",
+    "slug": "the-four-top",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1590694": {
     "title": "Notre Enfance",
     "slug": "notre-enfance",
@@ -34780,6 +34824,12 @@
   "1594190": {
     "title": "The Flush",
     "slug": "the-flush",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1594264": {
+    "title": "Space Ranger: New Worlds",
+    "slug": "space-ranger-new-worlds",
     "previousSlugs": [],
     "certification": null
   },
@@ -37259,6 +37309,12 @@
   "1609555": {
     "title": "3Kachow - Senior Year 2025",
     "slug": "3kachow-senior-year-2025",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1609560": {
+    "title": "Hidden Love",
+    "slug": "hidden-love",
     "previousSlugs": [],
     "certification": null
   },
@@ -46920,9 +46976,11 @@
     "certification": null
   },
   "1638776": {
-    "title": "あの星が降る丘で、君とまた出会いたい。",
-    "slug": "movie-1638776",
-    "previousSlugs": [],
+    "title": "I Want to See You Again On That Starry Hill",
+    "slug": "i-want-to-see-you-again-on-that-starry-hill",
+    "previousSlugs": [
+      "movie-1638776"
+    ],
     "certification": null
   },
   "1638779": {
@@ -50920,6 +50978,12 @@
   "1645537": {
     "title": "Errabonda",
     "slug": "errabonda",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1645545": {
+    "title": "Iroha",
+    "slug": "iroha",
     "previousSlugs": [],
     "certification": null
   },
@@ -56357,6 +56421,12 @@
     ],
     "certification": null
   },
+  "1653842": {
+    "title": "Quantum Jump",
+    "slug": "quantum-jump",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1653844": {
     "title": "Who Could Kill a Sweet Old Lady",
     "slug": "who-could-kill-a-sweet-old-lady",
@@ -56891,6 +56961,12 @@
   "1654559": {
     "title": "Die Drei von der Müllabfuhr - Hand in Hand",
     "slug": "die-drei-von-der-mullabfuhr-hand-in-hand",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1654566": {
+    "title": "Vibe",
+    "slug": "vibe",
     "previousSlugs": [],
     "certification": null
   },
@@ -63379,6 +63455,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1668435": {
+    "title": "The Ashes of Love",
+    "slug": "the-ashes-of-love",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1668442": {
     "title": "TERROR FALLS ON CRIMSON EYES",
     "slug": "terror-falls-on-crimson-eyes",
@@ -64666,6 +64748,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1677438": {
+    "title": "Talos",
+    "slug": "talos",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1677452": {
     "title": "3 Words",
     "slug": "3-words",
@@ -65779,9 +65867,11 @@
     "certification": null
   },
   "1684244": {
-    "title": "Untold UK: Liverpool's​ Miracle​ of​ lstanbul",
-    "slug": "untold-uk-liverpool-s-miracle-of-lstanbul",
-    "previousSlugs": [],
+    "title": "Untold UK: Liverpool's Miracle of Istanbul",
+    "slug": "untold-uk-liverpool-s-miracle-of-istanbul",
+    "previousSlugs": [
+      "untold-uk-liverpool-s-miracle-of-lstanbul"
+    ],
     "certification": null
   },
   "1684246": {
@@ -66199,6 +66289,12 @@
   "1685905": {
     "title": "Cute",
     "slug": "cute",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1685906": {
+    "title": "Rojo",
+    "slug": "rojo",
     "previousSlugs": [],
     "certification": null
   },
@@ -66860,6 +66956,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1688648": {
+    "title": "We Loved You, Now",
+    "slug": "we-loved-you-now",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1688652": {
     "title": "Gary",
     "slug": "gary",
@@ -66952,6 +67054,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1688913": {
+    "title": "Pirexia",
+    "slug": "pirexia",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1688915": {
     "title": "Born to Fly",
     "slug": "born-to-fly",
@@ -67017,6 +67125,12 @@
   "1689005": {
     "title": "Boss Cat",
     "slug": "boss-cat",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1689006": {
+    "title": "Because of you Ka Kui",
+    "slug": "because-of-you-ka-kui",
     "previousSlugs": [],
     "certification": null
   },
@@ -67355,6 +67469,12 @@
   "1690991": {
     "title": "Don't Make Me Bless You",
     "slug": "don-t-make-me-bless-you",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1691022": {
+    "title": "The Hybrids",
+    "slug": "the-hybrids",
     "previousSlugs": [],
     "certification": null
   },
@@ -67944,6 +68064,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1695202": {
+    "title": "走马观花",
+    "slug": "movie-1695202",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1695300": {
     "title": "The Dance of A Soloist",
     "slug": "the-dance-of-a-soloist",
@@ -67953,6 +68079,12 @@
   "1695327": {
     "title": "Dream High: Show Musical on Stage",
     "slug": "dream-high-show-musical-on-stage",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1695365": {
+    "title": "Secrets de la Science : Sommes-nous seuls dans l'Univers ?",
+    "slug": "secrets-de-la-science-sommes-nous-seuls-dans-l-univers",
     "previousSlugs": [],
     "certification": null
   },
@@ -67989,6 +68121,12 @@
   "1695746": {
     "title": "Panóptico",
     "slug": "panoptico",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1695768": {
+    "title": "Ocean Dreams",
+    "slug": "ocean-dreams",
     "previousSlugs": [],
     "certification": null
   },
@@ -68034,6 +68172,18 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1696007": {
+    "title": "Mariaban",
+    "slug": "mariaban",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1696031": {
+    "title": "도시에서 야생을 찾는 몇 가지 방법",
+    "slug": "movie-1696031",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1696039": {
     "title": "I Probably Am a Lonely One",
     "slug": "i-probably-am-a-lonely-one",
@@ -68076,6 +68226,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1696198": {
+    "title": "Little Nightmares - Broken Promises",
+    "slug": "little-nightmares-broken-promises",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1696266": {
     "title": "125, rue des Malaises",
     "slug": "125-rue-des-malaises",
@@ -68094,6 +68250,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1696575": {
+    "title": "the wrong witness",
+    "slug": "the-wrong-witness",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1696577": {
     "title": "Is This Life?",
     "slug": "is-this-life",
@@ -68103,6 +68265,12 @@
   "1696634": {
     "title": "Novak’s case",
     "slug": "novak-s-case",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1696823": {
+    "title": "Gone and Taken",
+    "slug": "gone-and-taken",
     "previousSlugs": [],
     "certification": null
   },
@@ -68175,6 +68343,60 @@
   "1698184": {
     "title": "3ミリの恋",
     "slug": "3",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1698397": {
+    "title": "Mirage",
+    "slug": "mirage-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1698419": {
+    "title": "Quỷ Bắt Hồn",
+    "slug": "quy-bat-hon",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1698421": {
+    "title": "Trấn Yểm",
+    "slug": "tran-yem",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1698488": {
+    "title": "Never Had a Chance",
+    "slug": "never-had-a-chance",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1698537": {
+    "title": "Jezebels",
+    "slug": "jezebels",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1698575": {
+    "title": "Snoopy Presents: There's No Place Like Home, Snoopy",
+    "slug": "snoopy-presents-there-s-no-place-like-home-snoopy",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1698594": {
+    "title": "Eraserhead Xiu Xiu",
+    "slug": "eraserhead-xiu-xiu",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1698686": {
+    "title": "Controle",
+    "slug": "controle",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1698888": {
+    "title": "Bò Sữa Bay",
+    "slug": "bo-sua-bay",
     "previousSlugs": [],
     "certification": null
   }
