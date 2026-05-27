@@ -6350,6 +6350,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "947474": {
+    "title": "Born in the Jungle",
+    "slug": "born-in-the-jungle",
+    "previousSlugs": [],
+    "certification": null
+  },
   "947478": {
     "title": "The Green Dinosaur",
     "slug": "the-green-dinosaur",
@@ -7511,9 +7517,11 @@
     "certification": null
   },
   "1025835": {
-    "title": "Prey of Wrath",
-    "slug": "prey-of-wrath",
-    "previousSlugs": [],
+    "title": "Жертва на гнева",
+    "slug": "movie-1025835",
+    "previousSlugs": [
+      "prey-of-wrath"
+    ],
     "certification": null
   },
   "1026103": {
@@ -17754,9 +17762,11 @@
     "certification": null
   },
   "1376400": {
-    "title": "Arachnid",
-    "slug": "arachnid",
-    "previousSlugs": [],
+    "title": "Crawlers",
+    "slug": "crawlers",
+    "previousSlugs": [
+      "arachnid"
+    ],
     "certification": null
   },
   "1376412": {
@@ -24250,6 +24260,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1473553": {
+    "title": "Welcome to Dolly's House",
+    "slug": "welcome-to-dolly-s-house",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1473592": {
     "title": "Midnight Girls",
     "slug": "midnight-girls",
@@ -25700,6 +25716,12 @@
   "1491214": {
     "title": "White Mountains",
     "slug": "white-mountains",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1491248": {
+    "title": "Hotel Excelsior",
+    "slug": "hotel-excelsior",
     "previousSlugs": [],
     "certification": null
   },
@@ -28755,6 +28777,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1528506": {
+    "title": "No Me Without You",
+    "slug": "no-me-without-you",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1528577": {
     "title": "Bunny!!",
     "slug": "bunny",
@@ -29614,6 +29642,12 @@
   "1536163": {
     "title": "Rose's Baby",
     "slug": "rose-s-baby",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1536252": {
+    "title": "No Sex",
+    "slug": "no-sex",
     "previousSlugs": [],
     "certification": null
   },
@@ -30951,6 +30985,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1552083": {
+    "title": "Serafima",
+    "slug": "serafima",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1552097": {
     "title": "Something Real",
     "slug": "something-real",
@@ -31156,7 +31196,7 @@
     "certification": null
   },
   "1554807": {
-    "title": "Hộ Linh Tráng Sĩ - Bí ẩn mộ vua Đinh",
+    "title": "Hộ Linh Tráng Sĩ: Bí ẩn mộ vua Đinh",
     "slug": "ho-linh-trang-si-bi-an-mo-vua-inh",
     "previousSlugs": [
       "ho-linh-trang-si-bi-an-mo-vua-inh"
@@ -37157,6 +37197,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1604426": {
+    "title": "Pemikat Jiwa",
+    "slug": "pemikat-jiwa",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1604427": {
     "title": "Avant de Sortir",
     "slug": "avant-de-sortir",
@@ -37514,9 +37560,11 @@
     "certification": null
   },
   "1607748": {
-    "title": "Future Science",
-    "slug": "future-science",
-    "previousSlugs": [],
+    "title": "Future Science - Das Ende der Tierversuche?",
+    "slug": "future-science-das-ende-der-tierversuche",
+    "previousSlugs": [
+      "future-science"
+    ],
     "certification": null
   },
   "1607762": {
@@ -37864,6 +37912,12 @@
   "1609897": {
     "title": "Bledders",
     "slug": "bledders",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1609955": {
+    "title": "Avermelhada Lua Branca",
+    "slug": "avermelhada-lua-branca",
     "previousSlugs": [],
     "certification": null
   },
@@ -40553,6 +40607,12 @@
   "1621438": {
     "title": "Love in a Single Room",
     "slug": "love-in-a-single-room",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1621506": {
+    "title": "Tight Lettuce",
+    "slug": "tight-lettuce",
     "previousSlugs": [],
     "certification": null
   },
@@ -54449,10 +54509,11 @@
     "certification": null
   },
   "1650060": {
-    "title": "UNTITLED DOCUMENTARY BY PIETRO XIMENES",
-    "slug": "untitled-documentary-by-pietro-ximenes",
+    "title": "Battle Pass",
+    "slug": "battle-pass",
     "previousSlugs": [
-      "documentario-sem-nome-por-pietro-ximenes"
+      "documentario-sem-nome-por-pietro-ximenes",
+      "untitled-documentary-by-pietro-ximenes"
     ],
     "certification": null
   },
@@ -57514,6 +57575,12 @@
   "1654590": {
     "title": "Frozen People Festival @ Oulu 2026",
     "slug": "frozen-people-festival-oulu-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1654599": {
+    "title": "People Magazine Investigates: The Secrets of the Twelve Tribes Cult",
+    "slug": "people-magazine-investigates-the-secrets-of-the-twelve-tribes-cult",
     "previousSlugs": [],
     "certification": null
   },
@@ -66529,6 +66596,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1684283": {
+    "title": "Tana",
+    "slug": "tana",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1684326": {
     "title": "My Hero Academia: More",
     "slug": "my-hero-academia-more",
@@ -66696,6 +66769,18 @@
   "1685238": {
     "title": "Jazzystan",
     "slug": "jazzystan",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1685242": {
+    "title": "Your Face is a Landscape",
+    "slug": "your-face-is-a-landscape",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1685247": {
+    "title": "Georgy Guryanov",
+    "slug": "georgy-guryanov",
     "previousSlugs": [],
     "certification": null
   },
@@ -68010,11 +68095,12 @@
     "certification": null
   },
   "1690013": {
-    "title": "tu bazofIA nos aburre y da cancer cerebral",
-    "slug": "tu-bazofia-nos-aburre-y-da-cancer-cerebral",
+    "title": "Copán: The Legend",
+    "slug": "copan-the-legend",
     "previousSlugs": [
       "copan-la-leyenda",
-      "tu-bazofia-me-aburre"
+      "tu-bazofia-me-aburre",
+      "tu-bazofia-nos-aburre-y-da-cancer-cerebral"
     ],
     "certification": null
   },
@@ -68656,6 +68742,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1693550": {
+    "title": "Pause",
+    "slug": "pause",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1693588": {
     "title": "Saturday Night's Main Event XLIV",
     "slug": "saturday-night-s-main-event-xliv",
@@ -68924,6 +69016,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1695305": {
+    "title": "Becoming Home",
+    "slug": "becoming-home",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1695316": {
     "title": "Candlemas",
     "slug": "candlemas",
@@ -69047,6 +69145,12 @@
   "1696039": {
     "title": "I Probably Am a Lonely One",
     "slug": "i-probably-am-a-lonely-one",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1696040": {
+    "title": "나의 친애하는 비건 와이프에게",
+    "slug": "movie-1696040",
     "previousSlugs": [],
     "certification": null
   },
@@ -69254,6 +69358,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1697575": {
+    "title": "Medusa",
+    "slug": "medusa-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1697595": {
     "title": "The Alone Boy",
     "slug": "the-alone-boy",
@@ -69448,6 +69558,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1698557": {
+    "title": "The Goose That Laid the Golden Egg",
+    "slug": "the-goose-that-laid-the-golden-egg",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1698575": {
     "title": "Snoopy Presents: There's No Place Like Home, Snoopy",
     "slug": "snoopy-presents-there-s-no-place-like-home-snoopy",
@@ -69582,6 +69698,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1699726": {
+    "title": "Remind(h)er",
+    "slug": "remind-h-er",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1699756": {
     "title": "Ayah, Aku Mau Cerita....",
     "slug": "ayah-aku-mau-cerita",
@@ -69654,6 +69776,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1700176": {
+    "title": "The McKenna Project",
+    "slug": "the-mckenna-project",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1700230": {
     "title": "ThérapIA",
     "slug": "therapia",
@@ -69691,9 +69819,11 @@
     "certification": null
   },
   "1700520": {
-    "title": "Terreno ou o ser começa entre as minhas mãos de gente",
-    "slug": "terreno-ou-o-ser-comeca-entre-as-minhas-maos-de-gente",
-    "previousSlugs": [],
+    "title": "Terreno",
+    "slug": "terreno-2026",
+    "previousSlugs": [
+      "terreno-ou-o-ser-comeca-entre-as-minhas-maos-de-gente"
+    ],
     "certification": null
   },
   "1700525": {
@@ -69750,6 +69880,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1700749": {
+    "title": "JACKPOT!",
+    "slug": "jackpot-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1700881": {
     "title": "The Ballad from Wednesday to Thursday",
     "slug": "the-ballad-from-wednesday-to-thursday",
@@ -69792,6 +69928,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1701009": {
+    "title": "Darkface Files",
+    "slug": "darkface-files",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1701123": {
     "title": "Project Hunk",
     "slug": "project-hunk",
@@ -69799,8 +69941,22 @@
     "certification": null
   },
   "1701293": {
-    "title": "Kicking it up with the Tiki Takas",
+    "title": "Kicking it Up with the Tiki Takas",
     "slug": "kicking-it-up-with-the-tiki-takas",
+    "previousSlugs": [
+      "kicking-it-up-with-the-tiki-takas"
+    ],
+    "certification": null
+  },
+  "1701331": {
+    "title": "Rescue",
+    "slug": "rescue",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1701355": {
+    "title": "The Bowens: A Portrait of an American Family",
+    "slug": "the-bowens-a-portrait-of-an-american-family",
     "previousSlugs": [],
     "certification": null
   },
@@ -69828,15 +69984,33 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1701435": {
+    "title": "dashed in here, seeing you green",
+    "slug": "dashed-in-here-seeing-you-green",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1701441": {
     "title": "I Miss My Mom",
     "slug": "i-miss-my-mom",
     "previousSlugs": [],
     "certification": null
   },
+  "1701518": {
+    "title": "Heated Pingpong",
+    "slug": "heated-pingpong",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1701619": {
     "title": "After the Curtain Falls",
     "slug": "after-the-curtain-falls",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1701622": {
+    "title": "Que Tu Reviennes",
+    "slug": "que-tu-reviennes",
     "previousSlugs": [],
     "certification": null
   },
@@ -69876,6 +70050,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1702271": {
+    "title": "Rogue One: The Andor Cut",
+    "slug": "rogue-one-the-andor-cut",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1702313": {
     "title": "The Trouble With Mistletoe",
     "slug": "the-trouble-with-mistletoe",
@@ -69891,6 +70071,96 @@
   "1702398": {
     "title": "Limerence",
     "slug": "limerence",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702535": {
+    "title": "Zoocânticos I",
+    "slug": "zoocanticos-i",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702536": {
+    "title": "Wake",
+    "slug": "wake",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702722": {
+    "title": "Kontra K: Orchestrated - Live from Channel Aid 2026",
+    "slug": "kontra-k-orchestrated-live-from-channel-aid-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702737": {
+    "title": "Und es war Sommer - Dieter Thomas Kuhn & Band",
+    "slug": "und-es-war-sommer-dieter-thomas-kuhn-band",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702757": {
+    "title": "Royal Ballet & Opera 2026/27: Manon",
+    "slug": "royal-ballet-opera-2026-27-manon",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702759": {
+    "title": "Royal Ballet & Opera 2026/27: Carmen",
+    "slug": "royal-ballet-opera-2026-27-carmen",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702761": {
+    "title": "Royal Ballet & Opera 2026/27: The Nutcracker",
+    "slug": "royal-ballet-opera-2026-27-the-nutcracker",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702763": {
+    "title": "Big and Large: A Basketball Story",
+    "slug": "big-and-large-a-basketball-story",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702769": {
+    "title": "Royal Ballet & Opera 2026/27: Götterdämmerung",
+    "slug": "royal-ballet-opera-2026-27-gotterdammerung",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702775": {
+    "title": "Royal Ballet & Opera 2026/27: Così fan tutte",
+    "slug": "royal-ballet-opera-2026-27-cosi-fan-tutte",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702778": {
+    "title": "Royal Ballet & Opera 2026/27: Alice's Adventures in Wonderland",
+    "slug": "royal-ballet-opera-2026-27-alice-s-adventures-in-wonderland",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702782": {
+    "title": "Royal Ballet & Opera 2026/27: Swan Lake",
+    "slug": "royal-ballet-opera-2026-27-swan-lake",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702784": {
+    "title": "Royal Ballet & Opera 2026/27: Tosca",
+    "slug": "royal-ballet-opera-2026-27-tosca",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702789": {
+    "title": "Royal Ballet & Opera 2026/27: Romeo and Juliet",
+    "slug": "royal-ballet-opera-2026-27-romeo-and-juliet",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702801": {
+    "title": "André Rieu´s 2026 Summer Concert: Viva Maastricht!",
+    "slug": "andre-rieu-s-2026-summer-concert-viva-maastricht",
     "previousSlugs": [],
     "certification": null
   }
