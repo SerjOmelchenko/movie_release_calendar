@@ -11040,6 +11040,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1212934": {
+    "title": "Olmo",
+    "slug": "olmo",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1212952": {
     "title": "Heavyweight",
     "slug": "heavyweight",
@@ -12868,6 +12874,12 @@
   "1263040": {
     "title": "Chhatrapati Shivaji Maharaj",
     "slug": "chhatrapati-shivaji-maharaj",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1263313": {
+    "title": "The Son of a Bitch",
+    "slug": "the-son-of-a-bitch",
     "previousSlugs": [],
     "certification": null
   },
@@ -19453,6 +19465,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1404582": {
+    "title": "Strawberries",
+    "slug": "strawberries",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1404583": {
     "title": "I Remember",
     "slug": "i-remember",
@@ -22239,9 +22257,11 @@
     "certification": null
   },
   "1447206": {
-    "title": "Geister",
-    "slug": "geister",
-    "previousSlugs": [],
+    "title": "Geister weinen nicht",
+    "slug": "geister-weinen-nicht",
+    "previousSlugs": [
+      "geister"
+    ],
     "certification": null
   },
   "1447235": {
@@ -25707,6 +25727,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1491083": {
+    "title": "踊る大捜査線 N.E.W.",
+    "slug": "n-e-w",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1491092": {
     "title": "Killjote",
     "slug": "killjote",
@@ -26605,6 +26631,12 @@
     "previousSlugs": [
       "l-arnaqueuse"
     ],
+    "certification": null
+  },
+  "1501564": {
+    "title": "Wild Inside",
+    "slug": "wild-inside",
+    "previousSlugs": [],
     "certification": null
   },
   "1501787": {
@@ -30073,6 +30105,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1541125": {
+    "title": "年会不能停2！",
+    "slug": "2-",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1541128": {
     "title": "Office of Magical Forces",
     "slug": "office-of-magical-forces",
@@ -30212,9 +30250,11 @@
     "certification": null
   },
   "1542847": {
-    "title": "Abyss",
-    "slug": "abyss",
-    "previousSlugs": [],
+    "title": "The Abyss",
+    "slug": "the-abyss",
+    "previousSlugs": [
+      "abyss"
+    ],
     "certification": null
   },
   "1542877": {
@@ -32881,6 +32921,12 @@
   "1569625": {
     "title": "Reimagining Sankranthiki Vasthunam",
     "slug": "reimagining-sankranthiki-vasthunam",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1569664": {
+    "title": "Afterpiece",
+    "slug": "afterpiece",
     "previousSlugs": [],
     "certification": null
   },
@@ -41109,6 +41155,12 @@
   "1623538": {
     "title": "VivaCity",
     "slug": "vivacity",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1623543": {
+    "title": "Diva",
+    "slug": "diva",
     "previousSlugs": [],
     "certification": null
   },
@@ -60674,6 +60726,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1658452": {
+    "title": "Magic Hour",
+    "slug": "magic-hour-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1658458": {
     "title": "Loana Story : Le destin brisé d'une icône",
     "slug": "loana-story-le-destin-brise-d-une-icone",
@@ -64627,6 +64685,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1672926": {
+    "title": "“Vaterland” or A Bule Named Yanto",
+    "slug": "vaterland-or-a-bule-named-yanto",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1672994": {
     "title": "Miss Representation: Rise Up",
     "slug": "miss-representation-rise-up",
@@ -66475,6 +66539,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1683577": {
+    "title": "Bliss: Beyond the Edge of Time",
+    "slug": "bliss-beyond-the-edge-of-time",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1683683": {
     "title": "DCI 2026: Big, Loud and Live",
     "slug": "dci-2026-big-loud-and-live",
@@ -67908,6 +67978,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1689007": {
+    "title": "Trapeze",
+    "slug": "trapeze",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1689051": {
     "title": "The Exchange Rate",
     "slug": "the-exchange-rate",
@@ -67992,6 +68068,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1689518": {
+    "title": "Christiane Taubira : une loi pour mémoire",
+    "slug": "christiane-taubira-une-loi-pour-memoire",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1689549": {
     "title": "L'air du Souvenir",
     "slug": "l-air-du-souvenir",
@@ -68055,6 +68137,12 @@
   "1689833": {
     "title": "Cop This",
     "slug": "cop-this",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1689852": {
+    "title": "The Last Wild River",
+    "slug": "the-last-wild-river",
     "previousSlugs": [],
     "certification": null
   },
@@ -68280,6 +68368,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1691015": {
+    "title": "Fiction",
+    "slug": "fiction",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1691022": {
     "title": "The Hybrids",
     "slug": "the-hybrids",
@@ -68400,6 +68494,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1691437": {
+    "title": "70 ans d'Eurovision : La Grande Histoire du Concours",
+    "slug": "70-ans-d-eurovision-la-grande-histoire-du-concours",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1691510": {
     "title": "Anna by the Window",
     "slug": "anna-by-the-window",
@@ -68487,6 +68587,12 @@
   "1692133": {
     "title": "Memoria",
     "slug": "memoria",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1692138": {
+    "title": "San Francisco Rising",
+    "slug": "san-francisco-rising",
     "previousSlugs": [],
     "certification": null
   },
@@ -68581,6 +68687,12 @@
   "1692736": {
     "title": "SYNTAX",
     "slug": "syntax",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1692810": {
+    "title": "My Willow",
+    "slug": "my-willow",
     "previousSlugs": [],
     "certification": null
   },
@@ -68838,12 +68950,24 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1694057": {
+    "title": "Elisa",
+    "slug": "elisa-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1694097": {
     "title": "GIANT - The Play",
     "slug": "giant-the-play",
     "previousSlugs": [
       "giant-1694097"
     ],
+    "certification": null
+  },
+  "1694116": {
+    "title": "L'Amie en commun",
+    "slug": "l-amie-en-commun",
+    "previousSlugs": [],
     "certification": null
   },
   "1694164": {
@@ -68936,9 +69060,21 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1694700": {
+    "title": "The Youngins",
+    "slug": "the-youngins",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1694711": {
     "title": "Armored Trooper VOTOMS: Die Graue Hexe - Part 1",
     "slug": "armored-trooper-votoms-die-graue-hexe-part-1",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1694728": {
+    "title": "The Waddles",
+    "slug": "the-waddles",
     "previousSlugs": [],
     "certification": null
   },
@@ -69076,6 +69212,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1695762": {
+    "title": "Deadbeat Boyfriend",
+    "slug": "deadbeat-boyfriend",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1695768": {
     "title": "Ocean Dreams",
     "slug": "ocean-dreams",
@@ -69202,6 +69344,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1696104": {
+    "title": "To Dream Perhaps",
+    "slug": "to-dream-perhaps",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1696125": {
     "title": "Tapis rouge à Groland",
     "slug": "tapis-rouge-a-groland",
@@ -69301,6 +69449,12 @@
   "1696861": {
     "title": "Toulouse MacDonnell Upcoming project",
     "slug": "toulouse-macdonnell-upcoming-project",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1696883": {
+    "title": "Woodeaters",
+    "slug": "woodeaters",
     "previousSlugs": [],
     "certification": null
   },
@@ -69432,6 +69586,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1698115": {
+    "title": "In Pieces: The Musical (A Staged Concert)",
+    "slug": "in-pieces-the-musical-a-staged-concert",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1698152": {
     "title": "Everyone Has Something to Hide",
     "slug": "everyone-has-something-to-hide",
@@ -69447,6 +69607,12 @@
   "1698185": {
     "title": "I Wish This Was Real",
     "slug": "i-wish-this-was-real",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1698190": {
+    "title": "Chasing Light",
+    "slug": "chasing-light",
     "previousSlugs": [],
     "certification": null
   },
@@ -69582,6 +69748,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1698665": {
+    "title": "The Nest",
+    "slug": "the-nest",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1698684": {
     "title": "On a Stringer",
     "slug": "on-a-stringer",
@@ -69651,9 +69823,11 @@
     "certification": null
   },
   "1699414": {
-    "title": "El Salvador - O dia em que o medo mudou de lado",
+    "title": "El Salvador: O Dia em que o Medo Mudou de Lado",
     "slug": "el-salvador-o-dia-em-que-o-medo-mudou-de-lado",
-    "previousSlugs": [],
+    "previousSlugs": [
+      "el-salvador-o-dia-em-que-o-medo-mudou-de-lado"
+    ],
     "certification": null
   },
   "1699419": {
@@ -69698,6 +69872,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1699633": {
+    "title": "Un futuro aprile",
+    "slug": "un-futuro-aprile",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1699726": {
     "title": "Remind(h)er",
     "slug": "remind-h-er",
@@ -69725,6 +69905,12 @@
   "1699814": {
     "title": "Peter Alexander - Alles nur aus Liebe",
     "slug": "peter-alexander-alles-nur-aus-liebe",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1699835": {
+    "title": "Useless",
+    "slug": "useless",
     "previousSlugs": [],
     "certification": null
   },
@@ -69761,6 +69947,12 @@
   "1700051": {
     "title": "Salah: Farewell to The King",
     "slug": "salah-farewell-to-the-king",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1700054": {
+    "title": "Ghosts in the Fog",
+    "slug": "ghosts-in-the-fog",
     "previousSlugs": [],
     "certification": null
   },
@@ -69803,6 +69995,12 @@
   "1700415": {
     "title": "Aimless Monologue Before The Credits...",
     "slug": "aimless-monologue-before-the-credits",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1700459": {
+    "title": "Mobius Band",
+    "slug": "mobius-band",
     "previousSlugs": [],
     "certification": null
   },
@@ -69883,6 +70081,12 @@
   "1700749": {
     "title": "JACKPOT!",
     "slug": "jackpot-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1700760": {
+    "title": "ChikaBOOM!",
+    "slug": "chikaboom",
     "previousSlugs": [],
     "certification": null
   },
@@ -70032,15 +70236,45 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1701849": {
+    "title": "BTS World Tour ‘Arirang’ in Busan: Live Viewing",
+    "slug": "bts-world-tour-arirang-in-busan-live-viewing",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1701867": {
+    "title": "Mbappé, la diplomatie du ballon rond",
+    "slug": "mbappe-la-diplomatie-du-ballon-rond",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1701869": {
+    "title": "Chalien Kahin",
+    "slug": "chalien-kahin",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1701996": {
     "title": "When the Night Shines",
     "slug": "when-the-night-shines",
     "previousSlugs": [],
     "certification": null
   },
+  "1702020": {
+    "title": "In The Name of Me",
+    "slug": "in-the-name-of-me",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1702045": {
     "title": "Damien Gillard - Rude",
     "slug": "damien-gillard-rude",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702055": {
+    "title": "Fabric",
+    "slug": "fabric",
     "previousSlugs": [],
     "certification": null
   },
@@ -70083,6 +70317,24 @@
   "1702536": {
     "title": "Wake",
     "slug": "wake",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702547": {
+    "title": "Between the scenes, between the voices. Unseen footage of the future sound of Slovakia.",
+    "slug": "between-the-scenes-between-the-voices-unseen-footage-of-the-future-sound-of-slovakia",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702549": {
+    "title": "The World Is A Wedding",
+    "slug": "the-world-is-a-wedding",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1702591": {
+    "title": "Rasmusnator",
+    "slug": "rasmusnator",
     "previousSlugs": [],
     "certification": null
   },
@@ -70161,6 +70413,30 @@
   "1702801": {
     "title": "André Rieu´s 2026 Summer Concert: Viva Maastricht!",
     "slug": "andre-rieu-s-2026-summer-concert-viva-maastricht",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1703020": {
+    "title": "Dante",
+    "slug": "dante-1703020",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1703103": {
+    "title": "Addicted to Change",
+    "slug": "addicted-to-change",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1703118": {
+    "title": "A Malevolent World",
+    "slug": "a-malevolent-world",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1703406": {
+    "title": "Train of Thought",
+    "slug": "train-of-thought",
     "previousSlugs": [],
     "certification": null
   }
