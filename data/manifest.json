@@ -14058,6 +14058,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1280784": {
+    "title": "Spades",
+    "slug": "spades",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1281096": {
     "title": "Labrador — Autopsy of Silence",
     "slug": "labrador-autopsy-of-silence",
@@ -19621,6 +19627,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1399459": {
+    "title": "Eurotrash",
+    "slug": "eurotrash",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1399462": {
     "title": "Calle Malaga",
     "slug": "calle-malaga",
@@ -20376,10 +20388,11 @@
     "certification": null
   },
   "1409853": {
-    "title": "Neglected",
-    "slug": "neglected",
+    "title": "The Neglected",
+    "slug": "the-neglected",
     "previousSlugs": [
-      "surrender"
+      "surrender",
+      "neglected"
     ],
     "certification": null
   },
@@ -21134,6 +21147,12 @@
   "1421552": {
     "title": "Panda Plan: The Magical Tribe",
     "slug": "panda-plan-the-magical-tribe",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1421594": {
+    "title": "Trustor",
+    "slug": "trustor",
     "previousSlugs": [],
     "certification": null
   },
@@ -23211,6 +23230,12 @@
   "1448678": {
     "title": "They, With an Axe",
     "slug": "they-with-an-axe",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1448944": {
+    "title": "Mundurukuyü – The Forest of the Fish Women",
+    "slug": "mundurukuyu-the-forest-of-the-fish-women",
     "previousSlugs": [],
     "certification": null
   },
@@ -27020,6 +27045,12 @@
   "1493004": {
     "title": "Bentornati al Sud",
     "slug": "bentornati-al-sud",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1493010": {
+    "title": "Quasi Vera",
+    "slug": "quasi-vera",
     "previousSlugs": [],
     "certification": null
   },
@@ -36908,6 +36939,12 @@
   "1593115": {
     "title": "Kapodistrias",
     "slug": "kapodistrias",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1593151": {
+    "title": "Stepfather",
+    "slug": "stepfather",
     "previousSlugs": [],
     "certification": null
   },
@@ -49835,6 +49872,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1639341": {
+    "title": "Go to Sleep",
+    "slug": "go-to-sleep",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1639356": {
     "title": "Sidosa",
     "slug": "sidosa",
@@ -60495,6 +60538,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1655382": {
+    "title": "Wiatr nad Aleppo",
+    "slug": "wiatr-nad-aleppo",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1655383": {
     "title": "Хранители Ольджиканского",
     "slug": "movie-1655383",
@@ -64383,6 +64432,12 @@
     ],
     "certification": null
   },
+  "1661559": {
+    "title": "Homo Machina",
+    "slug": "homo-machina",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1661632": {
     "title": "Rosana: mejor vivir sin miedo",
     "slug": "rosana-mejor-vivir-sin-miedo",
@@ -65104,10 +65159,11 @@
     "certification": null
   },
   "1663937": {
-    "title": "Star Detective Pretty Cure! The Movie",
-    "slug": "star-detective-pretty-cure-the-movie",
+    "title": "Star Detective Pretty Cure! The Movie: The Mysterious Garden and The Pair’s Secret",
+    "slug": "star-detective-pretty-cure-the-movie-the-mysterious-garden-and-the-pair-s-secret",
     "previousSlugs": [
-      "movie-1663937"
+      "movie-1663937",
+      "star-detective-pretty-cure-the-movie"
     ],
     "certification": null
   },
@@ -65941,6 +65997,12 @@
   "1667233": {
     "title": "Shadow Cabinet",
     "slug": "shadow-cabinet",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1667253": {
+    "title": "Vieyra, The Innovative Pioneer",
+    "slug": "vieyra-the-innovative-pioneer",
     "previousSlugs": [],
     "certification": null
   },
@@ -68881,6 +68943,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1683463": {
+    "title": "Peppermint Pixie Dream Girl",
+    "slug": "peppermint-pixie-dream-girl",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1683473": {
     "title": "Oh? You Have Money?",
     "slug": "oh-you-have-money",
@@ -69878,6 +69946,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1687092": {
+    "title": "Demasiado tarde",
+    "slug": "demasiado-tarde",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1687105": {
     "title": "The Secrets of the Matriarch",
     "slug": "the-secrets-of-the-matriarch",
@@ -70009,6 +70083,12 @@
   "1687711": {
     "title": "The Third Eye",
     "slug": "the-third-eye",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1687773": {
+    "title": "Et après?",
+    "slug": "et-apres",
     "previousSlugs": [],
     "certification": null
   },
@@ -70509,9 +70589,11 @@
     "certification": null
   },
   "1688933": {
-    "title": "La Niña",
-    "slug": "la-nina",
-    "previousSlugs": [],
+    "title": "The Girl",
+    "slug": "the-girl",
+    "previousSlugs": [
+      "la-nina"
+    ],
     "certification": null
   },
   "1688934": {
@@ -71187,9 +71269,11 @@
     "certification": null
   },
   "1691300": {
-    "title": "Lastri Arwah Kembang Desa",
+    "title": "Lastri: Arwah Kembang Desa",
     "slug": "lastri-arwah-kembang-desa",
-    "previousSlugs": [],
+    "previousSlugs": [
+      "lastri-arwah-kembang-desa"
+    ],
     "certification": null
   },
   "1691307": {
@@ -71267,6 +71351,12 @@
   "1691581": {
     "title": "Forgotten",
     "slug": "forgotten-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1691590": {
+    "title": "Supertramp: Crime of the Century in Concert at Hammersmith Odeon 1975",
+    "slug": "supertramp-crime-of-the-century-in-concert-at-hammersmith-odeon-1975",
     "previousSlugs": [],
     "certification": null
   },
@@ -71996,6 +72086,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1694249": {
+    "title": "Caught in the Act",
+    "slug": "caught-in-the-act",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1694254": {
     "title": "Caravelle 114",
     "slug": "caravelle-114",
@@ -72321,6 +72417,12 @@
   "1695365": {
     "title": "Secrets de la Science : Sommes-nous seuls dans l'Univers ?",
     "slug": "secrets-de-la-science-sommes-nous-seuls-dans-l-univers",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1695366": {
+    "title": "Grizzly Rampage",
+    "slug": "grizzly-rampage",
     "previousSlugs": [],
     "certification": null
   },
@@ -72695,6 +72797,12 @@
   "1696664": {
     "title": "Nacrose",
     "slug": "nacrose",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1696687": {
+    "title": "Beach Goers",
+    "slug": "beach-goers",
     "previousSlugs": [],
     "certification": null
   },
@@ -73119,6 +73227,12 @@
   "1698407": {
     "title": "Ốc Mượn Hồn",
     "slug": "oc-muon-hon",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1698412": {
+    "title": "Hi, Linda",
+    "slug": "hi-linda",
     "previousSlugs": [],
     "certification": null
   },
@@ -74616,6 +74730,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1702728": {
+    "title": "Afterblue",
+    "slug": "afterblue",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1702737": {
     "title": "Und es war Sommer - Dieter Thomas Kuhn & Band",
     "slug": "und-es-war-sommer-dieter-thomas-kuhn-band",
@@ -75059,6 +75179,12 @@
   "1703707": {
     "title": "Luv Di Saun",
     "slug": "luv-di-saun",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1703731": {
+    "title": "Film History’s Modus Operandi",
+    "slug": "film-history-s-modus-operandi",
     "previousSlugs": [],
     "certification": null
   },
@@ -75765,9 +75891,11 @@
     "certification": null
   },
   "1706043": {
-    "title": "Ghost Buzzer",
-    "slug": "ghost-buzzer",
-    "previousSlugs": [],
+    "title": "Ghost Buzzer: Antar Aku Pulang",
+    "slug": "ghost-buzzer-antar-aku-pulang",
+    "previousSlugs": [
+      "ghost-buzzer"
+    ],
     "certification": null
   },
   "1706053": {
@@ -75808,9 +75936,21 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1706174": {
+    "title": "Hindsight",
+    "slug": "hindsight",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1706197": {
     "title": "Scandal Queen",
     "slug": "scandal-queen",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1706238": {
+    "title": "The Killing",
+    "slug": "the-killing",
     "previousSlugs": [],
     "certification": null
   },
@@ -76133,6 +76273,12 @@
   "1707344": {
     "title": "Poor \"Miss Disney Princess\"",
     "slug": "poor-miss-disney-princess",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1707353": {
+    "title": "Mahaut : Drama Queen",
+    "slug": "mahaut-drama-queen",
     "previousSlugs": [],
     "certification": null
   },
@@ -76493,6 +76639,12 @@
   "1708379": {
     "title": "The Hot Seat",
     "slug": "the-hot-seat",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1708382": {
+    "title": "Mercado Central",
+    "slug": "mercado-central",
     "previousSlugs": [],
     "certification": null
   },
@@ -77170,6 +77322,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1710966": {
+    "title": "Moolyam",
+    "slug": "moolyam",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1710971": {
     "title": "Kiralık Koca: Aşk mı, Oyun mu?",
     "slug": "kiral-k-koca-ask-m-oyun-mu",
@@ -77251,6 +77409,12 @@
   "1711150": {
     "title": "Sports Illustrated Swimsuit Runway Show",
     "slug": "sports-illustrated-swimsuit-runway-show",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1711175": {
+    "title": "Summerween",
+    "slug": "summerween",
     "previousSlugs": [],
     "certification": null
   },
@@ -77337,6 +77501,12 @@
   "1711384": {
     "title": "The New Mother Earth",
     "slug": "the-new-mother-earth",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1711390": {
+    "title": "Crossings : Kaleh Ziyarat",
+    "slug": "crossings-kaleh-ziyarat",
     "previousSlugs": [],
     "certification": null
   },
@@ -77684,6 +77854,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1712008": {
+    "title": "Served Cold",
+    "slug": "served-cold",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1712067": {
     "title": "Freedom Follows Me",
     "slug": "freedom-follows-me",
@@ -77745,17 +77921,20 @@
     "certification": null
   },
   "1712264": {
-    "title": "Now What?",
-    "slug": "now-what",
-    "previousSlugs": [],
+    "title": "5gresabab1123",
+    "slug": "5gresabab1123",
+    "previousSlugs": [
+      "now-what"
+    ],
     "certification": null
   },
   "1712278": {
-    "title": "Dreamfall",
-    "slug": "dreamfall",
+    "title": "REM",
+    "slug": "rem",
     "previousSlugs": [
       "he-attacks-at-night",
-      "hidden-abuse"
+      "hidden-abuse",
+      "dreamfall"
     ],
     "certification": null
   },
@@ -77786,6 +77965,12 @@
   "1712330": {
     "title": "Messi: The Forgotten Tape",
     "slug": "messi-the-forgotten-tape",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1712336": {
+    "title": "Flathead",
+    "slug": "flathead",
     "previousSlugs": [],
     "certification": null
   },
@@ -77840,6 +78025,12 @@
   "1712519": {
     "title": "Gamechangers: The Ashlyn Harris Story",
     "slug": "gamechangers-the-ashlyn-harris-story",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1712564": {
+    "title": "Focal Length",
+    "slug": "focal-length",
     "previousSlugs": [],
     "certification": null
   },
@@ -78399,6 +78590,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1715068": {
+    "title": "Watch Out, Kid",
+    "slug": "watch-out-kid",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1715073": {
     "title": "Now and Then",
     "slug": "now-and-then",
@@ -78453,6 +78650,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1715227": {
+    "title": "Burnt Ends",
+    "slug": "burnt-ends",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1715235": {
     "title": "Old Man River",
     "slug": "old-man-river",
@@ -78480,6 +78683,12 @@
   "1715281": {
     "title": "West Side Familia",
     "slug": "west-side-familia",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1715282": {
+    "title": "Death by Roux",
+    "slug": "death-by-roux",
     "previousSlugs": [],
     "certification": null
   },
@@ -78599,6 +78808,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1715709": {
+    "title": "Comète",
+    "slug": "comete",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1715722": {
     "title": "Il Cileno",
     "slug": "il-cileno",
@@ -78650,6 +78865,12 @@
   "1715934": {
     "title": "Once Upon a Time In Gotham",
     "slug": "once-upon-a-time-in-gotham",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1716089": {
+    "title": "Waffle F1 The Movie: 2",
+    "slug": "waffle-f1-the-movie-2",
     "previousSlugs": [],
     "certification": null
   },
@@ -78861,6 +79082,18 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1717351": {
+    "title": "Creative Differences",
+    "slug": "creative-differences",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1717526": {
+    "title": "Free Wifi",
+    "slug": "free-wifi",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1717652": {
     "title": "Sem pai nem mãe",
     "slug": "sem-pai-nem-mae",
@@ -78870,6 +79103,24 @@
   "1717676": {
     "title": "Offroad",
     "slug": "offroad",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1717695": {
+    "title": "BLS - Body Life Support",
+    "slug": "bls-body-life-support",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1717715": {
+    "title": "Window.Water.Raining.Moving.Landscape.",
+    "slug": "window-water-raining-moving-landscape",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1717975": {
+    "title": "FANTASIA",
+    "slug": "fantasia",
     "previousSlugs": [],
     "certification": null
   },
@@ -78900,6 +79151,30 @@
   "1718445": {
     "title": "The Voyage of Krang",
     "slug": "the-voyage-of-krang",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1718506": {
+    "title": "Baa: Ek Yoddha",
+    "slug": "baa-ek-yoddha",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1718699": {
+    "title": "Untitled Illumination Original Film",
+    "slug": "untitled-illumination-original-film",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1718930": {
+    "title": "ワンダンス",
+    "slug": "movie-1718930",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1719021": {
+    "title": "CRAYON SHIN-CHAN THE MOVIE: SPOOKY! MY YOKAI VACATION",
+    "slug": "crayon-shin-chan-the-movie-spooky-my-yokai-vacation",
     "previousSlugs": [],
     "certification": null
   }
