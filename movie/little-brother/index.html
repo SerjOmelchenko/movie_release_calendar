@@ -210,7 +210,22 @@
       <img src="https://image.tmdb.org/t/p/w500/hIJpXb7Xaje2mebN9ylsS7blQzP.jpg" alt="Little Brother poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" title="Anticipation rank = position by audience interest (TMDB popularity) among June 2026 releases in Italy."><span class="fb-tag">Featured</span><span class="fb-text">#6 most anticipated June 2026 release in Italy &middot; featured in 37 countries</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the 37 countries featuring it, by audience interest (TMDB popularity) among June 2026 releases. The rank varies by country." data-month="June 2026" data-count="37" data-ranks="{&quot;AU&quot;:[8,&quot;Australia&quot;],&quot;AT&quot;:[7,&quot;Austria&quot;],&quot;BE&quot;:[7,&quot;Belgium&quot;],&quot;BR&quot;:[8,&quot;Brazil&quot;],&quot;BG&quot;:[8,&quot;Bulgaria&quot;],&quot;CA&quot;:[7,&quot;Canada&quot;],&quot;CN&quot;:[8,&quot;China&quot;],&quot;HR&quot;:[8,&quot;Croatia&quot;],&quot;CY&quot;:[8,&quot;Cyprus&quot;],&quot;CZ&quot;:[8,&quot;Czech Republic&quot;],&quot;DK&quot;:[8,&quot;Denmark&quot;],&quot;EE&quot;:[7,&quot;Estonia&quot;],&quot;FI&quot;:[8,&quot;Finland&quot;],&quot;FR&quot;:[7,&quot;France&quot;],&quot;DE&quot;:[7,&quot;Germany&quot;],&quot;GR&quot;:[8,&quot;Greece&quot;],&quot;HU&quot;:[7,&quot;Hungary&quot;],&quot;IN&quot;:[7,&quot;India&quot;],&quot;IE&quot;:[7,&quot;Ireland&quot;],&quot;IT&quot;:[6,&quot;Italy&quot;],&quot;LV&quot;:[6,&quot;Latvia&quot;],&quot;LT&quot;:[9,&quot;Lithuania&quot;],&quot;LU&quot;:[8,&quot;Luxembourg&quot;],&quot;MT&quot;:[8,&quot;Malta&quot;],&quot;NL&quot;:[7,&quot;Netherlands&quot;],&quot;PL&quot;:[7,&quot;Poland&quot;],&quot;PT&quot;:[7,&quot;Portugal&quot;],&quot;RO&quot;:[8,&quot;Romania&quot;],&quot;SK&quot;:[8,&quot;Slovakia&quot;],&quot;SI&quot;:[8,&quot;Slovenia&quot;],&quot;KR&quot;:[6,&quot;South Korea&quot;],&quot;ES&quot;:[8,&quot;Spain&quot;],&quot;SE&quot;:[7,&quot;Sweden&quot;],&quot;UA&quot;:[8,&quot;Ukraine&quot;],&quot;US&quot;:[7,&quot;United States&quot;],&quot;GB&quot;:[7,&quot;United Kingdom&quot;],&quot;JP&quot;:[7,&quot;Japan&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#6 most anticipated June 2026 release &middot; featured in 37 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + b.dataset.month + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + b.dataset.month + ' releases in ' + r[1] + '.';
+        })();
+      </script>
       <h1 class="movie-title">Little Brother</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">June 18, 2026</div></div>

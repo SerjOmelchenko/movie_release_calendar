@@ -210,7 +210,22 @@
       <div class="movie-poster-placeholder">Vamps: The Tide of Rayburn</div>
     </div>
     <div class="movie-info">
-      <div class="featured-banner" title="Anticipation rank = position by audience interest (TMDB popularity) among July 2027 releases in Australia."><span class="fb-tag">Featured</span><span class="fb-text">#3 most anticipated July 2027 release in Australia &middot; featured in 37 countries</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the 37 countries featuring it, by audience interest (TMDB popularity) among July 2027 releases. The rank varies by country." data-month="July 2027" data-count="37" data-ranks="{&quot;AU&quot;:[3,&quot;Australia&quot;],&quot;AT&quot;:[3,&quot;Austria&quot;],&quot;BE&quot;:[3,&quot;Belgium&quot;],&quot;BR&quot;:[3,&quot;Brazil&quot;],&quot;BG&quot;:[3,&quot;Bulgaria&quot;],&quot;CA&quot;:[3,&quot;Canada&quot;],&quot;CN&quot;:[3,&quot;China&quot;],&quot;HR&quot;:[3,&quot;Croatia&quot;],&quot;CY&quot;:[3,&quot;Cyprus&quot;],&quot;CZ&quot;:[3,&quot;Czech Republic&quot;],&quot;DK&quot;:[3,&quot;Denmark&quot;],&quot;EE&quot;:[3,&quot;Estonia&quot;],&quot;FI&quot;:[3,&quot;Finland&quot;],&quot;FR&quot;:[3,&quot;France&quot;],&quot;DE&quot;:[3,&quot;Germany&quot;],&quot;GR&quot;:[3,&quot;Greece&quot;],&quot;HU&quot;:[3,&quot;Hungary&quot;],&quot;IN&quot;:[3,&quot;India&quot;],&quot;IE&quot;:[3,&quot;Ireland&quot;],&quot;IT&quot;:[3,&quot;Italy&quot;],&quot;LV&quot;:[3,&quot;Latvia&quot;],&quot;LT&quot;:[3,&quot;Lithuania&quot;],&quot;LU&quot;:[3,&quot;Luxembourg&quot;],&quot;MT&quot;:[3,&quot;Malta&quot;],&quot;NL&quot;:[3,&quot;Netherlands&quot;],&quot;PL&quot;:[3,&quot;Poland&quot;],&quot;PT&quot;:[3,&quot;Portugal&quot;],&quot;RO&quot;:[3,&quot;Romania&quot;],&quot;SK&quot;:[3,&quot;Slovakia&quot;],&quot;SI&quot;:[3,&quot;Slovenia&quot;],&quot;KR&quot;:[3,&quot;South Korea&quot;],&quot;ES&quot;:[3,&quot;Spain&quot;],&quot;SE&quot;:[3,&quot;Sweden&quot;],&quot;UA&quot;:[3,&quot;Ukraine&quot;],&quot;US&quot;:[3,&quot;United States&quot;],&quot;GB&quot;:[3,&quot;United Kingdom&quot;],&quot;JP&quot;:[3,&quot;Japan&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#3 most anticipated July 2027 release &middot; featured in 37 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + b.dataset.month + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + b.dataset.month + ' releases in ' + r[1] + '.';
+        })();
+      </script>
       <h1 class="movie-title">Vamps: The Tide of Rayburn</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">July 23, 2027</div></div>

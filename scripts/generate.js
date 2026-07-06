@@ -784,11 +784,37 @@ function buildMoviePage(movie, ctx = {}) {
         const highRated = (movie.vote_average || 0) >= 7 && (movie.vote_count || 0) >= 50;
         const ri = ctx.rankInfo?.[movie.id];
         const gr = ctx.globalMonthRanks?.[movie.id];
-        let reasonText, tooltip;
-        if (ri) {
-          reasonText = `#${ri.bestRank} most anticipated ${monthLabel(ri.ym)} release in ${COUNTRY_NAMES[ri.country] || ri.country}` +
-            (ri.countryCount > 1 ? ` &middot; featured in ${ri.countryCount} countries` : '');
+        let reasonText, tooltip, dataAttrs = '', personalize = '';
+        if (ri && ri.countryCount === 1) {
+          reasonText = `#${ri.bestRank} most anticipated ${monthLabel(ri.ym)} release in ${COUNTRY_NAMES[ri.country] || ri.country}`;
           tooltip = `Anticipation rank = position by audience interest (TMDB popularity) among ${monthLabel(ri.ym)} releases in ${COUNTRY_NAMES[ri.country] || ri.country}.`;
+        } else if (ri) {
+          // Featured in several countries: keep the static text country-neutral
+          // (the best rank is per-country and naming one is arbitrary), then
+          // personalise client-side to the visitor's selected region.
+          reasonText = `#${ri.bestRank} most anticipated ${monthLabel(ri.ym)} release &middot; featured in ${ri.countryCount} countries`;
+          tooltip = `Best position across the ${ri.countryCount} countries featuring it, by audience interest (TMDB popularity) among ${monthLabel(ri.ym)} releases. The rank varies by country.`;
+          const ranksJson = {};
+          for (const [cc, rank] of Object.entries(ri.byCountry || {})) {
+            if (rank) ranksJson[cc] = [rank, COUNTRY_NAMES[cc] || cc];
+          }
+          dataAttrs = ` data-month="${escHtml(monthLabel(ri.ym))}" data-count="${ri.countryCount}" data-ranks="${escHtml(JSON.stringify(ranksJson))}"`;
+          personalize = `
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + b.dataset.month + ' release in ' + r[1] + ' \\u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + b.dataset.month + ' releases in ' + r[1] + '.';
+        })();
+      </script>`;
         } else if (gr) {
           reasonText = `#${gr.rank} most anticipated movie of ${monthLabel(gr.ym)} worldwide`;
           tooltip = `Rank = position by audience interest (TMDB popularity) among all ${monthLabel(gr.ym)} releases.`;
@@ -799,7 +825,7 @@ function buildMoviePage(movie, ctx = {}) {
           reasonText = 'Featured release';
           tooltip = 'Previously ranked among the most anticipated releases for its month.';
         }
-        return `<div class="featured-banner" title="${escHtml(tooltip)}"><span class="fb-tag">Featured</span><span class="fb-text">${reasonText}</span></div>`;
+        return `<div class="featured-banner" id="featured-banner" title="${escHtml(tooltip)}"${dataAttrs}><span class="fb-tag">Featured</span><span class="fb-text">${reasonText}</span></div>${personalize}`;
       })()}
       <h1 class="movie-title">${title}</h1>
       <div class="info-tiles">
@@ -1078,7 +1104,21 @@ function buildRankInfo(hitRanks) {
   }
   const out = {};
   for (const [id, info] of Object.entries(best)) {
-    out[id] = { ...info, countryCount: countrySets[id][info.ym].size };
+    // Per-country ranks for the best month, so pages can personalise the
+    // banner to the visitor's selected region.
+    const byCountry = {};
+    for (const country of countrySets[id][info.ym]) {
+      byCountry[country] = null;
+    }
+    out[id] = { ...info, countryCount: countrySets[id][info.ym].size, byCountry };
+  }
+  // Fill in the actual rank values
+  for (const [country, byYm] of Object.entries(hitRanks || {})) {
+    for (const [ym, ranks] of Object.entries(byYm)) {
+      for (const [id, rank] of Object.entries(ranks)) {
+        if (out[id] && out[id].ym === ym) out[id].byCountry[country] = rank;
+      }
+    }
   }
   return out;
 }

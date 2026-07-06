@@ -210,7 +210,22 @@
       <div class="movie-poster-placeholder">Rose's Baby</div>
     </div>
     <div class="movie-info">
-      <div class="featured-banner" title="Anticipation rank = position by audience interest (TMDB popularity) among April 2027 releases in Germany."><span class="fb-tag">Featured</span><span class="fb-text">#15 most anticipated April 2027 release in Germany &middot; featured in 2 countries</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the 2 countries featuring it, by audience interest (TMDB popularity) among April 2027 releases. The rank varies by country." data-month="April 2027" data-count="2" data-ranks="{&quot;DE&quot;:[15,&quot;Germany&quot;],&quot;IE&quot;:[15,&quot;Ireland&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#15 most anticipated April 2027 release &middot; featured in 2 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + b.dataset.month + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + b.dataset.month + ' releases in ' + r[1] + '.';
+        })();
+      </script>
       <h1 class="movie-title">Rose's Baby</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">April 14, 2027</div></div>

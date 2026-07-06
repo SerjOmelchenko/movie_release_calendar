@@ -210,7 +210,22 @@
       <img src="https://image.tmdb.org/t/p/w500/4tTrW9dXCByS5wt2pXVWb58zNjz.jpg" alt="Insidious: Out of the Further poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" title="Anticipation rank = position by audience interest (TMDB popularity) among August 2026 releases in Australia."><span class="fb-tag">Featured</span><span class="fb-text">#15 most anticipated August 2026 release in Australia &middot; featured in 20 countries</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the 20 countries featuring it, by audience interest (TMDB popularity) among August 2026 releases. The rank varies by country." data-month="August 2026" data-count="20" data-ranks="{&quot;AU&quot;:[15,&quot;Australia&quot;],&quot;AT&quot;:[15,&quot;Austria&quot;],&quot;BE&quot;:[15,&quot;Belgium&quot;],&quot;HR&quot;:[15,&quot;Croatia&quot;],&quot;CY&quot;:[15,&quot;Cyprus&quot;],&quot;EE&quot;:[15,&quot;Estonia&quot;],&quot;FI&quot;:[15,&quot;Finland&quot;],&quot;GR&quot;:[15,&quot;Greece&quot;],&quot;HU&quot;:[15,&quot;Hungary&quot;],&quot;IN&quot;:[15,&quot;India&quot;],&quot;LT&quot;:[15,&quot;Lithuania&quot;],&quot;LU&quot;:[15,&quot;Luxembourg&quot;],&quot;MT&quot;:[15,&quot;Malta&quot;],&quot;NL&quot;:[15,&quot;Netherlands&quot;],&quot;PL&quot;:[15,&quot;Poland&quot;],&quot;PT&quot;:[15,&quot;Portugal&quot;],&quot;RO&quot;:[15,&quot;Romania&quot;],&quot;SK&quot;:[15,&quot;Slovakia&quot;],&quot;SI&quot;:[15,&quot;Slovenia&quot;],&quot;SE&quot;:[15,&quot;Sweden&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#15 most anticipated August 2026 release &middot; featured in 20 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + b.dataset.month + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + b.dataset.month + ' releases in ' + r[1] + '.';
+        })();
+      </script>
       <h1 class="movie-title">Insidious: Out of the Further</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">August 19, 2026</div></div>

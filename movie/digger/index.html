@@ -210,7 +210,22 @@
       <img src="https://image.tmdb.org/t/p/w500/1ATXKrIPJyKNwnJ6lcG088Sa6zi.jpg" alt="Digger poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" title="Anticipation rank = position by audience interest (TMDB popularity) among October 2026 releases in Australia."><span class="fb-tag">Featured</span><span class="fb-text">#1 most anticipated October 2026 release in Australia &middot; featured in 12 countries</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the 12 countries featuring it, by audience interest (TMDB popularity) among October 2026 releases. The rank varies by country." data-month="October 2026" data-count="12" data-ranks="{&quot;AU&quot;:[1,&quot;Australia&quot;],&quot;BR&quot;:[2,&quot;Brazil&quot;],&quot;CZ&quot;:[1,&quot;Czech Republic&quot;],&quot;DE&quot;:[1,&quot;Germany&quot;],&quot;HU&quot;:[1,&quot;Hungary&quot;],&quot;IN&quot;:[1,&quot;India&quot;],&quot;IT&quot;:[1,&quot;Italy&quot;],&quot;ES&quot;:[1,&quot;Spain&quot;],&quot;SE&quot;:[1,&quot;Sweden&quot;],&quot;UA&quot;:[1,&quot;Ukraine&quot;],&quot;US&quot;:[1,&quot;United States&quot;],&quot;GB&quot;:[2,&quot;United Kingdom&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#1 most anticipated October 2026 release &middot; featured in 12 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + b.dataset.month + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + b.dataset.month + ' releases in ' + r[1] + '.';
+        })();
+      </script>
       <h1 class="movie-title">Digger</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">September 30, 2026</div></div>

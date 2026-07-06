@@ -210,7 +210,22 @@
       <div class="movie-poster-placeholder">Alexander I</div>
     </div>
     <div class="movie-info">
-      <div class="featured-banner" title="Anticipation rank = position by audience interest (TMDB popularity) among November 2026 releases in Japan."><span class="fb-tag">Featured</span><span class="fb-text">#12 most anticipated November 2026 release in Japan &middot; featured in 35 countries</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the 35 countries featuring it, by audience interest (TMDB popularity) among November 2026 releases. The rank varies by country." data-month="November 2026" data-count="35" data-ranks="{&quot;AU&quot;:[14,&quot;Australia&quot;],&quot;AT&quot;:[13,&quot;Austria&quot;],&quot;BE&quot;:[14,&quot;Belgium&quot;],&quot;BG&quot;:[13,&quot;Bulgaria&quot;],&quot;CA&quot;:[14,&quot;Canada&quot;],&quot;CN&quot;:[13,&quot;China&quot;],&quot;HR&quot;:[13,&quot;Croatia&quot;],&quot;CY&quot;:[13,&quot;Cyprus&quot;],&quot;CZ&quot;:[13,&quot;Czech Republic&quot;],&quot;DK&quot;:[13,&quot;Denmark&quot;],&quot;EE&quot;:[13,&quot;Estonia&quot;],&quot;FI&quot;:[14,&quot;Finland&quot;],&quot;FR&quot;:[14,&quot;France&quot;],&quot;DE&quot;:[14,&quot;Germany&quot;],&quot;GR&quot;:[13,&quot;Greece&quot;],&quot;HU&quot;:[13,&quot;Hungary&quot;],&quot;IN&quot;:[13,&quot;India&quot;],&quot;IE&quot;:[13,&quot;Ireland&quot;],&quot;IT&quot;:[14,&quot;Italy&quot;],&quot;LV&quot;:[13,&quot;Latvia&quot;],&quot;LT&quot;:[13,&quot;Lithuania&quot;],&quot;LU&quot;:[13,&quot;Luxembourg&quot;],&quot;MT&quot;:[13,&quot;Malta&quot;],&quot;NL&quot;:[13,&quot;Netherlands&quot;],&quot;PL&quot;:[14,&quot;Poland&quot;],&quot;PT&quot;:[13,&quot;Portugal&quot;],&quot;RO&quot;:[13,&quot;Romania&quot;],&quot;SK&quot;:[13,&quot;Slovakia&quot;],&quot;SI&quot;:[13,&quot;Slovenia&quot;],&quot;KR&quot;:[13,&quot;South Korea&quot;],&quot;SE&quot;:[13,&quot;Sweden&quot;],&quot;UA&quot;:[13,&quot;Ukraine&quot;],&quot;US&quot;:[15,&quot;United States&quot;],&quot;GB&quot;:[13,&quot;United Kingdom&quot;],&quot;JP&quot;:[12,&quot;Japan&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#12 most anticipated November 2026 release &middot; featured in 35 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + b.dataset.month + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + b.dataset.month + ' releases in ' + r[1] + '.';
+        })();
+      </script>
       <h1 class="movie-title">Alexander I</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">November 26, 2026</div></div>
