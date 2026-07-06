@@ -14,6 +14,10 @@ const CALENDAR_DIR  = path.join(DATA_DIR, 'calendar');
 const TOP_MOVIES_DIR = path.join(__dirname, '..', 'top-movies');
 const HITS_PATH      = path.join(DATA_DIR, 'hits.json');
 const PUBLIC_MANIFEST_PATH = path.join(DATA_DIR, 'manifest-public.json');
+const DATE_HISTORY_PATH    = path.join(DATA_DIR, 'date-history.json');
+const CALENDAR_PAGES_DIR   = path.join(__dirname, '..', 'calendar');
+const RELEASES_DIR         = path.join(__dirname, '..', 'releases');
+const INDEX_HTML_PATH      = path.join(__dirname, '..', 'index.html');
 
 // First month tracked by the Top Movies series. The site keeps full history
 // from this date forward — calendar data, hit pages, and top-movies landing
@@ -139,11 +143,27 @@ async function fetchMoviesForRegion(region, fromDate, toDate) {
 }
 
 async function fetchMovieDetails(id) {
-  const [details, credits, videos] = await Promise.all([
+  const [details, credits, videos, releaseDates] = await Promise.all([
     fetchJSON(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`),
     fetchJSON(`${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}&language=en-US`),
     fetchJSON(`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}&language=en-US`),
+    fetchJSON(`${BASE_URL}/movie/${id}/release_dates?api_key=${API_KEY}`).catch(() => ({ results: [] })),
   ]);
+
+  // Earliest digital (streaming/VOD) release across all countries — TMDB
+  // release type 4. Heavily searched ("when is X streaming") and not shown
+  // by the discover endpoint the calendar dates come from.
+  let digitalReleaseDate = null, digitalReleaseCountry = null;
+  for (const entry of (releaseDates.results || [])) {
+    for (const rd of (entry.release_dates || [])) {
+      if (rd.type !== 4 || !rd.release_date) continue;
+      const day = rd.release_date.slice(0, 10);
+      if (!digitalReleaseDate || day < digitalReleaseDate) {
+        digitalReleaseDate    = day;
+        digitalReleaseCountry = entry.iso_3166_1 || null;
+      }
+    }
+  }
 
   const trailerVideo = (videos.results || []).find(
     v => v.site === 'YouTube' && v.type === 'Trailer' && v.official
@@ -182,6 +202,8 @@ async function fetchMovieDetails(id) {
     trailerKey,
     trailerName,
     trailerPublishedAt,
+    digitalReleaseDate,
+    digitalReleaseCountry,
   };
 }
 
@@ -270,6 +292,98 @@ const COUNTRY_NAMES = {
   GB:'United Kingdom', US:'United States', VN:'Vietnam',
 };
 
+function countrySlug(cc) {
+  return slugify(COUNTRY_NAMES[cc] || cc);
+}
+
+function fmtLong(dateStr) {
+  return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function fmtShort(dateStr) {
+  return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+// Human list: ["A","B","C"] → "A, B and C"; long lists get "and N more countries".
+function nameList(arr) {
+  if (arr.length <= 3) return arr.join(', ').replace(/, ([^,]*)$/, ' and $1');
+  return `${arr.slice(0, 3).join(', ')} and ${arr.length - 3} more countries`;
+}
+
+// Unique per-movie prose derived from the per-country release matrix — the
+// dataset no other site surfaces for these titles.
+function buildReleaseNarrative(movie, historyEntries) {
+  const entries = Object.entries(movie.countryReleases || {})
+    .filter(([cc]) => COUNTRY_NAMES[cc])
+    .sort(([, a], [, b]) => a.localeCompare(b));
+  const today = new Date().toISOString().slice(0, 10);
+  const sentences = [];
+
+  if (entries.length >= 2) {
+    const first = entries[0][1];
+    const last  = entries[entries.length - 1][1];
+    const firstCountries = entries.filter(([, d]) => d === first).map(([cc]) => COUNTRY_NAMES[cc]);
+    const lastCountries  = entries.filter(([, d]) => d === last).map(([cc]) => COUNTRY_NAMES[cc]);
+    if (first === last) {
+      sentences.push(`${movie.title} ${first < today ? 'opened' : 'opens'} simultaneously in ${entries.length} countries on ${fmtLong(first)}.`);
+    } else {
+      sentences.push(`${movie.title} ${first < today ? 'opened' : 'opens'} first in ${nameList(firstCountries)} on ${fmtLong(first)}.`);
+      sentences.push(`The rollout ${last < today ? 'continued' : 'continues'} across ${entries.length} countries, finishing in ${nameList(lastCountries)} on ${fmtLong(last)}.`);
+      const us = (movie.countryReleases || {}).US;
+      if (us && us !== first) sentences.push(`In the United States, it ${us < today ? 'arrived' : 'arrives'} in theaters on ${fmtLong(us)}.`);
+    }
+  }
+  if (movie.digitalReleaseDate) {
+    sentences.push(`A digital release ${movie.digitalReleaseDate < today ? 'followed on' : 'is scheduled for'} ${fmtLong(movie.digitalReleaseDate)}.`);
+  }
+  const primaryChanges = (historyEntries || []).filter(h => h.scope === 'primary');
+  if (primaryChanges.length) {
+    const lastCh = primaryChanges[primaryChanges.length - 1];
+    sentences.push(`The release date has changed ${primaryChanges.length === 1 ? 'once' : `${primaryChanges.length} times`} — most recently from ${fmtLong(lastCh.from)} to ${fmtLong(lastCh.to)}.`);
+  }
+  return sentences.map(escHtml).join(' ');
+}
+
+// FAQ entries answering the exact long-tail phrasings searchers use.
+const FAQ_COUNTRY_PRIORITY = ['US', 'GB', 'IN', 'DE', 'AU', 'CA'];
+
+function buildFaqData(movie) {
+  const today = new Date().toISOString().slice(0, 10);
+  const name  = movie.title;
+  const faqs  = [];
+  if (movie.release_date) {
+    faqs.push({
+      q: `When does ${name} come out?`,
+      a: `${name} ${movie.release_date < today ? 'was released' : 'is scheduled for release'} on ${fmtLong(movie.release_date)}.`,
+    });
+  }
+  let added = 0;
+  for (const cc of FAQ_COUNTRY_PRIORITY) {
+    const d = (movie.countryReleases || {})[cc];
+    if (!d) continue;
+    if (added >= 4) break;
+    faqs.push({
+      q: `When does ${name} come out in ${COUNTRY_NAMES[cc]}?`,
+      a: `${name} ${d < today ? 'was released' : 'releases'} in ${COUNTRY_NAMES[cc]} on ${fmtLong(d)}.`,
+    });
+    added++;
+  }
+  if (movie.digitalReleaseDate) {
+    faqs.push({
+      q: `When will ${name} be available on streaming or digital?`,
+      a: `${name} ${movie.digitalReleaseDate < today ? 'became' : 'is expected to become'} available on digital platforms on ${fmtLong(movie.digitalReleaseDate)}.`,
+    });
+  }
+  if (movie.directors?.length) {
+    faqs.push({ q: `Who directed ${name}?`, a: `${name} was directed by ${movie.directors.join(', ')}.` });
+  }
+  if (movie.runtime) {
+    const h = Math.floor(movie.runtime / 60), min = movie.runtime % 60;
+    faqs.push({ q: `How long is ${name}?`, a: `${name} has a runtime of ${h > 0 ? `${h}h ${min}m` : `${min} minutes`}.` });
+  }
+  return faqs;
+}
+
 function escHtml(str) {
   return String(str ?? '')
     .replace(/&/g, '&amp;')
@@ -285,6 +399,7 @@ function movieFingerprint(m) {
     m.title, m.overview, m.release_date, m.poster_path, m.backdrop_path,
     m.vote_average, m.vote_count, m.runtime, m.trailerKey,
     JSON.stringify(m.genres), JSON.stringify(m.directors), JSON.stringify(m.cast),
+    JSON.stringify(m.countryReleases || {}), m.digitalReleaseDate || '',
   ].join('\0');
 }
 
@@ -317,15 +432,27 @@ function buildSchema(movie, canonicalUrl) {
     };
   }
 
-  const breadcrumbSchema = {
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_BASE}/` },
-      { '@type': 'ListItem', position: 2, name: `${movie.title}${year ? ` (${year})` : ''}`, item: canonicalUrl },
-    ],
-  };
+  const ym = (movie.release_date || '').slice(0, 7);
+  const crumbs = [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_BASE}/` }];
+  if (ym) {
+    crumbs.push({ '@type': 'ListItem', position: 2, name: `${monthLabel(ym)} Movies`, item: `${SITE_BASE}/calendar/${ym}/` });
+  }
+  crumbs.push({ '@type': 'ListItem', position: crumbs.length + 1, name: `${movie.title}${year ? ` (${year})` : ''}`, item: canonicalUrl });
+  const breadcrumbSchema = { '@type': 'BreadcrumbList', itemListElement: crumbs };
 
   const graph = [movieSchema, breadcrumbSchema];
+
+  const faqs = buildFaqData(movie);
+  if (faqs.length) {
+    graph.push({
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(f => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    });
+  }
 
   if (movie.trailerKey) {
     const videoSchema = {
@@ -345,8 +472,9 @@ function buildSchema(movie, canonicalUrl) {
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
 }
 
-function buildMoviePage(movie) {
+function buildMoviePage(movie, ctx = {}) {
   const year        = (movie.release_date || '').slice(0, 4);
+  const ym          = (movie.release_date || '').slice(0, 7);
   const title       = escHtml(movie.title);
   const overview    = escHtml(movie.overview || 'No synopsis available.');
   const backdrop    = movie.backdrop_path ? `${IMG_BASE}w1280${movie.backdrop_path}` : '';
@@ -383,10 +511,53 @@ function buildMoviePage(movie) {
   }
 
   const releasesHtml = countryEntries.map(([code, date]) => {
-    const name      = escHtml(code === 'WW' ? 'Worldwide' : (COUNTRY_NAMES[code] || code));
-    const formatted = new Date(date + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
-    return `<div class="release-item"><span class="release-country">${name}</span><span class="release-date">${formatted}</span></div>`;
+    const rawName   = code === 'WW' ? 'Worldwide' : (COUNTRY_NAMES[code] || code);
+    const formatted = fmtShort(date);
+    // Supported countries link to their release-calendar hub page
+    const nameHtml = SUPPORTED_COUNTRIES.includes(code)
+      ? `<a class="release-country" href="/releases/${countrySlug(code)}/">${escHtml(rawName)}</a>`
+      : `<span class="release-country">${escHtml(rawName)}</span>`;
+    return `<div class="release-item">${nameHtml}<span class="release-date">${formatted}</span></div>`;
   }).join('');
+
+  const historyEntries = (ctx.dateHistory || {})[String(movie.id)] || [];
+  const narrative      = buildReleaseNarrative(movie, historyEntries);
+  const faqs           = buildFaqData(movie);
+
+  const faqHtml = faqs.length ? `
+  <section class="releases-section">
+    <div class="section-heading">Frequently Asked Questions</div>
+    ${faqs.map(f => `<div class="faq-item"><h3 class="faq-q">${escHtml(f.q)}</h3><p class="faq-a">${escHtml(f.a)}</p></div>`).join('\n    ')}
+  </section>` : '';
+
+  const shownHistory = historyEntries.slice(-8).reverse();
+  const historyHtml = shownHistory.length ? `
+  <section class="releases-section">
+    <div class="section-heading">Release Date History</div>
+    <div class="history-list">
+    ${shownHistory.map(h => {
+      const scopeName = h.scope === 'primary' ? 'Worldwide release' : `${escHtml(COUNTRY_NAMES[h.scope] || h.scope)} release`;
+      return `<div class="history-item"><span class="history-when">${fmtShort(h.on)}</span><span>${scopeName} moved from <s>${fmtShort(h.from)}</s> to <strong>${fmtShort(h.to)}</strong></span></div>`;
+    }).join('\n    ')}
+    </div>
+  </section>` : '';
+
+  const related = ctx.related || [];
+  const relatedHtml = related.length ? `
+  <section class="releases-section">
+    <div class="section-heading">More ${ym ? escHtml(monthLabel(ym)) : ''} Releases</div>
+    <div class="related-grid">
+    ${related.map(r => {
+      const rPoster = r.poster_path ? `${IMG_BASE}w185${r.poster_path}` : '';
+      return `<a class="related-card" href="/movie/${r.slug}/">
+        ${rPoster ? `<img src="${rPoster}" alt="${escHtml(r.title)} poster" loading="lazy" width="92" height="138" />` : `<div class="related-noposter"><span>${escHtml(r.title)}</span></div>`}
+        <span class="related-title">${escHtml(r.title)}</span>
+        ${r.release_date ? `<span class="related-date">${fmtShort(r.release_date)}</span>` : ''}
+      </a>`;
+    }).join('\n    ')}
+    </div>
+    ${ym ? `<p class="hub-cross-link"><a href="/calendar/${ym}/">See every movie coming out in ${escHtml(monthLabel(ym))} &#8594;</a></p>` : ''}
+  </section>` : '';
 
   const metaDesc  = escHtml(
     `${movie.title} releases ${releaseDate}. See the release date in your country, cast, synopsis, trailers and more on Movie Release Radar!`
@@ -510,7 +681,31 @@ function buildMoviePage(movie) {
     .releases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.65rem; }
     .release-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 13px; padding: 0.85rem 1rem; display: flex; flex-direction: column; gap: 0.25rem; }
     .release-country { color: #e0e0e0; font-weight: 600; font-size: 0.85rem; }
+    a.release-country { text-decoration: none; }
+    a.release-country:hover { color: #e94560; text-decoration: underline; }
     .release-date { color: #666; font-size: 0.78rem; font-weight: 500; }
+
+    .rollout-text { font-size: 0.95rem; color: #bbb; line-height: 1.75; }
+    .history-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .history-item { display: flex; gap: 0.9rem; align-items: baseline; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 0.65rem 0.9rem; font-size: 0.85rem; color: #bbb; }
+    .history-item s { color: #777; }
+    .history-item strong { color: #f0f0f0; }
+    .history-when { flex-shrink: 0; font-size: 0.72rem; color: #555; font-weight: 600; }
+    .faq-item { padding: 0.9rem 0; border-bottom: 1px solid #1a1a1a; }
+    .faq-item:last-child { border-bottom: 0; }
+    .faq-q { font-size: 0.95rem; font-weight: 700; color: #eee; margin-bottom: 0.35rem; }
+    .faq-a { font-size: 0.9rem; color: #999; line-height: 1.65; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 0.85rem; }
+    .related-card { display: flex; flex-direction: column; gap: 0.35rem; text-decoration: none; }
+    .related-card img { width: 100%; border-radius: 10px; display: block; aspect-ratio: 2/3; object-fit: cover; }
+    .related-noposter { width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 0.4rem; }
+    .related-noposter span { font-size: 0.65rem; color: #555; text-align: center; line-height: 1.3; }
+    .related-title { font-size: 0.75rem; font-weight: 600; color: #ccc; line-height: 1.3; }
+    .related-card:hover .related-title { color: #e94560; }
+    .related-date { font-size: 0.68rem; color: #555; }
+    .hub-cross-link { margin-top: 1.1rem; font-size: 0.85rem; }
+    .hub-cross-link a { color: #e94560; text-decoration: none; }
+    .hub-cross-link a:hover { text-decoration: underline; }
 
     footer { border-top: 1px solid #1e1e1e; margin-top: 3rem; padding: 1.4rem 2rem; }
     .footer-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
@@ -587,14 +782,29 @@ function buildMoviePage(movie) {
     <div class="movie-info">
       ${(() => {
         const highRated = (movie.vote_average || 0) >= 7 && (movie.vote_count || 0) >= 50;
-        const reasonText = highRated
-          ? `★ ${movie.vote_average.toFixed(1)}/10 from ${movie.vote_count.toLocaleString()} viewers`
-          : `Most anticipated this month`;
-        return `<div class="featured-banner"><span class="fb-tag">Featured</span><span class="fb-text">${reasonText}</span></div>`;
+        const ri = ctx.rankInfo?.[movie.id];
+        const gr = ctx.globalMonthRanks?.[movie.id];
+        let reasonText, tooltip;
+        if (ri) {
+          reasonText = `#${ri.bestRank} most anticipated ${monthLabel(ri.ym)} release in ${COUNTRY_NAMES[ri.country] || ri.country}` +
+            (ri.countryCount > 1 ? ` &middot; featured in ${ri.countryCount} countries` : '');
+          tooltip = `Anticipation rank = position by audience interest (TMDB popularity) among ${monthLabel(ri.ym)} releases in ${COUNTRY_NAMES[ri.country] || ri.country}.`;
+        } else if (gr) {
+          reasonText = `#${gr.rank} most anticipated movie of ${monthLabel(gr.ym)} worldwide`;
+          tooltip = `Rank = position by audience interest (TMDB popularity) among all ${monthLabel(gr.ym)} releases.`;
+        } else if (highRated) {
+          reasonText = `Rated ${movie.vote_average.toFixed(1)}/10 by ${movie.vote_count.toLocaleString()} viewers`;
+          tooltip = 'Featured for its audience rating on TMDB (7.0+ from 50+ voters).';
+        } else {
+          reasonText = 'Featured release';
+          tooltip = 'Previously ranked among the most anticipated releases for its month.';
+        }
+        return `<div class="featured-banner" title="${escHtml(tooltip)}"><span class="fb-tag">Featured</span><span class="fb-text">${reasonText}</span></div>`;
       })()}
       <h1 class="movie-title">${title}</h1>
       <div class="info-tiles">
         ${movie.release_date ? `<div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">${releaseDate}</div></div>` : ''}
+        ${movie.digitalReleaseDate ? `<div class="tile"><div class="tile-label">Digital Release</div><div class="tile-value">${fmtLong(movie.digitalReleaseDate)}</div></div>` : ''}
         ${movie.vote_count > 0 && movie.vote_average >= 1 ? `<div class="tile tile-rating"><div class="tile-label">Score</div><div class="tile-value">${movie.vote_average.toFixed(1)} <span class="tile-sub">/ 10</span></div></div>` : ''}
         ${runtime ? `<div class="tile"><div class="tile-label">Length</div><div class="tile-value">${runtime}</div></div>` : ''}
         ${movie.original_language ? `<div class="tile"><div class="tile-label">Language</div><div class="tile-value">${escHtml(movie.original_language.toUpperCase())}</div></div>` : ''}
@@ -725,11 +935,23 @@ function buildMoviePage(movie) {
     </div>
   </section>` : ''}
 
+  ${narrative ? `
+  <section class="releases-section">
+    <div class="section-heading">Release Rollout</div>
+    <p class="rollout-text">${narrative}</p>
+  </section>` : ''}
+
   ${releasesHtml ? `
   <section class="releases-section">
     <div class="section-heading">Release Dates by Country</div>
     <div class="releases-grid">${releasesHtml}</div>
   </section>` : ''}
+
+  ${historyHtml}
+
+  ${faqHtml}
+
+  ${relatedHtml}
 </main>
 
 <footer>
@@ -753,36 +975,51 @@ function buildMoviePage(movie) {
 //      (union of per-country lists; WW is excluded — it is a fallback bucket only)
 //   B) it has vote_average >= HIT_RATING_MIN AND vote_count >= HIT_VOTE_COUNT_MIN
 //      (retroactive: catches already-released films that turn out to be well-received)
+// Content floor: popularity alone can promote garbage rows in thin months
+// (a country with fewer than 15 releases makes everything "top 15"), so a
+// movie must also have enough real data to justify a standalone page.
+function isPageWorthy(d) {
+  if (!d) return false;
+  if (!/\p{L}/u.test(d.title || '')) return false;              // title contains letters
+  if ((d.overview || '').trim().length < 100) return false;      // real synopsis
+  return !!(d.poster_path || d.trailerKey ||
+            (d.cast || []).length || (d.directors || []).length);
+}
+
 function computeHits(calendarData, detailsMap) {
   const hitsByCountry = {};   // hitsByCountry[country][ym] = Set<id>
+  const hitRanks      = {};   // hitRanks[country][ym] = { id → 1-based anticipation rank }
   const globalHitIds  = new Set();
 
   for (const [ym, byCountry] of Object.entries(calendarData)) {
     for (const [country, rawMovies] of Object.entries(byCountry)) {
       if (country === 'WW') continue;
       const ranked = rawMovies
-        .filter(m => detailsMap[m.id])
+        .filter(m => detailsMap[m.id] && isPageWorthy(detailsMap[m.id]))
         .sort((a, b) => (detailsMap[b.id].popularity || 0) - (detailsMap[a.id].popularity || 0))
         .slice(0, HIT_TOP_N_PER_COUNTRY);
       if (!hitsByCountry[country]) hitsByCountry[country] = {};
+      if (!hitRanks[country])      hitRanks[country]      = {};
       hitsByCountry[country][ym] = new Set(ranked.map(m => m.id));
+      hitRanks[country][ym]      = {};
+      ranked.forEach((m, i) => { hitRanks[country][ym][m.id] = i + 1; });
       for (const m of ranked) globalHitIds.add(m.id);
     }
   }
   for (const d of Object.values(detailsMap)) {
-    if ((d.vote_average || 0) >= HIT_RATING_MIN && (d.vote_count || 0) >= HIT_VOTE_COUNT_MIN) {
+    if ((d.vote_average || 0) >= HIT_RATING_MIN && (d.vote_count || 0) >= HIT_VOTE_COUNT_MIN && isPageWorthy(d)) {
       globalHitIds.add(d.id);
     }
   }
   console.log(`Hits: ${globalHitIds.size} unique movies promoted (out of ${Object.keys(detailsMap).length})`);
-  return { hitsByCountry, globalHitIds };
+  return { hitsByCountry, hitRanks, globalHitIds };
 }
 
 // Merge persisted hit data from previous runs into the in-memory sets so
 // historical hits (computed when their month was still in the fetch window)
 // stay marked as hits forever. Mutates the inputs in place.
-function accumulateHits(hitsByCountry, globalHitIds) {
-  const existing = loadJSON(HITS_PATH, { globalHitIds: [], hitsByCountry: {} });
+function accumulateHits(hitsByCountry, globalHitIds, hitRanks) {
+  const existing = loadJSON(HITS_PATH, { globalHitIds: [], hitsByCountry: {}, hitRanks: {} });
   let addedGlobal = 0;
   for (const id of existing.globalHitIds || []) {
     if (!globalHitIds.has(id)) { globalHitIds.add(id); addedGlobal++; }
@@ -794,11 +1031,19 @@ function accumulateHits(hitsByCountry, globalHitIds) {
       for (const id of ids) hitsByCountry[country][ym].add(id);
     }
   }
+  // Keep ranks for historical months that were not recomputed this run;
+  // freshly computed months always win.
+  for (const [country, byYm] of Object.entries(existing.hitRanks || {})) {
+    if (!hitRanks[country]) hitRanks[country] = {};
+    for (const [ym, ranks] of Object.entries(byYm)) {
+      if (!hitRanks[country][ym]) hitRanks[country][ym] = ranks;
+    }
+  }
   if (addedGlobal > 0) console.log(`Accumulated hits: kept ${addedGlobal} historical hits (total: ${globalHitIds.size})`);
 }
 
 // Serialise hit data for REGEN_ONLY re-runs and historical accumulation.
-function persistHits(hitsByCountry, globalHitIds) {
+function persistHits(hitsByCountry, globalHitIds, hitRanks) {
   const flat = {};
   for (const [country, byYm] of Object.entries(hitsByCountry)) {
     flat[country] = {};
@@ -809,12 +1054,56 @@ function persistHits(hitsByCountry, globalHitIds) {
   fs.writeFileSync(HITS_PATH, JSON.stringify({
     globalHitIds: [...globalHitIds],
     hitsByCountry: flat,
+    hitRanks,
   }));
+}
+
+// Condense hitRanks into per-movie "best placement" info for page templates:
+// id → { bestRank, country, ym, countryCount } where countryCount is how many
+// countries feature the movie for its best month.
+function buildRankInfo(hitRanks) {
+  const best = {};      // id → { bestRank, country, ym }
+  const countrySets = {}; // id → { ym → Set<country> }
+  for (const [country, byYm] of Object.entries(hitRanks || {})) {
+    for (const [ym, ranks] of Object.entries(byYm)) {
+      for (const [id, rank] of Object.entries(ranks)) {
+        if (!countrySets[id]) countrySets[id] = {};
+        if (!countrySets[id][ym]) countrySets[id][ym] = new Set();
+        countrySets[id][ym].add(country);
+        if (!best[id] || rank < best[id].bestRank) {
+          best[id] = { bestRank: rank, country, ym };
+        }
+      }
+    }
+  }
+  const out = {};
+  for (const [id, info] of Object.entries(best)) {
+    out[id] = { ...info, countryCount: countrySets[id][info.ym].size };
+  }
+  return out;
+}
+
+// Global top-10-per-month ranks (mirrors the /top-movies/ lists) as a fallback
+// for movies promoted via the top-movies safety net: id → { rank, ym }.
+function buildGlobalMonthRanks(detailedMovies) {
+  const byYm = {};
+  for (const m of detailedMovies) {
+    if (!m.release_date || !m.slug) continue;
+    const ym = m.release_date.slice(0, 7);
+    (byYm[ym] = byYm[ym] || []).push(m);
+  }
+  const out = {};
+  for (const [ym, list] of Object.entries(byYm)) {
+    list.sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+      .slice(0, 10)
+      .forEach((m, i) => { out[m.id] = { rank: i + 1, ym }; });
+  }
+  return out;
 }
 
 // ── Page generation ───────────────────────────────────────────────────────────
 
-function generatePages(movies, manifest, globalHitIds) {
+function generatePages(movies, manifest, globalHitIds, pageCtx = {}) {
   fs.mkdirSync(MOVIE_DIR, { recursive: true });
 
   // Only HIT slugs count as "active" — every other slug must NOT exist on
@@ -822,6 +1111,34 @@ function generatePages(movies, manifest, globalHitIds) {
   const activeSlugs = new Set(
     movies.filter(m => globalHitIds.has(m.id)).map(m => m.slug)
   );
+
+  // Index hit movies by primary release month for the related-movies block.
+  const hitsByYm = {};
+  for (const m of movies) {
+    if (!globalHitIds.has(m.id) || !m.slug) continue;
+    const mym = (m.release_date || '').slice(0, 7);
+    if (!mym) continue;
+    (hitsByYm[mym] = hitsByYm[mym] || []).push(m);
+  }
+  for (const list of Object.values(hitsByYm)) {
+    list.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+  }
+
+  function relatedFor(movie) {
+    const mym = (movie.release_date || '').slice(0, 7);
+    if (!mym) return [];
+    const pool = [...(hitsByYm[mym] || [])];
+    if (pool.length < 9) {
+      pool.push(...(hitsByYm[addMonths(mym, 1)] || []), ...(hitsByYm[addMonths(mym, -1)] || []));
+    }
+    const gset = new Set(movie.genre_ids || []);
+    return pool
+      .filter(r => r.id !== movie.id)
+      .map(r => ({ r, overlap: (r.genre_ids || []).filter(g => gset.has(g)).length }))
+      .sort((a, b) => b.overlap - a.overlap || (b.r.popularity || 0) - (a.r.popularity || 0))
+      .slice(0, 8)
+      .map(x => x.r);
+  }
 
   // (1) Write a full page for every hit; delete any pre-existing page for
   // a demoted movie so its URL 404s. We deliberately do not generate
@@ -831,7 +1148,7 @@ function generatePages(movies, manifest, globalHitIds) {
     const dir = path.join(MOVIE_DIR, movie.slug);
     if (globalHitIds.has(movie.id)) {
       fs.mkdirSync(dir, { recursive: true });
-      fs.writeFileSync(path.join(dir, 'index.html'), buildMoviePage(movie));
+      fs.writeFileSync(path.join(dir, 'index.html'), buildMoviePage(movie, { ...pageCtx, related: relatedFor(movie) }));
       hits++;
     } else if (fs.existsSync(dir)) {
       fs.rmSync(dir, { recursive: true, force: true });
@@ -1128,7 +1445,7 @@ ${TOP_PAGE_HEADER}
   <a href="/top-movies/" class="back-link">&#8592; Top Movies by Month</a>
   <div class="page-header">
     <h1>${escHtml(pageTitle)}</h1>
-    <p class="subtitle">Ranked by TMDB popularity &middot; <a href="/?m=${ym}">View full ${label} calendar</a></p>
+    <p class="subtitle">Ranked by TMDB popularity &middot; <a href="/calendar/${ym}/">All ${label} releases</a> &middot; <a href="/?m=${ym}">Interactive calendar</a></p>
   </div>
   <div class="top-list">
     ${moviesHtml}
@@ -1300,9 +1617,517 @@ function generateTopMoviesPages(detailedMovies, globalHitIds = null) {
   return allMonths;
 }
 
+// ── Month hub pages (/calendar/YYYY-MM/) ─────────────────────────────────────
+
+function hubHead(pageTitle, metaDesc, canonicalUrl, ogImage, schema) {
+  return `<script>${GTM_CONSENT_JS}</script>
+  ${GTM_TAG}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${escHtml(pageTitle)} | Movie Release Radar</title>
+  <meta name="description" content="${metaDesc}" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="${canonicalUrl}" />
+  <link rel="icon" href="/favicon.ico" sizes="96x96" />
+  <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="${canonicalUrl}" />
+  <meta property="og:title"       content="${escHtml(pageTitle)}" />
+  <meta property="og:description" content="${metaDesc}" />
+  ${ogImage ? `<meta property="og:image" content="${escHtml(ogImage)}" />` : ''}
+  <script type="application/ld+json">${schema}</script>`;
+}
+
+const HUB_CSS = `
+    .hub-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
+    .page-header { margin-bottom: 2rem; }
+    .page-header h1 { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; }
+    .page-header .intro { margin-top: 0.75rem; font-size: 0.92rem; color: #999; line-height: 1.7; max-width: 720px; }
+    .page-header .intro a { color: #e94560; text-decoration: none; }
+    .page-header .intro a:hover { text-decoration: underline; }
+    .hub-nav { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.25rem 0; font-size: 0.85rem; }
+    .hub-nav a { color: #e94560; text-decoration: none; }
+    .hub-nav a:hover { text-decoration: underline; }
+    .section-heading { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #555; margin: 2rem 0 0.9rem; padding-bottom: 0.5rem; border-bottom: 1px solid #1e1e1e; }
+    .featured-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: 0.9rem; }
+    .fg-card { display: flex; flex-direction: column; gap: 0.35rem; text-decoration: none; position: relative; }
+    .fg-card img { width: 100%; border-radius: 10px; display: block; aspect-ratio: 2/3; object-fit: cover; }
+    .fg-noposter { width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 0.4rem; }
+    .fg-noposter span { font-size: 0.68rem; color: #555; text-align: center; line-height: 1.3; }
+    .fg-title { font-size: 0.76rem; font-weight: 600; color: #ccc; line-height: 1.3; }
+    .fg-card:hover .fg-title { color: #e94560; }
+    .fg-date { font-size: 0.68rem; color: #555; }
+    .day-group { margin-bottom: 1.4rem; }
+    .day-group h3 { font-size: 0.95rem; font-weight: 700; color: #ddd; margin-bottom: 0.55rem; }
+    .day-group ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+    .day-group li { font-size: 0.88rem; color: #999; }
+    .day-group li a { color: #e0e0e0; text-decoration: none; font-weight: 600; }
+    .day-group li a:hover { color: #e94560; }
+    .day-group .genre-note { color: #555; font-size: 0.78rem; }
+    .updated-note { margin-top: 2.5rem; font-size: 0.78rem; color: #444; text-align: center; }
+    .updated-note a { color: #e94560; }
+    @media (max-width: 600px) {
+      .hub-page { padding: 1rem; }
+      .page-header h1 { font-size: 1.45rem; }
+    }`;
+
+function buildMonthHubPage(ym, monthMovies, globalHitIds, hubMonthsSet, topMonthsSet) {
+  const label        = monthLabel(ym);
+  const canonicalUrl = `${SITE_BASE}/calendar/${ym}/`;
+  const today        = new Date().toISOString().slice(0, 10);
+  const pageTitle    = `Movies Coming Out in ${label}`;
+
+  const hits = monthMovies.filter(m => globalHitIds.has(m.id) && m.slug)
+    .sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+  const top3 = hits.slice(0, 3).map(m => m.title).join(', ');
+  const metaDesc = escHtml(
+    `Full ${label} movie release calendar: ${monthMovies.length} movies day by day` +
+    (top3 ? `, including ${top3}` : '') + '. Theatrical release dates, updated daily.'
+  );
+  const ogImage = hits[0]?.poster_path ? `${IMG_BASE}w500${hits[0].poster_path}` : '';
+
+  const schema = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ItemList',
+        name: pageTitle,
+        url: canonicalUrl,
+        numberOfItems: hits.length,
+        itemListElement: hits.slice(0, 25).map((m, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          item: {
+            '@type': 'Movie',
+            name: m.title,
+            url: `${SITE_BASE}/movie/${m.slug}/`,
+            ...(m.release_date ? { datePublished: m.release_date } : {}),
+          },
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home',     item: `${SITE_BASE}/` },
+          { '@type': 'ListItem', position: 2, name: pageTitle,  item: canonicalUrl },
+        ],
+      },
+    ],
+  });
+
+  const featuredHtml = hits.slice(0, 18).map(m => {
+    const poster = m.poster_path ? `${IMG_BASE}w185${m.poster_path}` : '';
+    return `<a class="fg-card" href="/movie/${m.slug}/">
+      ${poster ? `<img src="${poster}" alt="${escHtml(m.title)} poster" loading="lazy" width="105" height="158" />` : `<div class="fg-noposter"><span>${escHtml(m.title)}</span></div>`}
+      <span class="fg-title">${escHtml(m.title)}</span>
+      ${m.release_date ? `<span class="fg-date">${fmtShort(m.release_date)}</span>` : ''}
+    </a>`;
+  }).join('\n    ');
+
+  // Day-by-day schedule: every page-worthy movie of the month, links for hits
+  const byDay = {};
+  for (const m of monthMovies) {
+    if (!m.release_date) continue;
+    (byDay[m.release_date] = byDay[m.release_date] || []).push(m);
+  }
+  const scheduleHtml = Object.keys(byDay).sort().map(date => {
+    const items = byDay[date]
+      .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+      .map(m => {
+        const genre = (m.genres || [])[0];
+        const titleHtml = (globalHitIds.has(m.id) && m.slug)
+          ? `<a href="/movie/${m.slug}/">${escHtml(m.title)}</a>`
+          : escHtml(m.title);
+        return `<li>${titleHtml}${genre ? ` <span class="genre-note">&middot; ${escHtml(genre)}</span>` : ''}</li>`;
+      }).join('\n        ');
+    return `<div class="day-group">
+      <h3>${fmtLong(date)}</h3>
+      <ul>
+        ${items}
+      </ul>
+    </div>`;
+  }).join('\n    ');
+
+  const prevYm = addMonths(ym, -1), nextMonthYm = addMonths(ym, 1);
+  const navLinks = [
+    hubMonthsSet.has(prevYm)      ? `<a href="/calendar/${prevYm}/">&#8592; ${escHtml(monthLabel(prevYm))}</a>` : '',
+    `<a href="/?m=${ym}">Interactive ${escHtml(label)} calendar</a>`,
+    topMonthsSet.has(ym)          ? `<a href="/top-movies/${ym}/">Top 10 of ${escHtml(label)}</a>` : '',
+    hubMonthsSet.has(nextMonthYm) ? `<a href="/calendar/${nextMonthYm}/">${escHtml(monthLabel(nextMonthYm))} &#8594;</a>` : '',
+  ].filter(Boolean).join('\n    ');
+
+  const introTop = hits.slice(0, 3).map(m => `<a href="/movie/${m.slug}/">${escHtml(m.title)}</a>`).join(', ');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  ${hubHead(pageTitle, metaDesc, canonicalUrl, ogImage, schema)}
+  <style>${TOP_SHARED_CSS}${HUB_CSS}</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+${TOP_PAGE_HEADER}
+<main class="hub-page">
+  <div class="page-header">
+    <h1>${escHtml(pageTitle)}</h1>
+    <p class="intro">${monthMovies.length} movies ${ym < today.slice(0, 7) ? 'were released' : 'are scheduled for release'} in ${escHtml(label)}${introTop ? `, led by ${introTop}` : ''}. Below is the full day-by-day theatrical release schedule, with release dates tracked across ${SUPPORTED_COUNTRIES.length} countries and updated every night.</p>
+  </div>
+  <nav class="hub-nav">
+    ${navLinks}
+  </nav>
+  ${featuredHtml ? `
+  <div class="section-heading">Featured ${escHtml(label)} Releases</div>
+  <div class="featured-grid">
+    ${featuredHtml}
+  </div>` : ''}
+  <div class="section-heading">Day-by-Day Schedule</div>
+  ${scheduleHtml}
+  <p class="updated-note">Updated nightly &middot; Data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></p>
+</main>
+${TOP_PAGE_FOOTER}
+</body>
+</html>`;
+}
+
+function generateMonthHubs(allMovies, globalHitIds) {
+  const pad = n => String(n).padStart(2, '0');
+  const now = new Date();
+  const currentYm = `${now.getFullYear()}-${pad(now.getMonth() + 1)}`;
+  const lastYm    = addMonths(currentYm, 12);
+
+  const months = [];
+  let cursor = HISTORY_START;
+  while (cursor <= lastYm) { months.push(cursor); cursor = addMonths(cursor, 1); }
+
+  // Bucket page-worthy movies by primary release month
+  const byYm = {};
+  for (const m of allMovies) {
+    if (!m.release_date) continue;
+    if (!globalHitIds.has(m.id) && !isPageWorthy(m)) continue;
+    const ym = m.release_date.slice(0, 7);
+    (byYm[ym] = byYm[ym] || []).push(m);
+  }
+
+  const hubMonths = months.filter(ym => (byYm[ym] || []).length > 0);
+  const hubMonthsSet = new Set(hubMonths);
+
+  // Months that have a /top-movies/ page (mirrors generateTopMoviesPages range)
+  const topMonthsSet = new Set();
+  let tCursor = TOP_MOVIES_START;
+  const topEnd = addMonths(currentYm, 1);
+  while (tCursor <= topEnd) { topMonthsSet.add(tCursor); tCursor = addMonths(tCursor, 1); }
+
+  fs.mkdirSync(CALENDAR_PAGES_DIR, { recursive: true });
+  for (const ym of hubMonths) {
+    const dir = path.join(CALENDAR_PAGES_DIR, ym);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'index.html'),
+      buildMonthHubPage(ym, byYm[ym], globalHitIds, hubMonthsSet, topMonthsSet));
+  }
+  console.log(`Month hub pages: ${hubMonths.length} written`);
+  return hubMonths;
+}
+
+// ── Country hub pages (/releases/<country>/) ─────────────────────────────────
+
+function buildCountryHubPage(cc, movies, globalHitIds, hubMonthsSet) {
+  const name         = COUNTRY_NAMES[cc] || cc;
+  const slug         = countrySlug(cc);
+  const canonicalUrl = `${SITE_BASE}/releases/${slug}/`;
+  const today        = new Date().toISOString().slice(0, 10);
+  const pageTitle    = `Movie Release Dates in ${name}`;
+
+  // movies: [{ movie, date }] sorted by country-specific date ascending
+  const upcoming = movies.filter(x => x.date >= today);
+  const hits = upcoming.filter(x => globalHitIds.has(x.movie.id) && x.movie.slug);
+  const top3 = hits.slice(0, 3).map(x => x.movie.title).join(', ');
+  const metaDesc = escHtml(
+    `Upcoming movie release dates in ${name}: ${upcoming.length} movies with confirmed local dates` +
+    (top3 ? `, next up ${top3}` : '') + '. Updated daily.'
+  );
+  const ogImage = hits[0]?.movie.poster_path ? `${IMG_BASE}w500${hits[0].movie.poster_path}` : '';
+
+  const schema = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ItemList',
+        name: pageTitle,
+        url: canonicalUrl,
+        numberOfItems: hits.length,
+        itemListElement: hits.slice(0, 25).map((x, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          item: {
+            '@type': 'Movie',
+            name: x.movie.title,
+            url: `${SITE_BASE}/movie/${x.movie.slug}/`,
+            datePublished: x.date,
+          },
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home',                item: `${SITE_BASE}/` },
+          { '@type': 'ListItem', position: 2, name: 'Releases by Country', item: `${SITE_BASE}/releases/` },
+          { '@type': 'ListItem', position: 3, name: pageTitle,             item: canonicalUrl },
+        ],
+      },
+    ],
+  });
+
+  const featuredHtml = hits.slice(0, 12).map(x => {
+    const m = x.movie;
+    const poster = m.poster_path ? `${IMG_BASE}w185${m.poster_path}` : '';
+    return `<a class="fg-card" href="/movie/${m.slug}/">
+      ${poster ? `<img src="${poster}" alt="${escHtml(m.title)} poster" loading="lazy" width="105" height="158" />` : `<div class="fg-noposter"><span>${escHtml(m.title)}</span></div>`}
+      <span class="fg-title">${escHtml(m.title)}</span>
+      <span class="fg-date">${fmtShort(x.date)}</span>
+    </a>`;
+  }).join('\n    ');
+
+  // Schedule grouped by month, then by day (local dates)
+  const byYm = {};
+  for (const x of upcoming) {
+    const ym = x.date.slice(0, 7);
+    (byYm[ym] = byYm[ym] || {});
+    (byYm[ym][x.date] = byYm[ym][x.date] || []).push(x);
+  }
+  const scheduleHtml = Object.keys(byYm).sort().map(ym => {
+    const monthHeading = hubMonthsSet.has(ym)
+      ? `<a href="/calendar/${ym}/">${escHtml(monthLabel(ym))}</a>`
+      : escHtml(monthLabel(ym));
+    const days = Object.keys(byYm[ym]).sort().map(date => {
+      const items = byYm[ym][date]
+        .sort((a, b) => (b.movie.popularity || 0) - (a.movie.popularity || 0))
+        .map(x => {
+          const m = x.movie;
+          const genre = (m.genres || [])[0];
+          const titleHtml = (globalHitIds.has(m.id) && m.slug)
+            ? `<a href="/movie/${m.slug}/">${escHtml(m.title)}</a>`
+            : escHtml(m.title);
+          return `<li>${titleHtml}${genre ? ` <span class="genre-note">&middot; ${escHtml(genre)}</span>` : ''}</li>`;
+        }).join('\n        ');
+      return `<div class="day-group">
+      <h3>${fmtLong(date)}</h3>
+      <ul>
+        ${items}
+      </ul>
+    </div>`;
+    }).join('\n    ');
+    return `<div class="section-heading">${monthHeading}</div>\n    ${days}`;
+  }).join('\n    ');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  ${hubHead(pageTitle, metaDesc, canonicalUrl, ogImage, schema)}
+  <style>${TOP_SHARED_CSS}${HUB_CSS}</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+${TOP_PAGE_HEADER}
+<main class="hub-page">
+  <a href="/releases/" class="back-link">&#8592; Releases by country</a>
+  <div class="page-header">
+    <h1>${escHtml(pageTitle)}</h1>
+    <p class="intro">${upcoming.length} movies have confirmed theatrical release dates in ${escHtml(name)} over the coming months. Dates below are the local ${escHtml(name)} release dates, which often differ from the US or worldwide premiere — checked and updated every night.</p>
+  </div>
+  ${featuredHtml ? `
+  <div class="section-heading">Featured Upcoming Releases</div>
+  <div class="featured-grid">
+    ${featuredHtml}
+  </div>` : ''}
+  ${scheduleHtml}
+  <p class="updated-note">Updated nightly &middot; Data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></p>
+</main>
+${TOP_PAGE_FOOTER}
+</body>
+</html>`;
+}
+
+function buildReleasesIndexPage(countryCounts) {
+  const canonicalUrl = `${SITE_BASE}/releases/`;
+  const pageTitle    = 'Movie Release Dates by Country';
+  const metaDesc     = escHtml('Country-by-country movie release calendars: local theatrical release dates for upcoming movies in ' + SUPPORTED_COUNTRIES.length + ' countries, updated daily.');
+
+  const schema = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ItemList',
+        name: pageTitle,
+        url: canonicalUrl,
+        itemListElement: SUPPORTED_COUNTRIES.map((cc, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: `Movie Release Dates in ${COUNTRY_NAMES[cc]}`,
+          url: `${SITE_BASE}/releases/${countrySlug(cc)}/`,
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home',      item: `${SITE_BASE}/` },
+          { '@type': 'ListItem', position: 2, name: pageTitle,   item: canonicalUrl },
+        ],
+      },
+    ],
+  });
+
+  const cardsHtml = [...SUPPORTED_COUNTRIES]
+    .sort((a, b) => (COUNTRY_NAMES[a] || a).localeCompare(COUNTRY_NAMES[b] || b))
+    .map(cc => `
+    <a href="/releases/${countrySlug(cc)}/" class="country-card">
+      <span class="cc-name">${escHtml(COUNTRY_NAMES[cc] || cc)}</span>
+      <span class="cc-count">${countryCounts[cc] || 0} upcoming</span>
+    </a>`).join('\n');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  ${hubHead(pageTitle, metaDesc, canonicalUrl, '', schema)}
+  <style>${TOP_SHARED_CSS}${HUB_CSS}
+    .countries-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 0.9rem; }
+    .country-card { display: flex; flex-direction: column; gap: 0.3rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 1rem; text-decoration: none; transition: border-color 0.15s, background 0.15s; }
+    .country-card:hover { border-color: rgba(233,69,96,0.4); background: rgba(233,69,96,0.05); }
+    .cc-name { font-size: 0.95rem; font-weight: 700; color: #fff; }
+    .cc-count { font-size: 0.75rem; color: #666; }
+  </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+${TOP_PAGE_HEADER}
+<main class="hub-page">
+  <div class="page-header">
+    <h1>${escHtml(pageTitle)}</h1>
+    <p class="intro">Movies rarely open everywhere on the same day. Pick a country to see its local theatrical release calendar — every date below is tracked per country and refreshed nightly.</p>
+  </div>
+  <div class="countries-grid">
+    ${cardsHtml}
+  </div>
+  <p class="updated-note">Updated nightly &middot; Data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></p>
+</main>
+${TOP_PAGE_FOOTER}
+</body>
+</html>`;
+}
+
+function generateCountryHubs(allMovies, globalHitIds, hubMonths) {
+  const today = new Date().toISOString().slice(0, 10);
+  const horizon = new Date();
+  horizon.setDate(horizon.getDate() + 365);
+  const maxDate = horizon.toISOString().slice(0, 10);
+  const hubMonthsSet = new Set(hubMonths);
+
+  fs.mkdirSync(RELEASES_DIR, { recursive: true });
+  const countryCounts = {};
+
+  for (const cc of SUPPORTED_COUNTRIES) {
+    const entries = [];
+    for (const m of allMovies) {
+      const date = (m.countryReleases || {})[cc];
+      if (!date || date > maxDate) continue;
+      if (date < today) continue;
+      if (!globalHitIds.has(m.id) && !isPageWorthy(m)) continue;
+      entries.push({ movie: m, date });
+    }
+    entries.sort((a, b) => a.date.localeCompare(b.date));
+    const capped = entries.slice(0, 250);
+    countryCounts[cc] = entries.length;
+
+    const dir = path.join(RELEASES_DIR, countrySlug(cc));
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'index.html'),
+      buildCountryHubPage(cc, capped, globalHitIds, hubMonthsSet));
+  }
+
+  fs.writeFileSync(path.join(RELEASES_DIR, 'index.html'), buildReleasesIndexPage(countryCounts));
+  console.log(`Country hub pages: ${SUPPORTED_COUNTRIES.length} + index written`);
+}
+
+// ── Homepage injection ────────────────────────────────────────────────────────
+
+function replaceBetween(html, startMark, endMark, content) {
+  const s = html.indexOf(startMark);
+  const e = html.indexOf(endMark);
+  if (s === -1 || e === -1) {
+    console.warn(`  WARNING: homepage markers not found: ${startMark}`);
+    return html;
+  }
+  return html.slice(0, s + startMark.length) + '\n' + content + '\n' + html.slice(e);
+}
+
+// Renders crawlable content into index.html between build markers: a featured
+// this-month grid with real <a> links, and month/country hub link blocks.
+function injectHomepage(allMovies, globalHitIds, hubMonths) {
+  let html;
+  try { html = fs.readFileSync(INDEX_HTML_PATH, 'utf8'); }
+  catch { console.warn('  WARNING: index.html not found — skipping homepage injection'); return; }
+
+  const pad = n => String(n).padStart(2, '0');
+  const now = new Date();
+  const currentYm = `${now.getFullYear()}-${pad(now.getMonth() + 1)}`;
+  const label = monthLabel(currentYm);
+
+  const featured = allMovies
+    .filter(m => globalHitIds.has(m.id) && m.slug && (m.release_date || '').startsWith(currentYm))
+    .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+    .slice(0, 12);
+
+  const cards = featured.map(m => {
+    const poster = m.poster_path ? `${IMG_BASE}w185${m.poster_path}` : '';
+    return `    <a class="hf-card" href="/movie/${m.slug}/">
+      ${poster ? `<img src="${poster}" alt="${escHtml(m.title)} poster" loading="lazy" width="105" height="158" />` : `<div class="hf-noposter"><span>${escHtml(m.title)}</span></div>`}
+      <span class="hf-title">${escHtml(m.title)}</span>
+      ${m.release_date ? `<span class="hf-date">${fmtShort(m.release_date)}</span>` : ''}
+    </a>`;
+  }).join('\n');
+
+  const featuredSection = featured.length ? `<section class="home-featured">
+  <h2 class="home-sec-title">Featured Movies This Month</h2>
+  <p class="home-sec-sub">The most anticipated ${escHtml(label)} releases &mdash; <a href="/calendar/${currentYm}/">see the full ${escHtml(label)} release calendar</a>.</p>
+  <div class="home-featured-grid">
+${cards}
+  </div>
+</section>` : '';
+
+  const monthLinks = hubMonths.map(ym =>
+    `<a href="/calendar/${ym}/">${escHtml(monthLabel(ym))}</a>`).join('\n      ');
+  const countryLinks = [...SUPPORTED_COUNTRIES]
+    .sort((a, b) => (COUNTRY_NAMES[a] || a).localeCompare(COUNTRY_NAMES[b] || b))
+    .map(cc => `<a href="/releases/${countrySlug(cc)}/">${escHtml(COUNTRY_NAMES[cc] || cc)}</a>`).join('\n      ');
+
+  const browseSection = `<section class="home-browse">
+  <h2 class="home-sec-title">Browse Release Calendars</h2>
+  <div class="home-browse-group">
+    <h3>By month</h3>
+    <div class="home-links">
+      ${monthLinks}
+    </div>
+  </div>
+  <div class="home-browse-group">
+    <h3>By country</h3>
+    <div class="home-links">
+      ${countryLinks}
+      <a href="/releases/">All countries &#8594;</a>
+    </div>
+  </div>
+</section>`;
+
+  html = replaceBetween(html, '<!-- BUILD:FEATURED_MONTH:START -->', '<!-- BUILD:FEATURED_MONTH:END -->', featuredSection);
+  html = replaceBetween(html, '<!-- BUILD:BROWSE_LINKS:START -->',   '<!-- BUILD:BROWSE_LINKS:END -->',   browseSection);
+  fs.writeFileSync(INDEX_HTML_PATH, html);
+  console.log('index.html: static featured + browse sections injected');
+}
+
 // ── Sitemap ───────────────────────────────────────────────────────────────────
 
-function generateSitemap(movies, topMonths = [], globalHitIds = null) {
+function generateSitemap(movies, topMonths = [], globalHitIds = null, hubMonths = []) {
   const today = new Date().toISOString().slice(0, 10);
 
   // Only include HIT movies in the sitemap. Demoted pages are noindex and
@@ -1322,6 +2147,16 @@ function generateSitemap(movies, topMonths = [], globalHitIds = null) {
     `  <url>\n    <loc>${SITE_BASE}/top-movies/${ym}/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.85</priority>\n  </url>`
   ).join('\n');
 
+  const monthHubUrls = hubMonths.map(ym =>
+    `  <url>\n    <loc>${SITE_BASE}/calendar/${ym}/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.9</priority>\n  </url>`
+  ).join('\n');
+
+  const countryHubUrls = [
+    `  <url>\n    <loc>${SITE_BASE}/releases/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.9</priority>\n  </url>`,
+    ...SUPPORTED_COUNTRIES.map(cc =>
+      `  <url>\n    <loc>${SITE_BASE}/releases/${countrySlug(cc)}/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.9</priority>\n  </url>`),
+  ].join('\n');
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -1333,16 +2168,18 @@ function generateSitemap(movies, topMonths = [], globalHitIds = null) {
 ${movieUrls}
 ${topIndexUrl}
 ${topMonthUrls}
+${monthHubUrls}
+${countryHubUrls}
 </urlset>`;
 
   fs.writeFileSync(path.join(__dirname, '..', 'sitemap.xml'), xml);
-  const totalUrls = sitemapMovies.length + 1 + 1 + topMonths.length;
+  const totalUrls = sitemapMovies.length + 2 + topMonths.length + hubMonths.length + 1 + SUPPORTED_COUNTRIES.length;
   console.log(`sitemap.xml written (${totalUrls} URLs)`);
 }
 
 // ── Calendar file builder ─────────────────────────────────────────────────────
 
-function buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitIds) {
+function buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitIds, hitRanks) {
   let written = 0;
   for (const [ym, byCountry] of Object.entries(calendarData)) {
     const monthDir = path.join(CALENDAR_DIR, ym);
@@ -1350,6 +2187,7 @@ function buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitId
 
     for (const [country, rawMovies] of Object.entries(byCountry)) {
       const countryHits = hitsByCountry[country]?.[ym]; // undefined for 'WW'
+      const countryRanks = hitRanks?.[country]?.[ym] || {};
       const slim = rawMovies
         .filter(m => detailsMap[m.id])
         .map(m => {
@@ -1370,6 +2208,9 @@ function buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitId
             cast:              d.cast,
             isHit:             countryHits ? countryHits.has(m.id) : false,
           };
+          // Exact position in this country's monthly anticipation ranking —
+          // lets the UI say "#3 most anticipated" instead of a vague "top 15".
+          if (entry.isHit && countryRanks[m.id]) entry.featuredRank = countryRanks[m.id];
           // Only expose slug for HIT movies — otherwise the client would
           // navigate to a noindexed page instead of opening the modal.
           if (globalHitIds.has(m.id)) entry.slug = d.slug;
@@ -1397,7 +2238,7 @@ async function main() {
   const manifest = loadJSON(MANIFEST_PATH, {});
 
   let detailedMovies;
-  let hitsByCountry, globalHitIds;
+  let hitsByCountry, hitRanks, globalHitIds;
 
   if (process.env.REGEN_ONLY === '1') {
     detailedMovies = loadJSON(MOVIES_PATH, []);
@@ -1443,11 +2284,11 @@ async function main() {
       }
     }
 
-    ({ hitsByCountry, globalHitIds } = computeHits(calendarData, detailsMap));
-    accumulateHits(hitsByCountry, globalHitIds);
+    ({ hitsByCountry, hitRanks, globalHitIds } = computeHits(calendarData, detailsMap));
+    accumulateHits(hitsByCountry, globalHitIds, hitRanks);
     promoteTopMoviesToHits(detailedMovies, globalHitIds);
-    persistHits(hitsByCountry, globalHitIds);
-    buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitIds);
+    persistHits(hitsByCountry, globalHitIds, hitRanks);
+    buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitIds, hitRanks);
   } else {
     // Build month range. Default: 1 month back → 12 months forward (nightly
     // refresh). Override via BACKFILL_FROM=YYYY-MM to extend the window
@@ -1595,6 +2436,35 @@ async function main() {
       }
     }
 
+    // Release-date change tracking: diff tonight's dates against yesterday's
+    // and accumulate the changes forever. Reused (non-refetched) movies are
+    // the same object as their cached entry, so they never produce a diff.
+    {
+      const dateHistory = loadJSON(DATE_HISTORY_PATH, {});
+      let changeCount = 0;
+      for (const movie of detailedMovies) {
+        const prev = existingMovieMap[movie.id];
+        if (!prev || prev === movie) continue;
+        const entries = [];
+        if (prev.release_date && movie.release_date && prev.release_date !== movie.release_date) {
+          entries.push({ on: today, scope: 'primary', from: prev.release_date, to: movie.release_date });
+        }
+        for (const [cc, date] of Object.entries(movie.countryReleases || {})) {
+          const old = (prev.countryReleases || {})[cc];
+          if (old && date && old !== date) {
+            entries.push({ on: today, scope: cc, from: old, to: date });
+          }
+        }
+        if (entries.length) {
+          const key = String(movie.id);
+          dateHistory[key] = [...(dateHistory[key] || []), ...entries].slice(-50);
+          changeCount += entries.length;
+        }
+      }
+      fs.writeFileSync(DATE_HISTORY_PATH, JSON.stringify(dateHistory));
+      console.log(`date-history.json updated (${changeCount} change(s) recorded tonight)`);
+    }
+
     // Accumulate movies.json: merge freshly-fetched details over the existing
     // dataset so historical movies that rolled out of the fetch window keep
     // their last-known data instead of disappearing. This is what lets us
@@ -1611,17 +2481,17 @@ async function main() {
     assignSlugs(detailedMovies, manifest);
 
     // Compute which movies qualify as "hits" (get a full standalone page)
-    ({ hitsByCountry, globalHitIds } = computeHits(calendarData, detailsMap));
+    ({ hitsByCountry, hitRanks, globalHitIds } = computeHits(calendarData, detailsMap));
     // Union with previously-persisted hits so historical month rankings —
     // computed when those months were inside the fetch window — stay alive.
-    accumulateHits(hitsByCountry, globalHitIds);
+    accumulateHits(hitsByCountry, globalHitIds, hitRanks);
     // Promote /top-movies/ targets BEFORE writing calendar JSON, otherwise
     // safety-net-promoted movies would be missing their slug in the calendar.
     promoteTopMoviesToHits(detailedMovies, globalHitIds);
-    persistHits(hitsByCountry, globalHitIds);
+    persistHits(hitsByCountry, globalHitIds, hitRanks);
 
     // Write per-country per-month calendar JSON files (carries isHit + slug-for-hits)
-    buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitIds);
+    buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitIds, hitRanks);
 
     // Persist manifest and full movie data
     fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2));
@@ -1635,9 +2505,17 @@ async function main() {
   writePublicManifest(manifest, globalHitIds);
 
   const allMovies = process.env.REGEN_ONLY === '1' ? loadJSON(MOVIES_PATH, []) : detailedMovies;
-  generatePages(detailedMovies, manifest, globalHitIds);
+  const pageCtx = {
+    rankInfo:         buildRankInfo(hitRanks),
+    globalMonthRanks: buildGlobalMonthRanks(allMovies),
+    dateHistory:      loadJSON(DATE_HISTORY_PATH, {}),
+  };
+  generatePages(detailedMovies, manifest, globalHitIds, pageCtx);
   const topMonths = generateTopMoviesPages(allMovies, globalHitIds);
-  generateSitemap(allMovies, topMonths, globalHitIds);
+  const hubMonths = generateMonthHubs(allMovies, globalHitIds);
+  generateCountryHubs(allMovies, globalHitIds, hubMonths);
+  injectHomepage(allMovies, globalHitIds, hubMonths);
+  generateSitemap(allMovies, topMonths, globalHitIds, hubMonths);
 }
 
 // Pick the same top-10-by-popularity-per-month list that generateTopMoviesPages
