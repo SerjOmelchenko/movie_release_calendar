@@ -210,7 +210,22 @@
       <img src="https://image.tmdb.org/t/p/w500/fPMBtu674BjjFcxBNJU2XkICLhZ.jpg" alt="Bare poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Position by audience interest (TMDB popularity) among December 2026 releases in Brazil (its local release month there)."><span class="fb-tag">Featured</span><span class="fb-text">#19 most anticipated December 2026 release in Brazil</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (TMDB popularity) among December 2026 releases. The rank varies by country." data-count="37" data-ranks="{&quot;AU&quot;:[16,&quot;Australia&quot;,&quot;December 2026&quot;],&quot;AT&quot;:[17,&quot;Austria&quot;,&quot;December 2026&quot;],&quot;BE&quot;:[17,&quot;Belgium&quot;,&quot;December 2026&quot;],&quot;BR&quot;:[16,&quot;Brazil&quot;,&quot;December 2026&quot;],&quot;BG&quot;:[17,&quot;Bulgaria&quot;,&quot;December 2026&quot;],&quot;CA&quot;:[17,&quot;Canada&quot;,&quot;December 2026&quot;],&quot;CN&quot;:[17,&quot;China&quot;,&quot;December 2026&quot;],&quot;HR&quot;:[17,&quot;Croatia&quot;,&quot;December 2026&quot;],&quot;CY&quot;:[17,&quot;Cyprus&quot;,&quot;December 2026&quot;],&quot;CZ&quot;:[17,&quot;Czech Republic&quot;,&quot;December 2026&quot;],&quot;DK&quot;:[17,&quot;Denmark&quot;,&quot;December 2026&quot;],&quot;EE&quot;:[17,&quot;Estonia&quot;,&quot;December 2026&quot;],&quot;FI&quot;:[17,&quot;Finland&quot;,&quot;December 2026&quot;],&quot;FR&quot;:[19,&quot;France&quot;,&quot;December 2026&quot;],&quot;DE&quot;:[17,&quot;Germany&quot;,&quot;December 2026&quot;],&quot;GR&quot;:[17,&quot;Greece&quot;,&quot;December 2026&quot;],&quot;HU&quot;:[17,&quot;Hungary&quot;,&quot;December 2026&quot;],&quot;IN&quot;:[17,&quot;India&quot;,&quot;December 2026&quot;],&quot;IE&quot;:[17,&quot;Ireland&quot;,&quot;December 2026&quot;],&quot;IT&quot;:[17,&quot;Italy&quot;,&quot;December 2026&quot;],&quot;JP&quot;:[18,&quot;Japan&quot;,&quot;December 2026&quot;],&quot;LV&quot;:[17,&quot;Latvia&quot;,&quot;December 2026&quot;],&quot;LT&quot;:[17,&quot;Lithuania&quot;,&quot;December 2026&quot;],&quot;LU&quot;:[17,&quot;Luxembourg&quot;,&quot;December 2026&quot;],&quot;MT&quot;:[17,&quot;Malta&quot;,&quot;December 2026&quot;],&quot;NL&quot;:[17,&quot;Netherlands&quot;,&quot;December 2026&quot;],&quot;PL&quot;:[17,&quot;Poland&quot;,&quot;December 2026&quot;],&quot;PT&quot;:[17,&quot;Portugal&quot;,&quot;December 2026&quot;],&quot;RO&quot;:[17,&quot;Romania&quot;,&quot;December 2026&quot;],&quot;SK&quot;:[17,&quot;Slovakia&quot;,&quot;December 2026&quot;],&quot;SI&quot;:[17,&quot;Slovenia&quot;,&quot;December 2026&quot;],&quot;KR&quot;:[17,&quot;South Korea&quot;,&quot;December 2026&quot;],&quot;ES&quot;:[18,&quot;Spain&quot;,&quot;December 2026&quot;],&quot;SE&quot;:[16,&quot;Sweden&quot;,&quot;December 2026&quot;],&quot;GB&quot;:[18,&quot;United Kingdom&quot;,&quot;December 2026&quot;],&quot;UA&quot;:[17,&quot;Ukraine&quot;,&quot;December 2026&quot;],&quot;US&quot;:[17,&quot;United States&quot;,&quot;December 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#16 most anticipated December 2026 release &middot; featured in 37 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
+        })();
+      </script>
       <h1 class="movie-title">Bare</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">December 5, 2026</div></div>
@@ -389,15 +404,20 @@
         <span class="related-title">Faceless: Retribution</span>
         <span class="related-date">Dec 18, 2026</span>
       </a>
-    <a class="related-card" href="/movie/bharat-bhhagya-viddhaata-2026/">
-        <img src="https://image.tmdb.org/t/p/w185/8CdZXfZYP4AZTlx1fLAUV8Annct.jpg" alt="Bharat Bhhagya Viddhaata poster" loading="lazy" width="92" height="138" />
-        <span class="related-title">Bharat Bhhagya Viddhaata</span>
-        <span class="related-date">Dec 6, 2026</span>
+    <a class="related-card" href="/movie/bow-apple/">
+        <img src="https://image.tmdb.org/t/p/w185/vUi0pdy7NBkUORnAmjtG0EFHtWx.jpg" alt="Bow &amp; Apple poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">Bow &amp; Apple</span>
+        <span class="related-date">Dec 31, 2026</span>
       </a>
     <a class="related-card" href="/movie/the-apothecary-diaries-the-deceased-empress-treasure/">
         <img src="https://image.tmdb.org/t/p/w185/aMQnlYqfKU9JZTwtlhVtDQ69hpe.jpg" alt="The Apothecary Diaries: The Deceased Empress' Treasure poster" loading="lazy" width="92" height="138" />
         <span class="related-title">The Apothecary Diaries: The Deceased Empress' Treasure</span>
         <span class="related-date">Dec 11, 2026</span>
+      </a>
+    <a class="related-card" href="/movie/bharat-bhhagya-viddhaata-2026/">
+        <img src="https://image.tmdb.org/t/p/w185/8CdZXfZYP4AZTlx1fLAUV8Annct.jpg" alt="Bharat Bhhagya Viddhaata poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">Bharat Bhhagya Viddhaata</span>
+        <span class="related-date">Dec 6, 2026</span>
       </a>
     <a class="related-card" href="/movie/down-the-road-apiece/">
         <img src="https://image.tmdb.org/t/p/w185/txvX0We9XKU1IxN61yQg0SiZrK7.jpg" alt="Down the Road Apiece poster" loading="lazy" width="92" height="138" />
@@ -408,11 +428,6 @@
         <img src="https://image.tmdb.org/t/p/w185/bmiv4jAEDP1XbUaU4UC4POZIaIs.jpg" alt="Mr. Irrelevant: The John Tuggle Story poster" loading="lazy" width="92" height="138" />
         <span class="related-title">Mr. Irrelevant: The John Tuggle Story</span>
         <span class="related-date">Dec 25, 2026</span>
-      </a>
-    <a class="related-card" href="/movie/photograph-51/">
-        <div class="related-noposter"><span>Photograph 51</span></div>
-        <span class="related-title">Photograph 51</span>
-        <span class="related-date">Dec 3, 2026</span>
       </a>
     </div>
     <p class="hub-cross-link"><a href="/calendar/2026-12/">See every movie coming out in December 2026 &#8594;</a></p>
