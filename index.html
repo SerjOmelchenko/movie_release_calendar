@@ -2495,17 +2495,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const movies = filtered[dateStr] || [];
       const isToday = dateStr === todayStr;
 
-      // Only HIT movies get a poster on the calendar. If a day has releases
-      // but none qualify as a hit, we show a "no hits today" stub plus a
-      // "See all releases" button that opens the day modal. Multiple hits
-      // on the same day render side-by-side (top 2 by popularity, with a
-      // "+N more featured" pill when there are 3 or more).
+      // Every release of the day is rendered on the grid — featured movies
+      // first (by popularity), then the rest. Nothing hides behind pills.
       const hits = movies.filter(m => m.isHit)
         .sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
-      const nonHits = movies.filter(m => !m.isHit);
-      const VISIBLE_HITS = 2;
-      const shownHits = hits.slice(0, VISIBLE_HITS);
-      const extraHitCount = hits.length - shownHits.length;
+      const nonHits = movies.filter(m => !m.isHit)
+        .sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+      const dayMovies = [...hits, ...nonHits];
 
       let cls = 'day-cell';
       if (isToday) cls += ' today';
@@ -2534,29 +2530,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         return out;
       }
 
-      if (shownHits.length === 1) {
-        html += renderHitPoster(shownHits[0], false);
-        const reason = hitReason(shownHits[0], regionSelect.value);
+      if (dayMovies.length === 1) {
+        html += renderHitPoster(dayMovies[0], false);
+        const reason = hitReason(dayMovies[0], regionSelect.value);
         if (reason) {
           html += `<div class="hit-reason" title="${escHtml(reason.long)}">${escHtml(reason.short)}</div>`;
         }
-      } else if (shownHits.length >= 2) {
+      } else if (dayMovies.length >= 2) {
         html += `<div class="hits-grid">`;
-        shownHits.forEach(m => { html += renderHitPoster(m, true); });
+        dayMovies.forEach(m => { html += renderHitPoster(m, true); });
         html += `</div>`;
         const region = regionSelect.value;
         const country = COUNTRY_NAMES[region] || region;
-        const totalFeatured = hits.length;
-        html += `<div class="hit-reason" title="${escHtml(`${totalFeatured} featured releases in ${country} this day. The #-chip on each poster is that film's position in this month's most-anticipated ranking for ${country}.`)}">${totalFeatured} FEATURED RELEASES</div>`;
-      }
-      if (extraHitCount > 0) {
-        html += `<button class="more-hits-pill" data-date="${dateStr}" data-short="+${extraHitCount} more">+${extraHitCount} more featured</button>`;
-      }
-      if (shownHits.length === 0 && movies.length > 0) {
-        html += `<div class="no-hits-block">No major releases</div>`;
-        html += `<button class="see-all-pill" data-date="${dateStr}" data-short="${movies.length} releases">See all releases (${movies.length})</button>`;
-      } else if (nonHits.length > 0) {
-        html += `<button class="other-releases-pill" data-date="${dateStr}" data-short="+${nonHits.length} more">Other releases (${nonHits.length})</button>`;
+        const tooltip = hits.length > 0
+          ? `${dayMovies.length} releases in ${country} this day, ${hits.length} of them featured. The #-chip on a poster is that film's position in this month's most-anticipated ranking for ${country}.`
+          : `${dayMovies.length} releases in ${country} this day.`;
+        html += `<div class="hit-reason" title="${escHtml(tooltip)}">${dayMovies.length} RELEASES${hits.length > 0 ? ` &middot; ${hits.length} FEATURED` : ''}</div>`;
       }
 
       html += '</div>';
