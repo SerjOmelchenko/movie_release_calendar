@@ -210,7 +210,22 @@
       <img src="https://image.tmdb.org/t/p/w500/3iVDCDS1VwHIm95PjWEPwsfdhaf.jpg" alt="The Rivals of Amziah King poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Previously ranked among the most anticipated releases for its month."><span class="fb-tag">Featured</span><span class="fb-text">Featured release</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (TMDB popularity) among August 2026 releases. The rank varies by country." data-count="37" data-ranks="{&quot;AU&quot;:[44,&quot;Australia&quot;,&quot;August 2026&quot;],&quot;AT&quot;:[44,&quot;Austria&quot;,&quot;August 2026&quot;],&quot;BE&quot;:[43,&quot;Belgium&quot;,&quot;August 2026&quot;],&quot;BR&quot;:[42,&quot;Brazil&quot;,&quot;August 2026&quot;],&quot;BG&quot;:[45,&quot;Bulgaria&quot;,&quot;August 2026&quot;],&quot;CA&quot;:[45,&quot;Canada&quot;,&quot;August 2026&quot;],&quot;CN&quot;:[45,&quot;China&quot;,&quot;August 2026&quot;],&quot;HR&quot;:[44,&quot;Croatia&quot;,&quot;August 2026&quot;],&quot;CY&quot;:[44,&quot;Cyprus&quot;,&quot;August 2026&quot;],&quot;CZ&quot;:[44,&quot;Czech Republic&quot;,&quot;August 2026&quot;],&quot;DK&quot;:[45,&quot;Denmark&quot;,&quot;August 2026&quot;],&quot;EE&quot;:[44,&quot;Estonia&quot;,&quot;August 2026&quot;],&quot;FI&quot;:[43,&quot;Finland&quot;,&quot;August 2026&quot;],&quot;FR&quot;:[44,&quot;France&quot;,&quot;August 2026&quot;],&quot;DE&quot;:[45,&quot;Germany&quot;,&quot;August 2026&quot;],&quot;GR&quot;:[45,&quot;Greece&quot;,&quot;August 2026&quot;],&quot;HU&quot;:[44,&quot;Hungary&quot;,&quot;August 2026&quot;],&quot;IN&quot;:[44,&quot;India&quot;,&quot;August 2026&quot;],&quot;IE&quot;:[46,&quot;Ireland&quot;,&quot;August 2026&quot;],&quot;IT&quot;:[45,&quot;Italy&quot;,&quot;August 2026&quot;],&quot;JP&quot;:[44,&quot;Japan&quot;,&quot;August 2026&quot;],&quot;LV&quot;:[43,&quot;Latvia&quot;,&quot;August 2026&quot;],&quot;LT&quot;:[44,&quot;Lithuania&quot;,&quot;August 2026&quot;],&quot;LU&quot;:[44,&quot;Luxembourg&quot;,&quot;August 2026&quot;],&quot;MT&quot;:[44,&quot;Malta&quot;,&quot;August 2026&quot;],&quot;NL&quot;:[44,&quot;Netherlands&quot;,&quot;August 2026&quot;],&quot;PL&quot;:[44,&quot;Poland&quot;,&quot;August 2026&quot;],&quot;PT&quot;:[45,&quot;Portugal&quot;,&quot;August 2026&quot;],&quot;RO&quot;:[44,&quot;Romania&quot;,&quot;August 2026&quot;],&quot;SK&quot;:[44,&quot;Slovakia&quot;,&quot;August 2026&quot;],&quot;SI&quot;:[44,&quot;Slovenia&quot;,&quot;August 2026&quot;],&quot;KR&quot;:[43,&quot;South Korea&quot;,&quot;August 2026&quot;],&quot;ES&quot;:[46,&quot;Spain&quot;,&quot;August 2026&quot;],&quot;SE&quot;:[48,&quot;Sweden&quot;,&quot;September 2026&quot;],&quot;GB&quot;:[45,&quot;United Kingdom&quot;,&quot;August 2026&quot;],&quot;UA&quot;:[44,&quot;Ukraine&quot;,&quot;August 2026&quot;],&quot;US&quot;:[45,&quot;United States&quot;,&quot;August 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#42 most anticipated August 2026 release &middot; featured in 37 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
+        })();
+      </script>
       <h1 class="movie-title">The Rivals of Amziah King</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">August 14, 2026</div></div>

@@ -798,6 +798,8 @@
       border-color: #3a3a3a;
     }
 
+    .ph-rank { color: #e94560; font-weight: 800; }
+
     /* Anticipation-rank chip overlaid on calendar posters */
     .rank-chip {
       position: absolute;
@@ -2524,7 +2526,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           if (m.vote_count > 0 && m.vote_average >= 1) out += `<div class="rating-badge">&#9733; ${m.vote_average.toFixed(1)}</div>`;
           out += `</div>`;
         } else {
-          out += `<div class="poster-placeholder" data-id="${m.id}" data-date="${dateStr}">${escHtml(m.title)}</div>`;
+          const rankPrefix = withRankChip && m.featuredRank ? `<span class="ph-rank">#${m.featuredRank}</span> ` : '';
+          out += `<div class="poster-placeholder" data-id="${m.id}" data-date="${dateStr}">${rankPrefix}${escHtml(m.title)}</div>`;
         }
         return out;
       }

@@ -210,7 +210,22 @@
       <img src="https://image.tmdb.org/t/p/w500/qQ6mkgs2JIDMj8Av6vzuRgWQNrm.jpg" alt="Olmo poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Previously ranked among the most anticipated releases for its month."><span class="fb-tag">Featured</span><span class="fb-text">Featured release</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (TMDB popularity) among August 2026 releases. The rank varies by country." data-count="27" data-ranks="{&quot;AU&quot;:[51,&quot;Australia&quot;,&quot;August 2026&quot;],&quot;AT&quot;:[51,&quot;Austria&quot;,&quot;August 2026&quot;],&quot;BE&quot;:[50,&quot;Belgium&quot;,&quot;August 2026&quot;],&quot;CA&quot;:[52,&quot;Canada&quot;,&quot;August 2026&quot;],&quot;CN&quot;:[52,&quot;China&quot;,&quot;August 2026&quot;],&quot;HR&quot;:[51,&quot;Croatia&quot;,&quot;August 2026&quot;],&quot;CY&quot;:[51,&quot;Cyprus&quot;,&quot;August 2026&quot;],&quot;DK&quot;:[52,&quot;Denmark&quot;,&quot;August 2026&quot;],&quot;EE&quot;:[51,&quot;Estonia&quot;,&quot;August 2026&quot;],&quot;FI&quot;:[50,&quot;Finland&quot;,&quot;August 2026&quot;],&quot;GR&quot;:[52,&quot;Greece&quot;,&quot;August 2026&quot;],&quot;HU&quot;:[51,&quot;Hungary&quot;,&quot;August 2026&quot;],&quot;IN&quot;:[51,&quot;India&quot;,&quot;August 2026&quot;],&quot;IE&quot;:[53,&quot;Ireland&quot;,&quot;August 2026&quot;],&quot;LT&quot;:[51,&quot;Lithuania&quot;,&quot;August 2026&quot;],&quot;LU&quot;:[51,&quot;Luxembourg&quot;,&quot;August 2026&quot;],&quot;MT&quot;:[51,&quot;Malta&quot;,&quot;August 2026&quot;],&quot;NL&quot;:[51,&quot;Netherlands&quot;,&quot;August 2026&quot;],&quot;PL&quot;:[51,&quot;Poland&quot;,&quot;August 2026&quot;],&quot;PT&quot;:[52,&quot;Portugal&quot;,&quot;August 2026&quot;],&quot;RO&quot;:[51,&quot;Romania&quot;,&quot;August 2026&quot;],&quot;SK&quot;:[51,&quot;Slovakia&quot;,&quot;August 2026&quot;],&quot;SI&quot;:[51,&quot;Slovenia&quot;,&quot;August 2026&quot;],&quot;ES&quot;:[51,&quot;Spain&quot;,&quot;August 2026&quot;],&quot;SE&quot;:[50,&quot;Sweden&quot;,&quot;August 2026&quot;],&quot;GB&quot;:[52,&quot;United Kingdom&quot;,&quot;August 2026&quot;],&quot;UA&quot;:[51,&quot;Ukraine&quot;,&quot;August 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#50 most anticipated August 2026 release &middot; featured in 27 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
+        })();
+      </script>
       <h1 class="movie-title">Olmo</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">August 7, 2026</div></div>

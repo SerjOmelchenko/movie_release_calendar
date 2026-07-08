@@ -210,7 +210,22 @@
       <img src="https://image.tmdb.org/t/p/w500/r52BdT1QKYBbJv6OJfqJCAdDqfh.jpg" alt="Silent Friend poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Previously ranked among the most anticipated releases for its month."><span class="fb-tag">Featured</span><span class="fb-text">Featured release</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (TMDB popularity) among January 2026 releases. The rank varies by country." data-count="2" data-ranks="{&quot;DE&quot;:[15,&quot;Germany&quot;,&quot;January 2026&quot;],&quot;GB&quot;:[15,&quot;United Kingdom&quot;,&quot;January 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#15 most anticipated January 2026 release &middot; featured in 2 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
+        })();
+      </script>
       <h1 class="movie-title">Silent Friend</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">January 15, 2026</div></div>
@@ -310,6 +325,11 @@
         <span class="related-title">The Wizard of the Kremlin</span>
         <span class="related-date">Jan 21, 2026</span>
       </a>
+    <a class="related-card" href="/movie/the-golden-key-a-new-pinocchio-story/">
+        <img src="https://image.tmdb.org/t/p/w185/An3iR7yPP6GKQi2SDscWlEMFXAC.jpg" alt="The Golden Key: A New Pinocchio Story poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">The Golden Key: A New Pinocchio Story</span>
+        <span class="related-date">Jan 1, 2026</span>
+      </a>
     <a class="related-card" href="/movie/the-money-maker/">
         <img src="https://image.tmdb.org/t/p/w185/8hBGDCNJmBljmKbmFvt6Nk3Feua.jpg" alt="The Money Maker poster" loading="lazy" width="92" height="138" />
         <span class="related-title">The Money Maker</span>
@@ -329,11 +349,6 @@
         <img src="https://image.tmdb.org/t/p/w185/oy9SBxmzL6pG5Lckh9o2Wa1IWBr.jpg" alt="Guru poster" loading="lazy" width="92" height="138" />
         <span class="related-title">Guru</span>
         <span class="related-date">Jan 28, 2026</span>
-      </a>
-    <a class="related-card" href="/movie/send-help/">
-        <img src="https://image.tmdb.org/t/p/w185/mjkS2iAgWj3ik1DTjvI15nHZ7yl.jpg" alt="Send Help poster" loading="lazy" width="92" height="138" />
-        <span class="related-title">Send Help</span>
-        <span class="related-date">Jan 22, 2026</span>
       </a>
     </div>
     <p class="hub-cross-link"><a href="/calendar/2026-01/">See every movie coming out in January 2026 &#8594;</a></p>

@@ -210,7 +210,22 @@
       <img src="https://image.tmdb.org/t/p/w500/4y6dhG9XPTMeO8IcaMjROJp5gGU.jpg" alt="UK Holiday poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Previously ranked among the most anticipated releases for its month."><span class="fb-tag">Featured</span><span class="fb-text">Featured release</span></div>
+      <div class="featured-banner" id="featured-banner" title="Position by audience interest (TMDB popularity) among December 2026 releases in India (its local release month there)." data-count="3" data-ranks="{&quot;IN&quot;:[36,&quot;India&quot;,&quot;December 2026&quot;],&quot;GB&quot;:[40,&quot;United Kingdom&quot;,&quot;December 2026&quot;],&quot;US&quot;:[37,&quot;United States&quot;,&quot;December 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#36 most anticipated December 2026 release in India &middot; featured in 3 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
+        })();
+      </script>
       <h1 class="movie-title">UK Holiday</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">November 13, 2026</div></div>

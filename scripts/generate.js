@@ -1032,7 +1032,6 @@ function isPageWorthy(d) {
 
 function computeHits(calendarData, detailsMap) {
   const hitsByCountry = {};   // hitsByCountry[country][ym] = Set<id>
-  const hitRanks      = {};   // hitRanks[country][ym] = { id → 1-based anticipation rank }
   const globalHitIds  = new Set();
 
   for (const [ym, byCountry] of Object.entries(calendarData)) {
@@ -1043,10 +1042,7 @@ function computeHits(calendarData, detailsMap) {
         .sort((a, b) => (detailsMap[b.id].popularity || 0) - (detailsMap[a.id].popularity || 0))
         .slice(0, HIT_TOP_N_PER_COUNTRY);
       if (!hitsByCountry[country]) hitsByCountry[country] = {};
-      if (!hitRanks[country])      hitRanks[country]      = {};
       hitsByCountry[country][ym] = new Set(ranked.map(m => m.id));
-      hitRanks[country][ym]      = {};
-      ranked.forEach((m, i) => { hitRanks[country][ym][m.id] = i + 1; });
       for (const m of ranked) globalHitIds.add(m.id);
     }
   }
@@ -1056,14 +1052,32 @@ function computeHits(calendarData, detailsMap) {
     }
   }
   console.log(`Hits: ${globalHitIds.size} unique movies promoted (out of ${Object.keys(detailsMap).length})`);
-  return { hitsByCountry, hitRanks, globalHitIds };
+  return { hitsByCountry, globalHitIds };
+}
+
+// Rank EVERY featured movie within its country+month set (including legacy
+// hits accumulated on earlier nights that have since slipped out of the
+// current top-15) by present-day popularity. One numbering system: the
+// calendar must never show an unnumbered "featured" movie next to numbered
+// ones. Run this AFTER accumulateHits so the merged set is ranked.
+function computeFinalRanks(hitsByCountry, popularityById) {
+  const finalRanks = {};
+  for (const [country, byYm] of Object.entries(hitsByCountry)) {
+    finalRanks[country] = {};
+    for (const [ym, ids] of Object.entries(byYm)) {
+      const sorted = [...ids].sort((a, b) => (popularityById[b] || 0) - (popularityById[a] || 0));
+      finalRanks[country][ym] = {};
+      sorted.forEach((id, i) => { finalRanks[country][ym][id] = i + 1; });
+    }
+  }
+  return finalRanks;
 }
 
 // Merge persisted hit data from previous runs into the in-memory sets so
 // historical hits (computed when their month was still in the fetch window)
 // stay marked as hits forever. Mutates the inputs in place.
-function accumulateHits(hitsByCountry, globalHitIds, hitRanks) {
-  const existing = loadJSON(HITS_PATH, { globalHitIds: [], hitsByCountry: {}, hitRanks: {} });
+function accumulateHits(hitsByCountry, globalHitIds) {
+  const existing = loadJSON(HITS_PATH, { globalHitIds: [], hitsByCountry: {} });
   let addedGlobal = 0;
   for (const id of existing.globalHitIds || []) {
     if (!globalHitIds.has(id)) { globalHitIds.add(id); addedGlobal++; }
@@ -1073,14 +1087,6 @@ function accumulateHits(hitsByCountry, globalHitIds, hitRanks) {
     for (const [ym, ids] of Object.entries(byYm)) {
       if (!hitsByCountry[country][ym]) hitsByCountry[country][ym] = new Set();
       for (const id of ids) hitsByCountry[country][ym].add(id);
-    }
-  }
-  // Keep ranks for historical months that were not recomputed this run;
-  // freshly computed months always win.
-  for (const [country, byYm] of Object.entries(existing.hitRanks || {})) {
-    if (!hitRanks[country]) hitRanks[country] = {};
-    for (const [ym, ranks] of Object.entries(byYm)) {
-      if (!hitRanks[country][ym]) hitRanks[country][ym] = ranks;
     }
   }
   if (addedGlobal > 0) console.log(`Accumulated hits: kept ${addedGlobal} historical hits (total: ${globalHitIds.size})`);
@@ -2303,10 +2309,16 @@ async function main() {
     for (const m of detailedMovies) detailsMap[m.id] = m;
     const padYm = n => String(n).padStart(2, '0');
     const nowReg = new Date();
+    const currentYmReg = `${nowReg.getFullYear()}-${padYm(nowReg.getMonth() + 1)}`;
+    // Rebuild every month the site keeps history for (so historical files
+    // pick up featuredRank etc.), up to 12 months ahead. Anything outside
+    // this range is a phantom month from stale countryReleases entries.
     const allowedMonths = new Set();
-    for (let offset = -1; offset <= 12; offset++) {
-      const d = new Date(nowReg.getFullYear(), nowReg.getMonth() + offset, 1);
-      allowedMonths.add(`${d.getFullYear()}-${padYm(d.getMonth() + 1)}`);
+    let ymCursor = HISTORY_START;
+    const lastAllowedYm = addMonths(currentYmReg, 12);
+    while (ymCursor <= lastAllowedYm) {
+      allowedMonths.add(ymCursor);
+      ymCursor = addMonths(ymCursor, 1);
     }
     const calendarData = {};
     for (const m of detailedMovies) {
@@ -2321,9 +2333,12 @@ async function main() {
       }
     }
 
-    ({ hitsByCountry, hitRanks, globalHitIds } = computeHits(calendarData, detailsMap));
-    accumulateHits(hitsByCountry, globalHitIds, hitRanks);
+    ({ hitsByCountry, globalHitIds } = computeHits(calendarData, detailsMap));
+    accumulateHits(hitsByCountry, globalHitIds);
     promoteTopMoviesToHits(detailedMovies, globalHitIds);
+    const popularityById = {};
+    for (const m of loadJSON(MOVIES_PATH, [])) popularityById[m.id] = m.popularity || 0;
+    hitRanks = computeFinalRanks(hitsByCountry, popularityById);
     persistHits(hitsByCountry, globalHitIds, hitRanks);
     buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitIds, hitRanks);
   } else {
@@ -2518,13 +2533,16 @@ async function main() {
     assignSlugs(detailedMovies, manifest);
 
     // Compute which movies qualify as "hits" (get a full standalone page)
-    ({ hitsByCountry, hitRanks, globalHitIds } = computeHits(calendarData, detailsMap));
+    ({ hitsByCountry, globalHitIds } = computeHits(calendarData, detailsMap));
     // Union with previously-persisted hits so historical month rankings —
     // computed when those months were inside the fetch window — stay alive.
-    accumulateHits(hitsByCountry, globalHitIds, hitRanks);
+    accumulateHits(hitsByCountry, globalHitIds);
     // Promote /top-movies/ targets BEFORE writing calendar JSON, otherwise
     // safety-net-promoted movies would be missing their slug in the calendar.
     promoteTopMoviesToHits(detailedMovies, globalHitIds);
+    const popularityById = {};
+    for (const m of detailedMovies) popularityById[m.id] = m.popularity || 0;
+    hitRanks = computeFinalRanks(hitsByCountry, popularityById);
     persistHits(hitsByCountry, globalHitIds, hitRanks);
 
     // Write per-country per-month calendar JSON files (carries isHit + slug-for-hits)

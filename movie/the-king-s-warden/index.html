@@ -210,7 +210,22 @@
       <img src="https://image.tmdb.org/t/p/w500/3CnVA1jAA64Q3qNVAW8DekCu19b.jpg" alt="The King's Warden poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Previously ranked among the most anticipated releases for its month."><span class="fb-tag">Featured</span><span class="fb-text">Featured release</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (TMDB popularity) among February 2026 releases. The rank varies by country." data-count="35" data-ranks="{&quot;AU&quot;:[13,&quot;Australia&quot;,&quot;February 2026&quot;],&quot;AT&quot;:[14,&quot;Austria&quot;,&quot;February 2026&quot;],&quot;BE&quot;:[12,&quot;Belgium&quot;,&quot;February 2026&quot;],&quot;BR&quot;:[9,&quot;Brazil&quot;,&quot;February 2026&quot;],&quot;BG&quot;:[11,&quot;Bulgaria&quot;,&quot;February 2026&quot;],&quot;CA&quot;:[13,&quot;Canada&quot;,&quot;February 2026&quot;],&quot;CN&quot;:[11,&quot;China&quot;,&quot;February 2026&quot;],&quot;HR&quot;:[13,&quot;Croatia&quot;,&quot;February 2026&quot;],&quot;CY&quot;:[14,&quot;Cyprus&quot;,&quot;February 2026&quot;],&quot;CZ&quot;:[14,&quot;Czech Republic&quot;,&quot;February 2026&quot;],&quot;DK&quot;:[13,&quot;Denmark&quot;,&quot;February 2026&quot;],&quot;EE&quot;:[13,&quot;Estonia&quot;,&quot;February 2026&quot;],&quot;FI&quot;:[14,&quot;Finland&quot;,&quot;February 2026&quot;],&quot;FR&quot;:[13,&quot;France&quot;,&quot;February 2026&quot;],&quot;DE&quot;:[12,&quot;Germany&quot;,&quot;February 2026&quot;],&quot;GR&quot;:[13,&quot;Greece&quot;,&quot;February 2026&quot;],&quot;HU&quot;:[13,&quot;Hungary&quot;,&quot;February 2026&quot;],&quot;IN&quot;:[12,&quot;India&quot;,&quot;February 2026&quot;],&quot;IT&quot;:[26,&quot;Italy&quot;,&quot;May 2026&quot;],&quot;JP&quot;:[11,&quot;Japan&quot;,&quot;February 2026&quot;],&quot;LV&quot;:[13,&quot;Latvia&quot;,&quot;February 2026&quot;],&quot;LT&quot;:[12,&quot;Lithuania&quot;,&quot;February 2026&quot;],&quot;LU&quot;:[14,&quot;Luxembourg&quot;,&quot;February 2026&quot;],&quot;MT&quot;:[13,&quot;Malta&quot;,&quot;February 2026&quot;],&quot;NL&quot;:[13,&quot;Netherlands&quot;,&quot;February 2026&quot;],&quot;PL&quot;:[14,&quot;Poland&quot;,&quot;February 2026&quot;],&quot;PT&quot;:[13,&quot;Portugal&quot;,&quot;February 2026&quot;],&quot;RO&quot;:[12,&quot;Romania&quot;,&quot;February 2026&quot;],&quot;SK&quot;:[14,&quot;Slovakia&quot;,&quot;February 2026&quot;],&quot;SI&quot;:[13,&quot;Slovenia&quot;,&quot;February 2026&quot;],&quot;KR&quot;:[11,&quot;South Korea&quot;,&quot;February 2026&quot;],&quot;ES&quot;:[12,&quot;Spain&quot;,&quot;February 2026&quot;],&quot;SE&quot;:[13,&quot;Sweden&quot;,&quot;February 2026&quot;],&quot;UA&quot;:[10,&quot;Ukraine&quot;,&quot;February 2026&quot;],&quot;US&quot;:[9,&quot;United States&quot;,&quot;February 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#9 most anticipated February 2026 release &middot; featured in 35 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
+        })();
+      </script>
       <h1 class="movie-title">The King's Warden</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">February 4, 2026</div></div>

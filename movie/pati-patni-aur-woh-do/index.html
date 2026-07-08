@@ -210,7 +210,22 @@
       <img src="https://image.tmdb.org/t/p/w500/x0RUPvba4JlCCkyyEZGlQFIFVuF.jpg" alt="Pati Patni Aur Woh Do poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Previously ranked among the most anticipated releases for its month."><span class="fb-tag">Featured</span><span class="fb-text">Featured release</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (TMDB popularity) among May 2026 releases. The rank varies by country." data-count="37" data-ranks="{&quot;AU&quot;:[31,&quot;Australia&quot;,&quot;May 2026&quot;],&quot;AT&quot;:[35,&quot;Austria&quot;,&quot;May 2026&quot;],&quot;BE&quot;:[32,&quot;Belgium&quot;,&quot;May 2026&quot;],&quot;BR&quot;:[31,&quot;Brazil&quot;,&quot;May 2026&quot;],&quot;BG&quot;:[35,&quot;Bulgaria&quot;,&quot;May 2026&quot;],&quot;CA&quot;:[32,&quot;Canada&quot;,&quot;May 2026&quot;],&quot;CN&quot;:[35,&quot;China&quot;,&quot;May 2026&quot;],&quot;HR&quot;:[34,&quot;Croatia&quot;,&quot;May 2026&quot;],&quot;CY&quot;:[34,&quot;Cyprus&quot;,&quot;May 2026&quot;],&quot;CZ&quot;:[36,&quot;Czech Republic&quot;,&quot;May 2026&quot;],&quot;DK&quot;:[33,&quot;Denmark&quot;,&quot;May 2026&quot;],&quot;EE&quot;:[36,&quot;Estonia&quot;,&quot;May 2026&quot;],&quot;FI&quot;:[32,&quot;Finland&quot;,&quot;May 2026&quot;],&quot;FR&quot;:[32,&quot;France&quot;,&quot;May 2026&quot;],&quot;DE&quot;:[34,&quot;Germany&quot;,&quot;May 2026&quot;],&quot;GR&quot;:[35,&quot;Greece&quot;,&quot;May 2026&quot;],&quot;HU&quot;:[35,&quot;Hungary&quot;,&quot;May 2026&quot;],&quot;IN&quot;:[36,&quot;India&quot;,&quot;May 2026&quot;],&quot;IE&quot;:[32,&quot;Ireland&quot;,&quot;May 2026&quot;],&quot;IT&quot;:[33,&quot;Italy&quot;,&quot;May 2026&quot;],&quot;JP&quot;:[37,&quot;Japan&quot;,&quot;May 2026&quot;],&quot;LV&quot;:[36,&quot;Latvia&quot;,&quot;May 2026&quot;],&quot;LT&quot;:[33,&quot;Lithuania&quot;,&quot;May 2026&quot;],&quot;LU&quot;:[34,&quot;Luxembourg&quot;,&quot;May 2026&quot;],&quot;MT&quot;:[33,&quot;Malta&quot;,&quot;May 2026&quot;],&quot;NL&quot;:[33,&quot;Netherlands&quot;,&quot;May 2026&quot;],&quot;PL&quot;:[36,&quot;Poland&quot;,&quot;May 2026&quot;],&quot;PT&quot;:[34,&quot;Portugal&quot;,&quot;May 2026&quot;],&quot;RO&quot;:[37,&quot;Romania&quot;,&quot;May 2026&quot;],&quot;SK&quot;:[34,&quot;Slovakia&quot;,&quot;May 2026&quot;],&quot;SI&quot;:[34,&quot;Slovenia&quot;,&quot;May 2026&quot;],&quot;KR&quot;:[35,&quot;South Korea&quot;,&quot;May 2026&quot;],&quot;ES&quot;:[32,&quot;Spain&quot;,&quot;May 2026&quot;],&quot;SE&quot;:[32,&quot;Sweden&quot;,&quot;May 2026&quot;],&quot;GB&quot;:[35,&quot;United Kingdom&quot;,&quot;May 2026&quot;],&quot;UA&quot;:[36,&quot;Ukraine&quot;,&quot;May 2026&quot;],&quot;US&quot;:[35,&quot;United States&quot;,&quot;May 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#31 most anticipated May 2026 release &middot; featured in 37 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
+        })();
+      </script>
       <h1 class="movie-title">Pati Patni Aur Woh Do</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">May 15, 2026</div></div>
