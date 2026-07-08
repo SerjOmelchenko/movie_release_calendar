@@ -785,21 +785,38 @@ function buildMoviePage(movie, ctx = {}) {
         const ri = ctx.rankInfo?.[movie.id];
         const gr = ctx.globalMonthRanks?.[movie.id];
         let reasonText, tooltip, dataAttrs = '', personalize = '';
-        if (ri && ri.countryCount === 1) {
-          reasonText = `#${ri.bestRank} most anticipated ${monthLabel(ri.ym)} release in ${COUNTRY_NAMES[ri.country] || ri.country}`;
-          tooltip = `Anticipation rank = position by audience interest (TMDB popularity) among ${monthLabel(ri.ym)} releases in ${COUNTRY_NAMES[ri.country] || ri.country}.`;
-        } else if (ri) {
-          // Featured in several countries: keep the static text country-neutral
-          // (the best rank is per-country and naming one is arbitrary), then
-          // personalise client-side to the visitor's selected region.
-          reasonText = `#${ri.bestRank} most anticipated ${monthLabel(ri.ym)} release &middot; featured in ${ri.countryCount} countries`;
-          tooltip = `Best position across the ${ri.countryCount} countries featuring it, by audience interest (TMDB popularity) among ${monthLabel(ri.ym)} releases. The rank varies by country.`;
-          const ranksJson = {};
-          for (const [cc, rank] of Object.entries(ri.byCountry || {})) {
-            if (rank) ranksJson[cc] = [rank, COUNTRY_NAMES[cc] || cc];
+        if (ri) {
+          const entries = Object.entries(ri.byCountry);      // [cc, {rank, ym}]
+          const totalCountries = entries.length;
+          // A movie's rank is tied to its LOCAL release month in each country.
+          // For the static (country-neutral) text, only ranks from the primary
+          // release month are coherent with the release date shown on the page;
+          // otherwise the month would seem to contradict the date tile.
+          const primaryEntries = ym ? entries.filter(([, e]) => e.ym === ym) : [];
+          const pool = primaryEntries.length ? primaryEntries : entries;
+          let bestCc = null, bestEntry = null;
+          for (const [cc, e] of pool) {
+            if (!bestEntry || e.rank < bestEntry.rank) { bestEntry = e; bestCc = cc; }
           }
-          dataAttrs = ` data-month="${escHtml(monthLabel(ri.ym))}" data-count="${ri.countryCount}" data-ranks="${escHtml(JSON.stringify(ranksJson))}"`;
-          personalize = `
+          const monthTxt = monthLabel(bestEntry.ym);
+          const countryTxt = COUNTRY_NAMES[bestCc] || bestCc;
+          const suffix = totalCountries > 1 ? ` &middot; featured in ${totalCountries} countries` : '';
+          if (primaryEntries.length && totalCountries > 1) {
+            reasonText = `#${bestEntry.rank} most anticipated ${monthTxt} release${suffix}`;
+            tooltip = `Best position across the countries featuring it, by audience interest (TMDB popularity) among ${monthTxt} releases. The rank varies by country.`;
+          } else {
+            // Rank comes from one country's local release month — always name
+            // the country so the month has context.
+            reasonText = `#${bestEntry.rank} most anticipated ${monthTxt} release in ${countryTxt}${suffix}`;
+            tooltip = `Position by audience interest (TMDB popularity) among ${monthTxt} releases in ${countryTxt} (its local release month there).`;
+          }
+          if (totalCountries > 1) {
+            const ranksJson = {};
+            for (const [cc, e] of entries) {
+              ranksJson[cc] = [e.rank, COUNTRY_NAMES[cc] || cc, monthLabel(e.ym)];
+            }
+            dataAttrs = ` data-count="${totalCountries}" data-ranks="${escHtml(JSON.stringify(ranksJson))}"`;
+            personalize = `
       <script>
         (function(){
           var b = document.getElementById('featured-banner');
@@ -811,10 +828,11 @@ function buildMoviePage(movie, ctx = {}) {
           if (!r) return;
           var el = b.querySelector('.fb-text');
           if (!el) return;
-          el.textContent = '#' + r[0] + ' most anticipated ' + b.dataset.month + ' release in ' + r[1] + ' \\u00b7 featured in ' + b.dataset.count + ' countries';
-          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + b.dataset.month + ' releases in ' + r[1] + '.';
+          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \\u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
         })();
       </script>`;
+          }
         } else if (gr) {
           reasonText = `#${gr.rank} most anticipated movie of ${monthLabel(gr.ym)} worldwide`;
           tooltip = `Rank = position by audience interest (TMDB popularity) among all ${monthLabel(gr.ym)} releases.`;
@@ -1084,39 +1102,18 @@ function persistHits(hitsByCountry, globalHitIds, hitRanks) {
   }));
 }
 
-// Condense hitRanks into per-movie "best placement" info for page templates:
-// id → { bestRank, country, ym, countryCount } where countryCount is how many
-// countries feature the movie for its best month.
+// Condense hitRanks into per-movie placement info for page templates:
+// id → { byCountry: { cc: { rank, ym } } }. Ranks are per country AND per
+// local release month (a movie can open in June in one country and October
+// in another), so the month must always be carried alongside the rank.
 function buildRankInfo(hitRanks) {
-  const best = {};      // id → { bestRank, country, ym }
-  const countrySets = {}; // id → { ym → Set<country> }
-  for (const [country, byYm] of Object.entries(hitRanks || {})) {
-    for (const [ym, ranks] of Object.entries(byYm)) {
-      for (const [id, rank] of Object.entries(ranks)) {
-        if (!countrySets[id]) countrySets[id] = {};
-        if (!countrySets[id][ym]) countrySets[id][ym] = new Set();
-        countrySets[id][ym].add(country);
-        if (!best[id] || rank < best[id].bestRank) {
-          best[id] = { bestRank: rank, country, ym };
-        }
-      }
-    }
-  }
   const out = {};
-  for (const [id, info] of Object.entries(best)) {
-    // Per-country ranks for the best month, so pages can personalise the
-    // banner to the visitor's selected region.
-    const byCountry = {};
-    for (const country of countrySets[id][info.ym]) {
-      byCountry[country] = null;
-    }
-    out[id] = { ...info, countryCount: countrySets[id][info.ym].size, byCountry };
-  }
-  // Fill in the actual rank values
   for (const [country, byYm] of Object.entries(hitRanks || {})) {
     for (const [ym, ranks] of Object.entries(byYm)) {
       for (const [id, rank] of Object.entries(ranks)) {
-        if (out[id] && out[id].ym === ym) out[id].byCountry[country] = rank;
+        if (!out[id]) out[id] = { byCountry: {} };
+        const cur = out[id].byCountry[country];
+        if (!cur || rank < cur.rank) out[id].byCountry[country] = { rank, ym };
       }
     }
   }

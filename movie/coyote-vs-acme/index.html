@@ -210,7 +210,22 @@
       <img src="https://image.tmdb.org/t/p/w500/7zNmJP6z6mDAp4LouacYkGSBUQv.jpg" alt="Coyote vs ACME poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Anticipation rank = position by audience interest (TMDB popularity) among November 2026 releases in Poland."><span class="fb-tag">Featured</span><span class="fb-text">#11 most anticipated November 2026 release in Poland</span></div>
+      <div class="featured-banner" id="featured-banner" title="Position by audience interest (TMDB popularity) among November 2026 releases in Poland (its local release month there)." data-count="5" data-ranks="{&quot;AU&quot;:[13,&quot;Australia&quot;,&quot;September 2026&quot;],&quot;DE&quot;:[15,&quot;Germany&quot;,&quot;September 2026&quot;],&quot;PL&quot;:[11,&quot;Poland&quot;,&quot;November 2026&quot;],&quot;SI&quot;:[14,&quot;Slovenia&quot;,&quot;September 2026&quot;],&quot;UA&quot;:[14,&quot;Ukraine&quot;,&quot;September 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#11 most anticipated November 2026 release in Poland &middot; featured in 5 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
+        })();
+      </script>
       <h1 class="movie-title">Coyote vs ACME</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">August 21, 2026</div></div>

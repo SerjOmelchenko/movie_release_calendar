@@ -210,7 +210,7 @@
       <img src="https://image.tmdb.org/t/p/w500/dZ25ve1QeX0JliOh24kqevZzKFi.jpg" alt="Victorian Psycho poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Best position across the 7 countries featuring it, by audience interest (TMDB popularity) among September 2026 releases. The rank varies by country." data-month="September 2026" data-count="7" data-ranks="{&quot;DK&quot;:[15,&quot;Denmark&quot;],&quot;GR&quot;:[15,&quot;Greece&quot;],&quot;HU&quot;:[15,&quot;Hungary&quot;],&quot;IN&quot;:[15,&quot;India&quot;],&quot;LU&quot;:[15,&quot;Luxembourg&quot;],&quot;SE&quot;:[15,&quot;Sweden&quot;],&quot;US&quot;:[14,&quot;United States&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#14 most anticipated September 2026 release &middot; featured in 7 countries</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (TMDB popularity) among September 2026 releases. The rank varies by country." data-count="8" data-ranks="{&quot;CZ&quot;:[15,&quot;Czech Republic&quot;,&quot;October 2026&quot;],&quot;DK&quot;:[15,&quot;Denmark&quot;,&quot;September 2026&quot;],&quot;GR&quot;:[15,&quot;Greece&quot;,&quot;September 2026&quot;],&quot;HU&quot;:[15,&quot;Hungary&quot;,&quot;September 2026&quot;],&quot;IN&quot;:[15,&quot;India&quot;,&quot;September 2026&quot;],&quot;LU&quot;:[15,&quot;Luxembourg&quot;,&quot;September 2026&quot;],&quot;SE&quot;:[15,&quot;Sweden&quot;,&quot;September 2026&quot;],&quot;US&quot;:[14,&quot;United States&quot;,&quot;September 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#14 most anticipated September 2026 release &middot; featured in 8 countries</span></div>
       <script>
         (function(){
           var b = document.getElementById('featured-banner');
@@ -222,8 +222,8 @@
           if (!r) return;
           var el = b.querySelector('.fb-text');
           if (!el) return;
-          el.textContent = '#' + r[0] + ' most anticipated ' + b.dataset.month + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
-          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + b.dataset.month + ' releases in ' + r[1] + '.';
+          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
         })();
       </script>
       <h1 class="movie-title">Victorian Psycho</h1>

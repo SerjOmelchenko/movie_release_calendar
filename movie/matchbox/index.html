@@ -210,7 +210,7 @@
       <img src="https://image.tmdb.org/t/p/w500/nR6GyhyS1skt36VM4TKyqtUyQN3.jpg" alt="Matchbox poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Best position across the 13 countries featuring it, by audience interest (TMDB popularity) among October 2026 releases. The rank varies by country." data-month="October 2026" data-count="13" data-ranks="{&quot;AU&quot;:[14,&quot;Australia&quot;],&quot;BE&quot;:[15,&quot;Belgium&quot;],&quot;BG&quot;:[15,&quot;Bulgaria&quot;],&quot;CA&quot;:[13,&quot;Canada&quot;],&quot;CN&quot;:[15,&quot;China&quot;],&quot;HR&quot;:[15,&quot;Croatia&quot;],&quot;CY&quot;:[15,&quot;Cyprus&quot;],&quot;FI&quot;:[15,&quot;Finland&quot;],&quot;MT&quot;:[15,&quot;Malta&quot;],&quot;RO&quot;:[15,&quot;Romania&quot;],&quot;SK&quot;:[15,&quot;Slovakia&quot;],&quot;SI&quot;:[15,&quot;Slovenia&quot;],&quot;KR&quot;:[15,&quot;South Korea&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#13 most anticipated October 2026 release &middot; featured in 13 countries</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (TMDB popularity) among October 2026 releases. The rank varies by country." data-count="13" data-ranks="{&quot;AU&quot;:[14,&quot;Australia&quot;,&quot;October 2026&quot;],&quot;BE&quot;:[15,&quot;Belgium&quot;,&quot;October 2026&quot;],&quot;BG&quot;:[15,&quot;Bulgaria&quot;,&quot;October 2026&quot;],&quot;CA&quot;:[13,&quot;Canada&quot;,&quot;October 2026&quot;],&quot;CN&quot;:[15,&quot;China&quot;,&quot;October 2026&quot;],&quot;HR&quot;:[15,&quot;Croatia&quot;,&quot;October 2026&quot;],&quot;CY&quot;:[15,&quot;Cyprus&quot;,&quot;October 2026&quot;],&quot;FI&quot;:[15,&quot;Finland&quot;,&quot;October 2026&quot;],&quot;MT&quot;:[15,&quot;Malta&quot;,&quot;October 2026&quot;],&quot;RO&quot;:[15,&quot;Romania&quot;,&quot;October 2026&quot;],&quot;SK&quot;:[15,&quot;Slovakia&quot;,&quot;October 2026&quot;],&quot;SI&quot;:[15,&quot;Slovenia&quot;,&quot;October 2026&quot;],&quot;KR&quot;:[15,&quot;South Korea&quot;,&quot;October 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#13 most anticipated October 2026 release &middot; featured in 13 countries</span></div>
       <script>
         (function(){
           var b = document.getElementById('featured-banner');
@@ -222,8 +222,8 @@
           if (!r) return;
           var el = b.querySelector('.fb-text');
           if (!el) return;
-          el.textContent = '#' + r[0] + ' most anticipated ' + b.dataset.month + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
-          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + b.dataset.month + ' releases in ' + r[1] + '.';
+          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
         })();
       </script>
       <h1 class="movie-title">Matchbox</h1>

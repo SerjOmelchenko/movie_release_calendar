@@ -210,7 +210,22 @@
       <img src="https://image.tmdb.org/t/p/w500/9rOCIYYT8Q76FHgl3Nm5ofuc6TQ.jpg" alt="Sheep in the Box poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Anticipation rank = position by audience interest (TMDB popularity) among December 2026 releases in France."><span class="fb-tag">Featured</span><span class="fb-text">#10 most anticipated December 2026 release in France</span></div>
+      <div class="featured-banner" id="featured-banner" title="Position by audience interest (TMDB popularity) among December 2026 releases in France (its local release month there)." data-count="3" data-ranks="{&quot;FR&quot;:[10,&quot;France&quot;,&quot;December 2026&quot;],&quot;IE&quot;:[14,&quot;Ireland&quot;,&quot;September 2026&quot;],&quot;GB&quot;:[15,&quot;United Kingdom&quot;,&quot;September 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#10 most anticipated December 2026 release in France &middot; featured in 3 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
+        })();
+      </script>
       <h1 class="movie-title">Sheep in the Box</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">May 29, 2026</div></div>
