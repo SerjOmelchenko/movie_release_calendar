@@ -48,6 +48,10 @@
   <meta name="description" content="Browse upcoming movie release dates by country and month. Track theatrical premieres worldwide and never miss a new film release." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://moviereleaseradar.com/" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://moviereleaseradar.com/" />
+  <meta property="og:title"       content="Movie Release Radar | Movie Release Dates by Country" />
+  <meta property="og:description" content="Browse upcoming movie release dates by country and month. Track theatrical premieres worldwide and never miss a new film release." />
   <link rel="icon" href="/favicon.ico"/>
   <link rel="manifest" href="/site.webmanifest" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Movie Release Radar","url":"https://moviereleaseradar.com/","description":"Browse upcoming movie release dates by country and month. Track theatrical premieres worldwide and never miss a new film release."}</script>
@@ -413,6 +417,8 @@
       margin-bottom: 0.2rem;
       line-height: 1.3;
     }
+    .list-card-title a { color: inherit; text-decoration: none; }
+    .list-card-title a:hover { color: #e94560; }
     .list-card-meta {
       font-size: 0.75rem;
       color: #5a5a5a;
@@ -792,6 +798,47 @@
       border-color: #3a3a3a;
     }
 
+    .ph-rank { color: #e94560; font-weight: 800; }
+
+    /* Anticipation-rank chip overlaid on calendar posters */
+    .rank-chip {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      z-index: 3;
+      background: #e94560;
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 7px;
+      letter-spacing: 0.02em;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.6);
+      pointer-events: none;
+    }
+
+    /* Static crawlable sections injected by scripts/generate.js */
+    .home-featured, .home-browse { max-width: 1300px; margin: 2.5rem auto 0; padding: 0 2rem; }
+    .home-sec-title { font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem; }
+    .home-sec-sub { font-size: 0.85rem; color: #888; margin-bottom: 1rem; }
+    .home-sec-sub a { color: #e94560; text-decoration: none; }
+    .home-sec-sub a:hover { text-decoration: underline; }
+    .home-featured-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: 0.9rem; }
+    .hf-card { display: flex; flex-direction: column; gap: 0.35rem; text-decoration: none; }
+    .hf-card img { width: 100%; border-radius: 10px; display: block; aspect-ratio: 2/3; object-fit: cover; }
+    .hf-noposter { width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 0.4rem; }
+    .hf-noposter span { font-size: 0.68rem; color: #555; text-align: center; line-height: 1.3; }
+    .hf-title { font-size: 0.76rem; font-weight: 600; color: #ccc; line-height: 1.3; }
+    .hf-card:hover .hf-title { color: #e94560; }
+    .hf-date { font-size: 0.68rem; color: #555; }
+    .home-browse { margin-bottom: 2rem; }
+    .home-browse-group { margin-bottom: 1.1rem; }
+    .home-browse-group h3 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #555; margin-bottom: 0.6rem; }
+    .home-links { display: flex; flex-wrap: wrap; gap: 0.45rem 0.9rem; }
+    .home-links a { color: #999; text-decoration: none; font-size: 0.82rem; }
+    .home-links a:hover { color: #e94560; text-decoration: underline; }
+    @media (max-width: 700px) { .home-featured, .home-browse { padding: 0 1rem; } }
+
     /* Hit reason badge shown on the calendar cell under the poster */
     .hit-reason {
       display: block;
@@ -849,6 +896,7 @@
       border-radius: 4px;
       display: block;
     }
+    .poster-wrap a { display: block; }
 
     .poster-placeholder {
       width: 100%;
@@ -1955,6 +2003,150 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div id="calendar" style="display:none;"></div>
 </div>
 
+<!-- Static, crawlable sections rendered nightly by scripts/generate.js.
+     Do not edit content between the markers — it is overwritten on each run. -->
+<!-- BUILD:FEATURED_MONTH:START -->
+<section class="home-featured">
+  <h2 class="home-sec-title">Featured Movies This Month</h2>
+  <p class="home-sec-sub">The most anticipated July 2026 releases &mdash; <a href="/calendar/2026-07/">see the full July 2026 release calendar</a>.</p>
+  <div class="home-featured-grid">
+    <a class="hf-card" href="/movie/satluj/">
+      <img src="https://image.tmdb.org/t/p/w185/hm4ou83RwLVwNj3HsmQuqC1qkWy.jpg" alt="Satluj poster" loading="lazy" width="105" height="158" />
+      <span class="hf-title">Satluj</span>
+      <span class="hf-date">Jul 3, 2026</span>
+    </a>
+    <a class="hf-card" href="/movie/avatar-aang-the-last-airbender-2026/">
+      <img src="https://image.tmdb.org/t/p/w185/3sgnSfNT27Bx5O5ukr7B26mhEQq.jpg" alt="Avatar Aang: The Last Airbender poster" loading="lazy" width="105" height="158" />
+      <span class="hf-title">Avatar Aang: The Last Airbender</span>
+      <span class="hf-date">Jul 24, 2026</span>
+    </a>
+    <a class="hf-card" href="/movie/night-of-the-living-dead/">
+      <img src="https://image.tmdb.org/t/p/w185/5l0klDtj2v4FMFOGGCEH23AQb30.jpg" alt="Night of the Living Dead poster" loading="lazy" width="105" height="158" />
+      <span class="hf-title">Night of the Living Dead</span>
+      <span class="hf-date">Jul 3, 2026</span>
+    </a>
+    <a class="hf-card" href="/movie/moana/">
+      <img src="https://image.tmdb.org/t/p/w185/zKVgiv5qHCvCLT4A2ymJi5QeXDH.jpg" alt="Moana poster" loading="lazy" width="105" height="158" />
+      <span class="hf-title">Moana</span>
+      <span class="hf-date">Jul 8, 2026</span>
+    </a>
+    <a class="hf-card" href="/movie/the-odyssey/">
+      <img src="https://image.tmdb.org/t/p/w185/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg" alt="The Odyssey poster" loading="lazy" width="105" height="158" />
+      <span class="hf-title">The Odyssey</span>
+      <span class="hf-date">Jul 15, 2026</span>
+    </a>
+    <a class="hf-card" href="/movie/spider-man-brand-new-day/">
+      <img src="https://image.tmdb.org/t/p/w185/yyB2VJEW3an2xCdcYCPQhn9QERR.jpg" alt="Spider-Man: Brand New Day poster" loading="lazy" width="105" height="158" />
+      <span class="hf-title">Spider-Man: Brand New Day</span>
+      <span class="hf-date">Jul 29, 2026</span>
+    </a>
+    <a class="hf-card" href="/movie/evil-dead-burn/">
+      <img src="https://image.tmdb.org/t/p/w185/ztadKzIIR0ERYqpHteaPFtk7inP.jpg" alt="Evil Dead Burn poster" loading="lazy" width="105" height="158" />
+      <span class="hf-title">Evil Dead Burn</span>
+      <span class="hf-date">Jul 7, 2026</span>
+    </a>
+    <a class="hf-card" href="/movie/wings-of-dread/">
+      <img src="https://image.tmdb.org/t/p/w185/iCnTJwkAMwIvaZgwpPHJJHfV0Er.jpg" alt="Wings of Dread poster" loading="lazy" width="105" height="158" />
+      <span class="hf-title">Wings of Dread</span>
+      <span class="hf-date">Jul 3, 2026</span>
+    </a>
+    <a class="hf-card" href="/movie/alpha/">
+      <img src="https://image.tmdb.org/t/p/w185/bPtRt3ajQ0EkyeQ1O6iJwAIi9Py.jpg" alt="Alpha poster" loading="lazy" width="105" height="158" />
+      <span class="hf-title">Alpha</span>
+      <span class="hf-date">Jul 2, 2026</span>
+    </a>
+    <a class="hf-card" href="/movie/simpsley/">
+      <img src="https://image.tmdb.org/t/p/w185/qkJefER6Ym4v2KC1v4qK34AlcVo.jpg" alt="Simpsley poster" loading="lazy" width="105" height="158" />
+      <span class="hf-title">Simpsley</span>
+      <span class="hf-date">Jul 3, 2026</span>
+    </a>
+    <a class="hf-card" href="/movie/keep-real/">
+      <img src="https://image.tmdb.org/t/p/w185/cyzcsp95W2Op3G5Gb8S2cPEnSc2.jpg" alt="Keep Real poster" loading="lazy" width="105" height="158" />
+      <span class="hf-title">Keep Real</span>
+      <span class="hf-date">Jul 3, 2026</span>
+    </a>
+    <a class="hf-card" href="/movie/young-washington/">
+      <img src="https://image.tmdb.org/t/p/w185/ntW9zzhDmbt3sXDyPXb7SHVuDdB.jpg" alt="Young Washington poster" loading="lazy" width="105" height="158" />
+      <span class="hf-title">Young Washington</span>
+      <span class="hf-date">Jul 2, 2026</span>
+    </a>
+  </div>
+</section>
+<!-- BUILD:FEATURED_MONTH:END -->
+
+<!-- BUILD:BROWSE_LINKS:START -->
+<section class="home-browse">
+  <h2 class="home-sec-title">Browse Release Calendars</h2>
+  <div class="home-browse-group">
+    <h3>By month</h3>
+    <div class="home-links">
+      <a href="/calendar/2026-01/">January 2026</a>
+      <a href="/calendar/2026-02/">February 2026</a>
+      <a href="/calendar/2026-03/">March 2026</a>
+      <a href="/calendar/2026-04/">April 2026</a>
+      <a href="/calendar/2026-05/">May 2026</a>
+      <a href="/calendar/2026-06/">June 2026</a>
+      <a href="/calendar/2026-07/">July 2026</a>
+      <a href="/calendar/2026-08/">August 2026</a>
+      <a href="/calendar/2026-09/">September 2026</a>
+      <a href="/calendar/2026-10/">October 2026</a>
+      <a href="/calendar/2026-11/">November 2026</a>
+      <a href="/calendar/2026-12/">December 2026</a>
+      <a href="/calendar/2027-01/">January 2027</a>
+      <a href="/calendar/2027-02/">February 2027</a>
+      <a href="/calendar/2027-03/">March 2027</a>
+      <a href="/calendar/2027-04/">April 2027</a>
+      <a href="/calendar/2027-05/">May 2027</a>
+      <a href="/calendar/2027-06/">June 2027</a>
+      <a href="/calendar/2027-07/">July 2027</a>
+    </div>
+  </div>
+  <div class="home-browse-group">
+    <h3>By country</h3>
+    <div class="home-links">
+      <a href="/releases/australia/">Australia</a>
+      <a href="/releases/austria/">Austria</a>
+      <a href="/releases/belgium/">Belgium</a>
+      <a href="/releases/brazil/">Brazil</a>
+      <a href="/releases/bulgaria/">Bulgaria</a>
+      <a href="/releases/canada/">Canada</a>
+      <a href="/releases/china/">China</a>
+      <a href="/releases/croatia/">Croatia</a>
+      <a href="/releases/cyprus/">Cyprus</a>
+      <a href="/releases/czech-republic/">Czech Republic</a>
+      <a href="/releases/denmark/">Denmark</a>
+      <a href="/releases/estonia/">Estonia</a>
+      <a href="/releases/finland/">Finland</a>
+      <a href="/releases/france/">France</a>
+      <a href="/releases/germany/">Germany</a>
+      <a href="/releases/greece/">Greece</a>
+      <a href="/releases/hungary/">Hungary</a>
+      <a href="/releases/india/">India</a>
+      <a href="/releases/ireland/">Ireland</a>
+      <a href="/releases/italy/">Italy</a>
+      <a href="/releases/japan/">Japan</a>
+      <a href="/releases/latvia/">Latvia</a>
+      <a href="/releases/lithuania/">Lithuania</a>
+      <a href="/releases/luxembourg/">Luxembourg</a>
+      <a href="/releases/malta/">Malta</a>
+      <a href="/releases/netherlands/">Netherlands</a>
+      <a href="/releases/poland/">Poland</a>
+      <a href="/releases/portugal/">Portugal</a>
+      <a href="/releases/romania/">Romania</a>
+      <a href="/releases/slovakia/">Slovakia</a>
+      <a href="/releases/slovenia/">Slovenia</a>
+      <a href="/releases/south-korea/">South Korea</a>
+      <a href="/releases/spain/">Spain</a>
+      <a href="/releases/sweden/">Sweden</a>
+      <a href="/releases/ukraine/">Ukraine</a>
+      <a href="/releases/united-kingdom/">United Kingdom</a>
+      <a href="/releases/united-states/">United States</a>
+      <a href="/releases/">All countries &#8594;</a>
+    </div>
+  </div>
+</section>
+<!-- BUILD:BROWSE_LINKS:END -->
+
 <!-- Day picker modal (multiple movies on same day) -->
 <div id="list-hover-popup"></div>
 
@@ -2014,7 +2206,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="ob-icon">🎯</div>
       <div class="ob-title">Featured Releases</div>
       <p class="ob-desc">
-        Only the most anticipated movies for your country get a poster on the calendar. The small red label under each poster (like <strong>"TOP 15 IN US"</strong>) explains why a movie was featured. Tap <strong>"Other releases"</strong> to see the rest launching that day.
+        Only the most anticipated movies for your country get a poster on the calendar. The label under each poster (like <strong>"#3 MOST ANTICIPATED IN US"</strong>) shows the film's exact position in this month's most-anticipated ranking for your country, based on audience interest. Highly-rated films (7.0+ on TMDB) are featured too. Tap <strong>"Other releases"</strong> to see the rest launching that day.
       </p>
     </div>
 
@@ -2189,26 +2381,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   // Rule A (per-country): m.isHit (set server-side = top-15 popularity in the
   // user's selected region for that month). Rule B (retroactive global):
   // vote_average >= 7 AND vote_count >= 50.
+  // One unified badge system. A movie is featured either for its exact
+  // position in the country's monthly most-anticipated ranking (featuredRank,
+  // computed nightly from TMDB popularity) or for its audience rating.
   function hitReason(movie, region) {
     const hasRating = (movie.vote_average || 0) >= 7 && (movie.vote_count || 0) >= 50;
     const isAnticipated = !!movie.isHit;
     if (!hasRating && !isAnticipated) return null;
     const country = COUNTRY_NAMES[region] || region;
-    if (hasRating && isAnticipated) {
+    const rank = movie.featuredRank || null;
+    const ratingShort = hasRating ? `★ ${movie.vote_average.toFixed(1)}` : '';
+    const ratingLong  = hasRating ? `Rated ${movie.vote_average.toFixed(1)}/10 by ${movie.vote_count.toLocaleString()} viewers on TMDB.` : '';
+
+    if (rank) {
       return {
-        short: `★ ${movie.vote_average.toFixed(1)} · TOP 15 IN ${region}`,
-        long: `★ ${movie.vote_average.toFixed(1)}/10 and top 15 most anticipated in ${country}.`,
+        short: hasRating ? `#${rank} MOST ANTICIPATED · ${ratingShort}` : `#${rank} MOST ANTICIPATED IN ${region}`,
+        long: `Ranked #${rank} of this month's most anticipated releases in ${country}, by audience interest on TMDB.${ratingLong ? ' ' + ratingLong : ''}`,
       };
     }
-    if (hasRating) {
+    if (isAnticipated) {
       return {
-        short: `★ ${movie.vote_average.toFixed(1)} / 10 — HIGHLY RATED`,
-        long: `★ ${movie.vote_average.toFixed(1)}/10 from ${movie.vote_count.toLocaleString()} viewers.`,
+        short: hasRating ? `FEATURED · ${ratingShort}` : `FEATURED IN ${region}`,
+        long: `One of this month's most anticipated releases in ${country}, by audience interest on TMDB.${ratingLong ? ' ' + ratingLong : ''}`,
       };
     }
     return {
-      short: `TOP 15 ANTICIPATED IN ${region}`,
-      long: `Top 15 most anticipated in ${country} this month.`,
+      short: `${ratingShort}/10 · HIGHLY RATED`,
+      long: ratingLong,
     };
   }
 
@@ -2298,17 +2497,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       const movies = filtered[dateStr] || [];
       const isToday = dateStr === todayStr;
 
-      // Only HIT movies get a poster on the calendar. If a day has releases
-      // but none qualify as a hit, we show a "no hits today" stub plus a
-      // "See all releases" button that opens the day modal. Multiple hits
-      // on the same day render side-by-side (top 2 by popularity, with a
-      // "+N more featured" pill when there are 3 or more).
+      // Every FEATURED movie of the day is rendered on the grid (no cap,
+      // no "+N more featured" pill). Non-featured releases stay behind the
+      // "Other releases" pill so busy days don't drown the calendar.
       const hits = movies.filter(m => m.isHit)
         .sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
       const nonHits = movies.filter(m => !m.isHit);
-      const VISIBLE_HITS = 2;
-      const shownHits = hits.slice(0, VISIBLE_HITS);
-      const extraHitCount = hits.length - shownHits.length;
 
       let cls = 'day-cell';
       if (isToday) cls += ' today';
@@ -2318,40 +2512,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       html += `<div class="${cls}" data-date="${dateStr}">`;
       html += `<div class="day-number">${d}</div>`;
 
-      function renderHitPoster(m) {
+      function renderHitPoster(m, withRankChip) {
         let out = '';
         if (m.poster_path) {
           const inWl = watchlist.includes(m.id);
+          // Real <a> tag when the movie has a static page — crawlable link
+          const href = m.slug ? `/movie/${m.slug}/` : null;
           out += `<div class="poster-wrap" data-id="${m.id}" data-date="${dateStr}">`;
-          out += `<img class="poster-thumb" src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`;
+          const img = `<img class="poster-thumb" src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`;
+          out += href ? `<a href="${href}" aria-label="${escHtml(m.title)}">${img}</a>` : img;
+          if (withRankChip && m.featuredRank) out += `<div class="rank-chip" title="#${m.featuredRank} most anticipated this month in ${escHtml(COUNTRY_NAMES[regionSelect.value] || regionSelect.value)}">#${m.featuredRank}</div>`;
           out += `<div class="heart-badge${inWl ? ' watchlisted' : ''}" data-id="${m.id}" title="${inWl ? 'Remove from watchlist' : 'Add to watchlist'}">${inWl ? '&#9829;' : '&#9825;'}</div>`;
           if (m.vote_count > 0 && m.vote_average >= 1) out += `<div class="rating-badge">&#9733; ${m.vote_average.toFixed(1)}</div>`;
           out += `</div>`;
         } else {
-          out += `<div class="poster-placeholder" data-id="${m.id}" data-date="${dateStr}">${escHtml(m.title)}</div>`;
+          const rankPrefix = withRankChip && m.featuredRank ? `<span class="ph-rank">#${m.featuredRank}</span> ` : '';
+          out += `<div class="poster-placeholder" data-id="${m.id}" data-date="${dateStr}">${rankPrefix}${escHtml(m.title)}</div>`;
         }
         return out;
       }
 
-      if (shownHits.length === 1) {
-        html += renderHitPoster(shownHits[0]);
-        const reason = hitReason(shownHits[0], regionSelect.value);
+      if (hits.length === 1) {
+        html += renderHitPoster(hits[0], false);
+        const reason = hitReason(hits[0], regionSelect.value);
         if (reason) {
           html += `<div class="hit-reason" title="${escHtml(reason.long)}">${escHtml(reason.short)}</div>`;
         }
-      } else if (shownHits.length >= 2) {
+      } else if (hits.length >= 2) {
         html += `<div class="hits-grid">`;
-        shownHits.forEach(m => { html += renderHitPoster(m); });
+        hits.forEach(m => { html += renderHitPoster(m, true); });
         html += `</div>`;
         const region = regionSelect.value;
         const country = COUNTRY_NAMES[region] || region;
-        const totalFeatured = hits.length;
-        html += `<div class="hit-reason" title="${escHtml(`${totalFeatured} featured releases in ${country} this day — top picks ranked by audience interest.`)}">★ ${totalFeatured} FEATURED IN ${escHtml(region)}</div>`;
+        html += `<div class="hit-reason" title="${escHtml(`${hits.length} featured releases in ${country} this day. The #-chip on each poster is that film's position in this month's most-anticipated ranking for ${country}.`)}">${hits.length} FEATURED RELEASES</div>`;
       }
-      if (extraHitCount > 0) {
-        html += `<button class="more-hits-pill" data-date="${dateStr}" data-short="+${extraHitCount} more">+${extraHitCount} more featured</button>`;
-      }
-      if (shownHits.length === 0 && movies.length > 0) {
+      if (hits.length === 0 && movies.length > 0) {
         html += `<div class="no-hits-block">No major releases</div>`;
         html += `<button class="see-all-pill" data-date="${dateStr}" data-short="${movies.length} releases">See all releases (${movies.length})</button>`;
       } else if (nonHits.length > 0) {
@@ -2374,6 +2569,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     calendarEl.querySelectorAll('.heart-badge[data-id]').forEach(badge => {
       badge.addEventListener('click', e => {
         e.stopPropagation();
+        e.preventDefault();
         const id = parseInt(badge.dataset.id, 10);
         const added = toggleWatchlist(id);
         badge.classList.toggle('watchlisted', added);
@@ -2386,6 +2582,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     calendarEl.querySelectorAll('.poster-wrap[data-id]').forEach(wrap => {
       wrap.addEventListener('click', e => {
         e.stopPropagation();
+        // Poster is wrapped in a real <a> when the movie has a page — let
+        // native navigation handle it (also fixes cmd/ctrl-click, middle-click).
+        if (e.target.closest('a')) return;
         const id = parseInt(wrap.dataset.id, 10);
         const movie = (filtered[wrap.dataset.date] || []).find(m => m.id === id);
         if (movie) openOrNavigateMovie(movie);
@@ -2557,7 +2756,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           const cast = Array.isArray(m.cast) && m.cast.length > 0 ? m.cast.slice(0, 3) : [];
 
           html += `<div class="list-card-info">`;
-          html += `<div class="list-card-title">${escHtml(m.title)}</div>`;
+          html += m.slug
+            ? `<div class="list-card-title"><a href="/movie/${m.slug}/">${escHtml(m.title)}</a></div>`
+            : `<div class="list-card-title">${escHtml(m.title)}</div>`;
           html += `<div class="list-card-meta">`;
           html += metaParts.join('<span class="meta-dot"> · </span>');
           if (cert) html += `${metaParts.length ? '<span class="meta-dot"> · </span>' : ''}<span class="list-card-cert">${escHtml(cert)}</span>`;
@@ -2596,6 +2797,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     calendarEl.querySelectorAll('.list-card').forEach(card => {
       card.addEventListener('click', e => {
         if (e.target.closest('.list-card-heart')) return;
+        if (e.target.closest('a')) return; // title is a real link — native navigation
         const id = parseInt(card.dataset.id, 10);
         const dateStr = card.dataset.date;
         const movie = (filtered[dateStr] || []).find(m => m.id === id);
