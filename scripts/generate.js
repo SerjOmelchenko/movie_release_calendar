@@ -15,6 +15,7 @@ const TOP_MOVIES_DIR = path.join(__dirname, '..', 'top-movies');
 const HITS_PATH      = path.join(DATA_DIR, 'hits.json');
 const PUBLIC_MANIFEST_PATH = path.join(DATA_DIR, 'manifest-public.json');
 const DATE_HISTORY_PATH    = path.join(DATA_DIR, 'date-history.json');
+const POP_HISTORY_PATH     = path.join(DATA_DIR, 'popularity-history.json');
 const CALENDAR_PAGES_DIR   = path.join(__dirname, '..', 'calendar');
 const RELEASES_DIR         = path.join(__dirname, '..', 'releases');
 const INDEX_HTML_PATH      = path.join(__dirname, '..', 'index.html');
@@ -29,6 +30,11 @@ const HISTORY_START    = '2026-01';
 const HIT_TOP_N_PER_COUNTRY = 15;
 const HIT_RATING_MIN        = 7;
 const HIT_VOTE_COUNT_MIN    = 50;
+
+// Anticipation-scoring knobs (see "Anticipation scoring" section)
+const POP_HISTORY_MAX_DAYS       = 14; // nightly popularity snapshots kept per movie
+const POP_SMOOTH_DAYS            = 7;  // trailing snapshots averaged for ranking
+const LATE_IMPORT_HALF_LIFE_DAYS = 30; // days playing elsewhere that halve the score
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -803,12 +809,12 @@ function buildMoviePage(movie, ctx = {}) {
           const suffix = totalCountries > 1 ? ` &middot; featured in ${totalCountries} countries` : '';
           if (primaryEntries.length && totalCountries > 1) {
             reasonText = `#${bestEntry.rank} most anticipated ${monthTxt} release${suffix}`;
-            tooltip = `Best position across the countries featuring it, by audience interest (TMDB popularity) among ${monthTxt} releases. The rank varies by country.`;
+            tooltip = `Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among ${monthTxt} releases. The rank varies by country.`;
           } else {
             // Rank comes from one country's local release month — always name
             // the country so the month has context.
             reasonText = `#${bestEntry.rank} most anticipated ${monthTxt} release in ${countryTxt}${suffix}`;
-            tooltip = `Position by audience interest (TMDB popularity) among ${monthTxt} releases in ${countryTxt} (its local release month there).`;
+            tooltip = `Position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among ${monthTxt} releases in ${countryTxt} (its local release month there).`;
           }
           if (totalCountries > 1) {
             const ranksJson = {};
@@ -829,13 +835,13 @@ function buildMoviePage(movie, ctx = {}) {
           var el = b.querySelector('.fb-text');
           if (!el) return;
           el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \\u00b7 featured in ' + b.dataset.count + ' countries';
-          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
+          b.title = 'Anticipation rank = position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
         })();
       </script>`;
           }
         } else if (gr) {
           reasonText = `#${gr.rank} most anticipated movie of ${monthLabel(gr.ym)} worldwide`;
-          tooltip = `Rank = position by audience interest (TMDB popularity) among all ${monthLabel(gr.ym)} releases.`;
+          tooltip = `Rank = position by audience interest (7-day average TMDB popularity) among all ${monthLabel(gr.ym)} releases.`;
         } else if (highRated) {
           reasonText = `Rated ${movie.vote_average.toFixed(1)}/10 by ${movie.vote_count.toLocaleString()} viewers`;
           tooltip = 'Featured for its audience rating on TMDB (7.0+ from 50+ voters).';
@@ -1012,6 +1018,89 @@ function buildMoviePage(movie, ctx = {}) {
 </html>`;
 }
 
+// ── Anticipation scoring ──────────────────────────────────────────────────────
+// TMDB `popularity` is a real-time activity metric: it spikes on a movie's
+// release day and stays inflated for as long as the film is playing somewhere.
+// Ranking a month's releases by the raw nightly snapshot therefore has two
+// credibility failures:
+//   a) a one-day spike (release day, viral news) reshuffles the whole list;
+//   b) a film that premiered abroad weeks before its local opening arrives
+//      carrying a full theatrical run's worth of buzz and buries genuinely
+//      anticipated upcoming releases (and re-releases of old films rank as if
+//      they were new).
+// Two corrections:
+//   1. Smoothing — rank on the average of the last POP_SMOOTH_DAYS nightly
+//      snapshots (persisted in popularity-history.json) instead of today's.
+//   2. Late-import discount (country+month ranks only) — halve the score for
+//      every LATE_IMPORT_HALF_LIFE_DAYS the film has already been playing
+//      elsewhere before its local opening; that buzz is an ongoing box-office
+//      run, not local anticipation.
+
+let _popHistory = null;
+function loadPopHistory() {
+  if (!_popHistory) _popHistory = loadJSON(POP_HISTORY_PATH, {});
+  return _popHistory;
+}
+
+// Record tonight's popularity for every freshly-fetched movie. Runs before any
+// ranking so tonight's value participates in the smoothed average.
+function recordPopularitySnapshots(movies) {
+  const hist  = loadPopHistory();
+  const today = new Date().toISOString().slice(0, 10);
+  for (const m of movies) {
+    if (!m || typeof m.popularity !== 'number') continue;
+    const rows = (hist[m.id] || []).filter(([d]) => d !== today);
+    rows.push([today, m.popularity]);
+    rows.sort((a, b) => (a[0] < b[0] ? -1 : 1));
+    hist[m.id] = rows.slice(-POP_HISTORY_MAX_DAYS);
+  }
+  fs.writeFileSync(POP_HISTORY_PATH, JSON.stringify(hist));
+  console.log(`popularity-history.json updated (${movies.length} snapshot(s))`);
+}
+
+const _smoothPopCache = new Map();
+function smoothPop(m) {
+  if (!m) return 0;
+  let v = _smoothPopCache.get(m.id);
+  if (v === undefined) {
+    const today = new Date().toISOString().slice(0, 10);
+    const rows  = (loadPopHistory()[m.id] || []).filter(([d]) => d !== today);
+    rows.push([today, m.popularity || 0]); // current value always participates
+    const win = rows.slice(-POP_SMOOTH_DAYS);
+    v = win.reduce((s, [, p]) => s + p, 0) / win.length;
+    _smoothPopCache.set(m.id, v);
+  }
+  return v;
+}
+
+// When the film's run effectively started. A lone early date in one country
+// is usually a festival premiere, not the start of the theatrical run, so
+// take the 3rd-earliest country date — but never later than the primary
+// release date, which is what keeps re-releases of old films buried.
+function effectiveFirstRelease(m) {
+  const cdates = Object.values(m.countryReleases || {}).filter(Boolean).sort();
+  const robust = cdates.length ? cdates[Math.min(2, cdates.length - 1)] : null;
+  const primary = m.release_date || null;
+  if (primary && (!robust || primary < robust)) return primary;
+  return robust;
+}
+
+// 0..1 multiplier for a country's ranking: 1 when the local opening is the
+// film's earliest anywhere, halving per LATE_IMPORT_HALF_LIFE_DAYS of lag.
+// Re-releases (years of lag) end up effectively at zero.
+function lateImportFactor(m, country) {
+  const earliest = effectiveFirstRelease(m);
+  const local    = (m.countryReleases || {})[country] || m.release_date;
+  if (!earliest || !local || local <= earliest) return 1;
+  const lagDays = (new Date(local) - new Date(earliest)) / 86400000;
+  return Math.pow(0.5, lagDays / LATE_IMPORT_HALF_LIFE_DAYS);
+}
+
+function anticipationScore(m, country) {
+  if (!m) return 0;
+  return smoothPop(m) * lateImportFactor(m, country);
+}
+
 // ── Hit selection ─────────────────────────────────────────────────────────────
 
 // A movie qualifies as a "hit" (gets a full standalone page) if EITHER:
@@ -1039,7 +1128,7 @@ function computeHits(calendarData, detailsMap) {
       if (country === 'WW') continue;
       const ranked = rawMovies
         .filter(m => detailsMap[m.id] && isPageWorthy(detailsMap[m.id]))
-        .sort((a, b) => (detailsMap[b.id].popularity || 0) - (detailsMap[a.id].popularity || 0))
+        .sort((a, b) => anticipationScore(detailsMap[b.id], country) - anticipationScore(detailsMap[a.id], country))
         .slice(0, HIT_TOP_N_PER_COUNTRY);
       if (!hitsByCountry[country]) hitsByCountry[country] = {};
       hitsByCountry[country][ym] = new Set(ranked.map(m => m.id));
@@ -1057,15 +1146,16 @@ function computeHits(calendarData, detailsMap) {
 
 // Rank EVERY featured movie within its country+month set (including legacy
 // hits accumulated on earlier nights that have since slipped out of the
-// current top-15) by present-day popularity. One numbering system: the
-// calendar must never show an unnumbered "featured" movie next to numbered
-// ones. Run this AFTER accumulateHits so the merged set is ranked.
-function computeFinalRanks(hitsByCountry, popularityById) {
+// current top-15) by anticipation score (smoothed popularity × late-import
+// discount). One numbering system: the calendar must never show an
+// unnumbered "featured" movie next to numbered ones. Run this AFTER
+// accumulateHits so the merged set is ranked.
+function computeFinalRanks(hitsByCountry, moviesById) {
   const finalRanks = {};
   for (const [country, byYm] of Object.entries(hitsByCountry)) {
     finalRanks[country] = {};
     for (const [ym, ids] of Object.entries(byYm)) {
-      const sorted = [...ids].sort((a, b) => (popularityById[b] || 0) - (popularityById[a] || 0));
+      const sorted = [...ids].sort((a, b) => anticipationScore(moviesById[b], country) - anticipationScore(moviesById[a], country));
       finalRanks[country][ym] = {};
       sorted.forEach((id, i) => { finalRanks[country][ym][id] = i + 1; });
     }
@@ -1137,7 +1227,7 @@ function buildGlobalMonthRanks(detailedMovies) {
   }
   const out = {};
   for (const [ym, list] of Object.entries(byYm)) {
-    list.sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+    list.sort((a, b) => smoothPop(b) - smoothPop(a))
       .slice(0, 10)
       .forEach((m, i) => { out[m.id] = { rank: i + 1, ym }; });
   }
@@ -1517,7 +1607,7 @@ function buildTopMoviesIndexPage(allMonths, detailedMovies) {
   const cardsHtml = [...allMonths].reverse().map(ym => {
     const label    = monthLabel(ym);
     const topThree = (moviesByMonth[ym] || [])
-      .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+      .sort((a, b) => smoothPop(b) - smoothPop(a))
       .slice(0, 3);
     const thumbsHtml = topThree
       .filter(m => m.poster_path)
@@ -1639,7 +1729,7 @@ function generateTopMoviesPages(detailedMovies, globalHitIds = null) {
 
     const topMovies = detailedMovies
       .filter(m => m.release_date && m.release_date.startsWith(ym) && m.slug)
-      .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+      .sort((a, b) => smoothPop(b) - smoothPop(a))
       .slice(0, 10);
 
     if (topMovies.length === 0) continue;
@@ -1724,7 +1814,7 @@ function buildMonthHubPage(ym, monthMovies, globalHitIds, hubMonthsSet, topMonth
   const pageTitle    = `Movies Coming Out in ${label}`;
 
   const hits = monthMovies.filter(m => globalHitIds.has(m.id) && m.slug)
-    .sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+    .sort((a, b) => smoothPop(b) - smoothPop(a));
   const top3 = hits.slice(0, 3).map(m => m.title).join(', ');
   const metaDesc = escHtml(
     `Full ${label} movie release calendar: ${monthMovies.length} movies day by day` +
@@ -2119,7 +2209,7 @@ function injectHomepage(allMovies, globalHitIds, hubMonths) {
 
   const featured = allMovies
     .filter(m => globalHitIds.has(m.id) && m.slug && (m.release_date || '').startsWith(currentYm))
-    .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+    .sort((a, b) => smoothPop(b) - smoothPop(a))
     .slice(0, 12);
 
   const cards = featured.map(m => {
@@ -2336,9 +2426,9 @@ async function main() {
     ({ hitsByCountry, globalHitIds } = computeHits(calendarData, detailsMap));
     accumulateHits(hitsByCountry, globalHitIds);
     promoteTopMoviesToHits(detailedMovies, globalHitIds);
-    const popularityById = {};
-    for (const m of loadJSON(MOVIES_PATH, [])) popularityById[m.id] = m.popularity || 0;
-    hitRanks = computeFinalRanks(hitsByCountry, popularityById);
+    const moviesById = {};
+    for (const m of loadJSON(MOVIES_PATH, [])) moviesById[m.id] = m;
+    hitRanks = computeFinalRanks(hitsByCountry, moviesById);
     persistHits(hitsByCountry, globalHitIds, hitRanks);
     buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitIds, hitRanks);
   } else {
@@ -2475,6 +2565,11 @@ async function main() {
 
     console.log(`\nFetched details for ${Object.keys(detailsMap).length} movies (${idsToFetch.length} hit TMDB, ${idsToReuse.length} reused)`);
 
+    // Persist tonight's popularity for every movie that actually hit TMDB
+    // (reused entries carry stale values and must not be re-dated as fresh).
+    // Must happen before computeHits so ranking sees tonight's snapshot.
+    recordPopularitySnapshots(idsToFetch.map(id => detailsMap[id]).filter(Boolean));
+
     detailedMovies = Object.values(detailsMap);
 
     // Stamp dataUpdatedAt — only advance when page-relevant data actually changed
@@ -2540,9 +2635,9 @@ async function main() {
     // Promote /top-movies/ targets BEFORE writing calendar JSON, otherwise
     // safety-net-promoted movies would be missing their slug in the calendar.
     promoteTopMoviesToHits(detailedMovies, globalHitIds);
-    const popularityById = {};
-    for (const m of detailedMovies) popularityById[m.id] = m.popularity || 0;
-    hitRanks = computeFinalRanks(hitsByCountry, popularityById);
+    const moviesById = {};
+    for (const m of detailedMovies) moviesById[m.id] = m;
+    hitRanks = computeFinalRanks(hitsByCountry, moviesById);
     persistHits(hitsByCountry, globalHitIds, hitRanks);
 
     // Write per-country per-month calendar JSON files (carries isHit + slug-for-hits)
@@ -2589,7 +2684,7 @@ function promoteTopMoviesToHits(detailedMovies, globalHitIds) {
   for (const ym of months) {
     const top = detailedMovies
       .filter(m => m.release_date && m.release_date.startsWith(ym) && m.slug)
-      .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+      .sort((a, b) => smoothPop(b) - smoothPop(a))
       .slice(0, 10);
     for (const m of top) {
       if (!globalHitIds.has(m.id)) { globalHitIds.add(m.id); promoted++; }
