@@ -210,7 +210,7 @@
       <img src="https://image.tmdb.org/t/p/w500/tGsNHkaypxCDSGEr6zY5Y5NT6oL.jpg" alt="New Group poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (TMDB popularity) among June 2026 releases. The rank varies by country." data-count="4" data-ranks="{&quot;JP&quot;:[50,&quot;Japan&quot;,&quot;June 2026&quot;],&quot;SE&quot;:[49,&quot;Sweden&quot;,&quot;June 2026&quot;],&quot;GB&quot;:[49,&quot;United Kingdom&quot;,&quot;June 2026&quot;],&quot;US&quot;:[45,&quot;United States&quot;,&quot;June 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#45 most anticipated June 2026 release &middot; featured in 4 countries</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among June 2026 releases. The rank varies by country." data-count="4" data-ranks="{&quot;JP&quot;:[55,&quot;Japan&quot;,&quot;June 2026&quot;],&quot;SE&quot;:[54,&quot;Sweden&quot;,&quot;June 2026&quot;],&quot;GB&quot;:[55,&quot;United Kingdom&quot;,&quot;June 2026&quot;],&quot;US&quot;:[44,&quot;United States&quot;,&quot;June 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#44 most anticipated June 2026 release &middot; featured in 4 countries</span></div>
       <script>
         (function(){
           var b = document.getElementById('featured-banner');
@@ -223,7 +223,7 @@
           var el = b.querySelector('.fb-text');
           if (!el) return;
           el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
-          b.title = 'Anticipation rank = position by audience interest (TMDB popularity) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
+          b.title = 'Anticipation rank = position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
         })();
       </script>
       <h1 class="movie-title">New Group</h1>
