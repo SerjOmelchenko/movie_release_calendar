@@ -210,7 +210,22 @@
       <img src="https://image.tmdb.org/t/p/w500/uhVzuDKT7JIRGZOB5fSS14dIvCY.jpg" alt="cecelia poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among September 2026 releases in Germany (its local release month there)."><span class="fb-tag">Featured</span><span class="fb-text">#23 most anticipated September 2026 release in Germany</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among September 2026 releases. The rank varies by country." data-count="20" data-ranks="{&quot;AU&quot;:[18,&quot;Australia&quot;,&quot;September 2026&quot;],&quot;AT&quot;:[19,&quot;Austria&quot;,&quot;September 2026&quot;],&quot;BE&quot;:[19,&quot;Belgium&quot;,&quot;September 2026&quot;],&quot;BR&quot;:[18,&quot;Brazil&quot;,&quot;September 2026&quot;],&quot;CZ&quot;:[17,&quot;Czech Republic&quot;,&quot;September 2026&quot;],&quot;DK&quot;:[19,&quot;Denmark&quot;,&quot;September 2026&quot;],&quot;EE&quot;:[17,&quot;Estonia&quot;,&quot;September 2026&quot;],&quot;FR&quot;:[19,&quot;France&quot;,&quot;September 2026&quot;],&quot;DE&quot;:[16,&quot;Germany&quot;,&quot;September 2026&quot;],&quot;GR&quot;:[19,&quot;Greece&quot;,&quot;September 2026&quot;],&quot;HU&quot;:[19,&quot;Hungary&quot;,&quot;September 2026&quot;],&quot;IN&quot;:[19,&quot;India&quot;,&quot;September 2026&quot;],&quot;LV&quot;:[19,&quot;Latvia&quot;,&quot;September 2026&quot;],&quot;LU&quot;:[19,&quot;Luxembourg&quot;,&quot;September 2026&quot;],&quot;PL&quot;:[18,&quot;Poland&quot;,&quot;September 2026&quot;],&quot;ES&quot;:[18,&quot;Spain&quot;,&quot;September 2026&quot;],&quot;SE&quot;:[17,&quot;Sweden&quot;,&quot;September 2026&quot;],&quot;GB&quot;:[19,&quot;United Kingdom&quot;,&quot;September 2026&quot;],&quot;UA&quot;:[18,&quot;Ukraine&quot;,&quot;September 2026&quot;],&quot;US&quot;:[16,&quot;United States&quot;,&quot;September 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#16 most anticipated September 2026 release &middot; featured in 20 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
+        })();
+      </script>
       <h1 class="movie-title">cecelia</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">September 1, 2026</div></div>
@@ -370,7 +385,7 @@
     <div class="section-heading">More September 2026 Releases</div>
     <div class="related-grid">
     <a class="related-card" href="/movie/cowriters/">
-        <img src="https://image.tmdb.org/t/p/w185/wUs4swe4dRXAXw2DmQk7SpBkLr3.jpg" alt="Cowriters poster" loading="lazy" width="92" height="138" />
+        <img src="https://image.tmdb.org/t/p/w185/oTG2mOUPt2Dx8uk3nDfCM4khd0R.jpg" alt="Cowriters poster" loading="lazy" width="92" height="138" />
         <span class="related-title">Cowriters</span>
         <span class="related-date">Sep 10, 2026</span>
       </a>
@@ -394,19 +409,19 @@
         <span class="related-title">Practical Magic 2</span>
         <span class="related-date">Sep 9, 2026</span>
       </a>
-    <a class="related-card" href="/movie/la-bola-negra/">
-        <img src="https://image.tmdb.org/t/p/w185/du0WFunZDoFqddLa8G1vk4o0Y0c.jpg" alt="La Bola Negra poster" loading="lazy" width="92" height="138" />
-        <span class="related-title">La Bola Negra</span>
+    <a class="related-card" href="/movie/epitaph-2026/">
+        <img src="https://image.tmdb.org/t/p/w185/fqP9jQWpncJvXamsPxTsKE5tJqE.jpg" alt="Epitaph poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">Epitaph</span>
         <span class="related-date">Sep 25, 2026</span>
+      </a>
+    <a class="related-card" href="/movie/sense-and-sensibility/">
+        <img src="https://image.tmdb.org/t/p/w185/sYzWktm1YwJydX92fbSOWHJs33m.jpg" alt="Sense and Sensibility poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">Sense and Sensibility</span>
+        <span class="related-date">Sep 23, 2026</span>
       </a>
     <a class="related-card" href="/movie/the-paradise/">
         <img src="https://image.tmdb.org/t/p/w185/smghVMoMWSIFi5dgIz4w1UIcEcY.jpg" alt="The Paradise poster" loading="lazy" width="92" height="138" />
         <span class="related-title">The Paradise</span>
-        <span class="related-date">Sep 25, 2026</span>
-      </a>
-    <a class="related-card" href="/movie/epitaph-2026/">
-        <img src="https://image.tmdb.org/t/p/w185/fqP9jQWpncJvXamsPxTsKE5tJqE.jpg" alt="Epitaph poster" loading="lazy" width="92" height="138" />
-        <span class="related-title">Epitaph</span>
         <span class="related-date">Sep 25, 2026</span>
       </a>
     </div>
