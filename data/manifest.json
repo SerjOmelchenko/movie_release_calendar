@@ -4743,6 +4743,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "634290": {
+    "title": "Это всё она!",
+    "slug": "movie-634290",
+    "previousSlugs": [],
+    "certification": null
+  },
   "634649": {
     "title": "Spider-Man: No Way Home",
     "slug": "spider-man-no-way-home",
@@ -12039,6 +12045,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1220330": {
+    "title": "Wishlist for Superagüi",
+    "slug": "wishlist-for-superagui",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1220522": {
     "title": "Dacoit",
     "slug": "dacoit",
@@ -15484,6 +15496,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1298508": {
+    "title": "WWE SummerSlam 2026: Saturday - Countdown",
+    "slug": "wwe-summerslam-2026-saturday-countdown",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1298510": {
     "title": "WWE SummerSlam 2026: Sunday - Countdown",
     "slug": "wwe-summerslam-2026-sunday-countdown",
@@ -17916,6 +17934,12 @@
   "1354518": {
     "title": "100 Nights of Hero",
     "slug": "100-nights-of-hero",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1354596": {
+    "title": "And",
+    "slug": "and",
     "previousSlugs": [],
     "certification": null
   },
@@ -20631,9 +20655,11 @@
     "certification": null
   },
   "1400336": {
-    "title": "Focker-In-Law",
+    "title": "Focker-in-Law",
     "slug": "focker-in-law",
-    "previousSlugs": [],
+    "previousSlugs": [
+      "focker-in-law"
+    ],
     "certification": null
   },
   "1400357": {
@@ -35428,6 +35454,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1559068": {
+    "title": "Abracadabra",
+    "slug": "abracadabra-2027",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1559073": {
     "title": "I Was a Witness",
     "slug": "i-was-a-witness",
@@ -43469,6 +43501,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1613886": {
+    "title": "Maternity Leave",
+    "slug": "maternity-leave",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1613893": {
     "title": "Surplace",
     "slug": "surplace",
@@ -48598,9 +48636,11 @@
     "certification": null
   },
   "1630030": {
-    "title": "Demon Agent: Chang'an",
-    "slug": "demon-agent-chang-an",
-    "previousSlugs": [],
+    "title": "Mystery of Chang'an",
+    "slug": "mystery-of-chang-an",
+    "previousSlugs": [
+      "demon-agent-chang-an"
+    ],
     "certification": null
   },
   "1630035": {
@@ -50165,6 +50205,12 @@
   "1633513": {
     "title": "To Catch a Cheater",
     "slug": "to-catch-a-cheater",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1633523": {
+    "title": "HANDMEDOWN",
+    "slug": "handmedown",
     "previousSlugs": [],
     "certification": null
   },
@@ -56109,6 +56155,12 @@
   "1644207": {
     "title": "Smoke Break",
     "slug": "smoke-break",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1644210": {
+    "title": "Robotica",
+    "slug": "robotica",
     "previousSlugs": [],
     "certification": null
   },
@@ -62648,6 +62700,12 @@
   "1653802": {
     "title": "Die Kuh, die weint",
     "slug": "die-kuh-die-weint",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1653817": {
+    "title": "Враг",
+    "slug": "movie-1653817",
     "previousSlugs": [],
     "certification": null
   },
@@ -71803,6 +71861,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1677616": {
+    "title": "Heathen",
+    "slug": "heathen",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1677628": {
     "title": "First Blue Sky",
     "slug": "first-blue-sky",
@@ -71866,9 +71930,11 @@
     "certification": null
   },
   "1677956": {
-    "title": "Как пережить брак",
-    "slug": "movie-1677956",
-    "previousSlugs": [],
+    "title": "How to Survive a Marriage",
+    "slug": "how-to-survive-a-marriage",
+    "previousSlugs": [
+      "movie-1677956"
+    ],
     "certification": null
   },
   "1677967": {
@@ -73000,6 +73066,12 @@
   "1684048": {
     "title": "Dharpakad",
     "slug": "dharpakad",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1684074": {
+    "title": "Amorphophallus",
+    "slug": "amorphophallus",
     "previousSlugs": [],
     "certification": null
   },
@@ -79139,6 +79211,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1701947": {
+    "title": "Лучшее лето в жизни",
+    "slug": "movie-1701947",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1701994": {
     "title": "Visiting the Zoo",
     "slug": "visiting-the-zoo",
@@ -82558,6 +82636,12 @@
   "1708920": {
     "title": "Six Days To Pay",
     "slug": "six-days-to-pay",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1708922": {
+    "title": "33 Steps",
+    "slug": "33-steps",
     "previousSlugs": [],
     "certification": null
   },
@@ -91864,6 +91948,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1728815": {
+    "title": "Jonás",
+    "slug": "jonas",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1728827": {
     "title": "No Wifi",
     "slug": "no-wifi",
@@ -92990,6 +93080,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1731839": {
+    "title": "Tele Fantasia",
+    "slug": "tele-fantasia",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1731841": {
     "title": "AI AI AI - Eine Synchron Dystopie",
     "slug": "ai-ai-ai-eine-synchron-dystopie",
@@ -93477,6 +93573,12 @@
   "1733453": {
     "title": "Alle Guds farver",
     "slug": "alle-guds-farver",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1733470": {
+    "title": "LOTE",
+    "slug": "lote",
     "previousSlugs": [],
     "certification": null
   },
@@ -93970,6 +94072,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1735699": {
+    "title": "Hitler’s Games: Berlin 1936 in Colour",
+    "slug": "hitler-s-games-berlin-1936-in-colour",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1735700": {
     "title": "I Have No Mouth, Yet I Must Scream",
     "slug": "i-have-no-mouth-yet-i-must-scream",
@@ -94130,9 +94238,21 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1736582": {
+    "title": "เหมรฺย 2",
+    "slug": "2-1736582",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1736641": {
     "title": "Ringos Tally",
     "slug": "ringos-tally",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1736667": {
+    "title": "Pothohara Mon",
+    "slug": "pothohara-mon",
     "previousSlugs": [],
     "certification": null
   },
@@ -94145,6 +94265,12 @@
   "1736738": {
     "title": "Road Head",
     "slug": "road-head",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1736830": {
+    "title": "EQUILIBRIVM II",
+    "slug": "equilibrivm-ii",
     "previousSlugs": [],
     "certification": null
   },
@@ -94258,6 +94384,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1738150": {
+    "title": "Die Sandale meiner Schwester",
+    "slug": "die-sandale-meiner-schwester",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1738244": {
     "title": "Black Market",
     "slug": "black-market",
@@ -94273,6 +94405,12 @@
   "1738296": {
     "title": "Home Not Alone 4",
     "slug": "home-not-alone-4",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1738358": {
+    "title": "The Raid",
+    "slug": "the-raid-2026",
     "previousSlugs": [],
     "certification": null
   },
@@ -94300,6 +94438,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1738658": {
+    "title": "Dhasal",
+    "slug": "dhasal",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1738716": {
     "title": "Égrégore",
     "slug": "egregore",
@@ -94324,6 +94468,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1739143": {
+    "title": "Ám: Chuỗi Phim Ngắn Linh Dị",
+    "slug": "am-chuoi-phim-ngan-linh-di",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1739191": {
     "title": "HORLA",
     "slug": "horla",
@@ -94339,6 +94489,12 @@
   "1739299": {
     "title": "Tra le righe",
     "slug": "tra-le-righe",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1739303": {
+    "title": "My Sad Dead",
+    "slug": "my-sad-dead",
     "previousSlugs": [],
     "certification": null
   },
@@ -94387,6 +94543,18 @@
   "1739382": {
     "title": "The Atlas Field",
     "slug": "the-atlas-field",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1739423": {
+    "title": "À nos nuits punk",
+    "slug": "a-nos-nuits-punk",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1739450": {
+    "title": "The Twin Who Lived",
+    "slug": "the-twin-who-lived",
     "previousSlugs": [],
     "certification": null
   },
@@ -94588,15 +94756,49 @@
     "previousSlugs": [],
     "certification": null
   },
-  "1741616": {
-    "title": "Chayka",
-    "slug": "chayka",
+  "1741545": {
+    "title": "WWE SummerSlam 2026: Sunday",
+    "slug": "wwe-summerslam-2026-sunday",
     "previousSlugs": [],
     "certification": null
   },
+  "1741616": {
+    "title": "Seagull",
+    "slug": "seagull",
+    "previousSlugs": [
+      "chayka"
+    ],
+    "certification": null
+  },
   "1741627": {
-    "title": "Static",
-    "slug": "static-2026",
+    "title": "After Life",
+    "slug": "after-life",
+    "previousSlugs": [
+      "static-2026"
+    ],
+    "certification": null
+  },
+  "1741752": {
+    "title": "Super Space Sheriff Gavan Infinity VS Raiya",
+    "slug": "super-space-sheriff-gavan-infinity-vs-raiya",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1741953": {
+    "title": "Path of Titans 4 - DUCK DYNASTY",
+    "slug": "path-of-titans-4-duck-dynasty",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1742064": {
+    "title": "The Keep: Molasar´s Return",
+    "slug": "the-keep-molasar-s-return",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1742119": {
+    "title": "FANTASY OF A BLACK MAN",
+    "slug": "fantasy-of-a-black-man",
     "previousSlugs": [],
     "certification": null
   }
