@@ -15702,9 +15702,11 @@
     "certification": null
   },
   "1298919": {
-    "title": "Urang Bunian",
-    "slug": "urang-bunian",
-    "previousSlugs": [],
+    "title": "Urang Bunian: Misteri dari Hutan Sumatera",
+    "slug": "urang-bunian-misteri-dari-hutan-sumatera",
+    "previousSlugs": [
+      "urang-bunian"
+    ],
     "certification": null
   },
   "1299046": {
@@ -19719,6 +19721,12 @@
   "1380638": {
     "title": "Mirror",
     "slug": "mirror",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1380780": {
+    "title": "The Last Druid",
+    "slug": "the-last-druid",
     "previousSlugs": [],
     "certification": null
   },
@@ -44612,6 +44620,12 @@
   "1614424": {
     "title": "born blue",
     "slug": "born-blue",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1614481": {
+    "title": "Danger",
+    "slug": "danger",
     "previousSlugs": [],
     "certification": null
   },
@@ -87169,9 +87183,11 @@
     "certification": null
   },
   "1715961": {
-    "title": "INHUMATION",
+    "title": "Inhumation",
     "slug": "inhumation",
-    "previousSlugs": [],
+    "previousSlugs": [
+      "inhumation"
+    ],
     "certification": null
   },
   "1715972": {
@@ -95224,6 +95240,12 @@
     ],
     "certification": null
   },
+  "1732693": {
+    "title": "Hackneyed",
+    "slug": "hackneyed",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1732709": {
     "title": "L'operatrice e le forchette (forze dell’ordine)",
     "slug": "l-operatrice-e-le-forchette-forze-dell-ordine",
@@ -96136,6 +96158,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1736104": {
+    "title": "Noche de Entierro",
+    "slug": "noche-de-entierro",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1736106": {
     "title": "Come to Brasil",
     "slug": "come-to-brasil",
@@ -96465,6 +96493,12 @@
   "1736916": {
     "title": "Instadocs: The Prediction Games",
     "slug": "instadocs-the-prediction-games",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1736974": {
+    "title": "Podcast Pete",
+    "slug": "podcast-pete",
     "previousSlugs": [],
     "certification": null
   },
@@ -97420,6 +97454,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1740110": {
+    "title": "My Love",
+    "slug": "my-love",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1740116": {
     "title": "After Rehearsal",
     "slug": "after-rehearsal",
@@ -97688,6 +97728,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1741019": {
+    "title": "31/07",
+    "slug": "31-07",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1741023": {
     "title": "Po čem holky touží",
     "slug": "po-cem-holky-touzi",
@@ -97697,6 +97743,12 @@
   "1741037": {
     "title": "Family Xmas",
     "slug": "family-xmas",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1741076": {
+    "title": "The Soap Star Murder Mystery",
+    "slug": "the-soap-star-murder-mystery",
     "previousSlugs": [],
     "certification": null
   },
@@ -97766,6 +97818,18 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1741377": {
+    "title": "simulacra",
+    "slug": "simulacra-1741377",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1741405": {
+    "title": "Mientras Dure el Espectáculo",
+    "slug": "mientras-dure-el-espectaculo",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1741419": {
     "title": "WWE Survivor Series: WarGames 2026",
     "slug": "wwe-survivor-series-wargames-2026",
@@ -97811,6 +97875,12 @@
   "1741545": {
     "title": "WWE SummerSlam 2026: Sunday",
     "slug": "wwe-summerslam-2026-sunday",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1741576": {
+    "title": "Celebrity Caregiver",
+    "slug": "celebrity-caregiver",
     "previousSlugs": [],
     "certification": null
   },
@@ -97952,6 +98022,12 @@
   "1742186": {
     "title": "Thicker Than Water",
     "slug": "thicker-than-water",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1742204": {
+    "title": "Tracers",
+    "slug": "tracers",
     "previousSlugs": [],
     "certification": null
   },
@@ -98153,6 +98229,24 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1743098": {
+    "title": "Evel",
+    "slug": "evel",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1743138": {
+    "title": "Gonzaguinha — Of the Greatest Freedom",
+    "slug": "gonzaguinha-of-the-greatest-freedom",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1743159": {
+    "title": "Heretical Girls",
+    "slug": "heretical-girls",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1743163": {
     "title": "The Cryonicist",
     "slug": "the-cryonicist",
@@ -98174,6 +98268,12 @@
   "1743248": {
     "title": "Slogans (Part One)",
     "slug": "slogans-part-one",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1743256": {
+    "title": "Slogans (Part Two)",
+    "slug": "slogans-part-two",
     "previousSlugs": [],
     "certification": null
   },
@@ -98252,6 +98352,12 @@
   "1743597": {
     "title": "The Remotes",
     "slug": "the-remotes",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1743600": {
+    "title": "Body and Mind",
+    "slug": "body-and-mind",
     "previousSlugs": [],
     "certification": null
   },
@@ -98515,6 +98621,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1744786": {
+    "title": "Friendly Fire & Other Assorted Songs",
+    "slug": "friendly-fire-other-assorted-songs",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1744799": {
     "title": "ORPHIA",
     "slug": "orphia",
@@ -98593,6 +98705,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1745001": {
+    "title": "Anomalous Celestial Phenomena",
+    "slug": "anomalous-celestial-phenomena",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1745030": {
     "title": "Home Sweet Home",
     "slug": "home-sweet-home-1745030",
@@ -98629,6 +98747,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1745144": {
+    "title": "Всплеск",
+    "slug": "movie-1745144",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1745149": {
     "title": "The Hunt Down 2",
     "slug": "the-hunt-down-2",
@@ -98659,6 +98783,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1745256": {
+    "title": "Сухой завтрак",
+    "slug": "movie-1745256",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1745259": {
     "title": "Твикс",
     "slug": "movie-1745259",
@@ -98677,9 +98807,33 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1745280": {
+    "title": "Цепенеющий лох",
+    "slug": "movie-1745280",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1745295": {
+    "title": "No Contact",
+    "slug": "no-contact",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1745364": {
     "title": "Anthôman",
     "slug": "anthoman",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1745394": {
+    "title": "The Widowmaker",
+    "slug": "the-widowmaker-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1745424": {
+    "title": "Після вироку",
+    "slug": "movie-1745424",
     "previousSlugs": [],
     "certification": null
   },
@@ -98710,6 +98864,12 @@
   "1745544": {
     "title": "Obsession Unleashed",
     "slug": "obsession-unleashed-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1745557": {
+    "title": "Support",
+    "slug": "support",
     "previousSlugs": [],
     "certification": null
   },
@@ -98749,6 +98909,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1745824": {
+    "title": "Hibernation",
+    "slug": "hibernation",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1745841": {
     "title": "The Fig Tree",
     "slug": "the-fig-tree",
@@ -98758,6 +98924,12 @@
   "1745847": {
     "title": "Degree of Certainty",
     "slug": "degree-of-certainty",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1746080": {
+    "title": "Early Winter's Sorrow",
+    "slug": "early-winter-s-sorrow",
     "previousSlugs": [],
     "certification": null
   },
@@ -98773,6 +98945,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1746176": {
+    "title": "Dementium",
+    "slug": "dementium",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1746189": {
     "title": "Another Day",
     "slug": "another-day-2026",
@@ -98782,6 +98960,12 @@
   "1746210": {
     "title": "Sweet Nothing",
     "slug": "sweet-nothing",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1746465": {
+    "title": "Plötzlich Schwiegervater",
+    "slug": "plotzlich-schwiegervater",
     "previousSlugs": [],
     "certification": null
   },
@@ -98851,9 +99035,21 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1746888": {
+    "title": "The man who can't sleep",
+    "slug": "the-man-who-can-t-sleep",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1746929": {
     "title": "Mr. Creamjeans' Hidey Hole",
     "slug": "mr-creamjeans-hidey-hole",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1747064": {
+    "title": "El Pintor de los Milagros",
+    "slug": "el-pintor-de-los-milagros",
     "previousSlugs": [],
     "certification": null
   },
@@ -98914,6 +99110,12 @@
   "1747946": {
     "title": "Box of Memories",
     "slug": "box-of-memories",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1748007": {
+    "title": "Niu Lai",
+    "slug": "niu-lai",
     "previousSlugs": [],
     "certification": null
   },
@@ -99058,6 +99260,24 @@
   "1750342": {
     "title": "Communitas",
     "slug": "communitas",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1750521": {
+    "title": "A Man's Best Friend",
+    "slug": "a-man-s-best-friend",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1750982": {
+    "title": "Notte senza luna in una miniera di carbone",
+    "slug": "notte-senza-luna-in-una-miniera-di-carbone",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1751007": {
+    "title": "Quick Fix",
+    "slug": "quick-fix",
     "previousSlugs": [],
     "certification": null
   }
