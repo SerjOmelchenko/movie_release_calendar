@@ -10876,6 +10876,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1174311": {
+    "title": "Devilwoman",
+    "slug": "devilwoman",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1174334": {
     "title": "A Foggy Tale",
     "slug": "a-foggy-tale",
@@ -16843,6 +16849,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1316347": {
+    "title": "Takluk 2: OP Daulat",
+    "slug": "takluk-2-op-daulat",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1316398": {
     "title": "Our Erika",
     "slug": "our-erika",
@@ -17782,8 +17794,8 @@
     "certification": null
   },
   "1336166": {
-    "title": "Rolling Loud",
-    "slug": "rolling-loud",
+    "title": "Rolling Loud: The Movie",
+    "slug": "rolling-loud-the-movie",
     "previousSlugs": [
       "rolling-loud",
       "rolling-loud-the-movie"
@@ -27419,6 +27431,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1472776": {
+    "title": "Aphrodites",
+    "slug": "aphrodites",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1472813": {
     "title": "The Diary of a Chambermaid",
     "slug": "the-diary-of-a-chambermaid",
@@ -31273,6 +31291,12 @@
   "1511400": {
     "title": "Alphabet Lane",
     "slug": "alphabet-lane",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1511403": {
+    "title": "King 100",
+    "slug": "king-100",
     "previousSlugs": [],
     "certification": null
   },
@@ -36075,6 +36099,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1554096": {
+    "title": "STRANGE NEIGHBORS",
+    "slug": "strange-neighbors",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1554116": {
     "title": "Qualcosa di Lilla",
     "slug": "qualcosa-di-lilla",
@@ -38010,10 +38040,11 @@
     "certification": null
   },
   "1567791": {
-    "title": "Munafik: Fighting Against the Devil",
-    "slug": "munafik-fighting-against-the-devil",
+    "title": "Munafik: Melawan Iblis",
+    "slug": "munafik-melawan-iblis",
     "previousSlugs": [
-      "munafik-melawan-iblis"
+      "munafik-melawan-iblis",
+      "munafik-fighting-against-the-devil"
     ],
     "certification": null
   },
@@ -43121,9 +43152,11 @@
     "certification": null
   },
   "1601732": {
-    "title": "Djamin: Setia Selamanya",
+    "title": "Djamin Setia Selamanya",
     "slug": "djamin-setia-selamanya",
-    "previousSlugs": [],
+    "previousSlugs": [
+      "djamin-setia-selamanya"
+    ],
     "certification": null
   },
   "1601776": {
@@ -67837,10 +67870,11 @@
     "certification": null
   },
   "1657503": {
-    "title": "Sonzai no Subete wo",
-    "slug": "sonzai-no-subete-wo",
+    "title": "All That Exists",
+    "slug": "all-that-exists",
     "previousSlugs": [
-      "sonzai-no-subete-o"
+      "sonzai-no-subete-o",
+      "sonzai-no-subete-wo"
     ],
     "certification": null
   },
@@ -98144,6 +98178,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1738209": {
+    "title": "Liebe braucht Meer",
+    "slug": "liebe-braucht-meer",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1738244": {
     "title": "Black Market",
     "slug": "black-market",
@@ -98307,9 +98347,11 @@
     "certification": null
   },
   "1738716": {
-    "title": "Égrégore",
-    "slug": "egregore",
-    "previousSlugs": [],
+    "title": "Mylène Farmer : Égrégore - L'Avant-Première",
+    "slug": "mylene-farmer-egregore-l-avant-premiere",
+    "previousSlugs": [
+      "egregore"
+    ],
     "certification": null
   },
   "1738718": {
@@ -102825,6 +102867,36 @@
   "1757585": {
     "title": "WWE Wrestlepalooza 2026",
     "slug": "wwe-wrestlepalooza-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1757707": {
+    "title": "巨頭オ",
+    "slug": "movie-1757707",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1757854": {
+    "title": "Paquet de troubles",
+    "slug": "paquet-de-troubles",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1757986": {
+    "title": "Asstral Rectuming",
+    "slug": "asstral-rectuming",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1758065": {
+    "title": "HOMONOMO",
+    "slug": "homonomo",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1758069": {
+    "title": "PAPERS",
+    "slug": "papers",
     "previousSlugs": [],
     "certification": null
   }
