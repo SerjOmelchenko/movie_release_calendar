@@ -10288,10 +10288,11 @@
     "certification": null
   },
   "1148365": {
-    "title": "Matchbox: The Movie",
+    "title": "Matchbox the Movie",
     "slug": "matchbox-the-movie",
     "previousSlugs": [
-      "matchbox"
+      "matchbox",
+      "matchbox-the-movie"
     ],
     "certification": null
   },
@@ -27659,6 +27660,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1472651": {
+    "title": "Talismã",
+    "slug": "talisma",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1472669": {
     "title": "The End",
     "slug": "the-end-1472669",
@@ -30068,9 +30075,11 @@
     "certification": null
   },
   "1494621": {
-    "title": "NBK111",
-    "slug": "nbk111",
-    "previousSlugs": [],
+    "title": "Dada",
+    "slug": "dada",
+    "previousSlugs": [
+      "nbk111"
+    ],
     "certification": null
   },
   "1494712": {
@@ -32580,9 +32589,11 @@
     "certification": null
   },
   "1519320": {
-    "title": "AEW All In 2026: London",
-    "slug": "aew-all-in-2026-london",
-    "previousSlugs": [],
+    "title": "AEW All In: London",
+    "slug": "aew-all-in-london",
+    "previousSlugs": [
+      "aew-all-in-2026-london"
+    ],
     "certification": null
   },
   "1519340": {
@@ -32807,6 +32818,12 @@
     "previousSlugs": [
       "multwoh-patay-na-patay-sa-yo"
     ],
+    "certification": null
+  },
+  "1522664": {
+    "title": "Oko",
+    "slug": "oko-2026",
+    "previousSlugs": [],
     "certification": null
   },
   "1522668": {
@@ -33324,6 +33341,12 @@
   "1527004": {
     "title": "All Shades of Temptation",
     "slug": "all-shades-of-temptation",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1527075": {
+    "title": "Andhar",
+    "slug": "andhar",
     "previousSlugs": [],
     "certification": null
   },
@@ -36531,6 +36554,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1554243": {
+    "title": "Prayer",
+    "slug": "prayer",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1554345": {
     "title": "This Bloody Country",
     "slug": "this-bloody-country",
@@ -36668,6 +36697,12 @@
   "1555359": {
     "title": "Resan till Piemonte",
     "slug": "resan-till-piemonte-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1555587": {
+    "title": "Two Minutes, One Cup",
+    "slug": "two-minutes-one-cup",
     "previousSlugs": [],
     "certification": null
   },
@@ -48506,9 +48541,11 @@
     "certification": null
   },
   "1623405": {
-    "title": "War with the Newts",
-    "slug": "war-with-the-newts",
-    "previousSlugs": [],
+    "title": "War with the Salamanders",
+    "slug": "war-with-the-salamanders",
+    "previousSlugs": [
+      "war-with-the-newts"
+    ],
     "certification": null
   },
   "1623435": {
@@ -79416,9 +79453,11 @@
     "certification": null
   },
   "1694147": {
-    "title": "ANI",
+    "title": "Ani",
     "slug": "ani",
-    "previousSlugs": [],
+    "previousSlugs": [
+      "ani"
+    ],
     "certification": null
   },
   "1694149": {
@@ -95429,9 +95468,11 @@
     "certification": null
   },
   "1728113": {
-    "title": "KATSEYE: WILD HEARTS",
+    "title": "Katseye: Wild Hearts",
     "slug": "katseye-wild-hearts",
-    "previousSlugs": [],
+    "previousSlugs": [
+      "katseye-wild-hearts"
+    ],
     "certification": null
   },
   "1728114": {
@@ -98424,6 +98465,12 @@
   "1736025": {
     "title": "Magazine",
     "slug": "magazine-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1736032": {
+    "title": "Отцовский клуб",
+    "slug": "movie-1736032",
     "previousSlugs": [],
     "certification": null
   },
@@ -101498,6 +101545,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1744607": {
+    "title": "Later.",
+    "slug": "later",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1744615": {
     "title": "How I Killed My Self In 3 Days",
     "slug": "how-i-killed-my-self-in-3-days",
@@ -101847,6 +101900,12 @@
   "1745364": {
     "title": "Anthôman",
     "slug": "anthoman",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1745380": {
+    "title": "Bleed",
+    "slug": "bleed",
     "previousSlugs": [],
     "certification": null
   },
@@ -102825,6 +102884,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1748531": {
+    "title": "Pee Mak: The Philippine Adaptation",
+    "slug": "pee-mak-the-philippine-adaptation",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1748532": {
     "title": "National Theatre Live: Golden Boy",
     "slug": "national-theatre-live-golden-boy",
@@ -102840,6 +102905,12 @@
   "1748567": {
     "title": "Fertile Ground",
     "slug": "fertile-ground",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1748620": {
+    "title": "Принцесса",
+    "slug": "movie-1748620",
     "previousSlugs": [],
     "certification": null
   },
@@ -103160,6 +103231,12 @@
   "1749626": {
     "title": "Porkatal",
     "slug": "porkatal",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1749645": {
+    "title": "Sisters",
+    "slug": "sisters-1749645",
     "previousSlugs": [],
     "certification": null
   },
@@ -104281,6 +104358,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1754363": {
+    "title": "PROXY",
+    "slug": "proxy",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1754364": {
     "title": "Making Marie Antoinette",
     "slug": "making-marie-antoinette",
@@ -104500,6 +104583,12 @@
   "1755168": {
     "title": "Hunting Trip",
     "slug": "hunting-trip",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1755194": {
+    "title": "Piyak Oskân",
+    "slug": "piyak-oskan",
     "previousSlugs": [],
     "certification": null
   },
@@ -104811,6 +104900,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1756360": {
+    "title": "Dolly Parton: An American Original – Special Edition of 20/20",
+    "slug": "dolly-parton-an-american-original-special-edition-of-20-20",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1756399": {
     "title": "Santa, le concert événement",
     "slug": "santa-le-concert-evenement",
@@ -104937,6 +105032,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1756823": {
+    "title": "A note on the ruins for visitors",
+    "slug": "a-note-on-the-ruins-for-visitors",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1756826": {
     "title": "Godless",
     "slug": "godless",
@@ -104946,6 +105047,18 @@
   "1756837": {
     "title": "DOUEN",
     "slug": "douen",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1756861": {
+    "title": "HEM VIST MASSA COSES",
+    "slug": "hem-vist-massa-coses",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1756903": {
+    "title": "Sand Roads",
+    "slug": "sand-roads",
     "previousSlugs": [],
     "certification": null
   },
@@ -105005,6 +105118,18 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1757164": {
+    "title": "#LetsBaRock!",
+    "slug": "letsbarock",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1757167": {
+    "title": "Assembly Required",
+    "slug": "assembly-required",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1757215": {
     "title": "American Amazon",
     "slug": "american-amazon",
@@ -105026,6 +105151,12 @@
   "1757276": {
     "title": "Chuva Ácida: Histórias do Crepúsculo de Cubatão",
     "slug": "chuva-acida-historias-do-crepusculo-de-cubatao",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1757312": {
+    "title": "The Disenchantment",
+    "slug": "the-disenchantment",
     "previousSlugs": [],
     "certification": null
   },
@@ -105091,6 +105222,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1757470": {
+    "title": "Shadow Realm",
+    "slug": "shadow-realm",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1757485": {
     "title": "Between Silence and Truth",
     "slug": "between-silence-and-truth",
@@ -105109,9 +105246,21 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1757610": {
+    "title": "Happy Good Rest",
+    "slug": "happy-good-rest",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1757617": {
     "title": "The American Teacher",
     "slug": "the-american-teacher",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1757684": {
+    "title": "The Story of a Fading Memory",
+    "slug": "the-story-of-a-fading-memory",
     "previousSlugs": [],
     "certification": null
   },
@@ -105172,6 +105321,12 @@
   "1758069": {
     "title": "PAPERS",
     "slug": "papers",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1758141": {
+    "title": "Rough sea",
+    "slug": "rough-sea",
     "previousSlugs": [],
     "certification": null
   },
@@ -105253,6 +105408,18 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1759016": {
+    "title": "Prince",
+    "slug": "prince",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1759059": {
+    "title": "Desert Palms",
+    "slug": "desert-palms",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1759099": {
     "title": "Beštia",
     "slug": "bestia",
@@ -105268,6 +105435,12 @@
   "1759131": {
     "title": "The Poolrooms",
     "slug": "the-poolrooms",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1759179": {
+    "title": "silver express",
+    "slug": "silver-express",
     "previousSlugs": [],
     "certification": null
   },
@@ -105519,6 +105692,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1763671": {
+    "title": "Honeymoon",
+    "slug": "honeymoon",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1764175": {
     "title": "Kazım Koyuncu: Yarım Kalan",
     "slug": "kaz-m-koyuncu-yar-m-kalan",
@@ -105570,6 +105749,24 @@
   "1764776": {
     "title": "Лето в Бадене",
     "slug": "movie-1764776",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1764964": {
+    "title": "На деревню дедушке 3. В гости к бабушке",
+    "slug": "3-2027",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1765049": {
+    "title": "The Young Nation Short Film",
+    "slug": "the-young-nation-short-film",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1765252": {
+    "title": "Untitled \"Rock Rizz\" Sequel",
+    "slug": "untitled-rock-rizz-sequel",
     "previousSlugs": [],
     "certification": null
   }
