@@ -210,7 +210,22 @@
       <img src="https://image.tmdb.org/t/p/w500/yYyakG09lQMhlF3GW0ZCTjnDhah.jpg" alt="The Mosquito Bowl poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among October 2026 releases in France (its local release month there)."><span class="fb-tag">Featured</span><span class="fb-text">#25 most anticipated October 2026 release in France</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among October 2026 releases. The rank varies by country." data-count="2" data-ranks="{&quot;AU&quot;:[17,&quot;Australia&quot;,&quot;November 2026&quot;],&quot;FR&quot;:[22,&quot;France&quot;,&quot;October 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#22 most anticipated October 2026 release &middot; featured in 2 countries</span></div>
+      <script>
+        (function(){
+          var b = document.getElementById('featured-banner');
+          if (!b || !b.dataset.ranks) return;
+          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
+          if (!region) return;
+          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
+          var r = ranks[region];
+          if (!r) return;
+          var el = b.querySelector('.fb-text');
+          if (!el) return;
+          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
+          b.title = 'Anticipation rank = position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
+        })();
+      </script>
       <h1 class="movie-title">The Mosquito Bowl</h1>
       <div class="info-tiles">
         <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">October 30, 2026</div></div>
@@ -376,6 +391,11 @@
   <section class="releases-section">
     <div class="section-heading">More October 2026 Releases</div>
     <div class="related-grid">
+    <a class="related-card" href="/movie/orang-perang/">
+        <img src="https://image.tmdb.org/t/p/w185/w3R45vBFFuBD4atovLDyERZ2PwL.jpg" alt="Orang Perang poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">Orang Perang</span>
+        <span class="related-date">Oct 1, 2026</span>
+      </a>
     <a class="related-card" href="/movie/moulin/">
         <img src="https://image.tmdb.org/t/p/w185/f3yopLJXRBcPvgkfRji1jloDrxd.jpg" alt="Moulin poster" loading="lazy" width="92" height="138" />
         <span class="related-title">Moulin</span>
@@ -396,6 +416,11 @@
         <span class="related-title">Coward</span>
         <span class="related-date">Oct 21, 2026</span>
       </a>
+    <a class="related-card" href="/movie/november-1963/">
+        <img src="https://image.tmdb.org/t/p/w185/nUfvPsCIUfe95aRDEdUT2sgiXqK.jpg" alt="November 1963 poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">November 1963</span>
+        <span class="related-date">Oct 15, 2026</span>
+      </a>
     <a class="related-card" href="/movie/the-sea-speaks-his-name/">
         <img src="https://image.tmdb.org/t/p/w185/8FqJSSMPaKJzqq2VVxVmdHUozLY.jpg" alt="The Sea Speaks His Name poster" loading="lazy" width="92" height="138" />
         <span class="related-title">The Sea Speaks His Name</span>
@@ -405,16 +430,6 @@
         <img src="https://image.tmdb.org/t/p/w185/tY3CoBNTCpvJayVRLqIIGDa4Ep8.jpg" alt="Les Misérables poster" loading="lazy" width="92" height="138" />
         <span class="related-title">Les Misérables</span>
         <span class="related-date">Oct 14, 2026</span>
-      </a>
-    <a class="related-card" href="/movie/november-1963/">
-        <img src="https://image.tmdb.org/t/p/w185/nUfvPsCIUfe95aRDEdUT2sgiXqK.jpg" alt="November 1963 poster" loading="lazy" width="92" height="138" />
-        <span class="related-title">November 1963</span>
-        <span class="related-date">Oct 15, 2026</span>
-      </a>
-    <a class="related-card" href="/movie/maserati-the-brothers/">
-        <img src="https://image.tmdb.org/t/p/w185/gea9QG89U94JQQUJElNg1cKo3M0.jpg" alt="Maserati: The Brothers poster" loading="lazy" width="92" height="138" />
-        <span class="related-title">Maserati: The Brothers</span>
-        <span class="related-date">Oct 15, 2026</span>
       </a>
     </div>
     <p class="hub-cross-link"><a href="/calendar/2026-10/">See every movie coming out in October 2026 &#8594;</a></p>
