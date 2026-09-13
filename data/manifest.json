@@ -8958,6 +8958,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1083624": {
+    "title": "Ugly Duckling Ms. Maeng",
+    "slug": "ugly-duckling-ms-maeng",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1083884": {
     "title": "Signal One",
     "slug": "signal-one",
@@ -10845,6 +10851,12 @@
   "1169166": {
     "title": "The Children of Kozara",
     "slug": "the-children-of-kozara",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1169350": {
+    "title": "Larry",
+    "slug": "larry",
     "previousSlugs": [],
     "certification": null
   },
@@ -25907,6 +25919,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1451667": {
+    "title": "Insomnio",
+    "slug": "insomnio",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1451867": {
     "title": "Ghost Elephants",
     "slug": "ghost-elephants",
@@ -33903,6 +33921,12 @@
   "1530130": {
     "title": "Cramps! A Period Piece",
     "slug": "cramps-a-period-piece",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1530131": {
+    "title": "Sunshine Girls",
+    "slug": "sunshine-girls",
     "previousSlugs": [],
     "certification": null
   },
@@ -43976,8 +44000,8 @@
     "certification": null
   },
   "1601704": {
-    "title": "Hasut",
-    "slug": "hasut",
+    "title": "Into the Woods",
+    "slug": "into-the-woods",
     "previousSlugs": [
       "hasut",
       "into-the-woods"
@@ -47390,6 +47414,12 @@
   "1617738": {
     "title": "Through the Lens",
     "slug": "through-the-lens",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1617774": {
+    "title": "Sapiens",
+    "slug": "sapiens",
     "previousSlugs": [],
     "certification": null
   },
@@ -59463,6 +59493,12 @@
   "1644871": {
     "title": "MyGO!!!!!×Ave Mujica Two-man live「\"moment / memory\"」",
     "slug": "mygo-ave-mujica-two-man-live-moment-memory",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1644878": {
+    "title": "Lizzie",
+    "slug": "lizzie",
     "previousSlugs": [],
     "certification": null
   },
@@ -79916,6 +79952,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1694201": {
+    "title": "Föa - Once Upon A Future",
+    "slug": "foa-once-upon-a-future",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1694218": {
     "title": "Summer Of Fire",
     "slug": "summer-of-fire",
@@ -81756,6 +81798,12 @@
   "1699419": {
     "title": "Acting Like Women",
     "slug": "acting-like-women",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1699424": {
+    "title": "32 Frames: A 9/11 Mystery",
+    "slug": "32-frames-a-9-11-mystery",
     "previousSlugs": [],
     "certification": null
   },
@@ -86781,6 +86829,12 @@
   "1710070": {
     "title": "Planet Playground",
     "slug": "planet-playground",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1710078": {
+    "title": "American Baby",
+    "slug": "american-baby",
     "previousSlugs": [],
     "certification": null
   },
@@ -94772,9 +94826,11 @@
     "certification": null
   },
   "1725330": {
-    "title": "Sekasauna",
-    "slug": "sekasauna",
-    "previousSlugs": [],
+    "title": "Mixed Sauna",
+    "slug": "mixed-sauna",
+    "previousSlugs": [
+      "sekasauna"
+    ],
     "certification": null
   },
   "1725338": {
@@ -97373,9 +97429,11 @@
     "certification": null
   },
   "1731458": {
-    "title": "Fear addiction",
+    "title": "Fear Addiction",
     "slug": "fear-addiction",
-    "previousSlugs": [],
+    "previousSlugs": [
+      "fear-addiction"
+    ],
     "certification": null
   },
   "1731462": {
@@ -101148,6 +101206,12 @@
     ],
     "certification": null
   },
+  "1741645": {
+    "title": "Blessings",
+    "slug": "blessings",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1741654": {
     "title": "Suspiros",
     "slug": "suspiros",
@@ -102513,6 +102577,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1745440": {
+    "title": "Leodegária",
+    "slug": "leodegaria",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1745446": {
     "title": "Shackled",
     "slug": "shackled",
@@ -103380,6 +103450,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1748176": {
+    "title": "Expectations",
+    "slug": "expectations",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1748214": {
     "title": "Violência da Rainha",
     "slug": "violencia-da-rainha",
@@ -103739,6 +103815,12 @@
   "1749065": {
     "title": "Meta(fora)ndo",
     "slug": "meta-fora-ndo",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1749127": {
+    "title": "Be My Friend",
+    "slug": "be-my-friend",
     "previousSlugs": [],
     "certification": null
   },
@@ -104324,6 +104406,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1751581": {
+    "title": "The Curse",
+    "slug": "the-curse-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1751590": {
     "title": "Platypus",
     "slug": "platypus",
@@ -104360,6 +104448,12 @@
     "previousSlugs": [
       "the-vampire-lestat-one-night-only-live"
     ],
+    "certification": null
+  },
+  "1751701": {
+    "title": "After Impact",
+    "slug": "after-impact",
+    "previousSlugs": [],
     "certification": null
   },
   "1751735": {
@@ -105162,6 +105256,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1754760": {
+    "title": "Birds in the Dark",
+    "slug": "birds-in-the-dark",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1754793": {
     "title": "Nightlife and Neon",
     "slug": "nightlife-and-neon",
@@ -105281,6 +105381,12 @@
   "1755084": {
     "title": "EXTRANJERA",
     "slug": "extranjera",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1755152": {
+    "title": "Detective",
+    "slug": "detective",
     "previousSlugs": [],
     "certification": null
   },
@@ -105478,6 +105584,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1755880": {
+    "title": "Piece",
+    "slug": "piece",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1755882": {
     "title": "Titser, titser!",
     "slug": "titser-titser",
@@ -105601,6 +105713,12 @@
   "1756205": {
     "title": "Goytacaz: The Movie",
     "slug": "goytacaz-the-movie",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1756213": {
+    "title": "Roadkill",
+    "slug": "roadkill-2026",
     "previousSlugs": [],
     "certification": null
   },
@@ -106396,6 +106514,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1759436": {
+    "title": "Šmik!",
+    "slug": "smik",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1759438": {
     "title": "Eliška Liška",
     "slug": "eliska-liska",
@@ -106441,6 +106565,12 @@
   "1759768": {
     "title": "Deep Blue",
     "slug": "deep-blue",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1759797": {
+    "title": "Agaar",
+    "slug": "agaar",
     "previousSlugs": [],
     "certification": null
   },
@@ -106503,6 +106633,12 @@
   "1760011": {
     "title": "The Distant Home",
     "slug": "the-distant-home",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1760013": {
+    "title": "The Variety",
+    "slug": "the-variety",
     "previousSlugs": [],
     "certification": null
   },
@@ -106662,6 +106798,12 @@
     "previousSlugs": [
       "kaledu-nelaukiant"
     ],
+    "certification": null
+  },
+  "1760338": {
+    "title": "Sundown",
+    "slug": "sundown-2026",
+    "previousSlugs": [],
     "certification": null
   },
   "1760354": {
@@ -106882,9 +107024,33 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1761317": {
+    "title": "September",
+    "slug": "september",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1761367": {
+    "title": "The Leading Role",
+    "slug": "the-leading-role",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1761856": {
     "title": "Tempête",
     "slug": "tempete",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1762016": {
+    "title": "Resídua",
+    "slug": "residua",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1762040": {
+    "title": "Strays",
+    "slug": "strays",
     "previousSlugs": [],
     "certification": null
   },
@@ -106900,9 +107066,21 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1762480": {
+    "title": "Fenrir",
+    "slug": "fenrir",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1762506": {
     "title": "Band of Brothers: Legacy",
     "slug": "band-of-brothers-legacy",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1762513": {
+    "title": "Unleaded Wasteland",
+    "slug": "unleaded-wasteland",
     "previousSlugs": [],
     "certification": null
   },
@@ -106924,6 +107102,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1762928": {
+    "title": "Oh, fortuna",
+    "slug": "oh-fortuna",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1762950": {
     "title": "Under the Peach Trees: The Story of the Hochstetler Family",
     "slug": "under-the-peach-trees-the-story-of-the-hochstetler-family",
@@ -106939,6 +107123,12 @@
   "1763016": {
     "title": "Santa Claude",
     "slug": "santa-claude",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1763033": {
+    "title": "Nighthawks",
+    "slug": "nighthawks",
     "previousSlugs": [],
     "certification": null
   },
@@ -106971,6 +107161,12 @@
   "1763332": {
     "title": "Orang Perang",
     "slug": "orang-perang",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1763339": {
+    "title": "Arkansas",
+    "slug": "arkansas",
     "previousSlugs": [],
     "certification": null
   },
@@ -107020,9 +107216,33 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1763710": {
+    "title": "Medeni Haller",
+    "slug": "medeni-haller",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1763711": {
+    "title": "Hyper Misao Produce ~HYPE!4~",
+    "slug": "hyper-misao-produce-hype-4",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1763735": {
+    "title": "TEAL",
+    "slug": "teal",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1763900": {
     "title": "Cocaine",
     "slug": "cocaine",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1764157": {
+    "title": "Šipkaři",
+    "slug": "sipkari",
     "previousSlugs": [],
     "certification": null
   },
@@ -107201,6 +107421,24 @@
   "1768753": {
     "title": "Folded dreams",
     "slug": "folded-dreams",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1769056": {
+    "title": "Shane V",
+    "slug": "shane-v",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1769195": {
+    "title": "Pegasus",
+    "slug": "pegasus-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1769454": {
+    "title": "never mind, everything's okay.",
+    "slug": "never-mind-everything-s-okay",
     "previousSlugs": [],
     "certification": null
   }
