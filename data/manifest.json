@@ -10851,6 +10851,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1168320": {
+    "title": "Sara",
+    "slug": "sara",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1168719": {
     "title": "Silent Friend",
     "slug": "silent-friend",
@@ -15565,6 +15571,12 @@
   "1289485": {
     "title": "Funk",
     "slug": "funk",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1289720": {
+    "title": "Pok Ame Ame",
+    "slug": "pok-ame-ame",
     "previousSlugs": [],
     "certification": null
   },
@@ -24714,6 +24726,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1439171": {
+    "title": "神探之痕迹",
+    "slug": "movie-1439171",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1439584": {
     "title": "Ugly Story",
     "slug": "ugly-story",
@@ -32319,6 +32337,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1515404": {
+    "title": "Red Flag",
+    "slug": "red-flag",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1515512": {
     "title": "Medusa",
     "slug": "medusa",
@@ -35769,9 +35793,11 @@
     "certification": null
   },
   "1544847": {
-    "title": "Pradhama Dhrishtya Kuttakkar",
-    "slug": "pradhama-dhrishtya-kuttakkar",
-    "previousSlugs": [],
+    "title": "Pradhama Drishtiya Kuttakkar",
+    "slug": "pradhama-drishtiya-kuttakkar",
+    "previousSlugs": [
+      "pradhama-dhrishtya-kuttakkar"
+    ],
     "certification": null
   },
   "1544848": {
@@ -41278,6 +41304,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1588224": {
+    "title": "Fashion House",
+    "slug": "fashion-house",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1588230": {
     "title": "Red Ghost 1812",
     "slug": "red-ghost-1812",
@@ -41748,9 +41780,11 @@
     "certification": null
   },
   "1590909": {
-    "title": "IBUKU",
-    "slug": "ibuku",
-    "previousSlugs": [],
+    "title": "My Mother",
+    "slug": "my-mother",
+    "previousSlugs": [
+      "ibuku"
+    ],
     "certification": null
   },
   "1590933": {
@@ -44678,6 +44712,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1605869": {
+    "title": "Beneran Horor",
+    "slug": "beneran-horor",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1605991": {
     "title": "200 G",
     "slug": "200-g",
@@ -44911,6 +44951,12 @@
   "1607661": {
     "title": "Aazhi",
     "slug": "aazhi",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1607692": {
+    "title": "5 cm: Revolusi Hati",
+    "slug": "5-cm-revolusi-hati",
     "previousSlugs": [],
     "certification": null
   },
@@ -56354,6 +56400,12 @@
   "1639603": {
     "title": "Korea's Funniest Home Videos",
     "slug": "korea-s-funniest-home-videos",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1639616": {
+    "title": "Zustìssia",
+    "slug": "zustissia",
     "previousSlugs": [],
     "certification": null
   },
@@ -82705,6 +82757,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1701236": {
+    "title": "Posthumous",
+    "slug": "posthumous",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1701263": {
     "title": "Internet Famous",
     "slug": "internet-famous",
@@ -99561,6 +99619,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1736705": {
+    "title": "El mal padre",
+    "slug": "el-mal-padre",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1736709": {
     "title": "Sants",
     "slug": "sants",
@@ -101390,6 +101454,12 @@
   "1741678": {
     "title": "The Freezer",
     "slug": "the-freezer",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1741690": {
+    "title": "Fanny",
+    "slug": "fanny",
     "previousSlugs": [],
     "certification": null
   },
@@ -103988,6 +104058,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1749021": {
+    "title": "The Babysitter’s Double Life",
+    "slug": "the-babysitter-s-double-life",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1749023": {
     "title": "Tomb Quest",
     "slug": "tomb-quest-2026",
@@ -104474,6 +104550,12 @@
     ],
     "certification": null
   },
+  "1750992": {
+    "title": "Night Shift",
+    "slug": "night-shift-1750992",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1751002": {
     "title": "Juvenescence",
     "slug": "juvenescence",
@@ -104899,6 +104981,12 @@
   "1752487": {
     "title": "Petros Eni",
     "slug": "petros-eni",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1752515": {
+    "title": "Adrenalina",
+    "slug": "adrenalina-2026",
     "previousSlugs": [],
     "certification": null
   },
@@ -105736,9 +105824,21 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1755572": {
+    "title": "Through the Eyes of Sera Flynn",
+    "slug": "through-the-eyes-of-sera-flynn",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1755609": {
     "title": "Hunger",
     "slug": "hunger-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1755614": {
+    "title": "Night Adrift",
+    "slug": "night-adrift",
     "previousSlugs": [],
     "certification": null
   },
@@ -107044,6 +107144,12 @@
     ],
     "certification": null
   },
+  "1760311": {
+    "title": "Barbie in the Nutcracker",
+    "slug": "barbie-in-the-nutcracker",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1760338": {
     "title": "Sundown",
     "slug": "sundown-2026",
@@ -107546,6 +107652,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1763777": {
+    "title": "Falling",
+    "slug": "falling-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1763900": {
     "title": "Cocaine",
     "slug": "cocaine",
@@ -107588,9 +107700,21 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1764193": {
+    "title": "Echo Point",
+    "slug": "echo-point",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1764235": {
     "title": "Disonance",
     "slug": "disonance",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1764258": {
+    "title": "Landing Nowhere",
+    "slug": "landing-nowhere",
     "previousSlugs": [],
     "certification": null
   },
@@ -107696,9 +107820,27 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1765330": {
+    "title": "Opt Out",
+    "slug": "opt-out",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1765369": {
     "title": "Jindey",
     "slug": "jindey",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1765643": {
+    "title": "Lobster Film",
+    "slug": "lobster-film",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1765692": {
+    "title": "Noutro tempo",
+    "slug": "noutro-tempo",
     "previousSlugs": [],
     "certification": null
   },
@@ -107708,6 +107850,12 @@
     "previousSlugs": [
       "explosion-mental"
     ],
+    "certification": null
+  },
+  "1765905": {
+    "title": "Misión imposible, no... lo siguiente",
+    "slug": "mision-imposible-no-lo-siguiente",
+    "previousSlugs": [],
     "certification": null
   },
   "1765955": {
@@ -107874,6 +108022,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1770196": {
+    "title": "Gak Masuk Akal",
+    "slug": "gak-masuk-akal",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1770314": {
     "title": "Hand Me Downs",
     "slug": "hand-me-downs",
@@ -107895,6 +108049,30 @@
   "1770565": {
     "title": "A Maldição Do Parque",
     "slug": "a-maldicao-do-parque",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1770999": {
+    "title": "Suspect: The Road Rage Killer",
+    "slug": "suspect-the-road-rage-killer",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1771024": {
+    "title": "12 Mile: Guilding the Archipelago",
+    "slug": "12-mile-guilding-the-archipelago",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1771033": {
+    "title": "Bukber: Ramadhan",
+    "slug": "bukber-ramadhan",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1771370": {
+    "title": "Even If It's a Film",
+    "slug": "even-if-it-s-a-film",
     "previousSlugs": [],
     "certification": null
   }
