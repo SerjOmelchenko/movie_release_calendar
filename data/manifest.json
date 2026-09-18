@@ -13488,9 +13488,11 @@
     "certification": null
   },
   "1247041": {
-    "title": "EDJOP",
+    "title": "Edjop",
     "slug": "edjop",
-    "previousSlugs": [],
+    "previousSlugs": [
+      "edjop"
+    ],
     "certification": null
   },
   "1247047": {
@@ -18760,9 +18762,11 @@
     "certification": null
   },
   "1356215": {
-    "title": "Divočina",
-    "slug": "divocina",
-    "previousSlugs": [],
+    "title": "Backwoods",
+    "slug": "backwoods",
+    "previousSlugs": [
+      "divocina"
+    ],
     "certification": null
   },
   "1356454": {
@@ -20650,9 +20654,11 @@
     "certification": null
   },
   "1386309": {
-    "title": "Censurada",
-    "slug": "censurada",
-    "previousSlugs": [],
+    "title": "Censored",
+    "slug": "censored",
+    "previousSlugs": [
+      "censurada"
+    ],
     "certification": null
   },
   "1386315": {
@@ -26662,6 +26668,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1459339": {
+    "title": "The Headliner",
+    "slug": "the-headliner",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1459612": {
     "title": "Mavka. The True Myth",
     "slug": "mavka-the-true-myth",
@@ -28059,6 +28071,12 @@
   "1473635": {
     "title": "Things Unspoken",
     "slug": "things-unspoken",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1473664": {
+    "title": "It's All Going Very Well No Problems at All",
+    "slug": "it-s-all-going-very-well-no-problems-at-all",
     "previousSlugs": [],
     "certification": null
   },
@@ -30202,6 +30220,12 @@
   "1493315": {
     "title": "Nsala",
     "slug": "nsala",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1493374": {
+    "title": "The Trumpeter and the Ghost",
+    "slug": "the-trumpeter-and-the-ghost",
     "previousSlugs": [],
     "certification": null
   },
@@ -34343,7 +34367,7 @@
     "certification": null
   },
   "1532610": {
-    "title": "Ink",
+    "title": "INK",
     "slug": "ink",
     "previousSlugs": [
       "ink"
@@ -35330,6 +35354,12 @@
   "1540777": {
     "title": "Staging",
     "slug": "staging",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1540795": {
+    "title": "Kappo",
+    "slug": "kappo",
     "previousSlugs": [],
     "certification": null
   },
@@ -40770,6 +40800,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1582565": {
+    "title": "Dice-Ching-O-Mat",
+    "slug": "dice-ching-o-mat",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1582770": {
     "title": "Dhurandhar: The Revenge",
     "slug": "dhurandhar-the-revenge",
@@ -41277,6 +41313,12 @@
   "1587537": {
     "title": "Crash Land",
     "slug": "crash-land",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1587630": {
+    "title": "Marge",
+    "slug": "marge",
     "previousSlugs": [],
     "certification": null
   },
@@ -42638,6 +42680,12 @@
   "1595531": {
     "title": "Othello",
     "slug": "othello",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1595538": {
+    "title": "The Last Goodbye",
+    "slug": "the-last-goodbye",
     "previousSlugs": [],
     "certification": null
   },
@@ -44576,6 +44624,12 @@
   "1604427": {
     "title": "Avant de Sortir",
     "slug": "avant-de-sortir",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1604431": {
+    "title": "Christmas at the Zoo",
+    "slug": "christmas-at-the-zoo",
     "previousSlugs": [],
     "certification": null
   },
@@ -48442,6 +48496,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1621266": {
+    "title": "Loved One",
+    "slug": "loved-one",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1621277": {
     "title": "Uprooted",
     "slug": "uprooted",
@@ -51615,6 +51675,12 @@
   "1630201": {
     "title": "Supernova Strikers: Genesis",
     "slug": "supernova-strikers-genesis",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1630206": {
+    "title": "Dead Tide",
+    "slug": "dead-tide",
     "previousSlugs": [],
     "certification": null
   },
@@ -62921,6 +62987,12 @@
   "1649454": {
     "title": "Laurenz Nikolaus - Annemarie EP (Making Of)",
     "slug": "laurenz-nikolaus-annemarie-ep-making-of",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1649476": {
+    "title": "The Last Hunter",
+    "slug": "the-last-hunter",
     "previousSlugs": [],
     "certification": null
   },
@@ -80384,6 +80456,12 @@
   "1694711": {
     "title": "Armored Trooper VOTOMS: Die Graue Hexe - Part 1",
     "slug": "armored-trooper-votoms-die-graue-hexe-part-1",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1694727": {
+    "title": "The Seal",
+    "slug": "the-seal",
     "previousSlugs": [],
     "certification": null
   },
@@ -98660,6 +98738,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1733866": {
+    "title": "Christmas in Canterbury",
+    "slug": "christmas-in-canterbury",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1733875": {
     "title": "Kankana",
     "slug": "kankana",
@@ -99316,6 +99400,12 @@
   "1735965": {
     "title": "Баба Яга на каникулах",
     "slug": "movie-1735965",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1735981": {
+    "title": "The Craft",
+    "slug": "the-craft",
     "previousSlugs": [],
     "certification": null
   },
@@ -100910,6 +101000,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1740039": {
+    "title": "Dromendário",
+    "slug": "dromendario",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1740068": {
     "title": "Reflex",
     "slug": "reflex",
@@ -102152,6 +102248,12 @@
   "1743514": {
     "title": "Rescue",
     "slug": "rescue-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1743523": {
+    "title": "BAR BOO",
+    "slug": "bar-boo",
     "previousSlugs": [],
     "certification": null
   },
@@ -103927,9 +104029,11 @@
     "certification": null
   },
   "1748531": {
-    "title": "Pee Mak: The Philippine Adaptation",
-    "slug": "pee-mak-the-philippine-adaptation",
-    "previousSlugs": [],
+    "title": "Pee Mak",
+    "slug": "pee-mak",
+    "previousSlugs": [
+      "pee-mak-the-philippine-adaptation"
+    ],
     "certification": null
   },
   "1748532": {
@@ -104013,6 +104117,12 @@
   "1748713": {
     "title": "Mentira Tem Perna Curta",
     "slug": "mentira-tem-perna-curta",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1748714": {
+    "title": "Doubt",
+    "slug": "doubt",
     "previousSlugs": [],
     "certification": null
   },
@@ -105462,6 +105572,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1753949": {
+    "title": "Infectious",
+    "slug": "infectious-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1754000": {
     "title": "Exposure",
     "slug": "exposure",
@@ -105663,6 +105779,12 @@
   "1754760": {
     "title": "Birds in the Dark",
     "slug": "birds-in-the-dark",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1754766": {
+    "title": "Back on North Face",
+    "slug": "back-on-north-face",
     "previousSlugs": [],
     "certification": null
   },
@@ -107180,6 +107302,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1760157": {
+    "title": "Instead Service",
+    "slug": "instead-service",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1760170": {
     "title": "Rode to Ruin",
     "slug": "rode-to-ruin",
@@ -107257,6 +107385,12 @@
   "1760311": {
     "title": "Barbie in the Nutcracker",
     "slug": "barbie-in-the-nutcracker",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1760316": {
+    "title": "Reform",
+    "slug": "reform",
     "previousSlugs": [],
     "certification": null
   },
@@ -107475,6 +107609,12 @@
   "1761108": {
     "title": "Pit Of Bones 5",
     "slug": "pit-of-bones-5",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1761122": {
+    "title": "La Primera Vez",
+    "slug": "la-primera-vez",
     "previousSlugs": [],
     "certification": null
   },
@@ -107806,6 +107946,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1763957": {
+    "title": "Deep Home Front",
+    "slug": "deep-home-front",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1764157": {
     "title": "Šipkaři",
     "slug": "sipkari",
@@ -107839,6 +107985,18 @@
   "1764193": {
     "title": "Echo Point",
     "slug": "echo-point",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1764205": {
+    "title": "Zhalin",
+    "slug": "zhalin",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1764221": {
+    "title": "LOUTROPOLIS",
+    "slug": "loutropolis",
     "previousSlugs": [],
     "certification": null
   },
@@ -107938,6 +108096,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1764968": {
+    "title": "Барбоскины. 15 лет вместе",
+    "slug": "15",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1765001": {
     "title": "Nachts in der Provinz",
     "slug": "nachts-in-der-provinz",
@@ -107956,6 +108120,18 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1765155": {
+    "title": "Sweet Vertigo: Now Another Enemy",
+    "slug": "sweet-vertigo-now-another-enemy",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1765171": {
+    "title": "Директор",
+    "slug": "movie-1765171",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1765252": {
     "title": "Untitled \"Rock Rizz\" Sequel",
     "slug": "untitled-rock-rizz-sequel",
@@ -107965,6 +108141,12 @@
   "1765330": {
     "title": "Opt Out",
     "slug": "opt-out",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1765347": {
+    "title": "Kappa-Tiran",
+    "slug": "kappa-tiran",
     "previousSlugs": [],
     "certification": null
   },
@@ -108032,6 +108214,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1766052": {
+    "title": "The Night",
+    "slug": "the-night",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1766184": {
     "title": "Chateau Moordland",
     "slug": "chateau-moordland",
@@ -108041,6 +108229,12 @@
   "1766223": {
     "title": "D’Andriezenstraat",
     "slug": "d-andriezenstraat",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1766358": {
+    "title": "程序乱码（DLP造梦实验室版）",
+    "slug": "dlp",
     "previousSlugs": [],
     "certification": null
   },
@@ -108086,6 +108280,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1767173": {
+    "title": "Lamina",
+    "slug": "lamina",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1767269": {
     "title": "The Ideas",
     "slug": "the-ideas",
@@ -108104,9 +108304,35 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1767374": {
+    "title": "Bisikan Nafsu",
+    "slug": "bisikan-nafsu",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1767387": {
+    "title": "Brothers Bound",
+    "slug": "brothers-bound",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1767679": {
-    "title": "Sous ma peau",
-    "slug": "sous-ma-peau",
+    "title": "Under My Skin",
+    "slug": "under-my-skin",
+    "previousSlugs": [
+      "sous-ma-peau"
+    ],
+    "certification": null
+  },
+  "1767773": {
+    "title": "Gloryland",
+    "slug": "gloryland",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1767800": {
+    "title": "Petites bouées",
+    "slug": "petites-bouees",
     "previousSlugs": [],
     "certification": null
   },
@@ -108116,9 +108342,21 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1768029": {
+    "title": "Grandmasters",
+    "slug": "grandmasters",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1768108": {
     "title": "The Ornament Library",
     "slug": "the-ornament-library",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1768117": {
+    "title": "Dust",
+    "slug": "dust-1768117",
     "previousSlugs": [],
     "certification": null
   },
@@ -108131,6 +108369,12 @@
   "1768416": {
     "title": "Tony's Loop",
     "slug": "tony-s-loop",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1768496": {
+    "title": "The Delivery Girl",
+    "slug": "the-delivery-girl",
     "previousSlugs": [],
     "certification": null
   },
@@ -108272,6 +108516,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1771548": {
+    "title": "Gabrielle Apter",
+    "slug": "gabrielle-apter",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1771756": {
     "title": "Not 8½",
     "slug": "not-8",
@@ -108285,8 +108535,70 @@
     "certification": null
   },
   "1772119": {
-    "title": "ハッピーリスト",
-    "slug": "movie-1772119",
+    "title": "Happy List",
+    "slug": "happy-list",
+    "previousSlugs": [
+      "movie-1772119"
+    ],
+    "certification": null
+  },
+  "1772918": {
+    "title": "Líné království",
+    "slug": "line-kralovstvi",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1772926": {
+    "title": "Devout",
+    "slug": "devout",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1772978": {
+    "title": "Reflejos de mi País",
+    "slug": "reflejos-de-mi-pais",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1773035": {
+    "title": "Snow Globe Town",
+    "slug": "snow-globe-town",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1773265": {
+    "title": "Save the Date for Christmas",
+    "slug": "save-the-date-for-christmas",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1773266": {
+    "title": "Barking All the Way",
+    "slug": "barking-all-the-way",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1773270": {
+    "title": "Hearts All Aglow",
+    "slug": "hearts-all-aglow",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1773275": {
+    "title": "Noelle Nomads",
+    "slug": "noelle-nomads",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1773280": {
+    "title": "An Angel in My Stocking",
+    "slug": "an-angel-in-my-stocking",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1773286": {
+    "title": "The Snowflake Effect",
+    "slug": "the-snowflake-effect",
     "previousSlugs": [],
     "certification": null
   }
