@@ -63,20 +63,6 @@
 
     .movie-info { flex: 1; min-width: 0; }
     .movie-title { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 1rem; }
-    .featured-banner {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.4rem 0.8rem; margin-bottom: 0.9rem;
-      background: rgba(233, 69, 96, 0.1);
-      border: 1px solid rgba(233, 69, 96, 0.35);
-      border-radius: 999px;
-      color: #f3a4b1; font-size: 0.78rem; line-height: 1.3;
-    }
-    .featured-banner .fb-tag {
-      background: #e94560; color: #fff;
-      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em;
-      padding: 2px 7px; border-radius: 999px; text-transform: uppercase;
-    }
-    .featured-banner .fb-text { color: #ddd; }
 
     .info-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.65rem; margin-bottom: 1.25rem; }
     .tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 0.85rem 0.9rem; display: flex; flex-direction: column; gap: 0.3rem; }
@@ -215,22 +201,6 @@
       <img src="https://image.tmdb.org/t/p/w500/uhVzuDKT7JIRGZOB5fSS14dIvCY.jpg" alt="cecelia poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among September 2026 releases. The rank varies by country." data-count="37" data-ranks="{&quot;AU&quot;:[106,&quot;Australia&quot;,&quot;September 2026&quot;],&quot;AT&quot;:[110,&quot;Austria&quot;,&quot;September 2026&quot;],&quot;BE&quot;:[106,&quot;Belgium&quot;,&quot;September 2026&quot;],&quot;BR&quot;:[99,&quot;Brazil&quot;,&quot;September 2026&quot;],&quot;BG&quot;:[99,&quot;Bulgaria&quot;,&quot;September 2026&quot;],&quot;CA&quot;:[105,&quot;Canada&quot;,&quot;September 2026&quot;],&quot;CN&quot;:[98,&quot;China&quot;,&quot;September 2026&quot;],&quot;HR&quot;:[100,&quot;Croatia&quot;,&quot;September 2026&quot;],&quot;CY&quot;:[96,&quot;Cyprus&quot;,&quot;September 2026&quot;],&quot;CZ&quot;:[108,&quot;Czech Republic&quot;,&quot;September 2026&quot;],&quot;DK&quot;:[108,&quot;Denmark&quot;,&quot;September 2026&quot;],&quot;EE&quot;:[103,&quot;Estonia&quot;,&quot;September 2026&quot;],&quot;FI&quot;:[95,&quot;Finland&quot;,&quot;September 2026&quot;],&quot;FR&quot;:[105,&quot;France&quot;,&quot;September 2026&quot;],&quot;DE&quot;:[116,&quot;Germany&quot;,&quot;September 2026&quot;],&quot;GR&quot;:[106,&quot;Greece&quot;,&quot;September 2026&quot;],&quot;HU&quot;:[102,&quot;Hungary&quot;,&quot;September 2026&quot;],&quot;IN&quot;:[104,&quot;India&quot;,&quot;September 2026&quot;],&quot;IE&quot;:[104,&quot;Ireland&quot;,&quot;September 2026&quot;],&quot;IT&quot;:[100,&quot;Italy&quot;,&quot;September 2026&quot;],&quot;JP&quot;:[114,&quot;Japan&quot;,&quot;September 2026&quot;],&quot;LV&quot;:[109,&quot;Latvia&quot;,&quot;September 2026&quot;],&quot;LT&quot;:[103,&quot;Lithuania&quot;,&quot;September 2026&quot;],&quot;LU&quot;:[104,&quot;Luxembourg&quot;,&quot;September 2026&quot;],&quot;MT&quot;:[99,&quot;Malta&quot;,&quot;September 2026&quot;],&quot;NL&quot;:[98,&quot;Netherlands&quot;,&quot;September 2026&quot;],&quot;PL&quot;:[105,&quot;Poland&quot;,&quot;September 2026&quot;],&quot;PT&quot;:[101,&quot;Portugal&quot;,&quot;September 2026&quot;],&quot;RO&quot;:[97,&quot;Romania&quot;,&quot;September 2026&quot;],&quot;SK&quot;:[99,&quot;Slovakia&quot;,&quot;September 2026&quot;],&quot;SI&quot;:[96,&quot;Slovenia&quot;,&quot;September 2026&quot;],&quot;KR&quot;:[101,&quot;South Korea&quot;,&quot;September 2026&quot;],&quot;ES&quot;:[100,&quot;Spain&quot;,&quot;September 2026&quot;],&quot;SE&quot;:[108,&quot;Sweden&quot;,&quot;September 2026&quot;],&quot;GB&quot;:[114,&quot;United Kingdom&quot;,&quot;September 2026&quot;],&quot;UA&quot;:[103,&quot;Ukraine&quot;,&quot;September 2026&quot;],&quot;US&quot;:[113,&quot;United States&quot;,&quot;September 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#95 most anticipated September 2026 release &middot; featured in 37 countries</span></div>
-      <script>
-        (function(){
-          var b = document.getElementById('featured-banner');
-          if (!b || !b.dataset.ranks) return;
-          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
-          if (!region) return;
-          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
-          var r = ranks[region];
-          if (!r) return;
-          var el = b.querySelector('.fb-text');
-          if (!el) return;
-          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
-          b.title = 'Anticipation rank = position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
-        })();
-      </script>
       <h1 class="movie-title">cecelia</h1>
       <div id="radar-local-release"></div>
       <div class="info-tiles">
@@ -321,6 +291,11 @@
         <span class="related-title">Lust Stories 3</span>
         <span class="related-date">Sep 18, 2026</span>
       </a>
+    <a class="related-card" href="/movie/the-uprising/">
+        <img src="https://image.tmdb.org/t/p/w185/7TUl15TOsIvndKlgMWTtLgtEzZP.jpg" alt="The Uprising poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">The Uprising</span>
+        <span class="related-date">Sep 10, 2026</span>
+      </a>
     <a class="related-card" href="/movie/gandhari/">
         <img src="https://image.tmdb.org/t/p/w185/aF3IhwS1mrVfvM9OMXmTaXAT0l8.jpg" alt="Gandhari poster" loading="lazy" width="92" height="138" />
         <span class="related-title">Gandhari</span>
@@ -335,11 +310,6 @@
         <img src="https://image.tmdb.org/t/p/w185/8i5iZV50CoEtmDCFM7RSxCkpE8h.jpg" alt="The Weight poster" loading="lazy" width="92" height="138" />
         <span class="related-title">The Weight</span>
         <span class="related-date">Sep 16, 2026</span>
-      </a>
-    <a class="related-card" href="/movie/onslaught/">
-        <img src="https://image.tmdb.org/t/p/w185/cOGtvhc6Ij9KvzM6jZsfQyg0B0O.jpg" alt="Onslaught poster" loading="lazy" width="92" height="138" />
-        <span class="related-title">Onslaught</span>
-        <span class="related-date">Sep 2, 2026</span>
       </a>
     </div>
     <p class="hub-cross-link"><a href="/calendar/2026-09/">See every movie coming out in September 2026 &#8594;</a></p>

@@ -63,20 +63,6 @@
 
     .movie-info { flex: 1; min-width: 0; }
     .movie-title { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 1rem; }
-    .featured-banner {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.4rem 0.8rem; margin-bottom: 0.9rem;
-      background: rgba(233, 69, 96, 0.1);
-      border: 1px solid rgba(233, 69, 96, 0.35);
-      border-radius: 999px;
-      color: #f3a4b1; font-size: 0.78rem; line-height: 1.3;
-    }
-    .featured-banner .fb-tag {
-      background: #e94560; color: #fff;
-      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em;
-      padding: 2px 7px; border-radius: 999px; text-transform: uppercase;
-    }
-    .featured-banner .fb-text { color: #ddd; }
 
     .info-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.65rem; margin-bottom: 1.25rem; }
     .tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 0.85rem 0.9rem; display: flex; flex-direction: column; gap: 0.3rem; }
@@ -215,22 +201,6 @@
       <img src="https://image.tmdb.org/t/p/w500/68bLPfddedoqUeFaWunUOk2wfKf.jpg" alt="The Metropolitan Opera 2026/27: Parsifal poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among June 2027 releases. The rank varies by country." data-count="37" data-ranks="{&quot;AU&quot;:[32,&quot;Australia&quot;,&quot;June 2027&quot;],&quot;AT&quot;:[32,&quot;Austria&quot;,&quot;June 2027&quot;],&quot;BE&quot;:[32,&quot;Belgium&quot;,&quot;June 2027&quot;],&quot;BR&quot;:[31,&quot;Brazil&quot;,&quot;June 2027&quot;],&quot;BG&quot;:[32,&quot;Bulgaria&quot;,&quot;June 2027&quot;],&quot;CA&quot;:[32,&quot;Canada&quot;,&quot;June 2027&quot;],&quot;CN&quot;:[32,&quot;China&quot;,&quot;June 2027&quot;],&quot;HR&quot;:[32,&quot;Croatia&quot;,&quot;June 2027&quot;],&quot;CY&quot;:[32,&quot;Cyprus&quot;,&quot;June 2027&quot;],&quot;CZ&quot;:[32,&quot;Czech Republic&quot;,&quot;June 2027&quot;],&quot;DK&quot;:[32,&quot;Denmark&quot;,&quot;June 2027&quot;],&quot;EE&quot;:[32,&quot;Estonia&quot;,&quot;June 2027&quot;],&quot;FI&quot;:[32,&quot;Finland&quot;,&quot;June 2027&quot;],&quot;FR&quot;:[32,&quot;France&quot;,&quot;June 2027&quot;],&quot;DE&quot;:[32,&quot;Germany&quot;,&quot;June 2027&quot;],&quot;GR&quot;:[32,&quot;Greece&quot;,&quot;June 2027&quot;],&quot;HU&quot;:[32,&quot;Hungary&quot;,&quot;June 2027&quot;],&quot;IN&quot;:[32,&quot;India&quot;,&quot;June 2027&quot;],&quot;IE&quot;:[32,&quot;Ireland&quot;,&quot;June 2027&quot;],&quot;IT&quot;:[32,&quot;Italy&quot;,&quot;June 2027&quot;],&quot;JP&quot;:[32,&quot;Japan&quot;,&quot;June 2027&quot;],&quot;LV&quot;:[32,&quot;Latvia&quot;,&quot;June 2027&quot;],&quot;LT&quot;:[32,&quot;Lithuania&quot;,&quot;June 2027&quot;],&quot;LU&quot;:[32,&quot;Luxembourg&quot;,&quot;June 2027&quot;],&quot;MT&quot;:[32,&quot;Malta&quot;,&quot;June 2027&quot;],&quot;NL&quot;:[32,&quot;Netherlands&quot;,&quot;June 2027&quot;],&quot;PL&quot;:[32,&quot;Poland&quot;,&quot;June 2027&quot;],&quot;PT&quot;:[32,&quot;Portugal&quot;,&quot;June 2027&quot;],&quot;RO&quot;:[32,&quot;Romania&quot;,&quot;June 2027&quot;],&quot;SK&quot;:[32,&quot;Slovakia&quot;,&quot;June 2027&quot;],&quot;SI&quot;:[32,&quot;Slovenia&quot;,&quot;June 2027&quot;],&quot;KR&quot;:[32,&quot;South Korea&quot;,&quot;June 2027&quot;],&quot;ES&quot;:[33,&quot;Spain&quot;,&quot;June 2027&quot;],&quot;SE&quot;:[32,&quot;Sweden&quot;,&quot;June 2027&quot;],&quot;GB&quot;:[32,&quot;United Kingdom&quot;,&quot;June 2027&quot;],&quot;UA&quot;:[32,&quot;Ukraine&quot;,&quot;June 2027&quot;],&quot;US&quot;:[32,&quot;United States&quot;,&quot;June 2027&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#31 most anticipated June 2027 release &middot; featured in 37 countries</span></div>
-      <script>
-        (function(){
-          var b = document.getElementById('featured-banner');
-          if (!b || !b.dataset.ranks) return;
-          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
-          if (!region) return;
-          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
-          var r = ranks[region];
-          if (!r) return;
-          var el = b.querySelector('.fb-text');
-          if (!el) return;
-          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
-          b.title = 'Anticipation rank = position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
-        })();
-      </script>
       <h1 class="movie-title">The Metropolitan Opera 2026/27: Parsifal</h1>
       <div id="radar-local-release"></div>
       <div class="info-tiles">

@@ -63,20 +63,6 @@
 
     .movie-info { flex: 1; min-width: 0; }
     .movie-title { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 1rem; }
-    .featured-banner {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.4rem 0.8rem; margin-bottom: 0.9rem;
-      background: rgba(233, 69, 96, 0.1);
-      border: 1px solid rgba(233, 69, 96, 0.35);
-      border-radius: 999px;
-      color: #f3a4b1; font-size: 0.78rem; line-height: 1.3;
-    }
-    .featured-banner .fb-tag {
-      background: #e94560; color: #fff;
-      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em;
-      padding: 2px 7px; border-radius: 999px; text-transform: uppercase;
-    }
-    .featured-banner .fb-text { color: #ddd; }
 
     .info-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.65rem; margin-bottom: 1.25rem; }
     .tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 0.85rem 0.9rem; display: flex; flex-direction: column; gap: 0.3rem; }
@@ -215,22 +201,6 @@
       <img src="https://image.tmdb.org/t/p/w500/f4hdIed8vh10O8TkQ1CkHS8MQ3G.jpg" alt="By Any Means poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among September 2026 releases. The rank varies by country." data-count="37" data-ranks="{&quot;AU&quot;:[33,&quot;Australia&quot;,&quot;September 2026&quot;],&quot;AT&quot;:[35,&quot;Austria&quot;,&quot;September 2026&quot;],&quot;BE&quot;:[34,&quot;Belgium&quot;,&quot;September 2026&quot;],&quot;BR&quot;:[11,&quot;Brazil&quot;,&quot;November 2026&quot;],&quot;BG&quot;:[36,&quot;Bulgaria&quot;,&quot;September 2026&quot;],&quot;CA&quot;:[36,&quot;Canada&quot;,&quot;September 2026&quot;],&quot;CN&quot;:[34,&quot;China&quot;,&quot;September 2026&quot;],&quot;HR&quot;:[36,&quot;Croatia&quot;,&quot;September 2026&quot;],&quot;CY&quot;:[34,&quot;Cyprus&quot;,&quot;September 2026&quot;],&quot;CZ&quot;:[36,&quot;Czech Republic&quot;,&quot;September 2026&quot;],&quot;DK&quot;:[36,&quot;Denmark&quot;,&quot;September 2026&quot;],&quot;EE&quot;:[34,&quot;Estonia&quot;,&quot;September 2026&quot;],&quot;FI&quot;:[34,&quot;Finland&quot;,&quot;September 2026&quot;],&quot;FR&quot;:[36,&quot;France&quot;,&quot;September 2026&quot;],&quot;DE&quot;:[108,&quot;Germany&quot;,&quot;September 2026&quot;],&quot;GR&quot;:[37,&quot;Greece&quot;,&quot;September 2026&quot;],&quot;HU&quot;:[37,&quot;Hungary&quot;,&quot;September 2026&quot;],&quot;IN&quot;:[34,&quot;India&quot;,&quot;September 2026&quot;],&quot;IE&quot;:[34,&quot;Ireland&quot;,&quot;September 2026&quot;],&quot;IT&quot;:[35,&quot;Italy&quot;,&quot;September 2026&quot;],&quot;JP&quot;:[36,&quot;Japan&quot;,&quot;September 2026&quot;],&quot;LV&quot;:[36,&quot;Latvia&quot;,&quot;September 2026&quot;],&quot;LT&quot;:[37,&quot;Lithuania&quot;,&quot;September 2026&quot;],&quot;LU&quot;:[36,&quot;Luxembourg&quot;,&quot;September 2026&quot;],&quot;MT&quot;:[36,&quot;Malta&quot;,&quot;September 2026&quot;],&quot;NL&quot;:[36,&quot;Netherlands&quot;,&quot;September 2026&quot;],&quot;PL&quot;:[32,&quot;Poland&quot;,&quot;September 2026&quot;],&quot;PT&quot;:[35,&quot;Portugal&quot;,&quot;September 2026&quot;],&quot;RO&quot;:[35,&quot;Romania&quot;,&quot;September 2026&quot;],&quot;SK&quot;:[37,&quot;Slovakia&quot;,&quot;September 2026&quot;],&quot;SI&quot;:[35,&quot;Slovenia&quot;,&quot;September 2026&quot;],&quot;KR&quot;:[66,&quot;South Korea&quot;,&quot;September 2026&quot;],&quot;ES&quot;:[112,&quot;Spain&quot;,&quot;September 2026&quot;],&quot;SE&quot;:[45,&quot;Sweden&quot;,&quot;September 2026&quot;],&quot;GB&quot;:[35,&quot;United Kingdom&quot;,&quot;September 2026&quot;],&quot;UA&quot;:[104,&quot;Ukraine&quot;,&quot;September 2026&quot;],&quot;US&quot;:[35,&quot;United States&quot;,&quot;September 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#32 most anticipated September 2026 release &middot; featured in 37 countries</span></div>
-      <script>
-        (function(){
-          var b = document.getElementById('featured-banner');
-          if (!b || !b.dataset.ranks) return;
-          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
-          if (!region) return;
-          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
-          var r = ranks[region];
-          if (!r) return;
-          var el = b.querySelector('.fb-text');
-          if (!el) return;
-          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
-          b.title = 'Anticipation rank = position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
-        })();
-      </script>
       <h1 class="movie-title">By Any Means</h1>
       <div id="radar-local-release"></div>
       <div class="info-tiles">
@@ -308,6 +278,11 @@
   <section class="releases-section">
     <div class="section-heading">More September 2026 Releases</div>
     <div class="related-grid">
+    <a class="related-card" href="/movie/the-uprising/">
+        <img src="https://image.tmdb.org/t/p/w185/7TUl15TOsIvndKlgMWTtLgtEzZP.jpg" alt="The Uprising poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">The Uprising</span>
+        <span class="related-date">Sep 10, 2026</span>
+      </a>
     <a class="related-card" href="/movie/the-weight/">
         <img src="https://image.tmdb.org/t/p/w185/8i5iZV50CoEtmDCFM7RSxCkpE8h.jpg" alt="The Weight poster" loading="lazy" width="92" height="138" />
         <span class="related-title">The Weight</span>
@@ -342,11 +317,6 @@
         <img src="https://image.tmdb.org/t/p/w185/gacLRB94NM46kKPhilW9l7iPPSK.jpg" alt="No Handouts poster" loading="lazy" width="92" height="138" />
         <span class="related-title">No Handouts</span>
         <span class="related-date">Sep 14, 2026</span>
-      </a>
-    <a class="related-card" href="/movie/come-with-me/">
-        <img src="https://image.tmdb.org/t/p/w185/oQR5xUZrdVaLscJlk4mFcy8DrXJ.jpg" alt="Come with Me poster" loading="lazy" width="92" height="138" />
-        <span class="related-title">Come with Me</span>
-        <span class="related-date">Sep 4, 2026</span>
       </a>
     </div>
     <p class="hub-cross-link"><a href="/calendar/2026-09/">See every movie coming out in September 2026 &#8594;</a></p>

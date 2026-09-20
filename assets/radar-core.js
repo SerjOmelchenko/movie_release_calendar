@@ -56,6 +56,15 @@
     if(state.month)p.set('month',state.month);if(state.genre)p.set('genre',state.genre);if(state.rating)p.set('rating',state.rating);
     p.set('view',state.view==='list'?'list':'calendar');if(state.query?.trim())p.set('q',state.query.trim());return '?'+p.toString();
   }
+  function recentPopularity(movie, history, today, days = 7) {
+    const cutoff = addDays(today, 1 - days);
+    const samples = new Map();
+    for (const [date, score] of history) {
+      if (validDate(date) && date >= cutoff && date < today && Number.isFinite(score) && score >= 0) samples.set(date, score);
+    }
+    samples.set(today, Number.isFinite(movie.popularity) && movie.popularity >= 0 ? movie.popularity : 0);
+    return [...samples.values()].reduce((sum, score) => sum + score, 0) / samples.size;
+  }
   function normalize(value) { return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
   function searchMovies(movies, state) {
     const query=normalize(state.query).trim(),terms=query.split(/\s+/).filter(Boolean);
@@ -88,5 +97,5 @@
       lines.push('BEGIN:VEVENT','UID:movie-'+m.id+'-'+country+'@moviereleaseradar.com','DTSTAMP:'+stamp,'DTSTART;VALUE=DATE:'+date.replace(/-/g,''),'DTEND;VALUE=DATE:'+addDays(date,1).replace(/-/g,''),'SUMMARY:'+icsEscape(m.title+' — '+countries[country]+' release'),'DESCRIPTION:'+icsEscape(releaseLabel(m,country)+'. Dates may change.\n'+url),'URL:'+url,'END:VEVENT');}
     lines.push('END:VCALENDAR');return lines.map(foldLine).join('\r\n')+'\r\n';
   }
-  return {countries,genreIds,validDate,day,addDays,formatDate,localDate,releaseLabel,extractReleases,extractProviders,safeProviderLink,parseView,viewQuery,normalize,searchMovies,changesFor,diffReleases,calendar};
+  return {countries,genreIds,validDate,day,addDays,formatDate,localDate,releaseLabel,extractReleases,extractProviders,safeProviderLink,parseView,viewQuery,recentPopularity,normalize,searchMovies,changesFor,diffReleases,calendar};
 });

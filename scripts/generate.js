@@ -648,20 +648,6 @@ function buildMoviePage(movie, ctx = {}) {
 
     .movie-info { flex: 1; min-width: 0; }
     .movie-title { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 1rem; }
-    .featured-banner {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.4rem 0.8rem; margin-bottom: 0.9rem;
-      background: rgba(233, 69, 96, 0.1);
-      border: 1px solid rgba(233, 69, 96, 0.35);
-      border-radius: 999px;
-      color: #f3a4b1; font-size: 0.78rem; line-height: 1.3;
-    }
-    .featured-banner .fb-tag {
-      background: #e94560; color: #fff;
-      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em;
-      padding: 2px 7px; border-radius: 999px; text-transform: uppercase;
-    }
-    .featured-banner .fb-text { color: #ddd; }
 
     .info-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.65rem; margin-bottom: 1.25rem; }
     .tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 0.85rem 0.9rem; display: flex; flex-direction: column; gap: 0.3rem; }
@@ -802,71 +788,6 @@ function buildMoviePage(movie, ctx = {}) {
         : `<div class="movie-poster-placeholder">${title}</div>`}
     </div>
     <div class="movie-info">
-      ${(() => {
-        const highRated = (movie.vote_average || 0) >= 7 && (movie.vote_count || 0) >= 50;
-        const ri = ctx.rankInfo?.[movie.id];
-        const gr = ctx.globalMonthRanks?.[movie.id];
-        let reasonText, tooltip, dataAttrs = '', personalize = '';
-        if (ri) {
-          const entries = Object.entries(ri.byCountry);      // [cc, {rank, ym}]
-          const totalCountries = entries.length;
-          // A movie's rank is tied to its LOCAL release month in each country.
-          // For the static (country-neutral) text, only ranks from the primary
-          // release month are coherent with the release date shown on the page;
-          // otherwise the month would seem to contradict the date tile.
-          const primaryEntries = ym ? entries.filter(([, e]) => e.ym === ym) : [];
-          const pool = primaryEntries.length ? primaryEntries : entries;
-          let bestCc = null, bestEntry = null;
-          for (const [cc, e] of pool) {
-            if (!bestEntry || e.rank < bestEntry.rank) { bestEntry = e; bestCc = cc; }
-          }
-          const monthTxt = monthLabel(bestEntry.ym);
-          const countryTxt = COUNTRY_NAMES[bestCc] || bestCc;
-          const suffix = totalCountries > 1 ? ` &middot; featured in ${totalCountries} countries` : '';
-          if (primaryEntries.length && totalCountries > 1) {
-            reasonText = `#${bestEntry.rank} most anticipated ${monthTxt} release${suffix}`;
-            tooltip = `Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among ${monthTxt} releases. The rank varies by country.`;
-          } else {
-            // Rank comes from one country's local release month — always name
-            // the country so the month has context.
-            reasonText = `#${bestEntry.rank} most anticipated ${monthTxt} release in ${countryTxt}${suffix}`;
-            tooltip = `Position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among ${monthTxt} releases in ${countryTxt} (its local release month there).`;
-          }
-          if (totalCountries > 1) {
-            const ranksJson = {};
-            for (const [cc, e] of entries) {
-              ranksJson[cc] = [e.rank, COUNTRY_NAMES[cc] || cc, monthLabel(e.ym)];
-            }
-            dataAttrs = ` data-count="${totalCountries}" data-ranks="${escHtml(JSON.stringify(ranksJson))}"`;
-            personalize = `
-      <script>
-        (function(){
-          var b = document.getElementById('featured-banner');
-          if (!b || !b.dataset.ranks) return;
-          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
-          if (!region) return;
-          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
-          var r = ranks[region];
-          if (!r) return;
-          var el = b.querySelector('.fb-text');
-          if (!el) return;
-          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \\u00b7 featured in ' + b.dataset.count + ' countries';
-          b.title = 'Anticipation rank = position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
-        })();
-      </script>`;
-          }
-        } else if (gr) {
-          reasonText = `#${gr.rank} most anticipated movie of ${monthLabel(gr.ym)} worldwide`;
-          tooltip = `Rank = position by audience interest (7-day average TMDB popularity) among all ${monthLabel(gr.ym)} releases.`;
-        } else if (highRated) {
-          reasonText = `Rated ${movie.vote_average.toFixed(1)}/10 by ${movie.vote_count.toLocaleString()} viewers`;
-          tooltip = 'Featured for its audience rating on TMDB (7.0+ from 50+ voters).';
-        } else {
-          reasonText = 'Featured release';
-          tooltip = 'Previously ranked among the most anticipated releases for its month.';
-        }
-        return `<div class="featured-banner" id="featured-banner" title="${escHtml(tooltip)}"${dataAttrs}><span class="fb-tag">Featured</span><span class="fb-text">${reasonText}</span></div>${personalize}`;
-      })()}
       <h1 class="movie-title">${title}</h1>
       <div id="radar-local-release"></div>
       <div class="info-tiles">
@@ -978,11 +899,7 @@ function smoothPop(m) {
   if (!m) return 0;
   let v = _smoothPopCache.get(m.id);
   if (v === undefined) {
-    const today = new Date().toISOString().slice(0, 10);
-    const rows  = (loadPopHistory()[m.id] || []).filter(([d]) => d !== today);
-    rows.push([today, m.popularity || 0]); // current value always participates
-    const win = rows.slice(-POP_SMOOTH_DAYS);
-    v = win.reduce((s, [, p]) => s + p, 0) / win.length;
+    v = RadarCore.recentPopularity(m, loadPopHistory()[m.id] || [], new Date().toISOString().slice(0, 10), POP_SMOOTH_DAYS);
     _smoothPopCache.set(m.id, v);
   }
   return v;
@@ -1070,7 +987,10 @@ function computeFinalRanks(hitsByCountry, moviesById) {
   for (const [country, byYm] of Object.entries(hitsByCountry)) {
     finalRanks[country] = {};
     for (const [ym, ids] of Object.entries(byYm)) {
-      const sorted = [...ids].sort((a, b) => anticipationScore(moviesById[b], country) - anticipationScore(moviesById[a], country));
+      for (const id of ids) {
+        if (RadarCore.localDate(moviesById[id], country)?.slice(0, 7) !== ym) ids.delete(id);
+      }
+      const sorted = [...ids].sort((a, b) => anticipationScore(moviesById[b], country) - anticipationScore(moviesById[a], country) || a - b);
       finalRanks[country][ym] = {};
       sorted.forEach((id, i) => { finalRanks[country][ym][id] = i + 1; });
     }
@@ -1354,7 +1274,7 @@ function buildTopMoviesPage(ym, topMovies) {
   const today        = new Date().toISOString().slice(0, 10);
   const previewTitles = topMovies.slice(0, 3).map(m => m.title).join(', ');
   const metaDesc = escHtml(
-    `The 10 most anticipated movies releasing in ${label}: ${previewTitles}` +
+    `The 10 most popular movies releasing in ${label}: ${previewTitles}` +
     (topMovies.length > 3 ? ', and more.' : '.')
   );
   const ogImage = topMovies[0]?.poster_path ? escHtml(`${IMG_BASE}w500${topMovies[0].poster_path}`) : '';
@@ -1508,7 +1428,7 @@ ${TOP_PAGE_FOOTER}
 function buildTopMoviesIndexPage(allMonths, detailedMovies) {
   const canonicalUrl = `${SITE_BASE}/top-movies/`;
   const pageTitle    = 'Top Movies by Month';
-  const metaDesc     = escHtml('Browse the top 10 most anticipated movies for each month, ranked by popularity. Updated daily.');
+  const metaDesc     = escHtml('Browse the top 10 most popular movies for each month, ranked by popularity. Updated daily.');
   const today        = new Date().toISOString().slice(0, 10);
 
   const moviesByMonth = {};
@@ -1609,7 +1529,7 @@ ${TOP_PAGE_HEADER}
 <main class="index-page">
   <div class="page-header">
     <h1>${escHtml(pageTitle)}</h1>
-    <p>The most anticipated movies for each month, ranked by popularity. Updated daily.</p>
+    <p>The most popular movies for each month, ranked by popularity. Updated daily.</p>
   </div>
   <div class="months-grid">
     ${cardsHtml}
@@ -2138,7 +2058,7 @@ function injectHomepage(allMovies, globalHitIds, hubMonths) {
 
   const featuredSection = featured.length ? `<section class="home-featured">
   <h2 class="home-sec-title">Featured Movies This Month</h2>
-  <p class="home-sec-sub">The most anticipated ${escHtml(label)} releases &mdash; <a href="/calendar/${currentYm}/">see the full ${escHtml(label)} release calendar</a>.</p>
+  <p class="home-sec-sub">The most popular ${escHtml(label)} releases &mdash; <a href="/calendar/${currentYm}/">see the full ${escHtml(label)} release calendar</a>.</p>
   <div class="home-featured-grid">
 ${cards}
   </div>
@@ -2261,8 +2181,8 @@ function buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitId
             cast:              d.cast,
             isHit:             countryHits ? countryHits.has(m.id) : false,
           };
-          // Exact position in this country's monthly anticipation ranking —
-          // lets the UI say "#3 most anticipated" instead of a vague "top 15".
+          // Exact position in this country's monthly popularity ranking —
+          // lets the UI say "#3 most popular" instead of a vague "top 15".
           if (entry.isHit && countryRanks[m.id]) entry.featuredRank = countryRanks[m.id];
           // Only expose slug for HIT movies — otherwise the client would
           // navigate to a noindexed page instead of opening the modal.
@@ -2644,4 +2564,4 @@ function writePublicManifest(manifest, globalHitIds) {
 }
 
 if (require.main === module) main().catch(err => { console.error(err); process.exit(1); });
-module.exports = { fetchMovieDetails, fetchMoviesForRegion, buildMoviePage, buildCalendarFiles, main };
+module.exports = { fetchMovieDetails, fetchMoviesForRegion, buildMoviePage, buildCalendarFiles, computeFinalRanks, main };

@@ -38,3 +38,20 @@ test('provider links allow only the supplied TMDB HTTPS origin',()=>{
   assert.equal(C.safeProviderLink('javascript:alert(1)'),null);assert.equal(C.safeProviderLink('https://www.themoviedb.org.evil.test/'),null);
   const p=C.extractProviders({results:{NL:{link:'https://www.themoviedb.org/movie/1/watch?locale=NL',flatrate:[{provider_id:8,provider_name:'Netflix',logo_path:'/logo.jpg'}]}}});assert.equal(p.NL.flatrate[0].name,'Netflix');assert.deepEqual(p.NL.rent,[]);assert.throws(()=>C.extractProviders({}));
 });
+
+test('popularity uses only the last seven calendar days, deduplicates days and replaces today',()=>{
+  const {recentPopularity}=require('../assets/radar-core.js');
+  const today='2026-09-20';
+  assert.equal(recentPopularity({popularity:70},[['2026-07-09',1],['2026-09-13',999],['2026-09-14',14],['2026-09-19',35],['2026-09-19',56],['2026-09-20',999],['2026-09-21',999]],today),(14+56+70)/3);
+  assert.equal(recentPopularity({popularity:557},[['2026-07-09',7]],today),557);
+});
+
+test('moved and withdrawn releases cannot occupy ranks in the old country/month',()=>{
+  const {computeFinalRanks}=require('../scripts/generate.js');
+  const movies={991:{id:991,popularity:100,countryReleases:{NL:'2026-10-01'}},992:{id:992,popularity:20,countryReleases:{NL:'2026-09-10'}},993:{id:993,popularity:999,countryReleases:{}}};
+  const hits={NL:{'2026-09':new Set([991,992,993]),'2026-10':new Set([991])}};
+  const ranks=computeFinalRanks(hits,movies);
+  assert.deepEqual(ranks.NL['2026-09'],{992:1});
+  assert.deepEqual(ranks.NL['2026-10'],{991:1});
+  assert.deepEqual([...hits.NL['2026-09']],[992]);
+});

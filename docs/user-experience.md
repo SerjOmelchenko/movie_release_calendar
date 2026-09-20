@@ -49,3 +49,9 @@ Provider requests use the [TMDB watch-provider endpoint](https://developer.themo
 ## Validation
 
 `npm test` checks typed release extraction, unknown local dates, date changes, safe provider URLs, shared-view validation, Unicode-safe ICS folding, cross-month search, page/dialog integration, watchlist migration/export and excluded UI controls. DOM integration tests run the real homepage script and generated movie template against isolated fixtures without analytics or live requests.
+
+## Popularity ranks
+
+Monthly country ranks use global TMDB popularity adjusted for release timing. They do not measure anticipation among that country's viewers. The average uses only samples dated within the last seven calendar days, includes the current snapshot once, and uses available samples when fewer than seven days have been collected. Movies moved to another month or without a local date are excluded from the old month's ranks; their standalone pages remain available.
+
+Poster badges show the exact rank. Number 1 has the largest red flame and a double-weight accent border; ranks 2–3 have a smaller flame and emphasis; 4–10 have a compact red flame; 11–25 use a light outline; 26 onward use muted gray. All tiers have a dark background for readability over posters. Mobile badges shrink to fit the calendar. Single-film days, grouped posters, list cards and dialogs use the same tiers. Redundant featured-count and anticipation labels are removed, including the movie-page featured banner.

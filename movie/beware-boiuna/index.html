@@ -63,20 +63,6 @@
 
     .movie-info { flex: 1; min-width: 0; }
     .movie-title { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 1rem; }
-    .featured-banner {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.4rem 0.8rem; margin-bottom: 0.9rem;
-      background: rgba(233, 69, 96, 0.1);
-      border: 1px solid rgba(233, 69, 96, 0.35);
-      border-radius: 999px;
-      color: #f3a4b1; font-size: 0.78rem; line-height: 1.3;
-    }
-    .featured-banner .fb-tag {
-      background: #e94560; color: #fff;
-      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em;
-      padding: 2px 7px; border-radius: 999px; text-transform: uppercase;
-    }
-    .featured-banner .fb-text { color: #ddd; }
 
     .info-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.65rem; margin-bottom: 1.25rem; }
     .tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 0.85rem 0.9rem; display: flex; flex-direction: column; gap: 0.3rem; }
@@ -215,22 +201,6 @@
       <img src="https://image.tmdb.org/t/p/w500/tENVMxKvOkslv8kagVNdIEQ13RT.jpg" alt="Beware Boiúna poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among August 2026 releases in Latvia (its local release month there)." data-count="32" data-ranks="{&quot;AU&quot;:[58,&quot;Australia&quot;,&quot;August 2026&quot;],&quot;AT&quot;:[60,&quot;Austria&quot;,&quot;August 2026&quot;],&quot;BE&quot;:[59,&quot;Belgium&quot;,&quot;August 2026&quot;],&quot;BG&quot;:[61,&quot;Bulgaria&quot;,&quot;August 2026&quot;],&quot;CA&quot;:[60,&quot;Canada&quot;,&quot;August 2026&quot;],&quot;CN&quot;:[61,&quot;China&quot;,&quot;August 2026&quot;],&quot;HR&quot;:[60,&quot;Croatia&quot;,&quot;August 2026&quot;],&quot;CY&quot;:[60,&quot;Cyprus&quot;,&quot;August 2026&quot;],&quot;CZ&quot;:[59,&quot;Czech Republic&quot;,&quot;August 2026&quot;],&quot;DK&quot;:[61,&quot;Denmark&quot;,&quot;August 2026&quot;],&quot;EE&quot;:[60,&quot;Estonia&quot;,&quot;August 2026&quot;],&quot;FI&quot;:[59,&quot;Finland&quot;,&quot;August 2026&quot;],&quot;FR&quot;:[57,&quot;France&quot;,&quot;August 2026&quot;],&quot;DE&quot;:[62,&quot;Germany&quot;,&quot;August 2026&quot;],&quot;GR&quot;:[61,&quot;Greece&quot;,&quot;August 2026&quot;],&quot;HU&quot;:[61,&quot;Hungary&quot;,&quot;August 2026&quot;],&quot;IN&quot;:[60,&quot;India&quot;,&quot;August 2026&quot;],&quot;IE&quot;:[60,&quot;Ireland&quot;,&quot;August 2026&quot;],&quot;LV&quot;:[56,&quot;Latvia&quot;,&quot;August 2026&quot;],&quot;LT&quot;:[60,&quot;Lithuania&quot;,&quot;August 2026&quot;],&quot;LU&quot;:[60,&quot;Luxembourg&quot;,&quot;August 2026&quot;],&quot;MT&quot;:[60,&quot;Malta&quot;,&quot;August 2026&quot;],&quot;NL&quot;:[58,&quot;Netherlands&quot;,&quot;August 2026&quot;],&quot;PL&quot;:[57,&quot;Poland&quot;,&quot;August 2026&quot;],&quot;PT&quot;:[61,&quot;Portugal&quot;,&quot;August 2026&quot;],&quot;RO&quot;:[60,&quot;Romania&quot;,&quot;August 2026&quot;],&quot;SK&quot;:[60,&quot;Slovakia&quot;,&quot;August 2026&quot;],&quot;SI&quot;:[60,&quot;Slovenia&quot;,&quot;August 2026&quot;],&quot;ES&quot;:[68,&quot;Spain&quot;,&quot;August 2026&quot;],&quot;SE&quot;:[56,&quot;Sweden&quot;,&quot;August 2026&quot;],&quot;GB&quot;:[58,&quot;United Kingdom&quot;,&quot;August 2026&quot;],&quot;UA&quot;:[80,&quot;Ukraine&quot;,&quot;August 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#56 most anticipated August 2026 release in Latvia &middot; featured in 32 countries</span></div>
-      <script>
-        (function(){
-          var b = document.getElementById('featured-banner');
-          if (!b || !b.dataset.ranks) return;
-          var region = null; try { region = localStorage.getItem('region'); } catch(e) {}
-          if (!region) return;
-          var ranks; try { ranks = JSON.parse(b.dataset.ranks); } catch(e) { return; }
-          var r = ranks[region];
-          if (!r) return;
-          var el = b.querySelector('.fb-text');
-          if (!el) return;
-          el.textContent = '#' + r[0] + ' most anticipated ' + r[2] + ' release in ' + r[1] + ' \u00b7 featured in ' + b.dataset.count + ' countries';
-          b.title = 'Anticipation rank = position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among ' + r[2] + ' releases in ' + r[1] + ' (its local release month there).';
-        })();
-      </script>
       <h1 class="movie-title">Beware Boiúna</h1>
       <div id="radar-local-release"></div>
       <div class="info-tiles">
@@ -317,6 +287,11 @@
         <span class="related-title">Clayface</span>
         <span class="related-date">Oct 21, 2026</span>
       </a>
+    <a class="related-card" href="/movie/breeder/">
+        <img src="https://image.tmdb.org/t/p/w185/1ru0fNB2dy6cjVXwGnzd8jgMQEn.jpg" alt="Breeder poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">Breeder</span>
+        <span class="related-date">Oct 16, 2026</span>
+      </a>
     <a class="related-card" href="/movie/demonte-colony-3/">
         <img src="https://image.tmdb.org/t/p/w185/rtIXvC3ShBY6dyogJYTkoTxB48D.jpg" alt="Demonte Colony 3 poster" loading="lazy" width="92" height="138" />
         <span class="related-title">Demonte Colony 3</span>
@@ -341,11 +316,6 @@
         <img src="https://image.tmdb.org/t/p/w185/eSS5mvSG84UUuvtbHel5Yu3Wik4.jpg" alt="The Mongoose poster" loading="lazy" width="92" height="138" />
         <span class="related-title">The Mongoose</span>
         <span class="related-date">Oct 29, 2026</span>
-      </a>
-    <a class="related-card" href="/movie/other-mommy/">
-        <img src="https://image.tmdb.org/t/p/w185/fGRNCssTRrhYZxNzykGGCoMsAVq.jpg" alt="Other Mommy poster" loading="lazy" width="92" height="138" />
-        <span class="related-title">Other Mommy</span>
-        <span class="related-date">Oct 7, 2026</span>
       </a>
     </div>
     <p class="hub-cross-link"><a href="/calendar/2026-10/">See every movie coming out in October 2026 &#8594;</a></p>

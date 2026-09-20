@@ -74,3 +74,32 @@ test('provider section opens rental options when there are no subscription offer
   assert(host.textContent.includes('No subscription'));
   page.window.close();
 });
+
+test('rank badges distinguish all tiers on single and grouped posters without explanation labels',async()=>{
+  const {page,w,el}=dom(source,'https://moviereleaseradar.com/?country=NL');
+  const original=w.fetch;
+  const ranked=[1,2,3,4,10,11,25,26,100].map((rank,i)=>({...movies[0],id:100+i,title:'Rank '+rank,featuredRank:rank,release_date:rank===1?'2026-09-23':'2026-09-24',countryReleases:{NL:rank===1?'2026-09-23':'2026-09-24'}}));
+  w.fetch=async url=>String(url).includes('/calendar/')?{ok:true,json:async()=>ranked}:original(url);
+  w.eval(mainScript);await w.radarReady;
+  const badges=[...el('calendar').querySelectorAll('.rank-chip')];
+  assert.equal(badges.length,9);
+  for(const [i,tier] of ['first','podium','podium','hot','hot','notable','notable','standard','standard'].entries()){
+    assert(badges[i].classList.contains('rank-'+tier));
+    assert.equal(!!badges[i].querySelector('svg'),i<5);
+    assert(badges[i].getAttribute('aria-label').includes('TMDB popularity'));
+  }
+  assert(!el('calendar').querySelector('.hit-reason'));
+  assert(!el('calendar').textContent.includes('FEATURED RELEASES'));
+  assert(!el('calendar').textContent.includes('MOST ANTICIPATED'));
+  el('view-toggle-track').click();
+  assert.equal(el('calendar').querySelectorAll('.rank-chip').length,9);
+  assert(!el('calendar').querySelector('.list-card-reason'));
+  assert(!el('calendar').textContent.includes('MOST ANTICIPATED'));
+  page.window.close();
+});
+
+test('generated movie page omits the redundant featured ranking banner',()=>{
+  const html=buildMoviePage(movies[0],{rankInfo:{1:{byCountry:{NL:{rank:1,ym:'2026-09'}}}}});
+  assert(!html.includes('id="featured-banner"'));
+  assert(!html.includes('most anticipated'));
+});
