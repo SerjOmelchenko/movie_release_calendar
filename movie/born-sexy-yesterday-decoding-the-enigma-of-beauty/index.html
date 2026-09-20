@@ -159,6 +159,9 @@
       .info-tiles { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.5rem; }
     }
   </style>
+<link rel="stylesheet" href="/assets/radar.css">
+<script src="/assets/radar-core.js"></script>
+<script src="/assets/radar-ui.js"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -192,6 +195,8 @@
   <script>
     (function(){
       try {
+        var full = sessionStorage.getItem('calendarView');
+        if (full) { document.getElementById('back-link').href = '/' + full; return; }
         var s = sessionStorage.getItem('calendarMonth');
         if (s) {
           var parts = s.split('-').map(Number);
@@ -227,9 +232,9 @@
         })();
       </script>
       <h1 class="movie-title">BORN SEXY YESTERDAY: Decoding the Enigma of Beauty</h1>
+      <div id="radar-local-release"></div>
       <div class="info-tiles">
-        <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">March 14, 2027</div></div>
-        <div class="tile"><div class="tile-label">Digital Release</div><div class="tile-value">March 14, 2027</div></div>
+        <div class="tile tile-global-release"><div class="tile-label">First worldwide release</div><div class="tile-value">March 14, 2027</div></div>
         
         <div class="tile"><div class="tile-label">Length</div><div class="tile-value">2h 20m</div></div>
         <div class="tile"><div class="tile-label">Language</div><div class="tile-value">EN</div></div>
@@ -243,114 +248,13 @@
       <p class="movie-overview">The phrase &quot;Born Sexy Yesterday&quot; is derived from the 1950 film &quot;Born Yesterday.&quot; However beneath this superficial portrayal of some women lies a more complex understanding , revealing deeper narratives that resonate with many.  October 1, 1985. The chilling emptiness in Michele Avila's eyes. Her murder, a savage ballet of teenage fury, ripped through the town, festering wounds exposing the venomous underbelly of a seemingly innocent friendship. Jealousy, a serpent coiled in the heart of adolescence, struck with the force of a viper, revealing the terrifying depths of envy's reach. These weren't just girls; they were predators.  Women are born with many layers, a mix between good and evil. Ironically of all the positive tropes that can validate the existence of women, why is it that &quot;Born Sexy Yesterday&quot; is a trope that resonates with our male counterparts the most?</p>
       <div class="movie-actions">
         <button class="wl-btn" id="wl-btn" data-id="1495044">&#9825; Add to Watchlist</button>
-        
-        <div class="cal-wrap" id="cal-wrap">
-          <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
-          <div class="cal-menu" id="cal-menu">
-            <a href="#" target="_blank" rel="noopener" id="cal-google">Google Calendar</a>
-            <a href="#" id="cal-ics">Apple Calendar (.ics)</a>
-          </div>
-        </div>
+
       </div>
+      <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script>
-    (function(){
-      var btn = document.getElementById('wl-btn');
-      var id = 1495044;
-      var KEY = 'watchlist';
-      function getWl(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ return []; } }
-      function setWl(a){ try{ localStorage.setItem(KEY, JSON.stringify(a)); }catch(e){} }
-      function render(){
-        var inWl = getWl().indexOf(id) !== -1;
-        btn.innerHTML = inWl ? '&#9829; In Watchlist' : '&#9825; Add to Watchlist';
-        btn.classList.toggle('wl-active', inWl);
-      }
-      btn.addEventListener('click', function(){
-        var wl = getWl();
-        var idx = wl.indexOf(id);
-        if(idx === -1){ wl.push(id); } else { wl.splice(idx,1); }
-        setWl(wl);
-        render();
-      });
-      render();
-    })();
-  </script>
-
-  
-  <script>
-    (function(){
-      var calBtn  = document.getElementById('cal-btn');
-      var calMenu = document.getElementById('cal-menu');
-      var calWrap = document.getElementById('cal-wrap');
-      if (!calBtn) return;
-
-      // Build-time data
-      var countryDates = {"AU":"2027-03-14","AT":"2027-03-14","BE":"2027-03-14","BR":"2027-03-14","BG":"2027-03-14","CA":"2027-03-14","CN":"2027-03-14","HR":"2027-03-14","CY":"2027-03-14","CZ":"2027-03-14","DK":"2027-03-14","EE":"2027-03-14","FI":"2027-03-14","FR":"2027-03-14","DE":"2027-03-14","GR":"2027-03-14","HU":"2027-03-14","IN":"2027-03-14","IE":"2027-03-14","IT":"2027-03-14","JP":"2027-03-14","LV":"2027-03-14","LT":"2027-03-14","LU":"2027-03-14","MT":"2027-03-14","NL":"2027-03-14","PL":"2027-03-14","PT":"2027-03-14","RO":"2027-03-14","SK":"2027-03-14","SI":"2027-03-14","KR":"2027-03-14","ES":"2027-03-14","SE":"2027-03-14","GB":"2027-03-14","UA":"2027-03-14","US":"2027-03-14"};
-      var globalDate   = "2027-03-14";
-      var calTitle     = "BORN SEXY YESTERDAY: Decoding the Enigma of Beauty (2027)";
-      var calDesc      = "The phrase \"Born Sexy Yesterday\" is derived from the 1950 film \"Born Yesterday.\" However beneath this superficial portrayal of some women lies a more complex understanding , revealing deeper narratives that resonate with many.  October 1, 1985. The chilling emptiness in Michele Avila's eyes. Her murder, a savage ballet of teenage fury, ripped through the town, festering wounds exposing the venomous underbelly of a seemingly innocent friendship. Jealousy, a serpent coiled in the heart of adolesce\n\nMore info: https://moviereleaseradar.com/movie/born-sexy-yesterday-decoding-the-enigma-of-beauty/";
-      var icsSummary   = "BORN SEXY YESTERDAY: Decoding the Enigma of Beauty (2027)";
-      var icsDescBody  = "The phrase \"Born Sexy Yesterday\" is derived from the 1950 film \"Born Yesterday.\" However beneath this superficial portrayal of some women lies a more complex understanding \\, revealing deeper narratives that resonate with many.  October 1\\, 1985. The chilling emptiness in Michele Avila's eyes. Her murder\\, a savage ballet of teenage fury\\, ripped through the town\\, festering wounds exposing the venomous underbelly of a seemingly innocent friendship. Jealousy\\, a serpent coiled in the heart of adolesce\\n\\nMore info: https://moviereleaseradar.com/movie/born-sexy-yesterday-decoding-the-enigma-of-beauty/";
-      var icsUid       = "movie-1495044@moviereleasecalendar.com";
-      var icsCanonical = "https://moviereleaseradar.com/movie/born-sexy-yesterday-decoding-the-enigma-of-beauty/";
-      var icsFile      = "born-sexy-yesterday-decoding-the-enigma-of-beauty-2027-.ics";
-
-      // Pick release date for the user's chosen region, fall back to global
-      var region = 'WW';
-      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
-      var rd = countryDates[region] || globalDate;
-
-      // Date helpers
-      function pad(n){ return String(n).padStart(2, '0'); }
-      var parts = rd.split('-');
-      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
-      var startG = rd.replace(/-/g, '');
-      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
-      var te = encodeURIComponent(calTitle);
-      var de = encodeURIComponent(calDesc);
-
-      // Set calendar links
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
-        '&dates=' + startG + '/' + endG + '&details=' + de;
-      // ICS download
-      document.getElementById('cal-ics').addEventListener('click', function(e){
-        e.preventDefault();
-        var icsBody = [
-          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:' + icsUid,
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + icsSummary,
-          'DESCRIPTION:' + icsDescBody,
-          'URL:' + icsCanonical,
-          'END:VEVENT', 'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
-        var a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = icsFile;
-        document.body.appendChild(a); a.click();
-        setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
-        calMenu.classList.remove('open'); calBtn.classList.remove('open');
-      });
-
-      // Toggle dropdown
-      calBtn.addEventListener('click', function(e){
-        e.stopPropagation();
-        var open = calMenu.classList.toggle('open');
-        calBtn.classList.toggle('open', open);
-      });
-      document.addEventListener('click', function(e){
-        if (!calWrap.contains(e.target)){
-          calMenu.classList.remove('open'); calBtn.classList.remove('open');
-        }
-      });
-    })();
-  </script>
+  <script type="application/json" id="radar-movie-data">{"id":1495044,"title":"BORN SEXY YESTERDAY: Decoding the Enigma of Beauty","slug":"born-sexy-yesterday-decoding-the-enigma-of-beauty","release_date":"2027-03-14","countryReleases":{"AU":"2027-03-14","AT":"2027-03-14","BE":"2027-03-14","BR":"2027-03-14","BG":"2027-03-14","CA":"2027-03-14","CN":"2027-03-14","HR":"2027-03-14","CY":"2027-03-14","CZ":"2027-03-14","DK":"2027-03-14","EE":"2027-03-14","FI":"2027-03-14","FR":"2027-03-14","DE":"2027-03-14","GR":"2027-03-14","HU":"2027-03-14","IN":"2027-03-14","IE":"2027-03-14","IT":"2027-03-14","JP":"2027-03-14","LV":"2027-03-14","LT":"2027-03-14","LU":"2027-03-14","MT":"2027-03-14","NL":"2027-03-14","PL":"2027-03-14","PT":"2027-03-14","RO":"2027-03-14","SK":"2027-03-14","SI":"2027-03-14","KR":"2027-03-14","ES":"2027-03-14","SE":"2027-03-14","GB":"2027-03-14","UA":"2027-03-14","US":"2027-03-14"},"countryDigitalReleases":{},"countryReleaseTypes":{},"releaseDataVersion":1}</script>
+  <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   
   <section class="trailer-section">

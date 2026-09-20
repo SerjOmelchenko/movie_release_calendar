@@ -2,8 +2,10 @@
 
 const fs   = require('fs');
 const path = require('path');
+const RadarCore = require('../assets/radar-core.js');
+const { buildCatalog } = require('./build-catalog.js');
 
-const API_KEY  = process.env.TMDB_API_KEY || '75c5a1d45830643e055bd8265fffb3b5';
+const API_KEY  = process.env.TMDB_API_KEY || '';
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 const DATA_DIR      = path.join(__dirname, '..', 'data');
@@ -83,9 +85,10 @@ async function fetchJSON(url, attempt = 0) {
       await sleep(wait);
       return fetchJSON(url, attempt + 1);
     }
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    if (!res.ok) { const error = new Error(`HTTP ${res.status}`); error.status = res.status; throw error; }
     return res.json();
   } catch (err) {
+    if (err.status === 401 || err.status === 403) throw err;
     if (attempt < 3) {
       await sleep(1000 * (attempt + 1));
       return fetchJSON(url, attempt + 1);
@@ -126,8 +129,8 @@ async function fetchAllMoviesGlobal(fromDate, toDate) {
 
 async function fetchMoviesForRegion(region, fromDate, toDate) {
   const base = `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US` +
-    `&primary_release_date.gte=${fromDate}&primary_release_date.lte=${toDate}` +
-    `&region=${region}&sort_by=popularity.desc`;
+    `&release_date.gte=${fromDate}&release_date.lte=${toDate}` +
+    `&region=${region}&with_release_type=2|3&sort_by=popularity.desc`;
 
   const first = await fetchJSON(`${base}&page=1`);
   const totalPages = Math.min(first.total_pages || 1, 20);
@@ -149,12 +152,14 @@ async function fetchMoviesForRegion(region, fromDate, toDate) {
 }
 
 async function fetchMovieDetails(id) {
-  const [details, credits, videos, releaseDates] = await Promise.all([
-    fetchJSON(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`),
-    fetchJSON(`${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}&language=en-US`),
-    fetchJSON(`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}&language=en-US`),
-    fetchJSON(`${BASE_URL}/movie/${id}/release_dates?api_key=${API_KEY}`).catch(() => ({ results: [] })),
-  ]);
+  if (!API_KEY) throw new Error('Set TMDB_API_KEY before refreshing movie data');
+  const details = await fetchJSON(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US&append_to_response=credits,videos,release_dates,watch/providers`);
+  const credits = details.credits || {};
+  const videos = details.videos || {};
+  const releaseDates = details.release_dates;
+  const regional = RadarCore.extractReleases(releaseDates);
+  let watchProviders = null;
+  try { watchProviders = RadarCore.extractProviders(details['watch/providers']); } catch (_) {}
 
   // Earliest digital (streaming/VOD) release across all countries — TMDB
   // release type 4. Heavily searched ("when is X streaming") and not shown
@@ -210,6 +215,11 @@ async function fetchMovieDetails(id) {
     trailerPublishedAt,
     digitalReleaseDate,
     digitalReleaseCountry,
+    ...regional,
+    original_title: details.original_title,
+    watchProviders,
+    providersUpdatedAt: watchProviders ? new Date().toISOString() : null,
+    releaseDatesCheckedAt: new Date().toISOString(),
   };
 }
 
@@ -406,6 +416,7 @@ function movieFingerprint(m) {
     m.vote_average, m.vote_count, m.runtime, m.trailerKey,
     JSON.stringify(m.genres), JSON.stringify(m.directors), JSON.stringify(m.cast),
     JSON.stringify(m.countryReleases || {}), m.digitalReleaseDate || '',
+    JSON.stringify(m.countryDigitalReleases || {}), JSON.stringify(m.watchProviders || {}),
   ].join('\0');
 }
 
@@ -487,7 +498,7 @@ function buildMoviePage(movie, ctx = {}) {
   const poster      = movie.poster_path   ? `${IMG_BASE}w500${movie.poster_path}`   : '';
   const canonicalUrl = `${SITE_BASE}/movie/${movie.slug}/`;
   const today       = new Date().toISOString().slice(0, 10);
-  const isFuture    = !!movie.release_date && movie.release_date >= today;
+  const movieClientData = JSON.stringify({id:movie.id,title:movie.title,slug:movie.slug,release_date:movie.release_date,countryReleases:movie.countryReleases||{},countryDigitalReleases:movie.countryDigitalReleases||{},countryReleaseTypes:movie.countryReleaseTypes||{},releaseDataVersion:movie.releaseDataVersion||1,watchProviders:movie.watchProviders,providersUpdatedAt:movie.providersUpdatedAt,releaseDatesCheckedAt:movie.releaseDatesCheckedAt}).replace(/</g, '\\u003c');
 
   const releaseDate = movie.release_date
     ? new Date(movie.release_date + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' })
@@ -543,7 +554,7 @@ function buildMoviePage(movie, ctx = {}) {
     <div class="history-list">
     ${shownHistory.map(h => {
       const scopeName = h.scope === 'primary' ? 'Worldwide release' : `${escHtml(COUNTRY_NAMES[h.scope] || h.scope)} release`;
-      return `<div class="history-item"><span class="history-when">${fmtShort(h.on)}</span><span>${scopeName} moved from <s>${fmtShort(h.from)}</s> to <strong>${fmtShort(h.to)}</strong></span></div>`;
+      return `<div class="history-item"><span class="history-when">${fmtShort(h.on)}</span><span>${scopeName} ${!h.from ? 'announced for <strong>'+fmtShort(h.to)+'</strong>' : !h.to ? 'date no longer announced (previously '+fmtShort(h.from)+')' : 'moved from <s>'+fmtShort(h.from)+'</s> to <strong>'+fmtShort(h.to)+'</strong>'}</span></div>`;
     }).join('\n    ')}
     </div>
   </section>` : '';
@@ -733,6 +744,9 @@ function buildMoviePage(movie, ctx = {}) {
       .info-tiles { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.5rem; }
     }
   </style>
+<link rel="stylesheet" href="/assets/radar.css">
+<script src="/assets/radar-core.js"></script>
+<script src="/assets/radar-ui.js"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -766,6 +780,8 @@ function buildMoviePage(movie, ctx = {}) {
   <script>
     (function(){
       try {
+        var full = sessionStorage.getItem('calendarView');
+        if (full) { document.getElementById('back-link').href = '/' + full; return; }
         var s = sessionStorage.getItem('calendarMonth');
         if (s) {
           var parts = s.split('-').map(Number);
@@ -852,9 +868,9 @@ function buildMoviePage(movie, ctx = {}) {
         return `<div class="featured-banner" id="featured-banner" title="${escHtml(tooltip)}"${dataAttrs}><span class="fb-tag">Featured</span><span class="fb-text">${reasonText}</span></div>${personalize}`;
       })()}
       <h1 class="movie-title">${title}</h1>
+      <div id="radar-local-release"></div>
       <div class="info-tiles">
-        ${movie.release_date ? `<div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">${releaseDate}</div></div>` : ''}
-        ${movie.digitalReleaseDate ? `<div class="tile"><div class="tile-label">Digital Release</div><div class="tile-value">${fmtLong(movie.digitalReleaseDate)}</div></div>` : ''}
+        ${movie.release_date ? `<div class="tile tile-global-release"><div class="tile-label">First worldwide release</div><div class="tile-value">${releaseDate}</div></div>` : ''}
         ${movie.vote_count > 0 && movie.vote_average >= 1 ? `<div class="tile tile-rating"><div class="tile-label">Score</div><div class="tile-value">${movie.vote_average.toFixed(1)} <span class="tile-sub">/ 10</span></div></div>` : ''}
         ${runtime ? `<div class="tile"><div class="tile-label">Length</div><div class="tile-value">${runtime}</div></div>` : ''}
         ${movie.original_language ? `<div class="tile"><div class="tile-label">Language</div><div class="tile-value">${escHtml(movie.original_language.toUpperCase())}</div></div>` : ''}
@@ -868,114 +884,13 @@ function buildMoviePage(movie, ctx = {}) {
       <p class="movie-overview">${overview}</p>
       <div class="movie-actions">
         <button class="wl-btn" id="wl-btn" data-id="${movie.id}">&#9825; Add to Watchlist</button>
-        ${isFuture ? `
-        <div class="cal-wrap" id="cal-wrap">
-          <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
-          <div class="cal-menu" id="cal-menu">
-            <a href="#" target="_blank" rel="noopener" id="cal-google">Google Calendar</a>
-            <a href="#" id="cal-ics">Apple Calendar (.ics)</a>
-          </div>
-        </div>` : ''}
+
       </div>
+      <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script>
-    (function(){
-      var btn = document.getElementById('wl-btn');
-      var id = ${movie.id};
-      var KEY = 'watchlist';
-      function getWl(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ return []; } }
-      function setWl(a){ try{ localStorage.setItem(KEY, JSON.stringify(a)); }catch(e){} }
-      function render(){
-        var inWl = getWl().indexOf(id) !== -1;
-        btn.innerHTML = inWl ? '&#9829; In Watchlist' : '&#9825; Add to Watchlist';
-        btn.classList.toggle('wl-active', inWl);
-      }
-      btn.addEventListener('click', function(){
-        var wl = getWl();
-        var idx = wl.indexOf(id);
-        if(idx === -1){ wl.push(id); } else { wl.splice(idx,1); }
-        setWl(wl);
-        render();
-      });
-      render();
-    })();
-  </script>
-
-  ${isFuture ? `
-  <script>
-    (function(){
-      var calBtn  = document.getElementById('cal-btn');
-      var calMenu = document.getElementById('cal-menu');
-      var calWrap = document.getElementById('cal-wrap');
-      if (!calBtn) return;
-
-      // Build-time data
-      var countryDates = ${JSON.stringify(movie.countryReleases || {})};
-      var globalDate   = ${JSON.stringify(movie.release_date)};
-      var calTitle     = ${JSON.stringify(movie.title + (year ? ' (' + year + ')' : ''))};
-      var calDesc      = ${JSON.stringify((movie.overview || '').slice(0, 500) + '\n\nMore info: ' + canonicalUrl)};
-      var icsSummary   = ${JSON.stringify((movie.title + (year ? ' (' + year + ')' : '')).replace(/[,;\\]/g, function(c){ return '\\' + c; }))};
-      var icsDescBody  = ${JSON.stringify(((movie.overview || '').slice(0, 500) + '\n\nMore info: ' + canonicalUrl).replace(/[\n,;\\]/g, function(c){ return c === '\n' ? '\\n' : '\\' + c; }))};
-      var icsUid       = ${JSON.stringify('movie-' + movie.id + '@moviereleasecalendar.com')};
-      var icsCanonical = ${JSON.stringify(canonicalUrl)};
-      var icsFile      = ${JSON.stringify((movie.title + (year ? ' (' + year + ')' : '')).replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '.ics')};
-
-      // Pick release date for the user's chosen region, fall back to global
-      var region = 'WW';
-      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
-      var rd = countryDates[region] || globalDate;
-
-      // Date helpers
-      function pad(n){ return String(n).padStart(2, '0'); }
-      var parts = rd.split('-');
-      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
-      var startG = rd.replace(/-/g, '');
-      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
-      var te = encodeURIComponent(calTitle);
-      var de = encodeURIComponent(calDesc);
-
-      // Set calendar links
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
-        '&dates=' + startG + '/' + endG + '&details=' + de;
-      // ICS download
-      document.getElementById('cal-ics').addEventListener('click', function(e){
-        e.preventDefault();
-        var icsBody = [
-          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:' + icsUid,
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + icsSummary,
-          'DESCRIPTION:' + icsDescBody,
-          'URL:' + icsCanonical,
-          'END:VEVENT', 'END:VCALENDAR'
-        ].join('\\r\\n');
-        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
-        var a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = icsFile;
-        document.body.appendChild(a); a.click();
-        setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
-        calMenu.classList.remove('open'); calBtn.classList.remove('open');
-      });
-
-      // Toggle dropdown
-      calBtn.addEventListener('click', function(e){
-        e.stopPropagation();
-        var open = calMenu.classList.toggle('open');
-        calBtn.classList.toggle('open', open);
-      });
-      document.addEventListener('click', function(e){
-        if (!calWrap.contains(e.target)){
-          calMenu.classList.remove('open'); calBtn.classList.remove('open');
-        }
-      });
-    })();
-  </script>` : ''}
+  <script type="application/json" id="radar-movie-data">${movieClientData}</script>
+  <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   ${movie.trailerKey ? `
   <section class="trailer-section">
@@ -1978,7 +1893,7 @@ function buildCountryHubPage(cc, movies, globalHitIds, hubMonthsSet) {
   const hits = upcoming.filter(x => globalHitIds.has(x.movie.id) && x.movie.slug);
   const top3 = hits.slice(0, 3).map(x => x.movie.title).join(', ');
   const metaDesc = escHtml(
-    `Upcoming movie release dates in ${name}: ${upcoming.length} movies with confirmed local dates` +
+    `Upcoming movie release dates in ${name}: ${upcoming.length} movies with reported local dates` +
     (top3 ? `, next up ${top3}` : '') + '. Updated daily.'
   );
   const ogImage = hits[0]?.movie.poster_path ? `${IMG_BASE}w500${hits[0].movie.poster_path}` : '';
@@ -2068,7 +1983,7 @@ ${TOP_PAGE_HEADER}
   <a href="/releases/" class="back-link">&#8592; Releases by country</a>
   <div class="page-header">
     <h1>${escHtml(pageTitle)}</h1>
-    <p class="intro">${upcoming.length} movies have confirmed theatrical release dates in ${escHtml(name)} over the coming months. Dates below are the local ${escHtml(name)} release dates, which often differ from the US or worldwide premiere — checked and updated every night.</p>
+    <p class="intro">${upcoming.length} movies have reported local release dates in ${escHtml(name)} over the coming months. Dates below are the local ${escHtml(name)} release dates, which often differ from the US or worldwide premiere — checked and updated every night.</p>
   </div>
   ${featuredHtml ? `
   <div class="section-heading">Featured Upcoming Releases</div>
@@ -2325,10 +2240,15 @@ function buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitId
         .filter(m => detailsMap[m.id])
         .map(m => {
           const d = detailsMap[m.id];
+          const local = country === 'WW' ? m.release_date : RadarCore.localDate(d, country);
+          if (!local || !local.startsWith(ym)) return null;
           const entry = {
             id:                m.id,
             title:             d.title,
-            release_date:      m.release_date,   // country-specific date from discover
+            release_date:      local,
+            countryReleases:   country === 'WW' ? {} : { [country]: local },
+            releaseDataVersion: d.releaseDataVersion || 1,
+            countryReleaseTypes: country === 'WW' ? {} : { [country]: d.countryReleaseTypes?.[country] },
             poster_path:       d.poster_path,
             backdrop_path:     d.backdrop_path,
             vote_average:      d.vote_average,
@@ -2349,6 +2269,7 @@ function buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitId
           if (globalHitIds.has(m.id)) entry.slug = d.slug;
           return entry;
         })
+        .filter(Boolean)
         .sort((a, b) => a.release_date.localeCompare(b.release_date));
 
       // Atomic write: write to temp file then rename
@@ -2365,6 +2286,7 @@ function buildCalendarFiles(calendarData, detailsMap, hitsByCountry, globalHitId
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 async function main() {
+  if (process.env.REGEN_ONLY !== '1' && !API_KEY) throw new Error('Set TMDB_API_KEY before refreshing movie data');
   fs.mkdirSync(DATA_DIR,     { recursive: true });
   fs.mkdirSync(CALENDAR_DIR, { recursive: true });
 
@@ -2410,7 +2332,7 @@ async function main() {
       allowedMonths.add(ymCursor);
       ymCursor = addMonths(ymCursor, 1);
     }
-    const calendarData = {};
+    const calendarData = Object.fromEntries([...allowedMonths].map(ym => [ym, Object.fromEntries(SUPPORTED_COUNTRIES.map(cc => [cc, []]))]));
     for (const m of detailedMovies) {
       for (const [country, releaseDate] of Object.entries(m.countryReleases || {})) {
         const ym = (releaseDate || '').slice(0, 7);
@@ -2546,6 +2468,7 @@ async function main() {
         if (r.status === 'fulfilled') {
           detailsMap[r.value.id] = r.value;
         } else {
+          if (r.reason.status === 401 || r.reason.status === 403) throw r.reason;
           console.error(`\n  Failed movie ${batch[idx]}: ${r.reason.message}`);
         }
       });
@@ -2553,14 +2476,25 @@ async function main() {
       if (i + BATCH < idsToFetch.length) await sleep(300);
     }
 
-    // Stamp the per-country release dates discovered in this run onto every
-    // movie (fresh or reused), merging with whatever countryReleases the
-    // cached entry already had so older country dates aren't lost.
-    for (const movie of Object.values(detailsMap)) {
-      movie.countryReleases = {
-        ...(movie.countryReleases || {}),
-        ...(movieCountryReleases[movie.id] || {}),
-      };
+    // Explicit release records are authoritative. Never merge stale dates back
+    // over a withdrawn local date. A failed fetch retains its previous snapshot.
+    for (const id of idsToFetch) {
+      if (!detailsMap[id] && existingMovieMap[id]) detailsMap[id] = existingMovieMap[id];
+      const movie = detailsMap[id], previous = existingMovieMap[id];
+      if (movie && !movie.watchProviders && previous?.watchProviders) {
+        movie.watchProviders = previous.watchProviders;
+        movie.providersUpdatedAt = previous.providersUpdatedAt;
+      }
+    }
+    // Rebuild country membership from typed release records, including cases
+    // where the local release is in a different month from the primary date.
+    for (const ym of months) for (const cc of SUPPORTED_COUNTRIES) {
+      calendarData[ym] ||= {};
+      calendarData[ym][cc] = [];
+    }
+    for (const movie of Object.values(detailsMap)) for (const [cc, date] of Object.entries(movie.countryReleases || {})) {
+      const ym = date.slice(0, 7);
+      if (SUPPORTED_COUNTRIES.includes(cc) && monthsSet.has(ym)) calendarData[ym][cc].push({id:movie.id, release_date:date});
     }
 
     console.log(`\nFetched details for ${Object.keys(detailsMap).length} movies (${idsToFetch.length} hit TMDB, ${idsToReuse.length} reused)`);
@@ -2596,11 +2530,9 @@ async function main() {
         if (prev.release_date && movie.release_date && prev.release_date !== movie.release_date) {
           entries.push({ on: today, scope: 'primary', from: prev.release_date, to: movie.release_date });
         }
-        for (const [cc, date] of Object.entries(movie.countryReleases || {})) {
-          const old = (prev.countryReleases || {})[cc];
-          if (old && date && old !== date) {
-            entries.push({ on: today, scope: cc, from: old, to: date });
-          }
+        // Schema migration changes are corrections, not new audience alerts.
+        if (prev.releaseDataVersion === movie.releaseDataVersion) {
+          entries.push(...RadarCore.diffReleases(prev, movie, today));
         }
         if (entries.length) {
           const key = String(movie.id);
@@ -2660,6 +2592,7 @@ async function main() {
     globalMonthRanks: buildGlobalMonthRanks(allMovies),
     dateHistory:      loadJSON(DATE_HISTORY_PATH, {}),
   };
+  buildCatalog(allMovies, manifest, globalHitIds, pageCtx.dateHistory, DATA_DIR);
   generatePages(detailedMovies, manifest, globalHitIds, pageCtx);
   const topMonths = generateTopMoviesPages(allMovies, globalHitIds);
   const hubMonths = generateMonthHubs(allMovies, globalHitIds);
@@ -2710,4 +2643,5 @@ function writePublicManifest(manifest, globalHitIds) {
   console.log(`manifest-public.json saved (${Object.keys(out).length} entries)`);
 }
 
-main().catch(err => { console.error(err); process.exit(1); });
+if (require.main === module) main().catch(err => { console.error(err); process.exit(1); });
+module.exports = { fetchMovieDetails, fetchMoviesForRegion, buildMoviePage, buildCalendarFiles, main };

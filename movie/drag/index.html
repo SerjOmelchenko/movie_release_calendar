@@ -159,6 +159,9 @@
       .info-tiles { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.5rem; }
     }
   </style>
+<link rel="stylesheet" href="/assets/radar.css">
+<script src="/assets/radar-core.js"></script>
+<script src="/assets/radar-ui.js"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -192,6 +195,8 @@
   <script>
     (function(){
       try {
+        var full = sessionStorage.getItem('calendarView');
+        if (full) { document.getElementById('back-link').href = '/' + full; return; }
         var s = sessionStorage.getItem('calendarMonth');
         if (s) {
           var parts = s.split('-').map(Number);
@@ -210,7 +215,7 @@
       <img src="https://image.tmdb.org/t/p/w500/64Ny6F2RpcGociNnRqx27sESU8N.jpg" alt="Drag poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among January 2027 releases. The rank varies by country." data-count="33" data-ranks="{&quot;AT&quot;:[64,&quot;Austria&quot;,&quot;January 2027&quot;],&quot;BE&quot;:[64,&quot;Belgium&quot;,&quot;January 2027&quot;],&quot;BG&quot;:[64,&quot;Bulgaria&quot;,&quot;January 2027&quot;],&quot;CA&quot;:[53,&quot;Canada&quot;,&quot;January 2027&quot;],&quot;CN&quot;:[64,&quot;China&quot;,&quot;January 2027&quot;],&quot;HR&quot;:[64,&quot;Croatia&quot;,&quot;January 2027&quot;],&quot;CY&quot;:[64,&quot;Cyprus&quot;,&quot;January 2027&quot;],&quot;CZ&quot;:[65,&quot;Czech Republic&quot;,&quot;January 2027&quot;],&quot;DK&quot;:[64,&quot;Denmark&quot;,&quot;January 2027&quot;],&quot;EE&quot;:[64,&quot;Estonia&quot;,&quot;January 2027&quot;],&quot;FI&quot;:[64,&quot;Finland&quot;,&quot;January 2027&quot;],&quot;FR&quot;:[61,&quot;France&quot;,&quot;January 2027&quot;],&quot;DE&quot;:[67,&quot;Germany&quot;,&quot;January 2027&quot;],&quot;GR&quot;:[64,&quot;Greece&quot;,&quot;January 2027&quot;],&quot;HU&quot;:[64,&quot;Hungary&quot;,&quot;January 2027&quot;],&quot;IN&quot;:[64,&quot;India&quot;,&quot;January 2027&quot;],&quot;IE&quot;:[64,&quot;Ireland&quot;,&quot;January 2027&quot;],&quot;IT&quot;:[65,&quot;Italy&quot;,&quot;January 2027&quot;],&quot;JP&quot;:[64,&quot;Japan&quot;,&quot;January 2027&quot;],&quot;LV&quot;:[64,&quot;Latvia&quot;,&quot;January 2027&quot;],&quot;LT&quot;:[64,&quot;Lithuania&quot;,&quot;January 2027&quot;],&quot;LU&quot;:[64,&quot;Luxembourg&quot;,&quot;January 2027&quot;],&quot;MT&quot;:[64,&quot;Malta&quot;,&quot;January 2027&quot;],&quot;NL&quot;:[64,&quot;Netherlands&quot;,&quot;January 2027&quot;],&quot;PL&quot;:[64,&quot;Poland&quot;,&quot;January 2027&quot;],&quot;PT&quot;:[53,&quot;Portugal&quot;,&quot;January 2027&quot;],&quot;RO&quot;:[64,&quot;Romania&quot;,&quot;January 2027&quot;],&quot;SK&quot;:[64,&quot;Slovakia&quot;,&quot;January 2027&quot;],&quot;SI&quot;:[64,&quot;Slovenia&quot;,&quot;January 2027&quot;],&quot;SE&quot;:[65,&quot;Sweden&quot;,&quot;January 2027&quot;],&quot;GB&quot;:[53,&quot;United Kingdom&quot;,&quot;January 2027&quot;],&quot;UA&quot;:[65,&quot;Ukraine&quot;,&quot;January 2027&quot;],&quot;US&quot;:[62,&quot;United States&quot;,&quot;January 2027&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#53 most anticipated January 2027 release &middot; featured in 33 countries</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among January 2027 releases. The rank varies by country." data-count="33" data-ranks="{&quot;AT&quot;:[64,&quot;Austria&quot;,&quot;January 2027&quot;],&quot;BE&quot;:[64,&quot;Belgium&quot;,&quot;January 2027&quot;],&quot;BG&quot;:[64,&quot;Bulgaria&quot;,&quot;January 2027&quot;],&quot;CA&quot;:[53,&quot;Canada&quot;,&quot;January 2027&quot;],&quot;CN&quot;:[64,&quot;China&quot;,&quot;January 2027&quot;],&quot;HR&quot;:[64,&quot;Croatia&quot;,&quot;January 2027&quot;],&quot;CY&quot;:[64,&quot;Cyprus&quot;,&quot;January 2027&quot;],&quot;CZ&quot;:[65,&quot;Czech Republic&quot;,&quot;January 2027&quot;],&quot;DK&quot;:[64,&quot;Denmark&quot;,&quot;January 2027&quot;],&quot;EE&quot;:[64,&quot;Estonia&quot;,&quot;January 2027&quot;],&quot;FI&quot;:[64,&quot;Finland&quot;,&quot;January 2027&quot;],&quot;FR&quot;:[62,&quot;France&quot;,&quot;January 2027&quot;],&quot;DE&quot;:[67,&quot;Germany&quot;,&quot;January 2027&quot;],&quot;GR&quot;:[64,&quot;Greece&quot;,&quot;January 2027&quot;],&quot;HU&quot;:[64,&quot;Hungary&quot;,&quot;January 2027&quot;],&quot;IN&quot;:[64,&quot;India&quot;,&quot;January 2027&quot;],&quot;IE&quot;:[64,&quot;Ireland&quot;,&quot;January 2027&quot;],&quot;IT&quot;:[65,&quot;Italy&quot;,&quot;January 2027&quot;],&quot;JP&quot;:[64,&quot;Japan&quot;,&quot;January 2027&quot;],&quot;LV&quot;:[64,&quot;Latvia&quot;,&quot;January 2027&quot;],&quot;LT&quot;:[64,&quot;Lithuania&quot;,&quot;January 2027&quot;],&quot;LU&quot;:[64,&quot;Luxembourg&quot;,&quot;January 2027&quot;],&quot;MT&quot;:[64,&quot;Malta&quot;,&quot;January 2027&quot;],&quot;NL&quot;:[64,&quot;Netherlands&quot;,&quot;January 2027&quot;],&quot;PL&quot;:[64,&quot;Poland&quot;,&quot;January 2027&quot;],&quot;PT&quot;:[53,&quot;Portugal&quot;,&quot;January 2027&quot;],&quot;RO&quot;:[64,&quot;Romania&quot;,&quot;January 2027&quot;],&quot;SK&quot;:[64,&quot;Slovakia&quot;,&quot;January 2027&quot;],&quot;SI&quot;:[64,&quot;Slovenia&quot;,&quot;January 2027&quot;],&quot;SE&quot;:[65,&quot;Sweden&quot;,&quot;January 2027&quot;],&quot;GB&quot;:[53,&quot;United Kingdom&quot;,&quot;January 2027&quot;],&quot;UA&quot;:[65,&quot;Ukraine&quot;,&quot;January 2027&quot;],&quot;US&quot;:[62,&quot;United States&quot;,&quot;January 2027&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#53 most anticipated January 2027 release &middot; featured in 33 countries</span></div>
       <script>
         (function(){
           var b = document.getElementById('featured-banner');
@@ -227,9 +232,9 @@
         })();
       </script>
       <h1 class="movie-title">Drag</h1>
+      <div id="radar-local-release"></div>
       <div class="info-tiles">
-        <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">January 29, 2027</div></div>
-        
+        <div class="tile tile-global-release"><div class="tile-label">First worldwide release</div><div class="tile-value">January 29, 2027</div></div>
         
         <div class="tile"><div class="tile-label">Length</div><div class="tile-value">1h 26m</div></div>
         <div class="tile"><div class="tile-label">Language</div><div class="tile-value">EN</div></div>
@@ -243,114 +248,13 @@
       <p class="movie-overview">A routine robbery at a rural house turns into a nightmare for two amateur burglars when one of them throws their back out. Things spiral out of control as they try to make it out before the homeowner returns.</p>
       <div class="movie-actions">
         <button class="wl-btn" id="wl-btn" data-id="1451238">&#9825; Add to Watchlist</button>
-        
-        <div class="cal-wrap" id="cal-wrap">
-          <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
-          <div class="cal-menu" id="cal-menu">
-            <a href="#" target="_blank" rel="noopener" id="cal-google">Google Calendar</a>
-            <a href="#" id="cal-ics">Apple Calendar (.ics)</a>
-          </div>
-        </div>
+
       </div>
+      <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script>
-    (function(){
-      var btn = document.getElementById('wl-btn');
-      var id = 1451238;
-      var KEY = 'watchlist';
-      function getWl(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ return []; } }
-      function setWl(a){ try{ localStorage.setItem(KEY, JSON.stringify(a)); }catch(e){} }
-      function render(){
-        var inWl = getWl().indexOf(id) !== -1;
-        btn.innerHTML = inWl ? '&#9829; In Watchlist' : '&#9825; Add to Watchlist';
-        btn.classList.toggle('wl-active', inWl);
-      }
-      btn.addEventListener('click', function(){
-        var wl = getWl();
-        var idx = wl.indexOf(id);
-        if(idx === -1){ wl.push(id); } else { wl.splice(idx,1); }
-        setWl(wl);
-        render();
-      });
-      render();
-    })();
-  </script>
-
-  
-  <script>
-    (function(){
-      var calBtn  = document.getElementById('cal-btn');
-      var calMenu = document.getElementById('cal-menu');
-      var calWrap = document.getElementById('cal-wrap');
-      if (!calBtn) return;
-
-      // Build-time data
-      var countryDates = {"AU":"2026-10-10","AT":"2027-01-29","BE":"2027-01-29","BR":"2027-01-29","BG":"2027-01-29","CA":"2026-07-25","CN":"2027-01-29","HR":"2027-01-29","CY":"2027-01-29","CZ":"2027-01-29","DK":"2027-01-29","EE":"2027-01-29","FI":"2027-01-29","FR":"2027-01-29","DE":"2027-01-29","GR":"2027-01-29","HU":"2027-01-29","IN":"2027-01-29","IE":"2027-01-29","IT":"2027-01-29","JP":"2027-01-29","LV":"2027-01-29","LT":"2027-01-29","LU":"2027-01-29","MT":"2027-01-29","NL":"2027-01-29","PL":"2027-01-29","PT":"2026-09-03","RO":"2027-01-29","SK":"2027-01-29","SI":"2027-01-29","KR":"2026-07-03","ES":"2026-10-15","SE":"2027-01-29","GB":"2026-08-28","UA":"2027-01-29","US":"2027-01-29"};
-      var globalDate   = "2027-01-29";
-      var calTitle     = "Drag (2027)";
-      var calDesc      = "A routine robbery at a rural house turns into a nightmare for two amateur burglars when one of them throws their back out. Things spiral out of control as they try to make it out before the homeowner returns.\n\nMore info: https://moviereleaseradar.com/movie/drag/";
-      var icsSummary   = "Drag (2027)";
-      var icsDescBody  = "A routine robbery at a rural house turns into a nightmare for two amateur burglars when one of them throws their back out. Things spiral out of control as they try to make it out before the homeowner returns.\\n\\nMore info: https://moviereleaseradar.com/movie/drag/";
-      var icsUid       = "movie-1451238@moviereleasecalendar.com";
-      var icsCanonical = "https://moviereleaseradar.com/movie/drag/";
-      var icsFile      = "drag-2027-.ics";
-
-      // Pick release date for the user's chosen region, fall back to global
-      var region = 'WW';
-      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
-      var rd = countryDates[region] || globalDate;
-
-      // Date helpers
-      function pad(n){ return String(n).padStart(2, '0'); }
-      var parts = rd.split('-');
-      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
-      var startG = rd.replace(/-/g, '');
-      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
-      var te = encodeURIComponent(calTitle);
-      var de = encodeURIComponent(calDesc);
-
-      // Set calendar links
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
-        '&dates=' + startG + '/' + endG + '&details=' + de;
-      // ICS download
-      document.getElementById('cal-ics').addEventListener('click', function(e){
-        e.preventDefault();
-        var icsBody = [
-          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:' + icsUid,
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + icsSummary,
-          'DESCRIPTION:' + icsDescBody,
-          'URL:' + icsCanonical,
-          'END:VEVENT', 'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
-        var a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = icsFile;
-        document.body.appendChild(a); a.click();
-        setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
-        calMenu.classList.remove('open'); calBtn.classList.remove('open');
-      });
-
-      // Toggle dropdown
-      calBtn.addEventListener('click', function(e){
-        e.stopPropagation();
-        var open = calMenu.classList.toggle('open');
-        calBtn.classList.toggle('open', open);
-      });
-      document.addEventListener('click', function(e){
-        if (!calWrap.contains(e.target)){
-          calMenu.classList.remove('open'); calBtn.classList.remove('open');
-        }
-      });
-    })();
-  </script>
+  <script type="application/json" id="radar-movie-data">{"id":1451238,"title":"Drag","slug":"drag","release_date":"2027-01-29","countryReleases":{"AU":"2026-10-10","AT":"2027-01-29","BE":"2027-01-29","BR":"2027-01-29","BG":"2027-01-29","CA":"2026-07-25","CN":"2027-01-29","HR":"2027-01-29","CY":"2027-01-29","CZ":"2027-01-29","DK":"2027-01-29","EE":"2027-01-29","FI":"2027-01-29","FR":"2027-01-29","DE":"2027-01-29","GR":"2027-01-29","HU":"2027-01-29","IN":"2027-01-29","IE":"2027-01-29","IT":"2027-01-29","JP":"2027-01-29","LV":"2027-01-29","LT":"2027-01-29","LU":"2027-01-29","MT":"2027-01-29","NL":"2027-01-29","PL":"2027-01-29","PT":"2026-09-03","RO":"2027-01-29","SK":"2027-01-29","SI":"2027-01-29","KR":"2026-07-03","ES":"2026-10-15","SE":"2027-01-29","GB":"2026-08-28","UA":"2027-01-29","US":"2027-01-29"},"countryDigitalReleases":{},"countryReleaseTypes":{},"releaseDataVersion":1}</script>
+  <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   
 

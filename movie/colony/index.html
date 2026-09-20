@@ -159,6 +159,9 @@
       .info-tiles { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.5rem; }
     }
   </style>
+<link rel="stylesheet" href="/assets/radar.css">
+<script src="/assets/radar-core.js"></script>
+<script src="/assets/radar-ui.js"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -192,6 +195,8 @@
   <script>
     (function(){
       try {
+        var full = sessionStorage.getItem('calendarView');
+        if (full) { document.getElementById('back-link').href = '/' + full; return; }
         var s = sessionStorage.getItem('calendarMonth');
         if (s) {
           var parts = s.split('-').map(Number);
@@ -210,7 +215,7 @@
       <img src="https://image.tmdb.org/t/p/w500/tN799oUR0f1gUKDYdMNrDaY7I51.jpg" alt="Colony poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among May 2026 releases. The rank varies by country." data-count="37" data-ranks="{&quot;AU&quot;:[23,&quot;Australia&quot;,&quot;June 2026&quot;],&quot;AT&quot;:[15,&quot;Austria&quot;,&quot;May 2026&quot;],&quot;BE&quot;:[13,&quot;Belgium&quot;,&quot;May 2026&quot;],&quot;BR&quot;:[59,&quot;Brazil&quot;,&quot;October 2026&quot;],&quot;BG&quot;:[16,&quot;Bulgaria&quot;,&quot;May 2026&quot;],&quot;CA&quot;:[17,&quot;Canada&quot;,&quot;May 2026&quot;],&quot;CN&quot;:[15,&quot;China&quot;,&quot;May 2026&quot;],&quot;HR&quot;:[16,&quot;Croatia&quot;,&quot;May 2026&quot;],&quot;CY&quot;:[15,&quot;Cyprus&quot;,&quot;May 2026&quot;],&quot;CZ&quot;:[28,&quot;Czech Republic&quot;,&quot;July 2026&quot;],&quot;DK&quot;:[15,&quot;Denmark&quot;,&quot;May 2026&quot;],&quot;EE&quot;:[16,&quot;Estonia&quot;,&quot;May 2026&quot;],&quot;FI&quot;:[17,&quot;Finland&quot;,&quot;May 2026&quot;],&quot;FR&quot;:[14,&quot;France&quot;,&quot;May 2026&quot;],&quot;DE&quot;:[13,&quot;Germany&quot;,&quot;May 2026&quot;],&quot;GR&quot;:[15,&quot;Greece&quot;,&quot;May 2026&quot;],&quot;HU&quot;:[15,&quot;Hungary&quot;,&quot;May 2026&quot;],&quot;IN&quot;:[28,&quot;India&quot;,&quot;June 2026&quot;],&quot;IE&quot;:[40,&quot;Ireland&quot;,&quot;May 2026&quot;],&quot;IT&quot;:[16,&quot;Italy&quot;,&quot;May 2026&quot;],&quot;JP&quot;:[16,&quot;Japan&quot;,&quot;May 2026&quot;],&quot;LV&quot;:[28,&quot;Latvia&quot;,&quot;July 2026&quot;],&quot;LT&quot;:[13,&quot;Lithuania&quot;,&quot;May 2026&quot;],&quot;LU&quot;:[15,&quot;Luxembourg&quot;,&quot;May 2026&quot;],&quot;MT&quot;:[15,&quot;Malta&quot;,&quot;May 2026&quot;],&quot;NL&quot;:[16,&quot;Netherlands&quot;,&quot;May 2026&quot;],&quot;PL&quot;:[14,&quot;Poland&quot;,&quot;May 2026&quot;],&quot;PT&quot;:[15,&quot;Portugal&quot;,&quot;May 2026&quot;],&quot;RO&quot;:[14,&quot;Romania&quot;,&quot;May 2026&quot;],&quot;SK&quot;:[15,&quot;Slovakia&quot;,&quot;May 2026&quot;],&quot;SI&quot;:[15,&quot;Slovenia&quot;,&quot;May 2026&quot;],&quot;KR&quot;:[14,&quot;South Korea&quot;,&quot;May 2026&quot;],&quot;ES&quot;:[12,&quot;Spain&quot;,&quot;May 2026&quot;],&quot;SE&quot;:[17,&quot;Sweden&quot;,&quot;May 2026&quot;],&quot;GB&quot;:[44,&quot;United Kingdom&quot;,&quot;May 2026&quot;],&quot;UA&quot;:[16,&quot;Ukraine&quot;,&quot;May 2026&quot;],&quot;US&quot;:[52,&quot;United States&quot;,&quot;August 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#12 most anticipated May 2026 release &middot; featured in 37 countries</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among May 2026 releases. The rank varies by country." data-count="37" data-ranks="{&quot;AU&quot;:[23,&quot;Australia&quot;,&quot;June 2026&quot;],&quot;AT&quot;:[15,&quot;Austria&quot;,&quot;May 2026&quot;],&quot;BE&quot;:[13,&quot;Belgium&quot;,&quot;May 2026&quot;],&quot;BR&quot;:[59,&quot;Brazil&quot;,&quot;October 2026&quot;],&quot;BG&quot;:[16,&quot;Bulgaria&quot;,&quot;May 2026&quot;],&quot;CA&quot;:[17,&quot;Canada&quot;,&quot;May 2026&quot;],&quot;CN&quot;:[15,&quot;China&quot;,&quot;May 2026&quot;],&quot;HR&quot;:[16,&quot;Croatia&quot;,&quot;May 2026&quot;],&quot;CY&quot;:[15,&quot;Cyprus&quot;,&quot;May 2026&quot;],&quot;CZ&quot;:[28,&quot;Czech Republic&quot;,&quot;July 2026&quot;],&quot;DK&quot;:[15,&quot;Denmark&quot;,&quot;May 2026&quot;],&quot;EE&quot;:[16,&quot;Estonia&quot;,&quot;May 2026&quot;],&quot;FI&quot;:[17,&quot;Finland&quot;,&quot;May 2026&quot;],&quot;FR&quot;:[14,&quot;France&quot;,&quot;May 2026&quot;],&quot;DE&quot;:[13,&quot;Germany&quot;,&quot;May 2026&quot;],&quot;GR&quot;:[15,&quot;Greece&quot;,&quot;May 2026&quot;],&quot;HU&quot;:[15,&quot;Hungary&quot;,&quot;May 2026&quot;],&quot;IN&quot;:[28,&quot;India&quot;,&quot;June 2026&quot;],&quot;IE&quot;:[40,&quot;Ireland&quot;,&quot;May 2026&quot;],&quot;IT&quot;:[16,&quot;Italy&quot;,&quot;May 2026&quot;],&quot;JP&quot;:[16,&quot;Japan&quot;,&quot;May 2026&quot;],&quot;LV&quot;:[28,&quot;Latvia&quot;,&quot;July 2026&quot;],&quot;LT&quot;:[13,&quot;Lithuania&quot;,&quot;May 2026&quot;],&quot;LU&quot;:[15,&quot;Luxembourg&quot;,&quot;May 2026&quot;],&quot;MT&quot;:[15,&quot;Malta&quot;,&quot;May 2026&quot;],&quot;NL&quot;:[16,&quot;Netherlands&quot;,&quot;May 2026&quot;],&quot;PL&quot;:[14,&quot;Poland&quot;,&quot;May 2026&quot;],&quot;PT&quot;:[15,&quot;Portugal&quot;,&quot;May 2026&quot;],&quot;RO&quot;:[14,&quot;Romania&quot;,&quot;May 2026&quot;],&quot;SK&quot;:[15,&quot;Slovakia&quot;,&quot;May 2026&quot;],&quot;SI&quot;:[15,&quot;Slovenia&quot;,&quot;May 2026&quot;],&quot;KR&quot;:[14,&quot;South Korea&quot;,&quot;May 2026&quot;],&quot;ES&quot;:[12,&quot;Spain&quot;,&quot;May 2026&quot;],&quot;SE&quot;:[17,&quot;Sweden&quot;,&quot;May 2026&quot;],&quot;GB&quot;:[45,&quot;United Kingdom&quot;,&quot;May 2026&quot;],&quot;UA&quot;:[16,&quot;Ukraine&quot;,&quot;May 2026&quot;],&quot;US&quot;:[52,&quot;United States&quot;,&quot;August 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#12 most anticipated May 2026 release &middot; featured in 37 countries</span></div>
       <script>
         (function(){
           var b = document.getElementById('featured-banner');
@@ -227,9 +232,9 @@
         })();
       </script>
       <h1 class="movie-title">Colony</h1>
+      <div id="radar-local-release"></div>
       <div class="info-tiles">
-        <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">May 21, 2026</div></div>
-        
+        <div class="tile tile-global-release"><div class="tile-label">First worldwide release</div><div class="tile-value">May 21, 2026</div></div>
         <div class="tile tile-rating"><div class="tile-label">Score</div><div class="tile-value">7.0 <span class="tile-sub">/ 10</span></div></div>
         <div class="tile"><div class="tile-label">Length</div><div class="tile-value">2h 3m</div></div>
         <div class="tile"><div class="tile-label">Language</div><div class="tile-value">KO</div></div>
@@ -243,34 +248,13 @@
       <p class="movie-overview">Professor Se-jeong is thrust into a bloody nightmare when a rapidly mutating virus is released during a biotech conference causing authorities to seal the facility. Trapped inside with no escape, Se-jeong along with a small group of survivors must fight to stay alive while the infected undergo horrific transformations.</p>
       <div class="movie-actions">
         <button class="wl-btn" id="wl-btn" data-id="1375646">&#9825; Add to Watchlist</button>
-        
+
       </div>
+      <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script>
-    (function(){
-      var btn = document.getElementById('wl-btn');
-      var id = 1375646;
-      var KEY = 'watchlist';
-      function getWl(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ return []; } }
-      function setWl(a){ try{ localStorage.setItem(KEY, JSON.stringify(a)); }catch(e){} }
-      function render(){
-        var inWl = getWl().indexOf(id) !== -1;
-        btn.innerHTML = inWl ? '&#9829; In Watchlist' : '&#9825; Add to Watchlist';
-        btn.classList.toggle('wl-active', inWl);
-      }
-      btn.addEventListener('click', function(){
-        var wl = getWl();
-        var idx = wl.indexOf(id);
-        if(idx === -1){ wl.push(id); } else { wl.splice(idx,1); }
-        setWl(wl);
-        render();
-      });
-      render();
-    })();
-  </script>
-
-  
+  <script type="application/json" id="radar-movie-data">{"id":1375646,"title":"Colony","slug":"colony","release_date":"2026-05-21","countryReleases":{"AU":"2026-06-11","AT":"2026-05-21","BE":"2026-05-21","BR":"2026-10-01","BG":"2026-05-21","CA":"2026-05-21","CN":"2026-05-21","HR":"2026-05-21","CY":"2026-05-21","CZ":"2026-07-05","DK":"2026-05-21","EE":"2026-05-21","FI":"2026-05-21","FR":"2026-05-27","DE":"2026-05-21","GR":"2026-05-21","HU":"2026-05-21","IN":"2026-06-19","IE":"2026-08-28","IT":"2026-05-21","JP":"2026-05-21","LV":"2026-07-03","LT":"2026-05-21","LU":"2026-05-21","MT":"2026-05-21","NL":"2026-05-21","PL":"2026-05-21","PT":"2026-05-21","RO":"2026-05-21","SK":"2026-05-21","SI":"2026-05-21","KR":"2026-05-21","ES":"2026-05-21","SE":"2026-05-21","GB":"2026-08-28","UA":"2026-05-21","US":"2026-08-28"},"countryDigitalReleases":{},"countryReleaseTypes":{},"releaseDataVersion":1}</script>
+  <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   
   <section class="trailer-section">

@@ -3,10 +3,19 @@ name: Nightly Generate
 on:
   schedule:
     - cron: '0 3 * * *'   # 03:00 UTC every night
-  workflow_dispatch:        # allow manual runs
+  workflow_dispatch:
+    inputs:
+      providers_only:
+        description: 'Refresh viewing providers and rebuild cached pages without release discovery'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
+
+concurrency:
+  group: nightly-generate-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   generate:
@@ -22,15 +31,26 @@ jobs:
           node-version: '22'
 
       - name: Generate movies data and pages
+        if: ${{ !inputs.providers_only }}
         env:
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: node scripts/generate.js
+
+      - name: Refresh missing or stale viewing providers across the full catalog
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: node scripts/refresh-providers.js
+
+      - name: Rebuild pages and catalog with refreshed viewing providers
+        env:
+          REGEN_ONLY: '1'
         run: node scripts/generate.js
 
       - name: Commit and push if changed
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/manifest.json data/manifest-public.json data/movies.json data/hits.json data/date-history.json data/calendar/ movie/ top-movies/ calendar/ releases/ sitemap.xml index.html
+          git add data/manifest.json data/manifest-public.json data/movies.json data/hits.json data/date-history.json data/popularity-history.json data/search-index.json data/catalog/ data/calendar/ movie/ top-movies/ calendar/ releases/ sitemap.xml index.html
           git diff --cached --quiet && echo "Nothing to commit" || \
             git commit -m "chore: nightly movie data update $(date -u +%Y-%m-%d)" && \
             git push

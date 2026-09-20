@@ -159,6 +159,9 @@
       .info-tiles { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.5rem; }
     }
   </style>
+<link rel="stylesheet" href="/assets/radar.css">
+<script src="/assets/radar-core.js"></script>
+<script src="/assets/radar-ui.js"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -192,6 +195,8 @@
   <script>
     (function(){
       try {
+        var full = sessionStorage.getItem('calendarView');
+        if (full) { document.getElementById('back-link').href = '/' + full; return; }
         var s = sessionStorage.getItem('calendarMonth');
         if (s) {
           var parts = s.split('-').map(Number);
@@ -210,7 +215,7 @@
       <img src="https://image.tmdb.org/t/p/w500/1GWVlPM1v6k84LsmDkfDzLlGf0O.jpg" alt="The Samurai and the Prisoner poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among March 2027 releases in Portugal (its local release month there)." data-count="4" data-ranks="{&quot;CZ&quot;:[116,&quot;Czech Republic&quot;,&quot;September 2026&quot;],&quot;FR&quot;:[62,&quot;France&quot;,&quot;January 2027&quot;],&quot;PT&quot;:[49,&quot;Portugal&quot;,&quot;March 2027&quot;],&quot;US&quot;:[51,&quot;United States&quot;,&quot;July 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#49 most anticipated March 2027 release in Portugal &middot; featured in 4 countries</span></div>
+      <div class="featured-banner" id="featured-banner" title="Position by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among March 2027 releases in Portugal (its local release month there)." data-count="4" data-ranks="{&quot;CZ&quot;:[116,&quot;Czech Republic&quot;,&quot;September 2026&quot;],&quot;FR&quot;:[63,&quot;France&quot;,&quot;January 2027&quot;],&quot;PT&quot;:[49,&quot;Portugal&quot;,&quot;March 2027&quot;],&quot;US&quot;:[51,&quot;United States&quot;,&quot;July 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#49 most anticipated March 2027 release in Portugal &middot; featured in 4 countries</span></div>
       <script>
         (function(){
           var b = document.getElementById('featured-banner');
@@ -227,9 +232,9 @@
         })();
       </script>
       <h1 class="movie-title">The Samurai and the Prisoner</h1>
+      <div id="radar-local-release"></div>
       <div class="info-tiles">
-        <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">June 19, 2026</div></div>
-        
+        <div class="tile tile-global-release"><div class="tile-label">First worldwide release</div><div class="tile-value">June 19, 2026</div></div>
         <div class="tile tile-rating"><div class="tile-label">Score</div><div class="tile-value">8.4 <span class="tile-sub">/ 10</span></div></div>
         <div class="tile"><div class="tile-label">Length</div><div class="tile-value">2h 27m</div></div>
         <div class="tile"><div class="tile-label">Language</div><div class="tile-value">JA</div></div>
@@ -243,34 +248,13 @@
       <p class="movie-overview">When Lord Murashige rises up against the tyrannical Oda, he finds himself besieged within the walls of his own castle. Isolated, he is confronted with a series of mysterious crimes that shatter the fragile order of his court, plunging the fortress into fear and suspicion. With Oda's army closing in and a traitor hiding among his ranks, Murashige is forced into an uneasy alliance with Kanbei, a brilliant and dangerous strategist held prisoner in the dungeon, as he must outwit his enemies and uncover the truth before time runs out.</p>
       <div class="movie-actions">
         <button class="wl-btn" id="wl-btn" data-id="1620313">&#9825; Add to Watchlist</button>
-        
+
       </div>
+      <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script>
-    (function(){
-      var btn = document.getElementById('wl-btn');
-      var id = 1620313;
-      var KEY = 'watchlist';
-      function getWl(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ return []; } }
-      function setWl(a){ try{ localStorage.setItem(KEY, JSON.stringify(a)); }catch(e){} }
-      function render(){
-        var inWl = getWl().indexOf(id) !== -1;
-        btn.innerHTML = inWl ? '&#9829; In Watchlist' : '&#9825; Add to Watchlist';
-        btn.classList.toggle('wl-active', inWl);
-      }
-      btn.addEventListener('click', function(){
-        var wl = getWl();
-        var idx = wl.indexOf(id);
-        if(idx === -1){ wl.push(id); } else { wl.splice(idx,1); }
-        setWl(wl);
-        render();
-      });
-      render();
-    })();
-  </script>
-
-  
+  <script type="application/json" id="radar-movie-data">{"id":1620313,"title":"The Samurai and the Prisoner","slug":"the-samurai-and-the-prisoner","release_date":"2026-06-19","countryReleases":{"AU":"2026-06-06","AT":"2026-06-19","BE":"2026-06-19","BR":"2026-06-19","BG":"2026-06-19","CA":"2026-07-22","CN":"2026-06-19","HR":"2026-06-19","CY":"2026-06-19","CZ":"2026-09-03","DK":"2026-06-19","EE":"2026-06-19","FI":"2026-06-19","FR":"2027-01-27","DE":"2026-06-19","GR":"2026-06-19","HU":"2026-06-19","IN":"2026-06-19","IE":"2026-06-19","IT":"2026-06-19","JP":"2026-06-19","LV":"2026-06-19","LT":"2026-06-19","LU":"2026-06-19","MT":"2026-06-19","NL":"2026-06-19","PL":"2026-06-19","PT":"2027-03-04","RO":"2026-06-19","SK":"2026-06-19","SI":"2026-06-19","KR":"2026-07-05","ES":"2026-10-23","SE":"2026-06-19","GB":"2026-06-19","UA":"2026-06-19","US":"2026-07-31"},"countryDigitalReleases":{},"countryReleaseTypes":{},"releaseDataVersion":1}</script>
+  <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   
   <section class="trailer-section">

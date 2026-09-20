@@ -159,6 +159,9 @@
       .info-tiles { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.5rem; }
     }
   </style>
+<link rel="stylesheet" href="/assets/radar.css">
+<script src="/assets/radar-core.js"></script>
+<script src="/assets/radar-ui.js"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -192,6 +195,8 @@
   <script>
     (function(){
       try {
+        var full = sessionStorage.getItem('calendarView');
+        if (full) { document.getElementById('back-link').href = '/' + full; return; }
         var s = sessionStorage.getItem('calendarMonth');
         if (s) {
           var parts = s.split('-').map(Number);
@@ -210,7 +215,7 @@
       <img src="https://image.tmdb.org/t/p/w500/15UU8ZlbQq43CBG9baQpFSW8wC1.jpg" alt="The Dream of a Ridiculous Man poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among January 2027 releases. The rank varies by country." data-count="37" data-ranks="{&quot;AU&quot;:[32,&quot;Australia&quot;,&quot;January 2027&quot;],&quot;AT&quot;:[31,&quot;Austria&quot;,&quot;January 2027&quot;],&quot;BE&quot;:[31,&quot;Belgium&quot;,&quot;January 2027&quot;],&quot;BR&quot;:[34,&quot;Brazil&quot;,&quot;January 2027&quot;],&quot;BG&quot;:[31,&quot;Bulgaria&quot;,&quot;January 2027&quot;],&quot;CA&quot;:[32,&quot;Canada&quot;,&quot;January 2027&quot;],&quot;CN&quot;:[31,&quot;China&quot;,&quot;January 2027&quot;],&quot;HR&quot;:[31,&quot;Croatia&quot;,&quot;January 2027&quot;],&quot;CY&quot;:[31,&quot;Cyprus&quot;,&quot;January 2027&quot;],&quot;CZ&quot;:[31,&quot;Czech Republic&quot;,&quot;January 2027&quot;],&quot;DK&quot;:[31,&quot;Denmark&quot;,&quot;January 2027&quot;],&quot;EE&quot;:[31,&quot;Estonia&quot;,&quot;January 2027&quot;],&quot;FI&quot;:[31,&quot;Finland&quot;,&quot;January 2027&quot;],&quot;FR&quot;:[31,&quot;France&quot;,&quot;January 2027&quot;],&quot;DE&quot;:[32,&quot;Germany&quot;,&quot;January 2027&quot;],&quot;GR&quot;:[31,&quot;Greece&quot;,&quot;January 2027&quot;],&quot;HU&quot;:[31,&quot;Hungary&quot;,&quot;January 2027&quot;],&quot;IN&quot;:[31,&quot;India&quot;,&quot;January 2027&quot;],&quot;IE&quot;:[31,&quot;Ireland&quot;,&quot;January 2027&quot;],&quot;IT&quot;:[31,&quot;Italy&quot;,&quot;January 2027&quot;],&quot;JP&quot;:[31,&quot;Japan&quot;,&quot;January 2027&quot;],&quot;LV&quot;:[31,&quot;Latvia&quot;,&quot;January 2027&quot;],&quot;LT&quot;:[31,&quot;Lithuania&quot;,&quot;January 2027&quot;],&quot;LU&quot;:[31,&quot;Luxembourg&quot;,&quot;January 2027&quot;],&quot;MT&quot;:[31,&quot;Malta&quot;,&quot;January 2027&quot;],&quot;NL&quot;:[31,&quot;Netherlands&quot;,&quot;January 2027&quot;],&quot;PL&quot;:[32,&quot;Poland&quot;,&quot;January 2027&quot;],&quot;PT&quot;:[31,&quot;Portugal&quot;,&quot;January 2027&quot;],&quot;RO&quot;:[31,&quot;Romania&quot;,&quot;January 2027&quot;],&quot;SK&quot;:[31,&quot;Slovakia&quot;,&quot;January 2027&quot;],&quot;SI&quot;:[31,&quot;Slovenia&quot;,&quot;January 2027&quot;],&quot;KR&quot;:[32,&quot;South Korea&quot;,&quot;January 2027&quot;],&quot;ES&quot;:[29,&quot;Spain&quot;,&quot;January 2027&quot;],&quot;SE&quot;:[32,&quot;Sweden&quot;,&quot;January 2027&quot;],&quot;GB&quot;:[33,&quot;United Kingdom&quot;,&quot;January 2027&quot;],&quot;UA&quot;:[33,&quot;Ukraine&quot;,&quot;January 2027&quot;],&quot;US&quot;:[31,&quot;United States&quot;,&quot;January 2027&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#29 most anticipated January 2027 release &middot; featured in 37 countries</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among January 2027 releases. The rank varies by country." data-count="37" data-ranks="{&quot;AU&quot;:[32,&quot;Australia&quot;,&quot;January 2027&quot;],&quot;AT&quot;:[31,&quot;Austria&quot;,&quot;January 2027&quot;],&quot;BE&quot;:[31,&quot;Belgium&quot;,&quot;January 2027&quot;],&quot;BR&quot;:[34,&quot;Brazil&quot;,&quot;January 2027&quot;],&quot;BG&quot;:[31,&quot;Bulgaria&quot;,&quot;January 2027&quot;],&quot;CA&quot;:[32,&quot;Canada&quot;,&quot;January 2027&quot;],&quot;CN&quot;:[31,&quot;China&quot;,&quot;January 2027&quot;],&quot;HR&quot;:[31,&quot;Croatia&quot;,&quot;January 2027&quot;],&quot;CY&quot;:[31,&quot;Cyprus&quot;,&quot;January 2027&quot;],&quot;CZ&quot;:[31,&quot;Czech Republic&quot;,&quot;January 2027&quot;],&quot;DK&quot;:[31,&quot;Denmark&quot;,&quot;January 2027&quot;],&quot;EE&quot;:[31,&quot;Estonia&quot;,&quot;January 2027&quot;],&quot;FI&quot;:[31,&quot;Finland&quot;,&quot;January 2027&quot;],&quot;FR&quot;:[32,&quot;France&quot;,&quot;January 2027&quot;],&quot;DE&quot;:[32,&quot;Germany&quot;,&quot;January 2027&quot;],&quot;GR&quot;:[31,&quot;Greece&quot;,&quot;January 2027&quot;],&quot;HU&quot;:[31,&quot;Hungary&quot;,&quot;January 2027&quot;],&quot;IN&quot;:[31,&quot;India&quot;,&quot;January 2027&quot;],&quot;IE&quot;:[31,&quot;Ireland&quot;,&quot;January 2027&quot;],&quot;IT&quot;:[31,&quot;Italy&quot;,&quot;January 2027&quot;],&quot;JP&quot;:[31,&quot;Japan&quot;,&quot;January 2027&quot;],&quot;LV&quot;:[31,&quot;Latvia&quot;,&quot;January 2027&quot;],&quot;LT&quot;:[31,&quot;Lithuania&quot;,&quot;January 2027&quot;],&quot;LU&quot;:[31,&quot;Luxembourg&quot;,&quot;January 2027&quot;],&quot;MT&quot;:[31,&quot;Malta&quot;,&quot;January 2027&quot;],&quot;NL&quot;:[31,&quot;Netherlands&quot;,&quot;January 2027&quot;],&quot;PL&quot;:[32,&quot;Poland&quot;,&quot;January 2027&quot;],&quot;PT&quot;:[31,&quot;Portugal&quot;,&quot;January 2027&quot;],&quot;RO&quot;:[31,&quot;Romania&quot;,&quot;January 2027&quot;],&quot;SK&quot;:[31,&quot;Slovakia&quot;,&quot;January 2027&quot;],&quot;SI&quot;:[31,&quot;Slovenia&quot;,&quot;January 2027&quot;],&quot;KR&quot;:[32,&quot;South Korea&quot;,&quot;January 2027&quot;],&quot;ES&quot;:[29,&quot;Spain&quot;,&quot;January 2027&quot;],&quot;SE&quot;:[32,&quot;Sweden&quot;,&quot;January 2027&quot;],&quot;GB&quot;:[33,&quot;United Kingdom&quot;,&quot;January 2027&quot;],&quot;UA&quot;:[33,&quot;Ukraine&quot;,&quot;January 2027&quot;],&quot;US&quot;:[31,&quot;United States&quot;,&quot;January 2027&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#29 most anticipated January 2027 release &middot; featured in 37 countries</span></div>
       <script>
         (function(){
           var b = document.getElementById('featured-banner');
@@ -227,9 +232,9 @@
         })();
       </script>
       <h1 class="movie-title">The Dream of a Ridiculous Man</h1>
+      <div id="radar-local-release"></div>
       <div class="info-tiles">
-        <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">January 1, 2027</div></div>
-        
+        <div class="tile tile-global-release"><div class="tile-label">First worldwide release</div><div class="tile-value">January 1, 2027</div></div>
         
         <div class="tile"><div class="tile-label">Length</div><div class="tile-value">0h 17m</div></div>
         <div class="tile"><div class="tile-label">Language</div><div class="tile-value">EN</div></div>
@@ -243,114 +248,13 @@
       <p class="movie-overview">A man recalls a single night in his youth when he was on the brink of suicide, and the dream that changed him.</p>
       <div class="movie-actions">
         <button class="wl-btn" id="wl-btn" data-id="1615971">&#9825; Add to Watchlist</button>
-        
-        <div class="cal-wrap" id="cal-wrap">
-          <button class="cal-btn" id="cal-btn">&#128197; Add to Calendar</button>
-          <div class="cal-menu" id="cal-menu">
-            <a href="#" target="_blank" rel="noopener" id="cal-google">Google Calendar</a>
-            <a href="#" id="cal-ics">Apple Calendar (.ics)</a>
-          </div>
-        </div>
+
       </div>
+      <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script>
-    (function(){
-      var btn = document.getElementById('wl-btn');
-      var id = 1615971;
-      var KEY = 'watchlist';
-      function getWl(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ return []; } }
-      function setWl(a){ try{ localStorage.setItem(KEY, JSON.stringify(a)); }catch(e){} }
-      function render(){
-        var inWl = getWl().indexOf(id) !== -1;
-        btn.innerHTML = inWl ? '&#9829; In Watchlist' : '&#9825; Add to Watchlist';
-        btn.classList.toggle('wl-active', inWl);
-      }
-      btn.addEventListener('click', function(){
-        var wl = getWl();
-        var idx = wl.indexOf(id);
-        if(idx === -1){ wl.push(id); } else { wl.splice(idx,1); }
-        setWl(wl);
-        render();
-      });
-      render();
-    })();
-  </script>
-
-  
-  <script>
-    (function(){
-      var calBtn  = document.getElementById('cal-btn');
-      var calMenu = document.getElementById('cal-menu');
-      var calWrap = document.getElementById('cal-wrap');
-      if (!calBtn) return;
-
-      // Build-time data
-      var countryDates = {"AU":"2027-01-01","AT":"2027-01-01","BE":"2027-01-01","BR":"2027-01-01","BG":"2027-01-01","CA":"2027-01-01","CN":"2027-01-01","HR":"2027-01-01","CY":"2027-01-01","CZ":"2027-01-01","DK":"2027-01-01","EE":"2027-01-01","FI":"2027-01-01","FR":"2027-01-01","DE":"2027-01-01","GR":"2027-01-01","HU":"2027-01-01","IN":"2027-01-01","IE":"2027-01-01","IT":"2027-01-01","JP":"2027-01-01","LV":"2027-01-01","LT":"2027-01-01","LU":"2027-01-01","MT":"2027-01-01","NL":"2027-01-01","PL":"2027-01-01","PT":"2027-01-01","RO":"2027-01-01","SK":"2027-01-01","SI":"2027-01-01","KR":"2027-01-01","ES":"2027-01-01","SE":"2027-01-01","GB":"2027-01-01","UA":"2027-01-01","US":"2027-01-01"};
-      var globalDate   = "2027-01-01";
-      var calTitle     = "The Dream of a Ridiculous Man (2027)";
-      var calDesc      = "A man recalls a single night in his youth when he was on the brink of suicide, and the dream that changed him.\n\nMore info: https://moviereleaseradar.com/movie/the-dream-of-a-ridiculous-man/";
-      var icsSummary   = "The Dream of a Ridiculous Man (2027)";
-      var icsDescBody  = "A man recalls a single night in his youth when he was on the brink of suicide\\, and the dream that changed him.\\n\\nMore info: https://moviereleaseradar.com/movie/the-dream-of-a-ridiculous-man/";
-      var icsUid       = "movie-1615971@moviereleasecalendar.com";
-      var icsCanonical = "https://moviereleaseradar.com/movie/the-dream-of-a-ridiculous-man/";
-      var icsFile      = "the-dream-of-a-ridiculous-man-2027-.ics";
-
-      // Pick release date for the user's chosen region, fall back to global
-      var region = 'WW';
-      try { region = localStorage.getItem('region') || 'WW'; } catch(e) {}
-      var rd = countryDates[region] || globalDate;
-
-      // Date helpers
-      function pad(n){ return String(n).padStart(2, '0'); }
-      var parts = rd.split('-');
-      var dtEnd = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
-      dtEnd.setUTCDate(dtEnd.getUTCDate() + 1);
-      var startG = rd.replace(/-/g, '');
-      var endG   = dtEnd.getUTCFullYear() + pad(dtEnd.getUTCMonth()+1) + pad(dtEnd.getUTCDate());
-      var te = encodeURIComponent(calTitle);
-      var de = encodeURIComponent(calDesc);
-
-      // Set calendar links
-      document.getElementById('cal-google').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + te +
-        '&dates=' + startG + '/' + endG + '&details=' + de;
-      // ICS download
-      document.getElementById('cal-ics').addEventListener('click', function(e){
-        e.preventDefault();
-        var icsBody = [
-          'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Movie Release Radar//EN',
-          'BEGIN:VEVENT',
-          'UID:' + icsUid,
-          'DTSTART;VALUE=DATE:' + startG,
-          'DTEND;VALUE=DATE:' + endG,
-          'SUMMARY:' + icsSummary,
-          'DESCRIPTION:' + icsDescBody,
-          'URL:' + icsCanonical,
-          'END:VEVENT', 'END:VCALENDAR'
-        ].join('\r\n');
-        var blob = new Blob([icsBody], {type:'text/calendar;charset=utf-8'});
-        var a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = icsFile;
-        document.body.appendChild(a); a.click();
-        setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
-        calMenu.classList.remove('open'); calBtn.classList.remove('open');
-      });
-
-      // Toggle dropdown
-      calBtn.addEventListener('click', function(e){
-        e.stopPropagation();
-        var open = calMenu.classList.toggle('open');
-        calBtn.classList.toggle('open', open);
-      });
-      document.addEventListener('click', function(e){
-        if (!calWrap.contains(e.target)){
-          calMenu.classList.remove('open'); calBtn.classList.remove('open');
-        }
-      });
-    })();
-  </script>
+  <script type="application/json" id="radar-movie-data">{"id":1615971,"title":"The Dream of a Ridiculous Man","slug":"the-dream-of-a-ridiculous-man","release_date":"2027-01-01","countryReleases":{"AU":"2027-01-01","AT":"2027-01-01","BE":"2027-01-01","BR":"2027-01-01","BG":"2027-01-01","CA":"2027-01-01","CN":"2027-01-01","HR":"2027-01-01","CY":"2027-01-01","CZ":"2027-01-01","DK":"2027-01-01","EE":"2027-01-01","FI":"2027-01-01","FR":"2027-01-01","DE":"2027-01-01","GR":"2027-01-01","HU":"2027-01-01","IN":"2027-01-01","IE":"2027-01-01","IT":"2027-01-01","JP":"2027-01-01","LV":"2027-01-01","LT":"2027-01-01","LU":"2027-01-01","MT":"2027-01-01","NL":"2027-01-01","PL":"2027-01-01","PT":"2027-01-01","RO":"2027-01-01","SK":"2027-01-01","SI":"2027-01-01","KR":"2027-01-01","ES":"2027-01-01","SE":"2027-01-01","GB":"2027-01-01","UA":"2027-01-01","US":"2027-01-01"},"countryDigitalReleases":{},"countryReleaseTypes":{},"releaseDataVersion":1}</script>
+  <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   
 

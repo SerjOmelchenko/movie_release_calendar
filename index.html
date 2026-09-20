@@ -1874,6 +1874,10 @@
       .list-date-heading { padding-top: 0.9rem; }
     }
   </style>
+<link rel="stylesheet" href="/assets/radar.css">
+<script src="/assets/radar-core.js"></script>
+<script src="/assets/radar-ui.js"></script>
+<script src="/assets/radar-home.js"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -1922,16 +1926,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span class="toggle-label" id="toggle-label-list">List</span>
   </div>
   <div class="month-nav">
-    <button id="prev-month">&#8592;</button>
+    <button id="prev-month" aria-label="Previous month">&#8592;</button>
     <span class="month-label" id="month-label"></span>
-    <button id="next-month">&#8594;</button>
+    <button id="next-month" aria-label="Next month">&#8594;</button>
   </div>
   <button id="watchlist-btn" class="watchlist-toggle-btn">&#9825; Watchlist (<span id="watchlist-count">0</span>)</button>
 </div>
 
 <div class="filters-bar">
   <div class="filter-item">
-  <select id="region-select">
+  <select id="region-select" aria-label="Release country">
     <option value="AU">🇦🇺 Australia</option>
     <option value="AT">🇦🇹 Austria</option>
     <option value="BE">🇧🇪 Belgium</option>
@@ -1973,18 +1977,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <div class="filter-item">
-  <input type="text" id="search-input" placeholder="Search movies..." />
+  <input type="text" id="search-input" aria-label="Search movies across all months" placeholder="Search all movies…" maxlength="200" />
   </div>
 
   <div class="filter-item">
-  <select id="genre-select">
+  <select id="genre-select" aria-label="Genre">
     <option value="">All Genres</option>
   </select>
   </div>
 
   <div class="filter-item">
   <span class="filter-info" title="US MPAA ratings only. Movies without a US rating will not appear when this filter is active.">&#9432;</span>
-  <select id="rating-select">
+  <select id="rating-select" aria-label="US age rating">
     <option value="">All Ratings</option>
     <option value="G">G — General Audiences</option>
     <option value="PG">PG — Parental Guidance</option>
@@ -2181,65 +2185,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- First-visit region picker (mandatory, blocks calendar until chosen) -->
-<!-- First-visit onboarding modal -->
-<div id="onboarding-overlay">
-  <div id="onboarding-modal">
-    <button id="onboarding-skip">Skip</button>
-
-    <!-- Step 1: Welcome -->
-    <div class="ob-step active">
-      <div class="ob-icon">🎬</div>
-      <div class="ob-title">Welcome to Movie Release Radar</div>
-      <p class="ob-desc">Your personal calendar for upcoming movie releases worldwide. Here's a quick tour of what you can do.</p>
-    </div>
-
-    <!-- Step 2: Calendar -->
-    <div class="ob-step">
-      <div class="ob-icon">📅</div>
-      <div class="ob-title">Browse the Release Calendar</div>
-      <p class="ob-desc">
-        Navigate months with the <strong>← →</strong> arrows.<br><br>
-        <strong>Click any day</strong> with movies to see what's releasing. If a day has more than one release you'll get a picker — choose a title to read its synopsis, rating, and genres.
-      </p>
-    </div>
-
-    <!-- Step 3: Hits explanation -->
-    <div class="ob-step">
-      <div class="ob-icon">🎯</div>
-      <div class="ob-title">Featured Releases</div>
-      <p class="ob-desc">
-        Only the most anticipated movies for your country get a poster on the calendar. The label under each poster (like <strong>"#3 MOST ANTICIPATED IN US"</strong>) shows the film's exact position in this month's most-anticipated ranking for your country, based on audience interest. Highly-rated films (7.0+ on TMDB) are featured too. Tap <strong>"Other releases"</strong> to see the rest launching that day.
-      </p>
-    </div>
-
-    <!-- Step 4: Watchlist -->
-    <div class="ob-step">
-      <div class="ob-icon">♥</div>
-      <div class="ob-title">Save Movies to Your Watchlist</div>
-      <p class="ob-desc">
-        Hover over any movie poster and click <strong>♡</strong> to save it. Open your <strong>Watchlist</strong> anytime from the top bar to review saved titles sorted by release date. Everything is stored locally in your browser.
-      </p>
-    </div>
-
-    <div class="ob-dots">
-      <div class="ob-dot active"></div>
-      <div class="ob-dot"></div>
-      <div class="ob-dot"></div>
-      <div class="ob-dot"></div>
-    </div>
-
-    <div class="ob-actions">
-      <button class="ob-btn-back" id="ob-back" style="display:none">Back</button>
-      <button class="ob-btn-next" id="ob-next">Next</button>
-    </div>
-  </div>
-</div>
-
 <!-- Watchlist side panel -->
 <div id="watchlist-overlay">
-  <div id="watchlist-panel">
+  <div id="watchlist-panel" role="dialog" aria-modal="true" aria-labelledby="watchlist-title">
     <div id="watchlist-header">
-      <h2>&#9825; My Watchlist</h2>
+      <h2 id="watchlist-title">&#9829; My release radar</h2>
       <button id="watchlist-close" title="Close">&#x2715;</button>
     </div>
     <div id="watchlist-content"></div>
@@ -2260,21 +2210,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
   const IMG_BASE = 'https://image.tmdb.org/t/p/';
 
+  const initialView = RadarCore.parseView(location.search);
   const today = new Date();
   let currentYear = today.getFullYear();
   let currentMonth = today.getMonth(); // 0-indexed
-  // Restore month if returning from a movie page (URL param takes priority over sessionStorage)
+  // Shared URLs take precedence over this browser's saved selection.
   try {
-    const urlM = new URLSearchParams(location.search).get('m');
-    if (urlM) {
-      const [y, m] = urlM.split('-').map(Number);
-      if (!isNaN(y) && !isNaN(m)) { currentYear = y; currentMonth = m - 1; }
-      history.replaceState(null, '', location.pathname); // clean up the URL
+    const chosen = initialView.month;
+    if (chosen) {
+      const [year, month] = chosen.split('-').map(Number);
+      currentYear = year; currentMonth = month - 1;
     } else {
       const saved = sessionStorage.getItem('calendarMonth');
-      if (saved) {
-        const [y, m] = saved.split('-').map(Number);
-        if (!isNaN(y) && !isNaN(m)) { currentYear = y; currentMonth = m; }
+      if (saved && /^20\d{2}-(?:[0-9]|1[01])$/.test(saved)) {
+        const [year, month] = saved.split('-').map(Number);
+        currentYear = year; currentMonth = month;
       }
     }
   } catch(e) {}
@@ -2289,22 +2239,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   try { const v = localStorage.getItem('viewMode'); if (v === 'list' || v === 'calendar') viewMode = v; } catch(e) {}
 
 
+  if (initialView.view) viewMode = initialView.view;
+
   // ── Watchlist (localStorage) ────────────────────────────────────────────────
-  function getWatchlist() {
-    try { return JSON.parse(localStorage.getItem('watchlist') || '[]'); } catch(e) { return []; }
-  }
-  function saveWatchlist(list) {
-    try { localStorage.setItem('watchlist', JSON.stringify(list)); } catch(e) {}
-  }
+  function getWatchlist() { return RadarUI.watchlist(); }
   function isWatchlisted(id) { return getWatchlist().includes(id); }
-  function toggleWatchlist(id) {
-    const list = getWatchlist();
-    const idx = list.indexOf(id);
-    if (idx === -1) list.push(id); else list.splice(idx, 1);
-    saveWatchlist(list);
-    updateWatchlistCount();
-    return idx === -1; // true = added
-  }
+  function toggleWatchlist(id) { return RadarUI.toggle(id); }
   function updateWatchlistCount() {
     const count = getWatchlist().length;
     document.getElementById('watchlist-count').textContent = count;
@@ -2413,7 +2353,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     };
   }
 
+  let monthRequest = 0;
   async function fetchMoviesForMonth(year, month) {
+    const request = ++monthRequest;
     statusEl.innerHTML = '<div class="spinner"></div>Loading movies...';
     statusEl.style.display = 'block';
     calendarEl.style.display = 'none';
@@ -2426,6 +2368,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     try {
       const res = await fetch(`/data/calendar/${ym}/${region}.json`);
+      if (request !== monthRequest) return;
       if (!res.ok) {
         // No pre-built data for this month/region yet — show empty calendar
         statusEl.style.display = 'none';
@@ -2434,6 +2377,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         return;
       }
       const movies = await res.json();
+      if (request !== monthRequest) return;
       movies.forEach(m => {
         if (!m.release_date) return;
         if (!moviesByDate[m.release_date]) moviesByDate[m.release_date] = [];
@@ -2443,7 +2387,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       calendarEl.style.display = 'block';
       renderCalendar();
     } catch (err) {
-      statusEl.innerHTML = `<p style="color:#e94560;">Failed to load movies: ${err.message}</p>`;
+      if (request !== monthRequest) return;
+      statusEl.innerHTML = '<p style="color:#e94560;">Movies could not be loaded.</p><button class="radar-btn" id="retry-calendar">Retry</button>';
+      document.getElementById('retry-calendar').onclick = () => fetchMoviesForMonth(currentYear, currentMonth);
     }
   }
 
@@ -2470,6 +2416,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
   function renderCalendar() {
+    if (searchInput.value.trim()) { RadarHome.renderSearch(); return; }
+    RadarHome.cancelSearch();
+    RadarHome.syncUrl();
     if (viewMode === 'list') { renderListView(); return; }
     const filtered = getFilteredMoviesByDate();
     const watchlist = getWatchlist();
@@ -2502,9 +2451,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       // Every FEATURED movie of the day is rendered on the grid (no cap,
       // no "+N more featured" pill). Non-featured releases stay behind the
       // "Other releases" pill so busy days don't drown the calendar.
-      const hits = movies.filter(m => m.isHit)
+      const hits = movies.filter(m => m.isHit || genreSelect.value || ratingSelect.value)
         .sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
-      const nonHits = movies.filter(m => !m.isHit);
+      const nonHits = movies.filter(m => !m.isHit && !genreSelect.value && !ratingSelect.value);
 
       let cls = 'day-cell';
       if (isToday) cls += ' today';
@@ -2546,7 +2495,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         html += `</div>`;
         const region = regionSelect.value;
         const country = COUNTRY_NAMES[region] || region;
-        html += `<div class="hit-reason" title="${escHtml(`${hits.length} featured releases in ${country} this day. The #-chip on each poster is that film's position in this month's most-anticipated ranking for ${country}.`)}">${hits.length} FEATURED RELEASES</div>`;
+        const filteredView = !!(genreSelect.value || ratingSelect.value);
+        const explanation = filteredView ? `${hits.length} releases match your filters.` : `${hits.length} featured releases in ${country} this day. The #-chip on each poster is that film's position in this month's most-anticipated ranking for ${country}.`;
+        html += `<div class="hit-reason" title="${escHtml(explanation)}">${hits.length} ${filteredView ? 'MATCHING' : 'FEATURED'} RELEASES</div>`;
       }
       if (hits.length === 0 && movies.length > 0) {
         html += `<div class="no-hits-block">No major releases</div>`;
@@ -2697,7 +2648,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     // zero movies are skipped (filtered only contains dates with releases).
     const byDate = {};
     for (const [date, dayMovies] of Object.entries(filtered)) {
-      const hits = dayMovies.filter(m => m.isHit).sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+      const hits = dayMovies.filter(m => m.isHit || genreSelect.value || ratingSelect.value).sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
       byDate[date] = { hits, others: dayMovies.length - hits.length, total: dayMovies.length };
     }
     const allDates = Object.keys(byDate).sort();
@@ -2888,6 +2839,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   function openMovieModal(movie, backContext) {
+    RadarUI.mountModal(movie);
     const backdrop = movie.backdrop_path
       ? `${IMG_BASE}w1280${movie.backdrop_path}`
       : (movie.poster_path ? `${IMG_BASE}w780${movie.poster_path}` : '');
@@ -2898,16 +2850,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     document.getElementById('modal-title').textContent = movie.title;
 
-    const date = movie.release_date
-      ? new Date(movie.release_date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-      : 'TBA';
+    const date = RadarCore.formatDate(RadarCore.localDate(movie, regionSelect.value));
 
     const rating = movie.vote_count > 0 && movie.vote_average >= 1
       ? `<span>&#9733; ${movie.vote_average.toFixed(1)} / 10 (${movie.vote_count.toLocaleString()} votes)</span>`
       : '';
 
     document.getElementById('modal-meta').innerHTML = `
-      <span>&#128197; ${date}</span>
       ${rating}
       ${movie.original_language ? `<span>&#127758; ${movie.original_language.toUpperCase()}</span>` : ''}
     `;
@@ -2947,6 +2896,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   function closeMovieModal() {
+    RadarUI.closeModal();
     document.getElementById('modal-overlay').classList.remove('open');
     document.body.style.overflow = '';
   }
@@ -2962,7 +2912,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMovieModal(); closeDayModal(); closeWatchlistPanel(); } });
 
   function saveCalendarMonth() {
-    try { sessionStorage.setItem('calendarMonth', `${currentYear}-${currentMonth}`); } catch(e) {}
+    RadarHome.syncUrl();
+    try { sessionStorage.setItem('calendarMonth', `${currentYear}-${currentMonth}`); sessionStorage.setItem('calendarView', location.search); } catch(e) {}
   }
 
   document.getElementById('prev-month').addEventListener('click', () => {
@@ -2979,11 +2930,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     fetchMoviesForMonth(currentYear, currentMonth);
   });
 
-  regionSelect.addEventListener('change', () => {
-    dismissRegionHint();
-    try { localStorage.setItem('region', regionSelect.value); } catch(e) {}
-    fetchMoviesForMonth(currentYear, currentMonth);
-  });
+  regionSelect.addEventListener('change', () => RadarUI.setCountry(regionSelect.value));
   searchInput.addEventListener('input', renderCalendar);
   genreSelect.addEventListener('change', renderCalendar);
   ratingSelect.addEventListener('change', renderCalendar);
@@ -3024,111 +2971,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   });
 
   function closeWatchlistPanel() {
+    RadarHome.closeWatchlist();
     document.getElementById('watchlist-overlay').classList.remove('open');
     document.body.style.overflow = '';
   }
 
-  async function openWatchlistPanel() {
-    document.getElementById('watchlist-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-
-    const content = document.getElementById('watchlist-content');
-    const ids = getWatchlist();
-
-    if (ids.length === 0) {
-      content.innerHTML = '<p class="watchlist-empty">No movies saved yet.<br>Click &#9825; on any movie to add it here.</p>';
-      return;
-    }
-
-    content.innerHTML = '<div class="spinner" style="margin:2rem auto;"></div>';
-
-    try {
-      const moviesRes = await fetch('/data/movies.json');
-      const moviesData = moviesRes.ok ? await moviesRes.json() : [];
-      const movieMap = {};
-      moviesData.forEach(m => { movieMap[m.id] = m; });
-
-      // Fallback: use in-memory calendar data for any ID not found in movies.json
-      const calendarFallback = {};
-      Object.values(moviesByDate).forEach(dayMovies => {
-        dayMovies.forEach(m => { if (!movieMap[m.id]) calendarFallback[m.id] = m; });
-      });
-
-      const allMovies = ids.map(id => movieMap[id] || calendarFallback[id]).filter(Boolean);
-
-      if (allMovies.length === 0) {
-        content.innerHTML = '<p class="watchlist-empty">Could not load watchlist movies.</p>';
-        return;
-      }
-
-      const region = regionSelect.value || 'WW';
-      const today = new Date().toISOString().slice(0, 10);
-
-      function getDisplayDate(m) {
-        return (m.countryReleases && m.countryReleases[region]) || m.release_date || null;
-      }
-
-      const upcoming = allMovies.filter(m => { const d = getDisplayDate(m); return !d || d >= today; });
-      const released = allMovies.filter(m => { const d = getDisplayDate(m); return d && d < today; });
-      const movies = allMovies; // keep reference for event listeners
-
-      function renderItems(list) {
-        return list.map(m => {
-          const rawDate = getDisplayDate(m);
-          const date = rawDate
-            ? new Date(rawDate + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
-            : 'TBA';
-          return `
-            <div class="watchlist-item" data-id="${m.id}">
-              <div class="watchlist-item-poster">
-                ${m.poster_path
-                  ? `<img src="${IMG_BASE}w185${m.poster_path}" alt="${escHtml(m.title)}" loading="lazy" />`
-                  : `<div class="watchlist-no-poster">${escHtml(m.title)}</div>`
-                }
-              </div>
-              <div class="watchlist-item-info">
-                <div class="watchlist-item-title">${escHtml(m.title)}</div>
-                <div class="watchlist-item-date">&#128197; ${date}</div>
-                ${m.overview ? `<div class="watchlist-item-overview">${escHtml(m.overview)}</div>` : ''}
-              </div>
-              <button class="watchlist-remove-btn" data-id="${m.id}" title="Remove from watchlist">&#9829;</button>
-            </div>`;
-        }).join('');
-      }
-
-      allMovies.sort((a, b) => (getDisplayDate(a) || '').localeCompare(getDisplayDate(b) || ''));
-      released.sort((a, b) => (getDisplayDate(b) || '').localeCompare(getDisplayDate(a) || ''));
-
-      let html = '';
-      if (upcoming.length) {
-        html += `<div class="watchlist-section-heading">Coming Soon</div>`;
-        html += renderItems(upcoming);
-      }
-      if (released.length) {
-        html += `<div class="watchlist-section-heading">Released</div>`;
-        html += renderItems(released);
-      }
-      content.innerHTML = html;
-
-      content.querySelectorAll('.watchlist-item').forEach(item => {
-        item.addEventListener('click', e => {
-          if (e.target.closest('.watchlist-remove-btn')) return;
-          const movie = movies.find(m => String(m.id) === item.dataset.id);
-          if (movie) { closeWatchlistPanel(); openOrNavigateMovie(movie); }
-        });
-      });
-
-      content.querySelectorAll('.watchlist-remove-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          toggleWatchlist(parseInt(btn.dataset.id, 10));
-          openWatchlistPanel();
-          renderCalendar();
-        });
-      });
-    } catch(err) {
-      content.innerHTML = `<p style="color:#e94560;text-align:center;padding:2rem;">Failed to load watchlist.</p>`;
-    }
-  }
+  function openWatchlistPanel() { return RadarHome.openWatchlist(); }
 
   function escHtml(str) {
     return String(str)
@@ -3140,112 +2988,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   loadGenres();
   populateGenreSelect();
 
-  // Region must be chosen before we can render the calendar (no more "All
-  // Regions" fallback — hit visuals are per-country, so we need to know which).
-  function dismissRegionHint() {
-    const hint = document.getElementById('region-hint');
-    if (hint) hint.remove();
-    const filterItem = regionSelect.closest('.filter-item');
-    if (filterItem) filterItem.classList.remove('region-hint-active');
-    try { localStorage.removeItem('region_was_guessed'); } catch(e) {}
-  }
+  if (initialView.genre !== undefined) genreSelect.value = initialView.genre;
+  if (initialView.rating !== undefined) ratingSelect.value = initialView.rating;
+  if (initialView.query !== undefined) searchInput.value = initialView.query;
+  regionSelect.value = initialView.country || RadarUI.getCountry();
 
-  function showRegionHint() {
-    try { if (!localStorage.getItem('region_was_guessed')) return; } catch(e) { return; }
-    const filterItem = regionSelect.closest('.filter-item');
-    if (!filterItem || document.getElementById('region-hint')) return;
-    filterItem.classList.add('region-hint-active');
-    const label = regionSelect.options[regionSelect.selectedIndex]?.textContent?.trim() || regionSelect.value;
-    const hint = document.createElement('div');
-    hint.id = 'region-hint';
-    hint.innerHTML = `Showing <strong>${label}</strong> releases &mdash; not your country? Switch above <button class="rh-close" title="Dismiss">&#x2715;</button>`;
-    filterItem.appendChild(hint);
-    hint.querySelector('.rh-close').addEventListener('click', dismissRegionHint);
-  }
-
-  function ensureRegionThenBoot() {
-    const savedRegion = (() => { try { return localStorage.getItem('region'); } catch(e) { return null; } })();
-    const validRegions = Array.from(regionSelect.options).map(o => o.value);
-    if (savedRegion && validRegions.includes(savedRegion)) {
-      regionSelect.value = savedRegion;
-      loadManifest().then(() => fetchMoviesForMonth(currentYear, currentMonth));
-      return;
-    }
-    // First visit: guess from browser locale, default US, load immediately.
-    let guess = 'US';
-    try {
-      const lang = (navigator.language || '').toUpperCase();
-      const cc = lang.includes('-') ? lang.split('-')[1] : lang;
-      if (validRegions.includes(cc)) guess = cc;
-    } catch(e) {}
-    regionSelect.value = guess;
-    try { localStorage.setItem('region', guess); localStorage.setItem('region_was_guessed', '1'); } catch(e) {}
-    loadManifest().then(() => fetchMoviesForMonth(currentYear, currentMonth));
-    setTimeout(showRegionHint, 700);
-  }
-  ensureRegionThenBoot();
-
-  // Onboarding modal (first visit only)
-  (function() {
-    try { if (localStorage.getItem('onboarding_seen')) return; } catch(e) { return; }
-
-    const overlay = document.getElementById('onboarding-overlay');
-    const steps   = Array.from(overlay.querySelectorAll('.ob-step'));
-    const dots    = Array.from(overlay.querySelectorAll('.ob-dot'));
-    const btnBack = document.getElementById('ob-back');
-    const btnNext = document.getElementById('ob-next');
-    let current = 0;
-
-    function goTo(n) {
-      steps[current].classList.remove('active');
-      dots[current].classList.remove('active');
-      current = n;
-      steps[current].classList.add('active');
-      dots[current].classList.add('active');
-      btnBack.style.display = current === 0 ? 'none' : '';
-      btnNext.textContent   = current === steps.length - 1 ? 'Start Exploring' : 'Next';
-    }
-
-    function closeOnboarding() {
-      overlay.classList.remove('open');
-      try { localStorage.setItem('onboarding_seen', '1'); } catch(e) {}
-    }
-
-    const modal = document.getElementById('onboarding-modal');
-    const cookieBanner = document.getElementById('cookie-banner');
-
-    function positionAboveBanner() {
-      const bannerH = cookieBanner.offsetParent !== null ? cookieBanner.offsetHeight : 0;
-      const gap = 12;
-      overlay.style.setProperty('--ob-bottom', (bannerH + gap) + 'px');
-    }
-
-    positionAboveBanner();
-    window.addEventListener('resize', positionAboveBanner);
-
-    // Re-position when cookie banner is dismissed
-    const origClose = cookieBanner.style.display;
-    new MutationObserver(positionAboveBanner)
-      .observe(cookieBanner, { attributes: true, attributeFilter: ['style'] });
-
-    overlay.classList.add('open');
-
-    btnNext.addEventListener('click', () => {
-      if (current < steps.length - 1) goTo(current + 1);
-      else closeOnboarding();
-    });
-
-    btnBack.addEventListener('click', () => {
-      if (current > 0) goTo(current - 1);
-    });
-
-    document.getElementById('onboarding-skip').addEventListener('click', closeOnboarding);
-
-    dots.forEach((dot, i) => {
-      dot.style.cursor = 'pointer';
-      dot.addEventListener('click', () => goTo(i));
-    });
-  })();
+  RadarHome.init({
+    genres,
+    state: () => ({country:regionSelect.value, month:`${currentYear}-${String(currentMonth+1).padStart(2,'0')}`, view:viewMode, query:searchInput.value, genre:genreSelect.value, rating:ratingSelect.value}),
+    changeCountry: cc => { regionSelect.value=cc; fetchMoviesForMonth(currentYear,currentMonth); },
+    refreshWatchlist: () => { updateWatchlistCount(); if (!searchInput.value.trim()) renderCalendar(); },
+    clearSearch: () => { searchInput.value='';renderCalendar();searchInput.focus(); },
+    clearFilters: () => { genreSelect.value='';ratingSelect.value='';renderCalendar(); },
+    openMovie: movie => openMovieModal(movie),
+    closeWatchlist: closeWatchlistPanel,
+    saveMonth: saveCalendarMonth,
+    applyUrl: state => {
+      if(state.month){const [y,m]=state.month.split('-').map(Number);currentYear=y;currentMonth=m-1;}
+      if(state.view)viewMode=state.view;
+      searchInput.value=state.query||'';genreSelect.value=state.genre||'';ratingSelect.value=state.rating||'';
+      if(state.country)RadarUI.setCountry(state.country);else fetchMoviesForMonth(currentYear,currentMonth);
+    },
+  });
+  window.radarReady = loadManifest().then(() => fetchMoviesForMonth(currentYear, currentMonth));
 
   // Cookie consent banner
   (function() {

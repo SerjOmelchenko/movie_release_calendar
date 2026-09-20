@@ -159,6 +159,9 @@
       .info-tiles { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.5rem; }
     }
   </style>
+<link rel="stylesheet" href="/assets/radar.css">
+<script src="/assets/radar-core.js"></script>
+<script src="/assets/radar-ui.js"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -192,6 +195,8 @@
   <script>
     (function(){
       try {
+        var full = sessionStorage.getItem('calendarView');
+        if (full) { document.getElementById('back-link').href = '/' + full; return; }
         var s = sessionStorage.getItem('calendarMonth');
         if (s) {
           var parts = s.split('-').map(Number);
@@ -210,7 +215,7 @@
       <img src="https://image.tmdb.org/t/p/w500/9CXBZH6sRJpFTMSaY3wj1jx98F4.jpg" alt="Aakhri Sawal poster" />
     </div>
     <div class="movie-info">
-      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among May 2026 releases. The rank varies by country." data-count="37" data-ranks="{&quot;AU&quot;:[46,&quot;Australia&quot;,&quot;May 2026&quot;],&quot;AT&quot;:[48,&quot;Austria&quot;,&quot;May 2026&quot;],&quot;BE&quot;:[46,&quot;Belgium&quot;,&quot;May 2026&quot;],&quot;BR&quot;:[44,&quot;Brazil&quot;,&quot;May 2026&quot;],&quot;BG&quot;:[48,&quot;Bulgaria&quot;,&quot;May 2026&quot;],&quot;CA&quot;:[47,&quot;Canada&quot;,&quot;May 2026&quot;],&quot;CN&quot;:[50,&quot;China&quot;,&quot;May 2026&quot;],&quot;HR&quot;:[48,&quot;Croatia&quot;,&quot;May 2026&quot;],&quot;CY&quot;:[50,&quot;Cyprus&quot;,&quot;May 2026&quot;],&quot;CZ&quot;:[50,&quot;Czech Republic&quot;,&quot;May 2026&quot;],&quot;DK&quot;:[48,&quot;Denmark&quot;,&quot;May 2026&quot;],&quot;EE&quot;:[50,&quot;Estonia&quot;,&quot;May 2026&quot;],&quot;FI&quot;:[47,&quot;Finland&quot;,&quot;May 2026&quot;],&quot;FR&quot;:[45,&quot;France&quot;,&quot;May 2026&quot;],&quot;DE&quot;:[47,&quot;Germany&quot;,&quot;May 2026&quot;],&quot;GR&quot;:[50,&quot;Greece&quot;,&quot;May 2026&quot;],&quot;HU&quot;:[50,&quot;Hungary&quot;,&quot;May 2026&quot;],&quot;IN&quot;:[51,&quot;India&quot;,&quot;May 2026&quot;],&quot;IE&quot;:[45,&quot;Ireland&quot;,&quot;May 2026&quot;],&quot;IT&quot;:[45,&quot;Italy&quot;,&quot;May 2026&quot;],&quot;JP&quot;:[51,&quot;Japan&quot;,&quot;May 2026&quot;],&quot;LV&quot;:[51,&quot;Latvia&quot;,&quot;May 2026&quot;],&quot;LT&quot;:[48,&quot;Lithuania&quot;,&quot;May 2026&quot;],&quot;LU&quot;:[50,&quot;Luxembourg&quot;,&quot;May 2026&quot;],&quot;MT&quot;:[48,&quot;Malta&quot;,&quot;May 2026&quot;],&quot;NL&quot;:[47,&quot;Netherlands&quot;,&quot;May 2026&quot;],&quot;PL&quot;:[49,&quot;Poland&quot;,&quot;May 2026&quot;],&quot;PT&quot;:[48,&quot;Portugal&quot;,&quot;May 2026&quot;],&quot;RO&quot;:[52,&quot;Romania&quot;,&quot;May 2026&quot;],&quot;SK&quot;:[49,&quot;Slovakia&quot;,&quot;May 2026&quot;],&quot;SI&quot;:[50,&quot;Slovenia&quot;,&quot;May 2026&quot;],&quot;KR&quot;:[51,&quot;South Korea&quot;,&quot;May 2026&quot;],&quot;ES&quot;:[47,&quot;Spain&quot;,&quot;May 2026&quot;],&quot;SE&quot;:[46,&quot;Sweden&quot;,&quot;May 2026&quot;],&quot;GB&quot;:[47,&quot;United Kingdom&quot;,&quot;May 2026&quot;],&quot;UA&quot;:[51,&quot;Ukraine&quot;,&quot;May 2026&quot;],&quot;US&quot;:[50,&quot;United States&quot;,&quot;May 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#44 most anticipated May 2026 release &middot; featured in 37 countries</span></div>
+      <div class="featured-banner" id="featured-banner" title="Best position across the countries featuring it, by audience interest (7-day average TMDB popularity, adjusted for films already playing elsewhere) among May 2026 releases. The rank varies by country." data-count="37" data-ranks="{&quot;AU&quot;:[46,&quot;Australia&quot;,&quot;May 2026&quot;],&quot;AT&quot;:[48,&quot;Austria&quot;,&quot;May 2026&quot;],&quot;BE&quot;:[46,&quot;Belgium&quot;,&quot;May 2026&quot;],&quot;BR&quot;:[44,&quot;Brazil&quot;,&quot;May 2026&quot;],&quot;BG&quot;:[48,&quot;Bulgaria&quot;,&quot;May 2026&quot;],&quot;CA&quot;:[47,&quot;Canada&quot;,&quot;May 2026&quot;],&quot;CN&quot;:[50,&quot;China&quot;,&quot;May 2026&quot;],&quot;HR&quot;:[48,&quot;Croatia&quot;,&quot;May 2026&quot;],&quot;CY&quot;:[50,&quot;Cyprus&quot;,&quot;May 2026&quot;],&quot;CZ&quot;:[50,&quot;Czech Republic&quot;,&quot;May 2026&quot;],&quot;DK&quot;:[48,&quot;Denmark&quot;,&quot;May 2026&quot;],&quot;EE&quot;:[50,&quot;Estonia&quot;,&quot;May 2026&quot;],&quot;FI&quot;:[47,&quot;Finland&quot;,&quot;May 2026&quot;],&quot;FR&quot;:[45,&quot;France&quot;,&quot;May 2026&quot;],&quot;DE&quot;:[47,&quot;Germany&quot;,&quot;May 2026&quot;],&quot;GR&quot;:[50,&quot;Greece&quot;,&quot;May 2026&quot;],&quot;HU&quot;:[50,&quot;Hungary&quot;,&quot;May 2026&quot;],&quot;IN&quot;:[51,&quot;India&quot;,&quot;May 2026&quot;],&quot;IE&quot;:[45,&quot;Ireland&quot;,&quot;May 2026&quot;],&quot;IT&quot;:[45,&quot;Italy&quot;,&quot;May 2026&quot;],&quot;JP&quot;:[51,&quot;Japan&quot;,&quot;May 2026&quot;],&quot;LV&quot;:[51,&quot;Latvia&quot;,&quot;May 2026&quot;],&quot;LT&quot;:[48,&quot;Lithuania&quot;,&quot;May 2026&quot;],&quot;LU&quot;:[50,&quot;Luxembourg&quot;,&quot;May 2026&quot;],&quot;MT&quot;:[48,&quot;Malta&quot;,&quot;May 2026&quot;],&quot;NL&quot;:[47,&quot;Netherlands&quot;,&quot;May 2026&quot;],&quot;PL&quot;:[49,&quot;Poland&quot;,&quot;May 2026&quot;],&quot;PT&quot;:[48,&quot;Portugal&quot;,&quot;May 2026&quot;],&quot;RO&quot;:[52,&quot;Romania&quot;,&quot;May 2026&quot;],&quot;SK&quot;:[49,&quot;Slovakia&quot;,&quot;May 2026&quot;],&quot;SI&quot;:[50,&quot;Slovenia&quot;,&quot;May 2026&quot;],&quot;KR&quot;:[51,&quot;South Korea&quot;,&quot;May 2026&quot;],&quot;ES&quot;:[47,&quot;Spain&quot;,&quot;May 2026&quot;],&quot;SE&quot;:[46,&quot;Sweden&quot;,&quot;May 2026&quot;],&quot;GB&quot;:[48,&quot;United Kingdom&quot;,&quot;May 2026&quot;],&quot;UA&quot;:[51,&quot;Ukraine&quot;,&quot;May 2026&quot;],&quot;US&quot;:[50,&quot;United States&quot;,&quot;May 2026&quot;]}"><span class="fb-tag">Featured</span><span class="fb-text">#44 most anticipated May 2026 release &middot; featured in 37 countries</span></div>
       <script>
         (function(){
           var b = document.getElementById('featured-banner');
@@ -227,9 +232,9 @@
         })();
       </script>
       <h1 class="movie-title">Aakhri Sawal</h1>
+      <div id="radar-local-release"></div>
       <div class="info-tiles">
-        <div class="tile"><div class="tile-label">Release Date</div><div class="tile-value">May 15, 2026</div></div>
-        
+        <div class="tile tile-global-release"><div class="tile-label">First worldwide release</div><div class="tile-value">May 15, 2026</div></div>
         <div class="tile tile-rating"><div class="tile-label">Score</div><div class="tile-value">1.0 <span class="tile-sub">/ 10</span></div></div>
         <div class="tile"><div class="tile-label">Length</div><div class="tile-value">2h 30m</div></div>
         <div class="tile"><div class="tile-label">Language</div><div class="tile-value">HI</div></div>
@@ -243,34 +248,13 @@
       <p class="movie-overview">Vicky, a brilliant but volatile scholar who ignites a national firestorm when he publicly accuses his legendary mentor, Professor Gopal Nadkarni, of institutional bias. What begins as a faculty dispute is quickly hijacked by a sensationalist news anchor and an ambitious political activist, turning a private disagreement into a televised &quot;intellectual trial&quot; watched by millions.</p>
       <div class="movie-actions">
         <button class="wl-btn" id="wl-btn" data-id="1600771">&#9825; Add to Watchlist</button>
-        
+
       </div>
+      <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script>
-    (function(){
-      var btn = document.getElementById('wl-btn');
-      var id = 1600771;
-      var KEY = 'watchlist';
-      function getWl(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ return []; } }
-      function setWl(a){ try{ localStorage.setItem(KEY, JSON.stringify(a)); }catch(e){} }
-      function render(){
-        var inWl = getWl().indexOf(id) !== -1;
-        btn.innerHTML = inWl ? '&#9829; In Watchlist' : '&#9825; Add to Watchlist';
-        btn.classList.toggle('wl-active', inWl);
-      }
-      btn.addEventListener('click', function(){
-        var wl = getWl();
-        var idx = wl.indexOf(id);
-        if(idx === -1){ wl.push(id); } else { wl.splice(idx,1); }
-        setWl(wl);
-        render();
-      });
-      render();
-    })();
-  </script>
-
-  
+  <script type="application/json" id="radar-movie-data">{"id":1600771,"title":"Aakhri Sawal","slug":"aakhri-sawal","release_date":"2026-05-15","countryReleases":{"AU":"2026-05-15","AT":"2026-05-15","BE":"2026-05-15","BR":"2026-05-15","BG":"2026-05-15","CA":"2026-05-15","CN":"2026-05-15","HR":"2026-05-15","CY":"2026-05-15","CZ":"2026-05-15","DK":"2026-05-15","EE":"2026-05-15","FI":"2026-05-15","FR":"2026-05-15","DE":"2026-05-15","GR":"2026-05-15","HU":"2026-05-15","IN":"2026-05-15","IE":"2026-05-15","IT":"2026-05-15","JP":"2026-05-15","LV":"2026-05-15","LT":"2026-05-15","LU":"2026-05-15","MT":"2026-05-15","NL":"2026-05-15","PL":"2026-05-15","PT":"2026-05-15","RO":"2026-05-15","SK":"2026-05-15","SI":"2026-05-15","KR":"2026-05-15","ES":"2026-05-15","SE":"2026-05-15","GB":"2026-05-22","UA":"2026-05-15","US":"2026-05-15"},"countryDigitalReleases":{},"countryReleaseTypes":{},"releaseDataVersion":1}</script>
+  <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   
   <section class="trailer-section">
