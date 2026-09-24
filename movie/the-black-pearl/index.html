@@ -48,6 +48,14 @@
     .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .nav-link:hover { color: #fff; }
     .nav-link.active { color: #fff; }
+    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
+    .support-link:hover { background: #e94560; }
+    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+      .support-link { max-width: 100%; white-space: normal; text-align: center; }
+    }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -172,6 +180,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">Calendar</a>
       <a href="/top-movies/" class="nav-link">Top Movies</a>
+      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
     </nav>
   </div>
 </header>
@@ -223,7 +232,7 @@
       <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script type="application/json" id="radar-movie-data">{"id":1315380,"title":"The Black Pearl","slug":"the-black-pearl","release_date":"2026-11-06","countryReleases":{"MA":"2026-11-06"},"countryDigitalReleases":{},"countryReleaseTypes":{"MA":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T08:33:19.638Z","releaseDatesCheckedAt":"2026-09-24T08:33:19.638Z"}</script>
+  <script type="application/json" id="radar-movie-data">{"id":1315380,"title":"The Black Pearl","slug":"the-black-pearl","release_date":"2026-11-06","countryReleases":{"MA":"2026-11-06"},"countryDigitalReleases":{},"countryReleaseTypes":{"MA":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T14:06:03.456Z","releaseDatesCheckedAt":"2026-09-24T14:06:03.456Z"}</script>
   <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   
@@ -284,10 +293,10 @@
         <span class="related-title">Axolodyssey</span>
         <span class="related-date">Nov 23, 2026</span>
       </a>
-    <a class="related-card" href="/movie/liberated-from-paradise-resonance-of-the-heart/">
-        <img src="https://image.tmdb.org/t/p/w185/cp9XcvYQgwFPQgfDi3Yjjq2I3dI.jpg" alt="Liberated from Paradise: Resonance of the Heart poster" loading="lazy" width="92" height="138" />
-        <span class="related-title">Liberated from Paradise: Resonance of the Heart</span>
-        <span class="related-date">Nov 13, 2026</span>
+    <a class="related-card" href="/movie/viana-the-legend-of-the-golden-hearts/">
+        <img src="https://image.tmdb.org/t/p/w185/qVGzgIEWZLHNB561Xv1Rv23tDr9.jpg" alt="Viana – The Legend of the Golden Hearts poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">Viana – The Legend of the Golden Hearts</span>
+        <span class="related-date">Nov 6, 2026</span>
       </a>
     </div>
     <p class="hub-cross-link"><a href="/calendar/2026-11/">See every movie coming out in November 2026 &#8594;</a></p>

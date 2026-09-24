@@ -48,6 +48,14 @@
     .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .nav-link:hover { color: #fff; }
     .nav-link.active { color: #fff; }
+    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
+    .support-link:hover { background: #e94560; }
+    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+      .support-link { max-width: 100%; white-space: normal; text-align: center; }
+    }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -172,6 +180,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">Calendar</a>
       <a href="/top-movies/" class="nav-link">Top Movies</a>
+      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
     </nav>
   </div>
 </header>
@@ -223,7 +232,7 @@
       <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script type="application/json" id="radar-movie-data">{"id":1185344,"title":"The Beast","slug":"the-beast","release_date":"2026-10-08","countryReleases":{"AE":"2026-10-08","BH":"2026-10-08","IL":"2026-11-12","KW":"2026-10-08","OM":"2026-10-08","US":"2026-10-09"},"countryDigitalReleases":{},"countryReleaseTypes":{"AE":3,"BH":3,"IL":3,"KW":3,"OM":3,"US":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T08:29:12.257Z","releaseDatesCheckedAt":"2026-09-24T08:29:12.257Z"}</script>
+  <script type="application/json" id="radar-movie-data">{"id":1185344,"title":"The Beast","slug":"the-beast","release_date":"2026-10-08","countryReleases":{"AE":"2026-10-08","BH":"2026-10-08","IL":"2026-11-12","KW":"2026-10-08","LT":"2026-10-09","OM":"2026-10-08","RU":"2026-11-04","US":"2026-10-09"},"countryDigitalReleases":{},"countryReleaseTypes":{"AE":3,"BH":3,"IL":3,"KW":3,"LT":3,"OM":3,"RU":3,"US":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T14:01:55.944Z","releaseDatesCheckedAt":"2026-09-24T14:01:55.944Z"}</script>
   <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   
@@ -237,27 +246,27 @@
   
   <section class="releases-section">
     <div class="section-heading">Release Rollout</div>
-    <p class="rollout-text">The Beast opens first in UAE on October 8, 2026. The rollout continues across 3 countries, finishing in Israel on November 12, 2026. In the United States, it arrives in theaters on October 9, 2026. The release date has changed once — most recently from October 9, 2026 to October 8, 2026.</p>
+    <p class="rollout-text">The Beast opens first in UAE on October 8, 2026. The rollout continues across 5 countries, finishing in Israel on November 12, 2026. In the United States, it arrives in theaters on October 9, 2026. The release date has changed once — most recently from October 9, 2026 to October 8, 2026.</p>
   </section>
 
   
   <section class="releases-section">
     <div class="section-heading">Release Dates by Country</div>
-    <div class="releases-grid"><div class="release-item"><span class="release-country">UAE</span><span class="release-date">Oct 8, 2026</span></div><div class="release-item"><span class="release-country">BH</span><span class="release-date">Oct 8, 2026</span></div><div class="release-item"><span class="release-country">KW</span><span class="release-date">Oct 8, 2026</span></div><div class="release-item"><span class="release-country">OM</span><span class="release-date">Oct 8, 2026</span></div><div class="release-item"><a class="release-country" href="/releases/united-states/">United States</a><span class="release-date">Oct 9, 2026</span></div><div class="release-item"><span class="release-country">Israel</span><span class="release-date">Nov 12, 2026</span></div></div>
+    <div class="releases-grid"><div class="release-item"><span class="release-country">UAE</span><span class="release-date">Oct 8, 2026</span></div><div class="release-item"><span class="release-country">BH</span><span class="release-date">Oct 8, 2026</span></div><div class="release-item"><span class="release-country">KW</span><span class="release-date">Oct 8, 2026</span></div><div class="release-item"><span class="release-country">OM</span><span class="release-date">Oct 8, 2026</span></div><div class="release-item"><a class="release-country" href="/releases/lithuania/">Lithuania</a><span class="release-date">Oct 9, 2026</span></div><div class="release-item"><a class="release-country" href="/releases/united-states/">United States</a><span class="release-date">Oct 9, 2026</span></div><div class="release-item"><span class="release-country">Russia</span><span class="release-date">Nov 4, 2026</span></div><div class="release-item"><span class="release-country">Israel</span><span class="release-date">Nov 12, 2026</span></div></div>
   </section>
 
   
   <section class="releases-section">
     <div class="section-heading">Release Date History</div>
     <div class="history-list">
+    <div class="history-item"><span class="history-when">Sep 24, 2026</span><span>Russia release announced for <strong>Nov 4, 2026</strong></span></div>
+    <div class="history-item"><span class="history-when">Sep 24, 2026</span><span>Lithuania release announced for <strong>Oct 9, 2026</strong></span></div>
     <div class="history-item"><span class="history-when">Sep 18, 2026</span><span>Ukraine release moved from <s>Oct 9, 2026</s> to <strong>Oct 8, 2026</strong></span></div>
     <div class="history-item"><span class="history-when">Sep 18, 2026</span><span>United Kingdom release moved from <s>Oct 9, 2026</s> to <strong>Oct 8, 2026</strong></span></div>
     <div class="history-item"><span class="history-when">Sep 18, 2026</span><span>Sweden release moved from <s>Oct 9, 2026</s> to <strong>Oct 8, 2026</strong></span></div>
     <div class="history-item"><span class="history-when">Sep 18, 2026</span><span>Spain release moved from <s>Oct 9, 2026</s> to <strong>Oct 8, 2026</strong></span></div>
     <div class="history-item"><span class="history-when">Sep 18, 2026</span><span>South Korea release moved from <s>Oct 9, 2026</s> to <strong>Oct 8, 2026</strong></span></div>
     <div class="history-item"><span class="history-when">Sep 18, 2026</span><span>Slovenia release moved from <s>Oct 9, 2026</s> to <strong>Oct 8, 2026</strong></span></div>
-    <div class="history-item"><span class="history-when">Sep 18, 2026</span><span>Slovakia release moved from <s>Oct 9, 2026</s> to <strong>Oct 8, 2026</strong></span></div>
-    <div class="history-item"><span class="history-when">Sep 18, 2026</span><span>Romania release moved from <s>Oct 9, 2026</s> to <strong>Oct 8, 2026</strong></span></div>
     </div>
   </section>
 

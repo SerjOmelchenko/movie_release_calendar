@@ -48,6 +48,14 @@
     .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .nav-link:hover { color: #fff; }
     .nav-link.active { color: #fff; }
+    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
+    .support-link:hover { background: #e94560; }
+    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+      .support-link { max-width: 100%; white-space: normal; text-align: center; }
+    }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -172,6 +180,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">Calendar</a>
       <a href="/top-movies/" class="nav-link">Top Movies</a>
+      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
     </nav>
   </div>
 </header>
@@ -223,7 +232,7 @@
       <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script type="application/json" id="radar-movie-data">{"id":1319522,"title":"Gohan","slug":"gohan","release_date":"2026-04-02","countryReleases":{"AU":"2026-08-27","CN":"2026-06-13","DE":"2026-12-31","HK":"2026-05-28","ID":"2026-05-14","MY":"2026-05-21","NL":"2026-07-02","PH":"2026-04-14","RU":"2026-09-10","SG":"2026-05-21","TH":"2026-04-02","TW":"2026-04-30","VN":"2026-05-15"},"countryDigitalReleases":{"BN":"2026-08-27","ID":"2026-08-27","KH":"2026-08-27","LA":"2026-08-27","MM":"2026-08-27","MY":"2026-08-27","PH":"2026-08-27","SG":"2026-08-27","TH":"2026-08-27","TL":"2026-08-27","VN":"2026-08-27"},"countryReleaseTypes":{"AU":3,"CN":2,"DE":3,"HK":3,"ID":3,"MY":3,"NL":3,"PH":2,"RU":3,"SG":3,"TH":3,"TW":3,"VN":3},"releaseDataVersion":2,"watchProviders":{"ID":{"link":"https://www.themoviedb.org/movie/1319522/watch?locale=ID","flatrate":[{"id":8,"name":"Netflix","logo":"/rK1KljqmbvO9HQa1PBFLILWah72.png"}],"free":[],"ads":[],"rent":[],"buy":[]},"MY":{"link":"https://www.themoviedb.org/movie/1319522/watch?locale=MY","flatrate":[{"id":8,"name":"Netflix","logo":"/rK1KljqmbvO9HQa1PBFLILWah72.png"}],"free":[],"ads":[],"rent":[],"buy":[]},"NL":{"link":"https://www.themoviedb.org/movie/1319522/watch?locale=NL","flatrate":[],"free":[],"ads":[],"rent":[{"id":451,"name":"Picl","logo":"/m62nVQ48DNMgeeHRz3p2iZPFT9q.png"}],"buy":[]},"PH":{"link":"https://www.themoviedb.org/movie/1319522/watch?locale=PH","flatrate":[{"id":8,"name":"Netflix","logo":"/rK1KljqmbvO9HQa1PBFLILWah72.png"}],"free":[],"ads":[],"rent":[],"buy":[]},"SG":{"link":"https://www.themoviedb.org/movie/1319522/watch?locale=SG","flatrate":[{"id":8,"name":"Netflix","logo":"/rK1KljqmbvO9HQa1PBFLILWah72.png"}],"free":[],"ads":[],"rent":[],"buy":[]},"TH":{"link":"https://www.themoviedb.org/movie/1319522/watch?locale=TH","flatrate":[{"id":8,"name":"Netflix","logo":"/rK1KljqmbvO9HQa1PBFLILWah72.png"}],"free":[],"ads":[],"rent":[],"buy":[]}},"providersUpdatedAt":"2026-09-24T08:13:38.868Z","releaseDatesCheckedAt":"2026-09-24T08:13:38.868Z"}</script>
+  <script type="application/json" id="radar-movie-data">{"id":1319522,"title":"Gohan","slug":"gohan","release_date":"2026-04-02","countryReleases":{"AU":"2026-08-27","CN":"2026-06-13","DE":"2026-12-31","HK":"2026-05-28","ID":"2026-05-14","MY":"2026-05-21","NL":"2026-07-02","PH":"2026-04-14","RU":"2026-09-10","SG":"2026-05-21","TH":"2026-04-02","TW":"2026-04-30","VN":"2026-05-15"},"countryDigitalReleases":{"BN":"2026-08-27","ID":"2026-08-27","KH":"2026-08-27","LA":"2026-08-27","MM":"2026-08-27","MY":"2026-08-27","PH":"2026-08-27","SG":"2026-08-27","TH":"2026-08-27","TL":"2026-08-27","VN":"2026-08-27"},"countryReleaseTypes":{"AU":3,"CN":2,"DE":3,"HK":3,"ID":3,"MY":3,"NL":3,"PH":2,"RU":3,"SG":3,"TH":3,"TW":3,"VN":3},"releaseDataVersion":2,"watchProviders":{"ID":{"link":"https://www.themoviedb.org/movie/1319522/watch?locale=ID","flatrate":[{"id":8,"name":"Netflix","logo":"/rK1KljqmbvO9HQa1PBFLILWah72.png"}],"free":[],"ads":[],"rent":[],"buy":[]},"MY":{"link":"https://www.themoviedb.org/movie/1319522/watch?locale=MY","flatrate":[{"id":8,"name":"Netflix","logo":"/rK1KljqmbvO9HQa1PBFLILWah72.png"}],"free":[],"ads":[],"rent":[],"buy":[]},"NL":{"link":"https://www.themoviedb.org/movie/1319522/watch?locale=NL","flatrate":[],"free":[],"ads":[],"rent":[{"id":451,"name":"Picl","logo":"/m62nVQ48DNMgeeHRz3p2iZPFT9q.png"}],"buy":[]},"PH":{"link":"https://www.themoviedb.org/movie/1319522/watch?locale=PH","flatrate":[{"id":8,"name":"Netflix","logo":"/rK1KljqmbvO9HQa1PBFLILWah72.png"}],"free":[],"ads":[],"rent":[],"buy":[]},"SG":{"link":"https://www.themoviedb.org/movie/1319522/watch?locale=SG","flatrate":[{"id":8,"name":"Netflix","logo":"/rK1KljqmbvO9HQa1PBFLILWah72.png"}],"free":[],"ads":[],"rent":[],"buy":[]},"TH":{"link":"https://www.themoviedb.org/movie/1319522/watch?locale=TH","flatrate":[{"id":8,"name":"Netflix","logo":"/rK1KljqmbvO9HQa1PBFLILWah72.png"}],"free":[],"ads":[],"rent":[],"buy":[]}},"providersUpdatedAt":"2026-09-24T13:46:22.660Z","releaseDatesCheckedAt":"2026-09-24T13:46:22.660Z"}</script>
   <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   

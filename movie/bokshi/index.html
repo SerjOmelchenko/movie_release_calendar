@@ -48,6 +48,14 @@
     .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .nav-link:hover { color: #fff; }
     .nav-link.active { color: #fff; }
+    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
+    .support-link:hover { background: #e94560; }
+    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+      .support-link { max-width: 100%; white-space: normal; text-align: center; }
+    }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -172,6 +180,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">Calendar</a>
       <a href="/top-movies/" class="nav-link">Top Movies</a>
+      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
     </nav>
   </div>
 </header>
@@ -223,7 +232,7 @@
       <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script type="application/json" id="radar-movie-data">{"id":718833,"title":"Bokshi","slug":"bokshi","release_date":"2026-10-09","countryReleases":{"IN":"2026-10-09"},"countryDigitalReleases":{},"countryReleaseTypes":{"IN":3},"releaseDataVersion":2,"watchProviders":{"ES":{"link":"https://www.themoviedb.org/movie/718833-bokshi/watch?locale=ES","flatrate":[{"id":1740,"name":"Planet Horror Amazon Channel","logo":"/vkQGiGqWfFqSimwwGI6LF4vdJcU.png"},{"id":528,"name":"AMC+ Amazon Channel","logo":"/tg5ufQ1GkYDCMxSSxemfeKWcvRe.png"},{"id":1854,"name":"AMC Plus Apple TV channel","logo":"/wLl5LRLVC6UOSaUlsmuzY0H9LS1.png"}],"free":[{"id":1838,"name":"Tivify","logo":"/o1Z73d95pgJMpS3iCfRDtK5XJgp.png"}],"ads":[],"rent":[],"buy":[]}},"providersUpdatedAt":"2026-09-24T08:22:01.798Z","releaseDatesCheckedAt":"2026-09-24T08:22:01.798Z"}</script>
+  <script type="application/json" id="radar-movie-data">{"id":718833,"title":"Bokshi","slug":"bokshi","release_date":"2026-10-09","countryReleases":{"IN":"2026-10-09"},"countryDigitalReleases":{},"countryReleaseTypes":{"IN":3},"releaseDataVersion":2,"watchProviders":{"ES":{"link":"https://www.themoviedb.org/movie/718833-bokshi/watch?locale=ES","flatrate":[{"id":1740,"name":"Planet Horror Amazon Channel","logo":"/vkQGiGqWfFqSimwwGI6LF4vdJcU.png"},{"id":528,"name":"AMC+ Amazon Channel","logo":"/tg5ufQ1GkYDCMxSSxemfeKWcvRe.png"},{"id":1854,"name":"AMC Plus Apple TV channel","logo":"/wLl5LRLVC6UOSaUlsmuzY0H9LS1.png"}],"free":[{"id":1838,"name":"Tivify","logo":"/o1Z73d95pgJMpS3iCfRDtK5XJgp.png"}],"ads":[],"rent":[],"buy":[]}},"providersUpdatedAt":"2026-09-24T13:54:45.520Z","releaseDatesCheckedAt":"2026-09-24T13:54:45.520Z"}</script>
   <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   

@@ -48,6 +48,14 @@
     .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .nav-link:hover { color: #fff; }
     .nav-link.active { color: #fff; }
+    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
+    .support-link:hover { background: #e94560; }
+    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+      .support-link { max-width: 100%; white-space: normal; text-align: center; }
+    }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -172,6 +180,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">Calendar</a>
       <a href="/top-movies/" class="nav-link">Top Movies</a>
+      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
     </nav>
   </div>
 </header>
@@ -223,7 +232,7 @@
       <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script type="application/json" id="radar-movie-data">{"id":1556321,"title":"Death Whisperer: Saming the Werebeast","slug":"death-whisperer-saming-the-werebeast","release_date":"2026-09-30","countryReleases":{"TH":"2026-09-30"},"countryDigitalReleases":{},"countryReleaseTypes":{"TH":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T08:31:11.328Z","releaseDatesCheckedAt":"2026-09-24T08:31:11.328Z"}</script>
+  <script type="application/json" id="radar-movie-data">{"id":1556321,"title":"Death Whisperer: Saming the Werebeast","slug":"death-whisperer-saming-the-werebeast","release_date":"2026-09-30","countryReleases":{"TH":"2026-09-30"},"countryDigitalReleases":{},"countryReleaseTypes":{"TH":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T14:03:54.998Z","releaseDatesCheckedAt":"2026-09-24T14:03:54.998Z"}</script>
   <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   
@@ -256,11 +265,6 @@
   <section class="releases-section">
     <div class="section-heading">More September 2026 Releases</div>
     <div class="related-grid">
-    <a class="related-card" href="/movie/onslaught/">
-        <img src="https://image.tmdb.org/t/p/w185/cOGtvhc6Ij9KvzM6jZsfQyg0B0O.jpg" alt="Onslaught poster" loading="lazy" width="92" height="138" />
-        <span class="related-title">Onslaught</span>
-        <span class="related-date">Sep 2, 2026</span>
-      </a>
     <a class="related-card" href="/movie/one-last-shot/">
         <img src="https://image.tmdb.org/t/p/w185/niQ4NBh2jqAf1hDZP5m6ReWFAb7.jpg" alt="One Last Shot poster" loading="lazy" width="92" height="138" />
         <span class="related-title">One Last Shot</span>
@@ -295,6 +299,11 @@
         <img src="https://image.tmdb.org/t/p/w185/gkVq1Pd46NF7AP5XQZfRHjQfCXX.jpg" alt="Run Hide Fight: Infidels poster" loading="lazy" width="92" height="138" />
         <span class="related-title">Run Hide Fight: Infidels</span>
         <span class="related-date">Sep 15, 2026</span>
+      </a>
+    <a class="related-card" href="/movie/onslaught/">
+        <img src="https://image.tmdb.org/t/p/w185/cOGtvhc6Ij9KvzM6jZsfQyg0B0O.jpg" alt="Onslaught poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">Onslaught</span>
+        <span class="related-date">Sep 2, 2026</span>
       </a>
     </div>
     <p class="hub-cross-link"><a href="/calendar/2026-09/">See every movie coming out in September 2026 &#8594;</a></p>

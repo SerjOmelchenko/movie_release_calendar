@@ -48,6 +48,14 @@
     .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .nav-link:hover { color: #fff; }
     .nav-link.active { color: #fff; }
+    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
+    .support-link:hover { background: #e94560; }
+    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+      .support-link { max-width: 100%; white-space: normal; text-align: center; }
+    }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -172,6 +180,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">Calendar</a>
       <a href="/top-movies/" class="nav-link">Top Movies</a>
+      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
     </nav>
   </div>
 </header>
@@ -223,7 +232,7 @@
       <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script type="application/json" id="radar-movie-data">{"id":43778,"title":"Death of a Bureaucrat","slug":"death-of-a-bureaucrat","release_date":"1966-07-24","countryReleases":{"BR":"2025-06-10","CU":"1966-07-24","ES":"1968-03-17","GR":"2026-09-17","SE":"1971-12-17","US":"1979-05-18"},"countryDigitalReleases":{},"countryReleaseTypes":{"BR":2,"CU":3,"ES":3,"GR":2,"SE":3,"US":3},"releaseDataVersion":2,"watchProviders":{"AT":{"link":"https://www.themoviedb.org/movie/43778-la-muerte-de-un-burocrata/watch?locale=AT","flatrate":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"}],"free":[],"ads":[],"rent":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"}],"buy":[]},"BR":{"link":"https://www.themoviedb.org/movie/43778-la-muerte-de-un-burocrata/watch?locale=BR","flatrate":[{"id":1973,"name":"Filmicca","logo":"/esECWHOwoOwhg4eIZqK0Vuk5Pml.png"}],"free":[],"ads":[],"rent":[],"buy":[]},"CH":{"link":"https://www.themoviedb.org/movie/43778-la-muerte-de-un-burocrata/watch?locale=CH","flatrate":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"}],"free":[],"ads":[],"rent":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"}],"buy":[]},"DE":{"link":"https://www.themoviedb.org/movie/43778-la-muerte-de-un-burocrata/watch?locale=DE","flatrate":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"}],"free":[],"ads":[],"rent":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"}],"buy":[]}},"providersUpdatedAt":"2026-09-24T08:21:19.391Z","releaseDatesCheckedAt":"2026-09-24T08:21:19.391Z"}</script>
+  <script type="application/json" id="radar-movie-data">{"id":43778,"title":"Death of a Bureaucrat","slug":"death-of-a-bureaucrat","release_date":"1966-07-24","countryReleases":{"BR":"2025-06-10","CU":"1966-07-24","ES":"1968-03-17","GR":"2026-09-17","SE":"1971-12-17","US":"1979-05-18"},"countryDigitalReleases":{},"countryReleaseTypes":{"BR":2,"CU":3,"ES":3,"GR":2,"SE":3,"US":3},"releaseDataVersion":2,"watchProviders":{"AT":{"link":"https://www.themoviedb.org/movie/43778-la-muerte-de-un-burocrata/watch?locale=AT","flatrate":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"}],"free":[],"ads":[],"rent":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"}],"buy":[]},"BR":{"link":"https://www.themoviedb.org/movie/43778-la-muerte-de-un-burocrata/watch?locale=BR","flatrate":[{"id":1973,"name":"Filmicca","logo":"/esECWHOwoOwhg4eIZqK0Vuk5Pml.png"}],"free":[],"ads":[],"rent":[],"buy":[]},"CH":{"link":"https://www.themoviedb.org/movie/43778-la-muerte-de-un-burocrata/watch?locale=CH","flatrate":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"}],"free":[],"ads":[],"rent":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"}],"buy":[]},"DE":{"link":"https://www.themoviedb.org/movie/43778-la-muerte-de-un-burocrata/watch?locale=DE","flatrate":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"}],"free":[],"ads":[],"rent":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"}],"buy":[]}},"providersUpdatedAt":"2026-09-24T13:54:03.302Z","releaseDatesCheckedAt":"2026-09-24T13:54:03.302Z"}</script>
   <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   

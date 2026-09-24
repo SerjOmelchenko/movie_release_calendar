@@ -48,6 +48,14 @@
     .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .nav-link:hover { color: #fff; }
     .nav-link.active { color: #fff; }
+    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
+    .support-link:hover { background: #e94560; }
+    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+      .support-link { max-width: 100%; white-space: normal; text-align: center; }
+    }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -172,6 +180,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">Calendar</a>
       <a href="/top-movies/" class="nav-link">Top Movies</a>
+      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
     </nav>
   </div>
 </header>
@@ -223,7 +232,7 @@
       <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script type="application/json" id="radar-movie-data">{"id":1740268,"title":"Yorushika LIVE: \"Tousaku\"","slug":"yorushika-live-tousaku","release_date":"2026-10-09","countryReleases":{"HK":"2026-10-09","JP":"2026-10-09","TW":"2026-10-09"},"countryDigitalReleases":{},"countryReleaseTypes":{"HK":3,"JP":2,"TW":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T08:23:49.531Z","releaseDatesCheckedAt":"2026-09-24T08:23:49.531Z"}</script>
+  <script type="application/json" id="radar-movie-data">{"id":1740268,"title":"Yorushika LIVE: \"Tousaku\"","slug":"yorushika-live-tousaku","release_date":"2026-10-09","countryReleases":{"HK":"2026-10-09","JP":"2026-10-09","TW":"2026-10-09"},"countryDigitalReleases":{},"countryReleaseTypes":{"HK":3,"JP":2,"TW":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T13:56:33.451Z","releaseDatesCheckedAt":"2026-09-24T13:56:33.451Z"}</script>
   <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   
@@ -259,7 +268,7 @@
         <span class="related-date">Oct 10, 2026</span>
       </a>
     <a class="related-card" href="/movie/rolling-loud-the-movie/">
-        <img src="https://image.tmdb.org/t/p/w185/z2EwfMhkGIHhF337c19fd1NNjN1.jpg" alt="Rolling Loud: The Movie poster" loading="lazy" width="92" height="138" />
+        <img src="https://image.tmdb.org/t/p/w185/kybo18ag2ndxnOCC24JLjIGns3I.jpg" alt="Rolling Loud: The Movie poster" loading="lazy" width="92" height="138" />
         <span class="related-title">Rolling Loud: The Movie</span>
         <span class="related-date">Oct 2, 2026</span>
       </a>

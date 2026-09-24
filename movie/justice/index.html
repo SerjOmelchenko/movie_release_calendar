@@ -48,6 +48,14 @@
     .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .nav-link:hover { color: #fff; }
     .nav-link.active { color: #fff; }
+    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
+    .support-link:hover { background: #e94560; }
+    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+      .support-link { max-width: 100%; white-space: normal; text-align: center; }
+    }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -172,6 +180,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">Calendar</a>
       <a href="/top-movies/" class="nav-link">Top Movies</a>
+      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
     </nav>
   </div>
 </header>
@@ -271,11 +280,6 @@
   <section class="releases-section">
     <div class="section-heading">More October 2026 Releases</div>
     <div class="related-grid">
-    <a class="related-card" href="/movie/wild-horse-nine/">
-        <img src="https://image.tmdb.org/t/p/w185/dNJFRtVg3xLQ7dbNIQ55cmmIniD.jpg" alt="Wild Horse Nine poster" loading="lazy" width="92" height="138" />
-        <span class="related-title">Wild Horse Nine</span>
-        <span class="related-date">Oct 30, 2026</span>
-      </a>
     <a class="related-card" href="/movie/karaokill/">
         <img src="https://image.tmdb.org/t/p/w185/o3LCNcEfE0J8qIQ37NKpoOq1Sj5.jpg" alt="KARAOKILL poster" loading="lazy" width="92" height="138" />
         <span class="related-title">KARAOKILL</span>
@@ -310,6 +314,11 @@
         <img src="https://image.tmdb.org/t/p/w185/vjTYUTgh9nO88i6HZ4YPRhiFL05.jpg" alt="Whalefall poster" loading="lazy" width="92" height="138" />
         <span class="related-title">Whalefall</span>
         <span class="related-date">Oct 14, 2026</span>
+      </a>
+    <a class="related-card" href="/movie/udta-teer/">
+        <img src="https://image.tmdb.org/t/p/w185/tvICKypVlW7Iio4KVs7NousbSKi.jpg" alt="Udta Teer poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">Udta Teer</span>
+        <span class="related-date">Oct 9, 2026</span>
       </a>
     </div>
     <p class="hub-cross-link"><a href="/calendar/2026-10/">See every movie coming out in October 2026 &#8594;</a></p>

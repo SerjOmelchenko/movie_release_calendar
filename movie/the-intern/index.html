@@ -48,6 +48,14 @@
     .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .nav-link:hover { color: #fff; }
     .nav-link.active { color: #fff; }
+    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
+    .support-link:hover { background: #e94560; }
+    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+      .support-link { max-width: 100%; white-space: normal; text-align: center; }
+    }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -172,6 +180,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">Calendar</a>
       <a href="/top-movies/" class="nav-link">Top Movies</a>
+      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
     </nav>
   </div>
 </header>
@@ -223,7 +232,7 @@
       <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script type="application/json" id="radar-movie-data">{"id":607833,"title":"The Intern","slug":"the-intern","release_date":"2026-09-16","countryReleases":{"HK":"2026-10-15","ID":"2026-10-30","KR":"2026-09-16","MY":"2026-10-01","PH":"2026-10-14","TH":"2026-10-29","TW":"2026-10-16"},"countryDigitalReleases":{},"countryReleaseTypes":{"HK":3,"ID":3,"KR":3,"MY":3,"PH":3,"TH":3,"TW":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T08:25:19.254Z","releaseDatesCheckedAt":"2026-09-24T08:25:19.254Z"}</script>
+  <script type="application/json" id="radar-movie-data">{"id":607833,"title":"The Intern","slug":"the-intern","release_date":"2026-09-16","countryReleases":{"HK":"2026-10-15","ID":"2026-10-30","KR":"2026-09-16","MY":"2026-10-01","PH":"2026-10-14","SG":"2026-10-29","TH":"2026-10-29","TW":"2026-10-16"},"countryDigitalReleases":{},"countryReleaseTypes":{"HK":3,"ID":3,"KR":3,"MY":3,"PH":3,"SG":3,"TH":3,"TW":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T13:58:02.984Z","releaseDatesCheckedAt":"2026-09-24T13:58:02.984Z"}</script>
   <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   
@@ -237,19 +246,20 @@
   
   <section class="releases-section">
     <div class="section-heading">Release Rollout</div>
-    <p class="rollout-text">The Intern opened first in South Korea on September 16, 2026. The rollout continues across 7 countries, finishing in Indonesia on October 30, 2026.</p>
+    <p class="rollout-text">The Intern opened first in South Korea on September 16, 2026. The rollout continues across 8 countries, finishing in Indonesia on October 30, 2026.</p>
   </section>
 
   
   <section class="releases-section">
     <div class="section-heading">Release Dates by Country</div>
-    <div class="releases-grid"><div class="release-item"><a class="release-country" href="/releases/south-korea/">South Korea</a><span class="release-date">Sep 16, 2026</span></div><div class="release-item"><span class="release-country">Malaysia</span><span class="release-date">Oct 1, 2026</span></div><div class="release-item"><span class="release-country">Philippines</span><span class="release-date">Oct 14, 2026</span></div><div class="release-item"><span class="release-country">Hong Kong</span><span class="release-date">Oct 15, 2026</span></div><div class="release-item"><span class="release-country">Taiwan</span><span class="release-date">Oct 16, 2026</span></div><div class="release-item"><span class="release-country">Thailand</span><span class="release-date">Oct 29, 2026</span></div><div class="release-item"><span class="release-country">Indonesia</span><span class="release-date">Oct 30, 2026</span></div></div>
+    <div class="releases-grid"><div class="release-item"><a class="release-country" href="/releases/south-korea/">South Korea</a><span class="release-date">Sep 16, 2026</span></div><div class="release-item"><span class="release-country">Malaysia</span><span class="release-date">Oct 1, 2026</span></div><div class="release-item"><span class="release-country">Philippines</span><span class="release-date">Oct 14, 2026</span></div><div class="release-item"><span class="release-country">Hong Kong</span><span class="release-date">Oct 15, 2026</span></div><div class="release-item"><span class="release-country">Taiwan</span><span class="release-date">Oct 16, 2026</span></div><div class="release-item"><span class="release-country">Singapore</span><span class="release-date">Oct 29, 2026</span></div><div class="release-item"><span class="release-country">Thailand</span><span class="release-date">Oct 29, 2026</span></div><div class="release-item"><span class="release-country">Indonesia</span><span class="release-date">Oct 30, 2026</span></div></div>
   </section>
 
   
   <section class="releases-section">
     <div class="section-heading">Release Date History</div>
     <div class="history-list">
+    <div class="history-item"><span class="history-when">Sep 24, 2026</span><span>Singapore release announced for <strong>Oct 29, 2026</strong></span></div>
     <div class="history-item"><span class="history-when">Sep 24, 2026</span><span>Philippines release announced for <strong>Oct 14, 2026</strong></span></div>
     <div class="history-item"><span class="history-when">Sep 24, 2026</span><span>Hong Kong release announced for <strong>Oct 15, 2026</strong></span></div>
     <div class="history-item"><span class="history-when">Sep 22, 2026</span><span>Indonesia release announced for <strong>Oct 30, 2026</strong></span></div>

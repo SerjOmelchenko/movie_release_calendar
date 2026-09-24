@@ -48,6 +48,14 @@
     .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .nav-link:hover { color: #fff; }
     .nav-link.active { color: #fff; }
+    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
+    .support-link:hover { background: #e94560; }
+    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+      .support-link { max-width: 100%; white-space: normal; text-align: center; }
+    }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -172,6 +180,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">Calendar</a>
       <a href="/top-movies/" class="nav-link">Top Movies</a>
+      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
     </nav>
   </div>
 </header>
@@ -223,7 +232,7 @@
       <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script type="application/json" id="radar-movie-data">{"id":1323717,"title":"Confessions of a Brazilian Call Girl 2","slug":"confessions-of-a-brazilian-call-girl-2","release_date":"2027-02-18","countryReleases":{"BR":"2027-02-18"},"countryDigitalReleases":{},"countryReleaseTypes":{"BR":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T08:16:29.268Z","releaseDatesCheckedAt":"2026-09-24T08:16:29.268Z"}</script>
+  <script type="application/json" id="radar-movie-data">{"id":1323717,"title":"Confessions of a Brazilian Call Girl 2","slug":"confessions-of-a-brazilian-call-girl-2","release_date":"2027-02-18","countryReleases":{"BR":"2027-02-18"},"countryDigitalReleases":{},"countryReleaseTypes":{"BR":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T13:49:13.492Z","releaseDatesCheckedAt":"2026-09-24T13:49:13.492Z"}</script>
   <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   
@@ -296,15 +305,15 @@
         <span class="related-title">Greenland</span>
         <span class="related-date">Feb 17, 2027</span>
       </a>
+    <a class="related-card" href="/movie/ben-imana/">
+        <img src="https://image.tmdb.org/t/p/w185/qUBear4cXvzYMEx7WzpUIW8yLJ4.jpg" alt="Ben'Imana poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">Ben'Imana</span>
+        <span class="related-date">Feb 3, 2027</span>
+      </a>
     <a class="related-card" href="/movie/queen-of-france/">
         <img src="https://image.tmdb.org/t/p/w185/kd9j8why6waBIMoSfKNAUJcmfFL.jpg" alt="Queen of France poster" loading="lazy" width="92" height="138" />
         <span class="related-title">Queen of France</span>
         <span class="related-date">Feb 11, 2027</span>
-      </a>
-    <a class="related-card" href="/movie/oasis/">
-        <img src="https://image.tmdb.org/t/p/w185/peTVTtWLux443obGQPpHI052Dqq.jpg" alt="Oasis poster" loading="lazy" width="92" height="138" />
-        <span class="related-title">Oasis</span>
-        <span class="related-date">Feb 4, 2027</span>
       </a>
     </div>
     <p class="hub-cross-link"><a href="/calendar/2027-02/">See every movie coming out in February 2027 &#8594;</a></p>

@@ -48,6 +48,14 @@
     .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .nav-link:hover { color: #fff; }
     .nav-link.active { color: #fff; }
+    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
+    .support-link:hover { background: #e94560; }
+    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+      .support-link { max-width: 100%; white-space: normal; text-align: center; }
+    }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -172,6 +180,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">Calendar</a>
       <a href="/top-movies/" class="nav-link">Top Movies</a>
+      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
     </nav>
   </div>
 </header>
@@ -223,7 +232,7 @@
       <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script type="application/json" id="radar-movie-data">{"id":1520507,"title":"Damned If You Do, Damned If You Don't","slug":"damned-if-you-do-damned-if-you-don-t","release_date":"2025-09-05","countryReleases":{"AR":"2026-01-22","BR":"2026-09-17","CH":"2026-05-14","IL":"2026-08-06","IT":"2025-09-05"},"countryDigitalReleases":{},"countryReleaseTypes":{"AR":3,"BR":2,"CH":3,"IL":3,"IT":3},"releaseDataVersion":2,"watchProviders":{"CH":{"link":"https://www.themoviedb.org/movie/1520507-come-ti-muovi-sbagli/watch?locale=CH","flatrate":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"},{"id":2115,"name":"Cinu","logo":"/qmFZGxSNeiv4pDiQRLoiTLF4jIg.png"}],"free":[],"ads":[],"rent":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"}],"buy":[]},"IT":{"link":"https://www.themoviedb.org/movie/1520507-come-ti-muovi-sbagli/watch?locale=IT","flatrate":[{"id":29,"name":"Sky Go","logo":"/1Yvl9eP3pmktqChitnFhHJHcBtX.png"},{"id":39,"name":"Now TV","logo":"/oFAnvlaEW2KT6J7XM0DXjlWqKu9.png"}],"free":[],"ads":[],"rent":[{"id":2149,"name":"CG TV STREAMING","logo":"/bMUQhcFntcbiaPtdzbSY6Ecx2Fi.png"}],"buy":[{"id":2,"name":"Apple TV Store","logo":"/qdEGArH3lKfFnAtYXMkSYk5wxuG.png"},{"id":10,"name":"Amazon Video","logo":"/jn6TLbtaTZntTRX9UYucHJvpQx1.png"}]}},"providersUpdatedAt":"2026-09-24T08:15:19.807Z","releaseDatesCheckedAt":"2026-09-24T08:15:19.807Z"}</script>
+  <script type="application/json" id="radar-movie-data">{"id":1520507,"title":"Damned If You Do, Damned If You Don't","slug":"damned-if-you-do-damned-if-you-don-t","release_date":"2025-09-05","countryReleases":{"AR":"2026-01-22","BR":"2026-09-17","CH":"2026-05-14","IL":"2026-08-06","IT":"2025-09-05"},"countryDigitalReleases":{},"countryReleaseTypes":{"AR":3,"BR":2,"CH":3,"IL":3,"IT":3},"releaseDataVersion":2,"watchProviders":{"CH":{"link":"https://www.themoviedb.org/movie/1520507-come-ti-muovi-sbagli/watch?locale=CH","flatrate":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"},{"id":2115,"name":"Cinu","logo":"/qmFZGxSNeiv4pDiQRLoiTLF4jIg.png"}],"free":[],"ads":[],"rent":[{"id":1756,"name":"filmingo","logo":"/5b7O8mKPJIirE7oDl2Ex4HMeXYv.png"}],"buy":[]},"IT":{"link":"https://www.themoviedb.org/movie/1520507-come-ti-muovi-sbagli/watch?locale=IT","flatrate":[{"id":29,"name":"Sky Go","logo":"/1Yvl9eP3pmktqChitnFhHJHcBtX.png"},{"id":39,"name":"Now TV","logo":"/oFAnvlaEW2KT6J7XM0DXjlWqKu9.png"}],"free":[],"ads":[],"rent":[{"id":2149,"name":"CG TV STREAMING","logo":"/bMUQhcFntcbiaPtdzbSY6Ecx2Fi.png"}],"buy":[{"id":2,"name":"Apple TV Store","logo":"/qdEGArH3lKfFnAtYXMkSYk5wxuG.png"},{"id":10,"name":"Amazon Video","logo":"/jn6TLbtaTZntTRX9UYucHJvpQx1.png"}]}},"providersUpdatedAt":"2026-09-24T13:48:03.834Z","releaseDatesCheckedAt":"2026-09-24T13:48:03.834Z"}</script>
   <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   

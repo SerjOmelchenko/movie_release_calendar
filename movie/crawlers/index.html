@@ -48,6 +48,14 @@
     .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .nav-link:hover { color: #fff; }
     .nav-link.active { color: #fff; }
+    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
+    .support-link:hover { background: #e94560; }
+    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+      .support-link { max-width: 100%; white-space: normal; text-align: center; }
+    }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -172,6 +180,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">Calendar</a>
       <a href="/top-movies/" class="nav-link">Top Movies</a>
+      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
     </nav>
   </div>
 </header>
@@ -223,7 +232,7 @@
       <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script type="application/json" id="radar-movie-data">{"id":1376400,"title":"Crawlers","slug":"crawlers","release_date":"2026-09-24","countryReleases":{"AE":"2026-09-24","AU":"2026-10-29","BH":"2026-09-24","CA":"2026-10-29","GB":"2026-10-30","HR":"2026-10-29","IE":"2026-10-30","KW":"2026-09-24","NL":"2026-10-01","OM":"2026-09-24","RU":"2026-10-01","SG":"2026-10-15","US":"2026-10-16"},"countryDigitalReleases":{},"countryReleaseTypes":{"AE":3,"AU":3,"BH":3,"CA":3,"GB":3,"HR":3,"IE":3,"KW":3,"NL":3,"OM":3,"RU":3,"SG":3,"US":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T08:14:00.307Z","releaseDatesCheckedAt":"2026-09-24T08:14:00.307Z"}</script>
+  <script type="application/json" id="radar-movie-data">{"id":1376400,"title":"Crawlers","slug":"crawlers","release_date":"2026-09-24","countryReleases":{"AE":"2026-09-24","AU":"2026-10-29","BH":"2026-09-24","CA":"2026-10-29","GB":"2026-10-30","HR":"2026-10-29","IE":"2026-10-30","KW":"2026-09-24","NL":"2026-10-01","OM":"2026-09-24","RU":"2026-10-01","SG":"2026-10-15","US":"2026-10-16"},"countryDigitalReleases":{},"countryReleaseTypes":{"AE":3,"AU":3,"BH":3,"CA":3,"GB":3,"HR":3,"IE":3,"KW":3,"NL":3,"OM":3,"RU":3,"SG":3,"US":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T13:46:45.034Z","releaseDatesCheckedAt":"2026-09-24T13:46:45.034Z"}</script>
   <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   
@@ -282,11 +291,6 @@
         <span class="related-title">The Last Kiss</span>
         <span class="related-date">Sep 15, 2026</span>
       </a>
-    <a class="related-card" href="/movie/onslaught/">
-        <img src="https://image.tmdb.org/t/p/w185/cOGtvhc6Ij9KvzM6jZsfQyg0B0O.jpg" alt="Onslaught poster" loading="lazy" width="92" height="138" />
-        <span class="related-title">Onslaught</span>
-        <span class="related-date">Sep 2, 2026</span>
-      </a>
     <a class="related-card" href="/movie/death-whisperer-saming-the-werebeast/">
         <img src="https://image.tmdb.org/t/p/w185/lN4YqCIVjDMvlUbmcEO5d060WoL.jpg" alt="Death Whisperer: Saming the Werebeast poster" loading="lazy" width="92" height="138" />
         <span class="related-title">Death Whisperer: Saming the Werebeast</span>
@@ -316,6 +320,11 @@
         <img src="https://image.tmdb.org/t/p/w185/umSN8hRPvWxAHdTx4ZuTmT1BZlG.jpg" alt="What Happened to Doris? poster" loading="lazy" width="92" height="138" />
         <span class="related-title">What Happened to Doris?</span>
         <span class="related-date">Sep 20, 2026</span>
+      </a>
+    <a class="related-card" href="/movie/munafik-melawan-iblis/">
+        <img src="https://image.tmdb.org/t/p/w185/sXrzWnoA14DWSMUqCEY0o0CTxPg.jpg" alt="Munafik: Melawan Iblis poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">Munafik: Melawan Iblis</span>
+        <span class="related-date">Sep 3, 2026</span>
       </a>
     </div>
     <p class="hub-cross-link"><a href="/calendar/2026-09/">See every movie coming out in September 2026 &#8594;</a></p>

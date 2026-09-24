@@ -46,6 +46,14 @@
     .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .nav-link:hover { color: #fff; }
     .nav-link.active { color: #fff; }
+    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
+    .support-link:hover { background: #e94560; }
+    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+      .support-link { max-width: 100%; white-space: normal; text-align: center; }
+    }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
     .back-link:hover { text-decoration: underline; }
     .genre-tag { background: rgba(15,52,96,0.8); color: #90caf9; border: 1px solid rgba(144,202,249,0.12); border-radius: 20px; padding: 0.28rem 0.8rem; font-size: 0.78rem; font-weight: 500; }
@@ -116,6 +124,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">Calendar</a>
       <a href="/top-movies/" class="nav-link active">Top Movies</a>
+      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
     </nav>
   </div>
 </header>
@@ -302,7 +311,7 @@
     <div class="day-group">
       <h3>October 1, 2026</h3>
       <ul>
-        <li><a href="/movie/digger/">Digger</a> <span class="genre-note">&middot; Comedy</span></li>
+        <li><a href="/movie/digger/">Digger</a> <span class="genre-note">&middot; Drama</span></li>
         <li><a href="/movie/onslaught/">Onslaught</a> <span class="genre-note">&middot; Action</span></li>
         <li><a href="/movie/verity/">Verity</a> <span class="genre-note">&middot; Mystery</span></li>
         <li><a href="/movie/beast/">Beast</a> <span class="genre-note">&middot; Action</span></li>
@@ -319,8 +328,8 @@
         <li>FAMILIAR <span class="genre-note">&middot; Horror</span></li>
         <li>Fiction's Hands <span class="genre-note">&middot; Animation</span></li>
         <li>THE BOX <span class="genre-note">&middot; Horror</span></li>
-        <li><a href="/movie/parpadea/">Parpadea</a> <span class="genre-note">&middot; Horror</span></li>
         <li>Quasi Vera <span class="genre-note">&middot; Comedy</span></li>
+        <li><a href="/movie/parpadea/">Parpadea</a> <span class="genre-note">&middot; Horror</span></li>
         <li>Rostam <span class="genre-note">&middot; Fantasy</span></li>
         <li>Black Tides <span class="genre-note">&middot; Action</span></li>
         <li>Now, I See <span class="genre-note">&middot; Drama</span></li>
@@ -473,9 +482,9 @@
         <li><a href="/movie/always-lalisa/">Always Lalisa</a> <span class="genre-note">&middot; Documentary</span></li>
         <li><a href="/movie/currents/">Currents</a> <span class="genre-note">&middot; Drama</span></li>
         <li><a href="/movie/the-last-goodbye/">The Last Goodbye</a> <span class="genre-note">&middot; Drama</span></li>
+        <li>Through Silence and Wind <span class="genre-note">&middot; Documentary</span></li>
         <li>Where the Rain Nests <span class="genre-note">&middot; Documentary</span></li>
         <li>Fresh Meat Anthology: Volume One <span class="genre-note">&middot; Horror</span></li>
-        <li>Through Silence and Wind <span class="genre-note">&middot; Documentary</span></li>
         <li>Biophilia</li>
       </ul>
     </div>

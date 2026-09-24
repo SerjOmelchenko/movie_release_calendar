@@ -48,6 +48,14 @@
     .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .nav-link:hover { color: #fff; }
     .nav-link.active { color: #fff; }
+    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
+    .support-link:hover { background: #e94560; }
+    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+      .support-link { max-width: 100%; white-space: normal; text-align: center; }
+    }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -172,6 +180,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">Calendar</a>
       <a href="/top-movies/" class="nav-link">Top Movies</a>
+      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
     </nav>
   </div>
 </header>
@@ -223,7 +232,7 @@
       <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script type="application/json" id="radar-movie-data">{"id":848700,"title":"Minotaur","slug":"minotaur","release_date":"2026-10-14","countryReleases":{"AR":"2026-11-19","AU":"2026-12-26","BR":"2026-12-03","CA":"2026-11-20","CL":"2026-11-19","CO":"2026-11-19","DE":"2026-11-05","ES":"2027-01-22","FR":"2026-10-14","GB":"2026-11-27","IE":"2026-11-27","IT":"2026-10-29","MX":"2026-11-19","RS":"2026-12-17","US":"2026-11-20"},"countryDigitalReleases":{},"countryReleaseTypes":{"AR":3,"AU":3,"BR":3,"CA":3,"CL":3,"CO":3,"DE":3,"ES":3,"FR":3,"GB":3,"IE":3,"IT":3,"MX":3,"RS":3,"US":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T08:14:18.228Z","releaseDatesCheckedAt":"2026-09-24T08:14:18.228Z"}</script>
+  <script type="application/json" id="radar-movie-data">{"id":848700,"title":"Minotaur","slug":"minotaur","release_date":"2026-10-14","countryReleases":{"AR":"2026-11-19","AU":"2026-12-26","BR":"2026-12-03","CA":"2026-11-20","CL":"2026-11-19","CO":"2026-11-19","DE":"2026-11-05","ES":"2027-01-22","FR":"2026-10-14","GB":"2026-11-27","IE":"2026-11-27","IT":"2026-10-29","MX":"2026-11-19","RS":"2026-12-17","US":"2026-11-20"},"countryDigitalReleases":{},"countryReleaseTypes":{"AR":3,"AU":3,"BR":3,"CA":3,"CL":3,"CO":3,"DE":3,"ES":3,"FR":3,"GB":3,"IE":3,"IT":3,"MX":3,"RS":3,"US":3},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T13:47:01.495Z","releaseDatesCheckedAt":"2026-09-24T13:47:01.495Z"}</script>
   <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   
@@ -292,11 +301,6 @@
         <span class="related-title">Blood Money</span>
         <span class="related-date">Oct 2, 2026</span>
       </a>
-    <a class="related-card" href="/movie/wild-horse-nine/">
-        <img src="https://image.tmdb.org/t/p/w185/dNJFRtVg3xLQ7dbNIQ55cmmIniD.jpg" alt="Wild Horse Nine poster" loading="lazy" width="92" height="138" />
-        <span class="related-title">Wild Horse Nine</span>
-        <span class="related-date">Oct 30, 2026</span>
-      </a>
     <a class="related-card" href="/movie/orang-perang/">
         <img src="https://image.tmdb.org/t/p/w185/w3R45vBFFuBD4atovLDyERZ2PwL.jpg" alt="Orang Perang poster" loading="lazy" width="92" height="138" />
         <span class="related-title">Orang Perang</span>
@@ -316,6 +320,11 @@
         <img src="https://image.tmdb.org/t/p/w185/mstDPKNKgSGFvVFVdfzeMNkcyw2.jpg" alt="A Talent for Murder poster" loading="lazy" width="92" height="138" />
         <span class="related-title">A Talent for Murder</span>
         <span class="related-date">Oct 22, 2026</span>
+      </a>
+    <a class="related-card" href="/movie/masterplan/">
+        <img src="https://image.tmdb.org/t/p/w185/3x3AfF0qVwSUDDciTaNKcPHZUN8.jpg" alt="Masterplan poster" loading="lazy" width="92" height="138" />
+        <span class="related-title">Masterplan</span>
+        <span class="related-date">Oct 16, 2026</span>
       </a>
     </div>
     <p class="hub-cross-link"><a href="/calendar/2026-10/">See every movie coming out in October 2026 &#8594;</a></p>

@@ -48,6 +48,14 @@
     .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .nav-link:hover { color: #fff; }
     .nav-link.active { color: #fff; }
+    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
+    .support-link:hover { background: #e94560; }
+    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    @media (max-width: 900px) {
+      .site-brand { flex: 0 0 50%; }
+      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+      .support-link { max-width: 100%; white-space: normal; text-align: center; }
+    }
 
     .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
@@ -172,6 +180,7 @@
     <nav class="header-nav">
       <a href="/" class="nav-link">Calendar</a>
       <a href="/top-movies/" class="nav-link">Top Movies</a>
+      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
     </nav>
   </div>
 </header>
@@ -223,7 +232,7 @@
       <div id="radar-watch-providers"></div>
     </div>
   </div>
-  <script type="application/json" id="radar-movie-data">{"id":1476614,"title":"All of a Sudden","slug":"all-of-a-sudden","release_date":"2026-06-19","countryReleases":{"AU":"2027-02-04","BR":"2026-11-26","CH":"2026-08-27","ES":"2027-02-19","FR":"2026-08-12","GB":"2027-02-05","IE":"2027-02-05","JP":"2026-06-19","NL":"2026-10-29","US":"2026-11-25"},"countryDigitalReleases":{},"countryReleaseTypes":{"AU":3,"BR":3,"CH":3,"ES":3,"FR":3,"GB":3,"IE":3,"JP":3,"NL":3,"US":2},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T08:14:19.792Z","releaseDatesCheckedAt":"2026-09-24T08:14:19.792Z"}</script>
+  <script type="application/json" id="radar-movie-data">{"id":1476614,"title":"All of a Sudden","slug":"all-of-a-sudden","release_date":"2026-06-19","countryReleases":{"AU":"2027-02-04","BR":"2026-11-26","CH":"2026-08-27","ES":"2027-02-19","FR":"2026-08-12","GB":"2027-02-05","IE":"2027-02-05","JP":"2026-06-19","NL":"2026-10-29","US":"2026-11-25"},"countryDigitalReleases":{},"countryReleaseTypes":{"AU":3,"BR":3,"CH":3,"ES":3,"FR":3,"GB":3,"IE":3,"JP":3,"NL":3,"US":2},"releaseDataVersion":2,"watchProviders":{},"providersUpdatedAt":"2026-09-24T13:47:03.864Z","releaseDatesCheckedAt":"2026-09-24T13:47:03.864Z"}</script>
   <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
 
   
