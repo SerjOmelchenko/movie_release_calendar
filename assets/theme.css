@@ -49,7 +49,10 @@ body.ed :where(button, a, select, input, summary):focus-visible { outline: 2px s
 .ed-header-inner { max-width: 1440px; margin: 0 auto; padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .ed-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
 .ed-brand .brand-icon { width: 36px; height: 36px; flex: 0 0 auto; }
-.ed-brand .brand-icon .sweep-group { transform-origin: 22px 22px; animation: ed-radar-spin 3s linear infinite; }
+/* Rotate the sweep around its own start point (the radar centre). A fill-box
+   origin is resolved the same way by every engine; a px origin on an SVG
+   group scaled by its viewBox is not, and Safari spins it off-centre. */
+.ed-brand .brand-icon .sweep-group { transform-box: fill-box; transform-origin: 0 50%; animation: ed-radar-spin 3s linear infinite; }
 .ed-wordmark { margin: 0; font-family: var(--display); font-size: 20px; font-weight: 900; font-stretch: 85%; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink); line-height: 1; }
 .ed-wordmark span { color: var(--accent); }
 .ed-nav { display: flex; align-items: center; gap: 26px; }
