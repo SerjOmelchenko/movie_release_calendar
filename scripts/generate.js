@@ -497,16 +497,11 @@ function buildMoviePage(movie, ctx = {}) {
   const backdrop    = movie.backdrop_path ? `${IMG_BASE}w1280${movie.backdrop_path}` : '';
   const poster      = movie.poster_path   ? `${IMG_BASE}w500${movie.poster_path}`   : '';
   const canonicalUrl = `${SITE_BASE}/movie/${movie.slug}/`;
-  const today       = new Date().toISOString().slice(0, 10);
   const movieClientData = JSON.stringify({id:movie.id,title:movie.title,slug:movie.slug,release_date:movie.release_date,countryReleases:movie.countryReleases||{},countryDigitalReleases:movie.countryDigitalReleases||{},countryReleaseTypes:movie.countryReleaseTypes||{},releaseDataVersion:movie.releaseDataVersion||1,watchProviders:movie.watchProviders,providersUpdatedAt:movie.providersUpdatedAt,releaseDatesCheckedAt:movie.releaseDatesCheckedAt}).replace(/</g, '\\u003c');
 
   const releaseDate = movie.release_date
     ? new Date(movie.release_date + 'T00:00:00').toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' })
     : 'TBA';
-
-  const rating = movie.vote_count > 0 && movie.vote_average >= 1
-    ? `&#9733; ${movie.vote_average.toFixed(1)} / 10 <span class="vote-count">(${movie.vote_count.toLocaleString()} votes)</span>`
-    : '';
 
   const runtime = movie.runtime
     ? `${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m`
@@ -518,6 +513,8 @@ function buildMoviePage(movie, ctx = {}) {
 
   const directors = (movie.directors || []).map(d => escHtml(d)).join(', ');
   const cast       = (movie.cast      || []).map(c => escHtml(c)).join(', ');
+  const hasRating  = movie.vote_count > 0 && movie.vote_average >= 1;
+  const kicker     = [...(movie.genres || []).slice(0, 3), runtime, year].filter(Boolean).map(escHtml).join(' &middot; ');
 
   let countryEntries = Object.entries(movie.countryReleases || {})
     .sort(([, a], [, b]) => a.localeCompare(b));
@@ -527,53 +524,78 @@ function buildMoviePage(movie, ctx = {}) {
     countryEntries = [['WW', movie.release_date]];
   }
 
-  const releasesHtml = countryEntries.map(([code, date]) => {
+  const releaseRow = ([code, date]) => {
     const rawName   = code === 'WW' ? 'Worldwide' : (COUNTRY_NAMES[code] || code);
-    const formatted = fmtShort(date);
     // Supported countries link to their release-calendar hub page
     const nameHtml = SUPPORTED_COUNTRIES.includes(code)
       ? `<a class="release-country" href="/releases/${countrySlug(code)}/">${escHtml(rawName)}</a>`
       : `<span class="release-country">${escHtml(rawName)}</span>`;
-    return `<div class="release-item">${nameHtml}<span class="release-date">${formatted}</span></div>`;
-  }).join('');
+    return `<div class="mv-date">${nameHtml}<span class="release-date">${fmtShort(date)}</span></div>`;
+  };
+  const DATES_SHOWN = 16;
+  const releasesHtml = countryEntries.length ? `
+    <div class="mv-dates">${countryEntries.slice(0, DATES_SHOWN).map(releaseRow).join('')}</div>
+    ${countryEntries.length > DATES_SHOWN ? `<details class="ed-more"><summary>Show all ${countryEntries.length} countries</summary><div class="mv-dates">${countryEntries.slice(DATES_SHOWN).map(releaseRow).join('')}</div></details>` : ''}` : '';
+
+  // Rollout timeline: first and last opening plus the busiest day in between.
+  const named = countryEntries.filter(([cc]) => COUNTRY_NAMES[cc]);
+  const byDate = {};
+  for (const [cc, d] of named) (byDate[d] = byDate[d] || []).push(COUNTRY_NAMES[cc]);
+  const dates = Object.keys(byDate).sort();
+  let timelineHtml = '';
+  if (dates.length >= 2) {
+    const first = dates[0], last = dates[dates.length - 1];
+    const span = (new Date(last) - new Date(first)) || 1;
+    const label = d => byDate[d][0] + (byDate[d].length > 1 ? ` +${byDate[d].length - 1}` : '');
+    const marks = [[first, 'end'], [last, 'end']];
+    const busiest = dates.slice(1, -1).sort((a, b) => byDate[b].length - byDate[a].length)[0];
+    if (busiest) {
+      const at = (new Date(busiest) - new Date(first)) / span;
+      if (at > 0.12 && at < 0.88) marks.splice(1, 0, [busiest, '']);
+    }
+    timelineHtml = `<div class="mv-timeline" aria-hidden="true">${marks.map(([d, cls], i) =>
+      `<div class="mv-mark ${cls}" style="left:${(((new Date(d) - new Date(first)) / span) * 100).toFixed(1)}%;--i:${i}"><b>${escHtml(label(d))}</b><i></i><span>${fmtShort(d)}</span></div>`).join('')}</div>`;
+  }
 
   const historyEntries = (ctx.dateHistory || {})[String(movie.id)] || [];
   const narrative      = buildReleaseNarrative(movie, historyEntries);
   const faqs           = buildFaqData(movie);
 
   const faqHtml = faqs.length ? `
-  <section class="releases-section">
-    <div class="section-heading">Frequently Asked Questions</div>
-    ${faqs.map(f => `<div class="faq-item"><h3 class="faq-q">${escHtml(f.q)}</h3><p class="faq-a">${escHtml(f.a)}</p></div>`).join('\n    ')}
+  <section class="mv-section">
+    <h2 class="ed-sec">Frequently asked questions</h2>
+    <div class="mv-faq">
+    ${faqs.map(f => `<div class="mv-faq-item"><h3 class="mv-faq-q">${escHtml(f.q)}</h3><p class="mv-faq-a">${escHtml(f.a)}</p></div>`).join('\n    ')}
+    </div>
   </section>` : '';
 
   const shownHistory = historyEntries.slice(-8).reverse();
   const historyHtml = shownHistory.length ? `
-  <section class="releases-section">
-    <div class="section-heading">Release Date History</div>
-    <div class="history-list">
+  <section class="mv-section">
+    <h2 class="ed-sec">Release date history</h2>
+    <div class="mv-history">
     ${shownHistory.map(h => {
       const scopeName = h.scope === 'primary' ? 'Worldwide release' : `${escHtml(COUNTRY_NAMES[h.scope] || h.scope)} release`;
-      return `<div class="history-item"><span class="history-when">${fmtShort(h.on)}</span><span>${scopeName} ${!h.from ? 'announced for <strong>'+fmtShort(h.to)+'</strong>' : !h.to ? 'date no longer announced (previously '+fmtShort(h.from)+')' : 'moved from <s>'+fmtShort(h.from)+'</s> to <strong>'+fmtShort(h.to)+'</strong>'}</span></div>`;
+      return `<div class="mv-history-item"><span class="mv-history-when">${fmtShort(h.on)}</span><span>${scopeName} ${!h.from ? 'announced for <strong>'+fmtShort(h.to)+'</strong>' : !h.to ? 'date no longer announced (previously '+fmtShort(h.from)+')' : 'moved from <s>'+fmtShort(h.from)+'</s> to <strong>'+fmtShort(h.to)+'</strong>'}</span></div>`;
     }).join('\n    ')}
     </div>
   </section>` : '';
 
   const related = ctx.related || [];
   const relatedHtml = related.length ? `
-  <section class="releases-section">
-    <div class="section-heading">More ${ym ? escHtml(monthLabel(ym)) : ''} Releases</div>
-    <div class="related-grid">
+  <section class="mv-section">
+    <h2 class="ed-sec">More ${ym ? escHtml(monthLabel(ym)) : ''} releases</h2>
+    <div class="ed-poster-grid mv-related">
     ${related.map(r => {
       const rPoster = r.poster_path ? `${IMG_BASE}w185${r.poster_path}` : '';
-      return `<a class="related-card" href="/movie/${r.slug}/">
-        ${rPoster ? `<img src="${rPoster}" alt="${escHtml(r.title)} poster" loading="lazy" width="92" height="138" />` : `<div class="related-noposter"><span>${escHtml(r.title)}</span></div>`}
-        <span class="related-title">${escHtml(r.title)}</span>
-        ${r.release_date ? `<span class="related-date">${fmtShort(r.release_date)}</span>` : ''}
+      return `<a class="ed-poster" href="/movie/${r.slug}/">
+        ${rPoster ? `<img src="${rPoster}" alt="${escHtml(r.title)} poster" loading="lazy" width="118" height="177" />` : `<span class="ed-noposter">${escHtml(r.title)}</span>`}
+        <span class="ed-poster-title">${escHtml(r.title)}</span>
+        ${r.release_date ? `<span class="ed-poster-date">${fmtShort(r.release_date)}</span>` : ''}
       </a>`;
     }).join('\n    ')}
     </div>
-    ${ym ? `<p class="hub-cross-link"><a href="/calendar/${ym}/">See every movie coming out in ${escHtml(monthLabel(ym))} &#8594;</a></p>` : ''}
+    ${ym ? `<p class="ed-note"><a href="/calendar/${ym}/">See every movie coming out in ${escHtml(monthLabel(ym))} &#8594;</a></p>` : ''}
   </section>` : '';
 
   const metaDesc  = escHtml(
@@ -581,25 +603,11 @@ function buildMoviePage(movie, ctx = {}) {
   );
   const ogImage = poster || (movie.backdrop_path ? `${IMG_BASE}w780${movie.backdrop_path}` : '');
 
-  const GTM_CONSENT = `
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    (function(){
-      var c; try { c = localStorage.getItem('cookie_consent'); } catch(e) {}
-      var granted = c === 'accepted';
-      gtag('consent', 'default', {
-        analytics_storage:  granted ? 'granted' : 'denied',
-        ad_storage:         granted ? 'granted' : 'denied',
-        ad_user_data:       granted ? 'granted' : 'denied',
-        ad_personalization: granted ? 'granted' : 'denied',
-      });
-    })();`;
-
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <script>${GTM_CONSENT}</script>
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T3BJFZSV');</script>
+  <script>${GTM_CONSENT_JS}</script>
+  ${GTM_TAG}
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${title}${year ? ` (${year})` : ''} - Release Dates, Info &amp; Trailers</title>
@@ -617,248 +625,110 @@ function buildMoviePage(movie, ctx = {}) {
   <meta property="og:description" content="${metaDesc}" />
   ${ogImage ? `<meta property="og:image" content="${escHtml(ogImage)}" />` : ''}
   <script type="application/ld+json">${buildSchema(movie, canonicalUrl)}</script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0d0d0d; color: #e0e0e0; min-height: 100vh; }
-
-    header { background: #0d0d0d; padding: 1.4rem 2rem; border-bottom: 1px solid #1e1e1e; }
-    .header-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
-    .site-brand { display: flex; align-items: center; gap: 0.85rem; text-decoration: none; }
-    .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
-    .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
-    @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
-    .brand-name span { color: #e94560; }
-    .header-nav { display: flex; align-items: center; gap: 1.5rem; }
-    .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
-    .nav-link:hover { color: #fff; }
-    .nav-link.active { color: #fff; }
-    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
-    .support-link:hover { background: #e94560; }
-    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-    @media (max-width: 900px) {
-      .site-brand { flex: 0 0 50%; }
-      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
-      .support-link { max-width: 100%; white-space: normal; text-align: center; }
-    }
-
-    .movie-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
-    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
-    .back-link:hover { text-decoration: underline; }
-
-    .movie-hero { border-radius: 16px; overflow: hidden; margin-bottom: 2rem; background: #111; }
-    .movie-hero img { width: 100%; height: 320px; object-fit: cover; object-position: center top; display: block; }
-
-    .movie-main { display: flex; gap: 2rem; align-items: flex-start; }
-    .movie-poster { flex-shrink: 0; width: 200px; }
-    .movie-poster img { width: 100%; border-radius: 14px; display: block; box-shadow: 0 10px 40px rgba(0,0,0,0.7); }
-    .movie-poster-placeholder { width: 100%; aspect-ratio: 2/3; background: #1e1e1e; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #555; text-align: center; padding: 1rem; line-height: 1.4; }
-
-    .movie-info { flex: 1; min-width: 0; }
-    .movie-title { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 1rem; }
-
-    .info-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.65rem; margin-bottom: 1.25rem; }
-    .tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 0.85rem 0.9rem; display: flex; flex-direction: column; gap: 0.3rem; }
-    .tile-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #555; }
-    .tile-value { font-size: 1rem; font-weight: 600; color: #f0f0f0; line-height: 1.25; }
-    .tile-sub { font-size: 0.72rem; color: #555; font-weight: 400; }
-    .tile-rating .tile-value { color: #f5c518; }
-    .tile-cert .tile-value { display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid #555; border-radius: 5px; padding: 0.1rem 0.45rem; font-size: 0.82rem; letter-spacing: 0.04em; color: #ccc; width: fit-content; }
-
-    .movie-genres { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
-    .genre-tag { background: rgba(15,52,96,0.8); color: #90caf9; border: 1px solid rgba(144,202,249,0.12); border-radius: 20px; padding: 0.28rem 0.8rem; font-size: 0.78rem; font-weight: 500; }
-    .movie-crew { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.875rem; color: #aaa; margin-bottom: 1rem; }
-    .movie-crew strong { color: #ddd; }
-    .movie-overview { font-size: 0.975rem; color: #bbb; line-height: 1.75; }
-
-    .movie-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: 1.25rem; }
-    .wl-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.3rem; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
-    .wl-btn:hover { border-color: #e94560; color: #e94560; background: rgba(233,69,96,0.07); }
-    .wl-btn.wl-active { background: #e94560; border-color: #e94560; color: #fff; }
-
-    .cal-wrap { position: relative; display: inline-block; }
-    .cal-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.3rem; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #aaa; font-size: 0.88rem; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
-    .cal-btn:hover, .cal-btn.open { border-color: #4a9eff; color: #4a9eff; background: rgba(74,158,255,0.07); }
-    .cal-menu { display: none; position: absolute; top: calc(100% + 6px); left: 0; min-width: 180px; background: #1a1a1a; border: 1px solid #2e2e2e; border-radius: 10px; overflow: hidden; z-index: 100; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
-    .cal-menu.open { display: block; }
-    .cal-menu a { display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 1rem; color: #ccc; text-decoration: none; font-size: 0.85rem; transition: background 0.12s, color 0.12s; }
-    .cal-menu a:hover { background: rgba(74,158,255,0.1); color: #4a9eff; }
-
-    .trailer-section { margin-top: 2.5rem; }
-    .trailer-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 14px; overflow: hidden; background: #111; }
-    .trailer-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-    .releases-section { margin-top: 2.5rem; }
-    .section-heading { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #555; margin-bottom: 0.9rem; padding-bottom: 0.5rem; border-bottom: 1px solid #1e1e1e; }
-    .releases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.65rem; }
-    .release-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 13px; padding: 0.85rem 1rem; display: flex; flex-direction: column; gap: 0.25rem; }
-    .release-country { color: #e0e0e0; font-weight: 600; font-size: 0.85rem; }
-    a.release-country { text-decoration: none; }
-    a.release-country:hover { color: #e94560; text-decoration: underline; }
-    .release-date { color: #666; font-size: 0.78rem; font-weight: 500; }
-
-    .rollout-text { font-size: 0.95rem; color: #bbb; line-height: 1.75; }
-    .history-list { display: flex; flex-direction: column; gap: 0.5rem; }
-    .history-item { display: flex; gap: 0.9rem; align-items: baseline; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 0.65rem 0.9rem; font-size: 0.85rem; color: #bbb; }
-    .history-item s { color: #777; }
-    .history-item strong { color: #f0f0f0; }
-    .history-when { flex-shrink: 0; font-size: 0.72rem; color: #555; font-weight: 600; }
-    .faq-item { padding: 0.9rem 0; border-bottom: 1px solid #1a1a1a; }
-    .faq-item:last-child { border-bottom: 0; }
-    .faq-q { font-size: 0.95rem; font-weight: 700; color: #eee; margin-bottom: 0.35rem; }
-    .faq-a { font-size: 0.9rem; color: #999; line-height: 1.65; }
-    .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 0.85rem; }
-    .related-card { display: flex; flex-direction: column; gap: 0.35rem; text-decoration: none; }
-    .related-card img { width: 100%; border-radius: 10px; display: block; aspect-ratio: 2/3; object-fit: cover; }
-    .related-noposter { width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 0.4rem; }
-    .related-noposter span { font-size: 0.65rem; color: #555; text-align: center; line-height: 1.3; }
-    .related-title { font-size: 0.75rem; font-weight: 600; color: #ccc; line-height: 1.3; }
-    .related-card:hover .related-title { color: #e94560; }
-    .related-date { font-size: 0.68rem; color: #555; }
-    .hub-cross-link { margin-top: 1.1rem; font-size: 0.85rem; }
-    .hub-cross-link a { color: #e94560; text-decoration: none; }
-    .hub-cross-link a:hover { text-decoration: underline; }
-
-    footer { border-top: 1px solid #1e1e1e; margin-top: 3rem; padding: 1.4rem 2rem; }
-    .footer-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-    .footer-brand { font-size: 0.78rem; font-weight: 700; color: #333; letter-spacing: 0.1em; text-transform: uppercase; }
-    .footer-attr { font-size: 0.75rem; color: #888; }
-    footer a { color: #e94560; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-
-    @media (max-width: 640px) {
-      header { padding: 1rem; }
-      .header-inner { flex-direction: row; align-items: center; }
-      .site-brand { flex: 0 0 50%; }
-      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
-      .movie-page { padding: 1rem; }
-      .movie-main { flex-direction: column; }
-      .movie-poster { width: 140px; }
-      .movie-title { font-size: 1.5rem; }
-      .movie-hero img { height: 200px; }
-      .info-tiles { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.5rem; }
-    }
-  </style>
-<link rel="stylesheet" href="/assets/radar.css">
+  ${THEME_HEAD}
 <script src="/assets/radar-core.js"></script>
 <script src="/assets/radar-ui.js"></script>
 </head>
-<body>
+<body class="ed">
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+${siteHeader()}
 
-<header>
-  <div class="header-inner">
-    <a href="/" class="site-brand">
-      <svg class="brand-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="22" cy="22" r="20"   stroke="#2a2a2a" stroke-width="1.2"/>
-        <circle cx="22" cy="22" r="13.5" stroke="#2a2a2a" stroke-width="1.2"/>
-        <circle cx="22" cy="22" r="7"    stroke="#2a2a2a" stroke-width="1.2"/>
-        <line x1="22" y1="2"  x2="22" y2="42" stroke="#1e1e1e" stroke-width="1"/>
-        <line x1="2"  y1="22" x2="42" y2="22" stroke="#1e1e1e" stroke-width="1"/>
-        <g class="sweep-group">
-          <line x1="22" y1="22" x2="42" y2="22" stroke="#e94560" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
-          <circle cx="36" cy="22" r="2" fill="#e94560" opacity="0.85"/>
-        </g>
-        <circle cx="22" cy="22" r="2.5" fill="#e94560"/>
-      </svg>
-      <span class="brand-name">Movie Release <span>Radar</span></span>
-    </a>
-    <nav class="header-nav">
-      <a href="/" class="nav-link">Calendar</a>
-      <a href="/top-movies/" class="nav-link">Top Movies</a>
-      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
-    </nav>
-  </div>
-</header>
-
-<main class="movie-page">
-  <a href="/" class="back-link" id="back-link">&#8592; Back to calendar</a>
-  <script>
-    (function(){
-      try {
-        var full = sessionStorage.getItem('calendarView');
-        if (full) { document.getElementById('back-link').href = '/' + full; return; }
-        var s = sessionStorage.getItem('calendarMonth');
-        if (s) {
-          var parts = s.split('-').map(Number);
-          if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
-            document.getElementById('back-link').href = '/?m=' + s;
-          }
-        }
-      } catch(e) {}
-    })();
-  </script>
-
-  ${backdrop ? `<div class="movie-hero"><img src="${backdrop}" alt="${title} backdrop" /></div>` : ''}
-
-  <div class="movie-main">
-    <div class="movie-poster">
-      ${poster
-        ? `<img src="${poster}" alt="${title} poster" />`
-        : `<div class="movie-poster-placeholder">${title}</div>`}
+<main>
+  <section class="mv-hero">
+    ${backdrop ? `<img class="mv-hero-img" src="${backdrop}" alt="${title} backdrop" />` : ''}
+    <div class="mv-hero-shade"></div>
+    <div class="mv-hero-inner ed-wrap">
+      <a href="/" class="ed-back mv-back" id="back-link">&#8592; Back to calendar</a>
+      <script>
+        (function(){
+          try {
+            var full = sessionStorage.getItem('calendarView');
+            if (full) { document.getElementById('back-link').href = '/' + full; return; }
+            var s = sessionStorage.getItem('calendarMonth');
+            if (s) {
+              var parts = s.split('-').map(Number);
+              if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+                document.getElementById('back-link').href = '/?m=' + s;
+              }
+            }
+          } catch(e) {}
+        })();
+      </script>
+      <div class="mv-hero-text">
+        ${kicker ? `<span class="ed-kicker">${kicker}</span>` : ''}
+        <h1 class="ed-hero-title">${title}</h1>
+        <div class="mv-meta">
+          ${hasRating ? `<span><span class="mv-star">&#9733; ${movie.vote_average.toFixed(1)}</span> / 10 &middot; ${movie.vote_count.toLocaleString()} votes</span>` : ''}
+          ${movie.original_language ? `<span>${escHtml(movie.original_language.toUpperCase())}</span>` : ''}
+          ${movie.certification ? `<span class="mv-cert">${escHtml(movie.certification)}</span>` : ''}
+        </div>
+      </div>
     </div>
-    <div class="movie-info">
-      <h1 class="movie-title">${title}</h1>
-      <div id="radar-local-release"></div>
-      <div class="info-tiles">
-        ${movie.release_date ? `<div class="tile tile-global-release"><div class="tile-label">First worldwide release</div><div class="tile-value">${releaseDate}</div></div>` : ''}
-        ${movie.vote_count > 0 && movie.vote_average >= 1 ? `<div class="tile tile-rating"><div class="tile-label">Score</div><div class="tile-value">${movie.vote_average.toFixed(1)} <span class="tile-sub">/ 10</span></div></div>` : ''}
-        ${runtime ? `<div class="tile"><div class="tile-label">Length</div><div class="tile-value">${runtime}</div></div>` : ''}
-        ${movie.original_language ? `<div class="tile"><div class="tile-label">Language</div><div class="tile-value">${escHtml(movie.original_language.toUpperCase())}</div></div>` : ''}
-        ${movie.certification ? `<div class="tile tile-cert"><div class="tile-label">US Rating</div><div class="tile-value">${escHtml(movie.certification)}</div></div>` : ''}
-      </div>
-      ${genreTagsHtml ? `<div class="movie-genres">${genreTagsHtml}</div>` : ''}
-      <div class="movie-crew">
-        ${directors ? `<span>&#127916; Directed by <strong>${directors}</strong></span>` : ''}
-        ${cast      ? `<span>&#127775; ${cast}</span>`                                   : ''}
-      </div>
-      <p class="movie-overview">${overview}</p>
-      <div class="movie-actions">
+  </section>
+
+  <div class="ed-wrap">
+    <div class="mv-main">
+      <div class="mv-side">
+        ${poster
+          ? `<img class="mv-poster" src="${poster}" alt="${title} poster" />`
+          : `<div class="mv-poster mv-poster-ph">${title}</div>`}
         <button class="wl-btn" id="wl-btn" data-id="${movie.id}">&#9825; Add to Watchlist</button>
-
+        ${movie.trailerKey ? `<a href="#trailer" class="ed-btn">&#9654; Watch trailer</a>` : ''}
       </div>
-      <div id="radar-watch-providers"></div>
+      <div class="mv-body">
+        <div class="mv-text">
+          <p class="mv-overview">${overview}</p>
+          ${directors || cast ? `<div class="mv-crew">
+            ${directors ? `<span>Directed by <strong>${directors}</strong></span>` : ''}
+            ${cast      ? `<span>Starring <span>${cast}</span></span>`           : ''}
+          </div>` : ''}
+          ${genreTagsHtml ? `<div class="mv-genres">${genreTagsHtml}</div>` : ''}
+          <div class="mv-stats">
+            ${movie.release_date ? `<div class="mv-stat tile-global-release"><span class="ed-kicker">First release</span><span class="mv-stat-v">${fmtShort(movie.release_date)}</span></div>` : ''}
+            ${hasRating ? `<div class="mv-stat"><span class="ed-kicker">Score</span><span class="mv-stat-v mv-star">${movie.vote_average.toFixed(1)} <small>/ 10</small></span></div>` : ''}
+            ${runtime ? `<div class="mv-stat"><span class="ed-kicker">Length</span><span class="mv-stat-v">${runtime}</span></div>` : ''}
+            ${movie.original_language ? `<div class="mv-stat"><span class="ed-kicker">Language</span><span class="mv-stat-v">${escHtml(movie.original_language.toUpperCase())}</span></div>` : ''}
+            ${movie.certification ? `<div class="mv-stat"><span class="ed-kicker">US Rating</span><span class="mv-stat-v">${escHtml(movie.certification)}</span></div>` : ''}
+          </div>
+        </div>
+        <div id="radar-local-release"></div>
+      </div>
     </div>
+
+    <section class="mv-section"><div id="radar-watch-providers"></div></section>
+    <script type="application/json" id="radar-movie-data">${movieClientData}</script>
+    <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
+
+    ${movie.trailerKey ? `
+    <section class="mv-section" id="trailer">
+      <h2 class="ed-sec">Trailer</h2>
+      <div class="mv-trailer">
+        <iframe src="https://www.youtube.com/embed/${movie.trailerKey}?rel=0" allowfullscreen loading="lazy" title="${title} trailer"></iframe>
+      </div>
+    </section>` : ''}
+
+    ${narrative ? `
+    <section class="mv-section">
+      <h2 class="ed-sec">Release rollout</h2>
+      <p class="mv-rollout">${narrative}</p>
+      ${timelineHtml}
+    </section>` : ''}
+
+    ${releasesHtml ? `
+    <section class="mv-section">
+      <h2 class="ed-sec">Release dates by country</h2>
+      ${releasesHtml}
+    </section>` : ''}
+
+    ${historyHtml}
+
+    ${faqHtml}
+
+    ${relatedHtml}
   </div>
-  <script type="application/json" id="radar-movie-data">${movieClientData}</script>
-  <script>RadarUI.mountMovie(JSON.parse(document.getElementById('radar-movie-data').textContent));</script>
-
-  ${movie.trailerKey ? `
-  <section class="trailer-section">
-    <div class="section-heading">Trailer</div>
-    <div class="trailer-wrap">
-      <iframe src="https://www.youtube.com/embed/${movie.trailerKey}?rel=0" allowfullscreen loading="lazy" title="${title} trailer"></iframe>
-    </div>
-  </section>` : ''}
-
-  ${narrative ? `
-  <section class="releases-section">
-    <div class="section-heading">Release Rollout</div>
-    <p class="rollout-text">${narrative}</p>
-  </section>` : ''}
-
-  ${releasesHtml ? `
-  <section class="releases-section">
-    <div class="section-heading">Release Dates by Country</div>
-    <div class="releases-grid">${releasesHtml}</div>
-  </section>` : ''}
-
-  ${historyHtml}
-
-  ${faqHtml}
-
-  ${relatedHtml}
 </main>
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">&#127916; Movie Release Radar</div>
-    <div class="footer-attr">
-      Created by <a href="https://serhiiomelchenko.com/" target="_blank" rel="noopener">Serhii Omelchenko</a>
-      &nbsp;&middot;&nbsp;
-      This product uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.&nbsp;<a href="https://www.themoviedb.org/" target="_blank" rel="noopener"><img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" alt="The Movie Database (TMDB)" style="height:1.2rem;vertical-align:middle;" /></a>
-    </div>
-  </div>
-</footer>
+${SITE_FOOTER}
 </body>
 </html>`;
 }
@@ -1207,69 +1077,41 @@ const GTM_CONSENT_JS = `window.dataLayer = window.dataLayer || [];
 
 const GTM_TAG = `<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T3BJFZSV');<\/script>`;
 
-const TOP_SHARED_CSS = `
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0d0d0d; color: #e0e0e0; min-height: 100vh; }
-    header { background: #0d0d0d; padding: 1.4rem 2rem; border-bottom: 1px solid #1e1e1e; }
-    .header-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
-    .site-brand { display: flex; align-items: center; gap: 0.85rem; text-decoration: none; }
-    .brand-icon { width: 38px; height: 38px; flex-shrink: 0; }
-    .brand-icon .sweep-group { transform-origin: 22px 22px; animation: radar-spin 3s linear infinite; }
-    @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    .brand-name { font-size: 1.45rem; font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; }
-    .brand-name span { color: #e94560; }
-    .header-nav { display: flex; align-items: center; gap: 1.5rem; }
-    .nav-link { color: #666; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
-    .nav-link:hover { color: #fff; }
-    .nav-link.active { color: #fff; }
-    .support-link { display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid #e94560; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.78rem; font-weight: 700; white-space: nowrap; transition: background 0.15s; }
-    .support-link:hover { background: #e94560; }
-    .support-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-    @media (max-width: 900px) {
-      .site-brand { flex: 0 0 50%; }
-      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
-      .support-link { max-width: 100%; white-space: normal; text-align: center; }
-    }
-    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; color: #e94560; text-decoration: none; font-size: 0.875rem; margin-bottom: 1.5rem; }
-    .back-link:hover { text-decoration: underline; }
-    .genre-tag { background: rgba(15,52,96,0.8); color: #90caf9; border: 1px solid rgba(144,202,249,0.12); border-radius: 20px; padding: 0.28rem 0.8rem; font-size: 0.78rem; font-weight: 500; }
-    footer { border-top: 1px solid #1e1e1e; margin-top: 3rem; padding: 1.4rem 2rem; }
-    .footer-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-    .footer-brand { font-size: 0.78rem; font-weight: 700; color: #333; letter-spacing: 0.1em; text-transform: uppercase; }
-    .footer-attr { font-size: 0.75rem; color: #888; }
-    footer a { color: #e94560; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-    @media (max-width: 600px) {
-      header { padding: 1rem; }
-      .header-inner { flex-direction: row; align-items: center; }
-      .site-brand { flex: 0 0 50%; }
-      .header-nav { flex: 0 0 50%; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
-    }`;
+// Shared stylesheet links: the component styles first, the site theme over them.
+const THEME_HEAD = `<link rel="preload" href="/assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/radar.css" />
+  <link rel="stylesheet" href="/assets/theme.css" />`;
 
-const TOP_PAGE_HEADER = `
-<header>
-  <div class="header-inner">
-    <a href="/" class="site-brand">
+const SUPPORT_ICON = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M7 2v2M11 2v2M15 2v2"/></svg>`;
+
+function siteHeader(active = '') {
+  const link = (href, label, key) =>
+    `<a href="${href}" class="ed-nav-link${active === key ? ' active' : ''}"${active === key ? ' aria-current="page"' : ''}>${label}</a>`;
+  return `
+<header class="ed-header">
+  <div class="ed-header-inner">
+    <a href="/" class="ed-brand">
       ${RADAR_SVG}
-      <span class="brand-name">Movie Release <span>Radar</span></span>
+      <span class="ed-wordmark">Movie Release <span>Radar</span></span>
     </a>
-    <nav class="header-nav">
-      <a href="/" class="nav-link">Calendar</a>
-      <a href="/top-movies/" class="nav-link active">Top Movies</a>
-      <a href="https://ko-fi.com/serhiiomelchenko" class="support-link" target="_blank" rel="noopener noreferrer">&#9749; Support Movie Release Radar</a>
+    <nav class="ed-nav" aria-label="Main">
+      ${link('/', 'Calendar', 'calendar')}
+      ${link('/top-movies/', 'Top Movies', 'top')}
+      <a href="https://ko-fi.com/serhiiomelchenko" class="ed-support" target="_blank" rel="noopener noreferrer">${SUPPORT_ICON} Support Movie Release Radar</a>
     </nav>
   </div>
 </header>`;
+}
 
-const TOP_PAGE_FOOTER = `
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">&#127916; Movie Release Radar</div>
-    <div class="footer-attr">
+const SITE_FOOTER = `
+<footer class="ed-footer">
+  <div class="ed-footer-inner">
+    <span class="ed-footer-brand">Movie Release Radar</span>
+    <span class="ed-footer-attr">
       Created by <a href="https://serhiiomelchenko.com/" target="_blank" rel="noopener">Serhii Omelchenko</a>
       &nbsp;&middot;&nbsp;
-      This product uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.&nbsp;<a href="https://www.themoviedb.org/" target="_blank" rel="noopener"><img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" alt="The Movie Database (TMDB)" style="height:1.2rem;vertical-align:middle;" /></a>
-    </div>
+      This product uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.&nbsp;<a href="https://www.themoviedb.org/" target="_blank" rel="noopener"><img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" alt="The Movie Database (TMDB)" /></a>
+    </span>
   </div>
 </footer>`;
 
@@ -1285,11 +1127,11 @@ function addMonths(ym, n) {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}`;
 }
 
-function buildTopMoviesPage(ym, topMovies) {
+function buildTopMoviesPage(ym, topMovies, updatedOn = null) {
   const label        = monthLabel(ym);
   const canonicalUrl = `${SITE_BASE}/top-movies/${ym}/`;
   const pageTitle    = `Top 10 Movies in ${label}`;
-  const today        = new Date().toISOString().slice(0, 10);
+  const today        = updatedOn || new Date().toISOString().slice(0, 10);
   const previewTitles = topMovies.slice(0, 3).map(m => m.title).join(', ');
   const metaDesc = escHtml(
     `The 10 most popular movies releasing in ${label}: ${previewTitles}` +
@@ -1329,6 +1171,7 @@ function buildTopMoviesPage(ym, topMovies) {
     ],
   });
 
+  const MEDALS = ['gold', 'silver', 'bronze'];
   const moviesHtml = topMovies.map((m, i) => {
     const poster    = m.poster_path ? `${IMG_BASE}w342${m.poster_path}` : '';
     const t         = escHtml(m.title);
@@ -1340,25 +1183,24 @@ function buildTopMoviesPage(ym, topMovies) {
       ? new Date(m.release_date + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
       : 'TBA';
     const ratingHtml = m.vote_count > 0 && m.vote_average >= 1
-      ? `<span class="score">&#9733; ${m.vote_average.toFixed(1)}<span class="score-denom">&thinsp;/ 10</span></span>`
+      ? ` &middot; <span class="mv-star">&#9733; ${m.vote_average.toFixed(1)}</span> / 10`
       : '';
+    const medal = MEDALS[i] || '';
     return `
-    <article class="top-item">
-      <div class="rank">${i + 1}</div>
-      <div class="poster-wrap">
-        ${poster
-          ? `<a href="/movie/${m.slug}/"><img src="${poster}" alt="${t} poster" loading="lazy" width="100" height="150" /></a>`
-          : `<div class="poster-placeholder"><span>${t}</span></div>`}
+    <article class="tp-row${medal ? ' ' + medal : ''}" style="--i:${i}">
+      <div>
+        <div class="tp-n">${String(i + 1).padStart(2, '0')}</div>
+        ${medal ? `<div class="tp-medal"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13 2c1 5-3 6-3 9-1-1-2-2-2-4-4 4-5 7-4 10 1 4 5 6 8 6s7-2 8-6c1-5-2-10-7-15Z"/><path fill="#fff0dd" d="M12 13c1 2 3 3 3 5a3 3 0 0 1-6 0c0-2 2-3 3-5Z"/></svg>${medal}</div>` : ''}
       </div>
-      <div class="movie-info">
-        <h2><a href="/movie/${m.slug}/">${t}</a></h2>
-        <div class="meta-row">
-          <span class="rel-date">&#128197; ${escHtml(relDate)}</span>
-          ${ratingHtml}
-        </div>
-        ${genresHtml ? `<div class="genres">${genresHtml}</div>` : ''}
-        ${directors  ? `<div class="crew">&#127916; <strong>${directors}</strong></div>` : ''}
-        ${overview   ? `<p class="overview">${overview}${truncated ? '&hellip;' : ''}</p>` : ''}
+      ${poster
+        ? `<a href="/movie/${m.slug}/"><img class="tp-poster" src="${poster}" alt="${t} poster" loading="lazy" width="132" height="198" /></a>`
+        : `<div class="tp-poster ed-noposter">${t}</div>`}
+      <div class="tp-info">
+        <h2><a class="tp-title" href="/movie/${m.slug}/">${t}</a></h2>
+        <div class="tp-meta">${escHtml(relDate)}${ratingHtml}</div>
+        ${genresHtml ? `<div class="mv-genres">${genresHtml}</div>` : ''}
+        ${directors  ? `<div class="tp-meta">Directed by <strong style="color:var(--soft)">${directors}</strong></div>` : ''}
+        ${overview   ? `<p class="tp-overview">${overview}${truncated ? '&hellip;' : ''}</p>` : ''}
       </div>
     </article>`;
   }).join('\n');
@@ -1385,60 +1227,25 @@ function buildTopMoviesPage(ym, topMovies) {
   <meta property="og:description" content="${metaDesc}" />
   ${ogImage ? `<meta property="og:image" content="${ogImage}" />` : ''}
   <script type="application/ld+json">${schema}</script>
-  <style>${TOP_SHARED_CSS}
-    .top-page { max-width: 860px; margin: 0 auto; padding: 2rem; }
-    .page-header { margin-bottom: 2rem; }
-    .page-header h1 { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; }
-    .page-header .subtitle { margin-top: 0.5rem; font-size: 0.85rem; color: #555; }
-    .page-header .subtitle a { color: #e94560; text-decoration: none; }
-    .page-header .subtitle a:hover { text-decoration: underline; }
-    .top-list { display: flex; flex-direction: column; gap: 1.25rem; }
-    .top-item { display: flex; gap: 1.25rem; align-items: flex-start; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 1.25rem; position: relative; transition: border-color 0.15s; }
-    .top-item:hover { border-color: rgba(233,69,96,0.3); }
-    .rank { position: absolute; top: -10px; left: -10px; width: 32px; height: 32px; background: #e94560; color: #fff; font-weight: 800; font-size: 0.9rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(233,69,96,0.5); }
-    .top-item:first-child .rank { width: 36px; height: 36px; font-size: 1rem; top: -12px; left: -12px; }
-    .poster-wrap { flex-shrink: 0; width: 100px; }
-    .poster-wrap img { width: 100%; border-radius: 10px; display: block; box-shadow: 0 6px 24px rgba(0,0,0,0.6); }
-    .poster-wrap a { display: block; }
-    .poster-placeholder { width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
-    .poster-placeholder span { font-size: 0.7rem; color: #444; text-align: center; line-height: 1.3; }
-    .movie-info { flex: 1; min-width: 0; }
-    .movie-info h2 { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; line-height: 1.3; }
-    .movie-info h2 a { color: inherit; text-decoration: none; }
-    .movie-info h2 a:hover { color: #e94560; }
-    .meta-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
-    .rel-date { font-size: 0.8rem; color: #666; }
-    .score { font-size: 0.88rem; font-weight: 600; color: #f5c518; }
-    .score-denom { font-weight: 400; color: #555; }
-    .genres { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.5rem; }
-    .crew { font-size: 0.82rem; color: #888; margin-bottom: 0.5rem; }
-    .crew strong { color: #bbb; }
-    .overview { font-size: 0.875rem; color: #888; line-height: 1.65; }
-    .updated-note { margin-top: 2rem; font-size: 0.78rem; color: #444; text-align: center; }
-    @media (max-width: 600px) {
-      .top-page { padding: 1rem; }
-      .page-header h1 { font-size: 1.5rem; }
-      .top-item { padding: 0.875rem; gap: 0.875rem; }
-      .poster-wrap { width: 110px; }
-      .movie-info h2 { font-size: 1rem; }
-    }
-  </style>
+  ${THEME_HEAD}
 </head>
-<body>
+<body class="ed" data-tpl="ed1">
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-${TOP_PAGE_HEADER}
-<main class="top-page">
-  <a href="/top-movies/" class="back-link">&#8592; Top Movies by Month</a>
-  <div class="page-header">
-    <h1>${escHtml(pageTitle)}</h1>
-    <p class="subtitle">Ranked by TMDB popularity &middot; <a href="/calendar/${ym}/">All ${label} releases</a> &middot; <a href="/?m=${ym}">Interactive calendar</a></p>
+${siteHeader('top')}
+<main class="ed-wrap" style="padding-top:30px">
+  <a href="/top-movies/" class="ed-back">&#8592; Top Movies by month</a>
+  <div class="ed-reveal" style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-top:18px">
+    <h1 class="ed-display">Top 10 <span class="ed-light">${escHtml(label)}</span></h1>
+    <div class="ed-links"><a class="ed-btn" href="/calendar/${ym}/">All ${escHtml(label)} releases</a><a class="ed-btn accent" href="/?m=${ym}">Interactive calendar</a></div>
   </div>
-  <div class="top-list">
+  <p class="ed-note" style="margin:14px 0 22px">Ranked by TMDB popularity</p>
+  <div class="ed-rule"></div>
+  <div class="tp-list">
     ${moviesHtml}
   </div>
-  <p class="updated-note">Last updated: ${today} &middot; Data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></p>
+  <p class="ed-note">Last updated: ${today} &middot; Data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></p>
 </main>
-${TOP_PAGE_FOOTER}
+${SITE_FOOTER}
 </body>
 </html>`;
 }
@@ -1457,22 +1264,27 @@ function buildTopMoviesIndexPage(allMonths, detailedMovies) {
     moviesByMonth[ym].push(m);
   }
 
-  const cardsHtml = [...allMonths].reverse().map(ym => {
-    const label    = monthLabel(ym);
+  const recentFirst = [...allMonths].reverse();
+  const FEATURED_MONTHS = 4;
+  const cardsHtml = recentFirst.slice(0, FEATURED_MONTHS).map((ym, i) => {
+    const [y] = ym.split('-');
+    const name = new Date(`${ym}-01T00:00:00`).toLocaleDateString('en-US', { month: 'long' });
     const topThree = (moviesByMonth[ym] || [])
       .sort((a, b) => smoothPop(b) - smoothPop(a))
       .slice(0, 3);
     const thumbsHtml = topThree
       .filter(m => m.poster_path)
-      .map(m => `<img src="${escHtml(`${IMG_BASE}w154${m.poster_path}`)}" alt="${escHtml(m.title)} poster" loading="lazy" width="60" height="90" />`)
+      .map(m => `<img src="${escHtml(`${IMG_BASE}w185${m.poster_path}`)}" alt="${escHtml(m.title)} poster" loading="lazy" width="118" height="177" />`)
       .join('');
     return `
-    <a href="/top-movies/${ym}/" class="month-card">
-      <div class="month-name">${escHtml(label)}</div>
-      ${thumbsHtml ? `<div class="month-thumbs">${thumbsHtml}</div>` : ''}
-      <div class="view-label">View Top 10 &#8594;</div>
+    <a href="/top-movies/${ym}/" class="tp-month ed-reveal" style="--i:${i}">
+      <span class="tp-month-head"><span class="tp-month-name">${escHtml(name)}</span><span class="tp-month-year">${y}</span></span>
+      ${thumbsHtml ? `<span class="tp-fan">${thumbsHtml}</span>` : ''}
+      <span class="tp-month-cta">View Top 10 &#8594;</span>
     </a>`;
   }).join('\n');
+  const archiveHtml = recentFirst.slice(FEATURED_MONTHS).map(ym =>
+    `<a href="/top-movies/${ym}/"><span class="tp-archive-name">${escHtml(monthLabel(ym))}</span><span class="tp-archive-cta">Top 10 &#8594;</span></a>`).join('\n    ');
 
   const schema = JSON.stringify({
     '@context': 'https://schema.org',
@@ -1520,43 +1332,55 @@ function buildTopMoviesIndexPage(allMonths, detailedMovies) {
   <meta property="og:title"       content="${escHtml(pageTitle)}" />
   <meta property="og:description" content="${metaDesc}" />
   <script type="application/ld+json">${schema}</script>
-  <style>${TOP_SHARED_CSS}
-    .index-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
-    .page-header { margin-bottom: 2.5rem; text-align: center; }
-    .page-header h1 { font-size: 2.2rem; font-weight: 800; color: #fff; }
-    .page-header p { margin-top: 0.6rem; font-size: 0.9rem; color: #666; }
-    .months-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
-    .month-card { display: flex; flex-direction: column; gap: 0.75rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 1.25rem 1rem; text-decoration: none; color: inherit; transition: border-color 0.15s, background 0.15s; }
-    .month-card:hover { border-color: rgba(233,69,96,0.4); background: rgba(233,69,96,0.05); }
-    .month-name { font-size: 1.05rem; font-weight: 700; color: #fff; }
-    .month-thumbs { display: flex; gap: 0.35rem; overflow: hidden; }
-    .month-thumbs img { flex: 1 1 0; min-width: 0; width: 0; height: 81px; object-fit: cover; border-radius: 6px; }
-    .view-label { font-size: 0.8rem; color: #e94560; font-weight: 600; }
-    .updated-note { margin-top: 2.5rem; font-size: 0.78rem; color: #444; text-align: center; }
-    .updated-note a { color: #e94560; }
-    @media (max-width: 600px) {
-      .index-page { padding: 1rem; }
-      .page-header h1 { font-size: 1.6rem; }
-      .months-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-    }
-  </style>
+  ${THEME_HEAD}
 </head>
-<body>
+<body class="ed">
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-${TOP_PAGE_HEADER}
-<main class="index-page">
-  <div class="page-header">
-    <h1>${escHtml(pageTitle)}</h1>
-    <p>The most popular movies for each month, ranked by popularity. Updated daily.</p>
-  </div>
-  <div class="months-grid">
+${siteHeader('top')}
+<main class="ed-wrap" style="padding-top:34px">
+  <span class="ed-kicker">Updated daily</span>
+  <h1 class="ed-display ed-reveal" style="margin-top:8px">Top movies <span class="ed-light">by month</span></h1>
+  <p class="ed-lede" style="margin:16px 0 22px;color:var(--muted);font-size:14px">The most popular movies for each month, ranked by popularity. Updated daily.</p>
+  <div class="ed-rule"></div>
+  <div class="tp-months">
     ${cardsHtml}
   </div>
-  <p class="updated-note">Last updated: ${today} &middot; Data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></p>
+  ${archiveHtml ? `<span class="ed-kicker" style="margin:40px 0 6px">Earlier months</span>
+  <div class="tp-archive">
+    ${archiveHtml}
+  </div>` : ''}
+  <p class="ed-note">Last updated: ${today} &middot; Data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></p>
 </main>
-${TOP_PAGE_FOOTER}
+${SITE_FOOTER}
 </body>
 </html>`;
+}
+
+// A movie listed in a frozen Top 10 archive: the current record (following
+// renamed slugs), or, when the movie has left the catalog, the entry as the
+// archive itself printed it.
+function archivedTopMovie(block, bySlug, slugIds, byId) {
+  const slug = (block.match(/<h2><a href="\/movie\/([^/"]+)\/"/) || [])[1];
+  if (!slug) return null;
+  const current = bySlug.get(slug) || byId.get(slugIds.get(slug));
+  if (current) return current;
+  const text = re => { const m = block.match(re); return m ? m[1].replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>') : ''; };
+  const title = text(/<h2><a [^>]*>([\s\S]*?)<\/a><\/h2>/);
+  if (!title) return null;
+  const dateText = text(/&#128197; ([^<]+)</);
+  const parsed = dateText ? new Date(dateText + ' 12:00:00 UTC') : null;
+  const rating = parseFloat(text(/&#9733; ([\d.]+)/));
+  return {
+    slug,
+    title,
+    poster_path: text(/image\.tmdb\.org\/t\/p\/w\d+(\/[^"]+)"/) || null,
+    release_date: parsed && !isNaN(parsed) ? parsed.toISOString().slice(0, 10) : null,
+    vote_average: rating || 0,
+    vote_count: rating ? 1 : 0,
+    genres: [...block.matchAll(/<span class="genre-tag">([^<]+)<\/span>/g)].map(g => g[1].replace(/&amp;/g, '&')),
+    directors: text(/<div class="crew">[\s\S]*?<strong>([\s\S]*?)<\/strong>/).split(', ').filter(Boolean),
+    overview: text(/<p class="overview">([\s\S]*?)<\/p>/).replace(/&hellip;$/, '…'),
+  };
 }
 
 function generateTopMoviesPages(detailedMovies, globalHitIds = null) {
@@ -1574,11 +1398,31 @@ function generateTopMoviesPages(detailedMovies, globalHitIds = null) {
 
   fs.mkdirSync(TOP_MOVIES_DIR, { recursive: true });
 
-  let written = 0, skipped = 0;
+  let written = 0, skipped = 0, reskinned = 0;
+  const bySlug = new Map(detailedMovies.filter(m => m.slug).map(m => [m.slug, m]));
+  const byId = new Map(detailedMovies.map(m => [String(m.id), m]));
+  const slugIds = new Map();
+  for (const [id, entry] of Object.entries(loadJSON(MANIFEST_PATH, {}))) {
+    for (const sl of [entry.slug, ...(entry.previousSlugs || [])]) if (sl) slugIds.set(sl, id);
+  }
   for (const ym of allMonths) {
     const outPath = path.join(TOP_MOVIES_DIR, ym, 'index.html');
-    // Past months: generate once, then freeze
-    if (ym < currentYm && fs.existsSync(outPath)) { skipped++; continue; }
+    // Past months: generate once, then freeze. An archive written by an older
+    // template is rebuilt in the current one with its frozen order and date.
+    if (ym < currentYm && fs.existsSync(outPath)) {
+      const frozen = fs.readFileSync(outPath, 'utf8');
+      if (!frozen.includes('data-tpl="ed1"')) {
+        const order = [...frozen.matchAll(/<article class="top-item">([\s\S]*?)<\/article>/g)].map(x => archivedTopMovie(x[1], bySlug, slugIds, byId));
+        const updatedOn = (frozen.match(/Last updated: (\d{4}-\d{2}-\d{2})/) || [])[1];
+        if (order.length && order.every(Boolean)) {
+          fs.writeFileSync(outPath, buildTopMoviesPage(ym, order, updatedOn));
+          reskinned++;
+          continue;
+        }
+      }
+      skipped++;
+      continue;
+    }
 
     const topMovies = detailedMovies
       .filter(m => m.release_date && m.release_date.startsWith(ym) && m.slug)
@@ -1599,7 +1443,7 @@ function generateTopMoviesPages(detailedMovies, globalHitIds = null) {
   }
 
   fs.writeFileSync(path.join(TOP_MOVIES_DIR, 'index.html'), buildTopMoviesIndexPage(allMonths, detailedMovies));
-  console.log(`Top movies pages: ${written} written, ${skipped} past-month(s) frozen`);
+  console.log(`Top movies pages: ${written} written, ${skipped} past-month(s) frozen${reskinned ? `, ${reskinned} archive(s) restyled` : ''}`);
   return allMonths;
 }
 
@@ -1627,38 +1471,34 @@ function hubHead(pageTitle, metaDesc, canonicalUrl, ogImage, schema) {
   <script type="application/ld+json">${schema}</script>`;
 }
 
-const HUB_CSS = `
-    .hub-page { max-width: 960px; margin: 0 auto; padding: 2rem; }
-    .page-header { margin-bottom: 2rem; }
-    .page-header h1 { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; }
-    .page-header .intro { margin-top: 0.75rem; font-size: 0.92rem; color: #999; line-height: 1.7; max-width: 720px; }
-    .page-header .intro a { color: #e94560; text-decoration: none; }
-    .page-header .intro a:hover { text-decoration: underline; }
-    .hub-nav { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.25rem 0; font-size: 0.85rem; }
-    .hub-nav a { color: #e94560; text-decoration: none; }
-    .hub-nav a:hover { text-decoration: underline; }
-    .section-heading { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #555; margin: 2rem 0 0.9rem; padding-bottom: 0.5rem; border-bottom: 1px solid #1e1e1e; }
-    .featured-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: 0.9rem; }
-    .fg-card { display: flex; flex-direction: column; gap: 0.35rem; text-decoration: none; position: relative; }
-    .fg-card img { width: 100%; border-radius: 10px; display: block; aspect-ratio: 2/3; object-fit: cover; }
-    .fg-noposter { width: 100%; aspect-ratio: 2/3; background: #1a1a1a; border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 0.4rem; }
-    .fg-noposter span { font-size: 0.68rem; color: #555; text-align: center; line-height: 1.3; }
-    .fg-title { font-size: 0.76rem; font-weight: 600; color: #ccc; line-height: 1.3; }
-    .fg-card:hover .fg-title { color: #e94560; }
-    .fg-date { font-size: 0.68rem; color: #555; }
-    .day-group { margin-bottom: 1.4rem; }
-    .day-group h3 { font-size: 0.95rem; font-weight: 700; color: #ddd; margin-bottom: 0.55rem; }
-    .day-group ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
-    .day-group li { font-size: 0.88rem; color: #999; }
-    .day-group li a { color: #e0e0e0; text-decoration: none; font-weight: 600; }
-    .day-group li a:hover { color: #e94560; }
-    .day-group .genre-note { color: #555; font-size: 0.78rem; }
-    .updated-note { margin-top: 2.5rem; font-size: 0.78rem; color: #444; text-align: center; }
-    .updated-note a { color: #e94560; }
-    @media (max-width: 600px) {
-      .hub-page { padding: 1rem; }
-      .page-header h1 { font-size: 1.45rem; }
-    }`;
+// One day of a hub schedule: big date, weekday, film count, the first dozen
+// titles and the rest behind a no-JS <details> (still in the page for crawlers).
+const HUB_DAY_SHOWN = 12;
+function hubDayHtml(date, items, i) {
+  const d = new Date(date + 'T00:00:00');
+  const weekday = d.toLocaleDateString('en-US', { weekday: 'long' });
+  const row = ({ movie: m, linked }) => {
+    const genre = (m.genres || [])[0];
+    const titleHtml = linked ? `<a href="/movie/${m.slug}/">${escHtml(m.title)}</a>` : escHtml(m.title);
+    return `<li class="hub-item">${titleHtml}${genre ? ` <span class="genre-note">&middot; ${escHtml(genre)}</span>` : ''}</li>`;
+  };
+  return `<section class="hub-day ed-reveal" style="--i:${Math.min(i, 8)}">
+      <h3 class="hub-day-head"><span class="hub-day-num">${d.getDate()}</span><span class="hub-day-sub"><span class="ed-kicker">${weekday}</span><span class="hub-day-count">${fmtLong(date)} &middot; ${items.length} ${items.length === 1 ? 'film' : 'films'}</span></span></h3>
+      <ul>
+        ${items.slice(0, HUB_DAY_SHOWN).map(row).join('\n        ')}
+      </ul>
+      ${items.length > HUB_DAY_SHOWN ? `<details class="ed-more"><summary>Show all ${items.length} films</summary><ul>${items.slice(HUB_DAY_SHOWN).map(row).join('')}</ul></details>` : ''}
+    </section>`;
+}
+
+function hubPosterCard(m, date) {
+  const poster = m.poster_path ? `${IMG_BASE}w185${m.poster_path}` : '';
+  return `<a class="ed-poster" href="/movie/${m.slug}/">
+      ${poster ? `<img src="${poster}" alt="${escHtml(m.title)} poster" loading="lazy" width="132" height="198" />` : `<span class="ed-noposter">${escHtml(m.title)}</span>`}
+      <span class="ed-poster-title">${escHtml(m.title)}</span>
+      ${date ? `<span class="ed-poster-date">${fmtShort(date)}</span>` : ''}
+    </a>`;
+}
 
 function buildMonthHubPage(ym, monthMovies, globalHitIds, hubMonthsSet, topMonthsSet) {
   const label        = monthLabel(ym);
@@ -1704,14 +1544,7 @@ function buildMonthHubPage(ym, monthMovies, globalHitIds, hubMonthsSet, topMonth
     ],
   });
 
-  const featuredHtml = hits.slice(0, 18).map(m => {
-    const poster = m.poster_path ? `${IMG_BASE}w185${m.poster_path}` : '';
-    return `<a class="fg-card" href="/movie/${m.slug}/">
-      ${poster ? `<img src="${poster}" alt="${escHtml(m.title)} poster" loading="lazy" width="105" height="158" />` : `<div class="fg-noposter"><span>${escHtml(m.title)}</span></div>`}
-      <span class="fg-title">${escHtml(m.title)}</span>
-      ${m.release_date ? `<span class="fg-date">${fmtShort(m.release_date)}</span>` : ''}
-    </a>`;
-  }).join('\n    ');
+  const featuredHtml = hits.slice(0, 18).map(m => hubPosterCard(m, m.release_date)).join('\n    ');
 
   // Day-by-day schedule: every page-worthy movie of the month, links for hits
   const byDay = {};
@@ -1719,30 +1552,16 @@ function buildMonthHubPage(ym, monthMovies, globalHitIds, hubMonthsSet, topMonth
     if (!m.release_date) continue;
     (byDay[m.release_date] = byDay[m.release_date] || []).push(m);
   }
-  const scheduleHtml = Object.keys(byDay).sort().map(date => {
-    const items = byDay[date]
-      .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
-      .map(m => {
-        const genre = (m.genres || [])[0];
-        const titleHtml = (globalHitIds.has(m.id) && m.slug)
-          ? `<a href="/movie/${m.slug}/">${escHtml(m.title)}</a>`
-          : escHtml(m.title);
-        return `<li>${titleHtml}${genre ? ` <span class="genre-note">&middot; ${escHtml(genre)}</span>` : ''}</li>`;
-      }).join('\n        ');
-    return `<div class="day-group">
-      <h3>${fmtLong(date)}</h3>
-      <ul>
-        ${items}
-      </ul>
-    </div>`;
-  }).join('\n    ');
+  const scheduleHtml = Object.keys(byDay).sort().map((date, i) => hubDayHtml(date, byDay[date]
+    .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+    .map(m => ({ movie: m, linked: globalHitIds.has(m.id) && !!m.slug })), i)).join('\n    ');
 
   const prevYm = addMonths(ym, -1), nextMonthYm = addMonths(ym, 1);
   const navLinks = [
-    hubMonthsSet.has(prevYm)      ? `<a href="/calendar/${prevYm}/">&#8592; ${escHtml(monthLabel(prevYm))}</a>` : '',
-    `<a href="/?m=${ym}">Interactive ${escHtml(label)} calendar</a>`,
-    topMonthsSet.has(ym)          ? `<a href="/top-movies/${ym}/">Top 10 of ${escHtml(label)}</a>` : '',
-    hubMonthsSet.has(nextMonthYm) ? `<a href="/calendar/${nextMonthYm}/">${escHtml(monthLabel(nextMonthYm))} &#8594;</a>` : '',
+    hubMonthsSet.has(prevYm)      ? `<a class="ed-btn" href="/calendar/${prevYm}/">&#8592; ${escHtml(monthLabel(prevYm))}</a>` : '',
+    `<a class="ed-btn accent" href="/?m=${ym}">Interactive ${escHtml(label)} calendar</a>`,
+    topMonthsSet.has(ym)          ? `<a class="ed-btn" href="/top-movies/${ym}/">Top 10 of ${escHtml(label)}</a>` : '',
+    hubMonthsSet.has(nextMonthYm) ? `<a class="ed-btn" href="/calendar/${nextMonthYm}/">${escHtml(monthLabel(nextMonthYm))} &#8594;</a>` : '',
   ].filter(Boolean).join('\n    ');
 
   const introTop = hits.slice(0, 3).map(m => `<a href="/movie/${m.slug}/">${escHtml(m.title)}</a>`).join(', ');
@@ -1751,29 +1570,30 @@ function buildMonthHubPage(ym, monthMovies, globalHitIds, hubMonthsSet, topMonth
 <html lang="en">
 <head>
   ${hubHead(pageTitle, metaDesc, canonicalUrl, ogImage, schema)}
-  <style>${TOP_SHARED_CSS}${HUB_CSS}</style>
+  ${THEME_HEAD}
 </head>
-<body>
+<body class="ed">
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-${TOP_PAGE_HEADER}
-<main class="hub-page">
-  <div class="page-header">
-    <h1>${escHtml(pageTitle)}</h1>
-    <p class="intro">${monthMovies.length} movies ${ym < today.slice(0, 7) ? 'were released' : 'are scheduled for release'} in ${escHtml(label)}${introTop ? `, led by ${introTop}` : ''}. Below is the full day-by-day theatrical release schedule, with release dates tracked across ${SUPPORTED_COUNTRIES.length} countries and updated every night.</p>
-  </div>
-  <nav class="hub-nav">
+${siteHeader()}
+<main class="ed-wrap" style="padding-top:34px">
+  <span class="ed-kicker">Release calendar</span>
+  <h1 class="ed-display ed-reveal" style="margin-top:8px">Movies coming out <span class="ed-light">in ${escHtml(label)}</span></h1>
+  <p class="ed-lede" style="margin-top:18px">${monthMovies.length} movies ${ym < today.slice(0, 7) ? 'were released' : 'are scheduled for release'} in ${escHtml(label)}${introTop ? `, led by ${introTop}` : ''}. Below is the full day-by-day theatrical release schedule, with release dates tracked across ${SUPPORTED_COUNTRIES.length} countries and updated every night.</p>
+  <nav class="hub-nav" aria-label="Related calendars">
     ${navLinks}
   </nav>
   ${featuredHtml ? `
-  <div class="section-heading">Featured ${escHtml(label)} Releases</div>
-  <div class="featured-grid">
+  <h2 class="ed-sec">Featured ${escHtml(label)} releases</h2>
+  <div class="ed-poster-grid">
     ${featuredHtml}
   </div>` : ''}
-  <div class="section-heading">Day-by-Day Schedule</div>
-  ${scheduleHtml}
-  <p class="updated-note">Updated nightly &middot; Data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></p>
+  <h2 class="ed-sec" style="margin-top:56px">Day-by-day schedule</h2>
+  <div class="hub-days">
+    ${scheduleHtml}
+  </div>
+  <p class="ed-note">Updated nightly &middot; Data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></p>
 </main>
-${TOP_PAGE_FOOTER}
+${SITE_FOOTER}
 </body>
 </html>`;
 }
@@ -1866,15 +1686,7 @@ function buildCountryHubPage(cc, movies, globalHitIds, hubMonthsSet) {
     ],
   });
 
-  const featuredHtml = hits.slice(0, 12).map(x => {
-    const m = x.movie;
-    const poster = m.poster_path ? `${IMG_BASE}w185${m.poster_path}` : '';
-    return `<a class="fg-card" href="/movie/${m.slug}/">
-      ${poster ? `<img src="${poster}" alt="${escHtml(m.title)} poster" loading="lazy" width="105" height="158" />` : `<div class="fg-noposter"><span>${escHtml(m.title)}</span></div>`}
-      <span class="fg-title">${escHtml(m.title)}</span>
-      <span class="fg-date">${fmtShort(x.date)}</span>
-    </a>`;
-  }).join('\n    ');
+  const featuredHtml = hits.slice(0, 12).map(x => hubPosterCard(x.movie, x.date)).join('\n    ');
 
   // Schedule grouped by month, then by day (local dates)
   const byYm = {};
@@ -1887,51 +1699,39 @@ function buildCountryHubPage(cc, movies, globalHitIds, hubMonthsSet) {
     const monthHeading = hubMonthsSet.has(ym)
       ? `<a href="/calendar/${ym}/">${escHtml(monthLabel(ym))}</a>`
       : escHtml(monthLabel(ym));
-    const days = Object.keys(byYm[ym]).sort().map(date => {
-      const items = byYm[ym][date]
-        .sort((a, b) => (b.movie.popularity || 0) - (a.movie.popularity || 0))
-        .map(x => {
-          const m = x.movie;
-          const genre = (m.genres || [])[0];
-          const titleHtml = (globalHitIds.has(m.id) && m.slug)
-            ? `<a href="/movie/${m.slug}/">${escHtml(m.title)}</a>`
-            : escHtml(m.title);
-          return `<li>${titleHtml}${genre ? ` <span class="genre-note">&middot; ${escHtml(genre)}</span>` : ''}</li>`;
-        }).join('\n        ');
-      return `<div class="day-group">
-      <h3>${fmtLong(date)}</h3>
-      <ul>
-        ${items}
-      </ul>
-    </div>`;
-    }).join('\n    ');
-    return `<div class="section-heading">${monthHeading}</div>\n    ${days}`;
+    const days = Object.keys(byYm[ym]).sort().map((date, i) => hubDayHtml(date, byYm[ym][date]
+      .sort((a, b) => (b.movie.popularity || 0) - (a.movie.popularity || 0))
+      .map(x => ({ movie: x.movie, linked: globalHitIds.has(x.movie.id) && !!x.movie.slug })), i)).join('\n    ');
+    return `<section class="hub-month"><h2 class="ed-sec">${monthHeading}</h2>\n  <div class="hub-days">\n    ${days}\n  </div></section>`;
   }).join('\n    ');
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   ${hubHead(pageTitle, metaDesc, canonicalUrl, ogImage, schema)}
-  <style>${TOP_SHARED_CSS}${HUB_CSS}</style>
+  ${THEME_HEAD}
 </head>
-<body>
+<body class="ed">
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-${TOP_PAGE_HEADER}
-<main class="hub-page">
-  <a href="/releases/" class="back-link">&#8592; Releases by country</a>
-  <div class="page-header">
-    <h1>${escHtml(pageTitle)}</h1>
-    <p class="intro">${upcoming.length} movies have reported local release dates in ${escHtml(name)} over the coming months. Dates below are the local ${escHtml(name)} release dates, which often differ from the US or worldwide premiere — checked and updated every night.</p>
+${siteHeader()}
+<main class="ed-wrap" style="padding-top:30px">
+  <a href="/releases/" class="ed-back">&#8592; Releases by country</a>
+  <span class="ed-kicker" style="margin-top:18px">Movie release dates in</span>
+  <h1 class="ed-hero-title ed-reveal" style="margin-top:8px;font-size:clamp(56px,7vw,96px)">${escHtml(name)}</h1>
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-top:18px">
+    <p class="ed-lede">${upcoming.length} movies have reported local release dates in ${escHtml(name)} over the coming months. Dates below are the local ${escHtml(name)} release dates, which often differ from the US or worldwide premiere — checked and updated every night.</p>
+    <a class="ed-btn accent" href="/?country=${cc}">Open in the calendar &#8594;</a>
   </div>
+  <div class="ed-rule" style="margin-top:26px"></div>
   ${featuredHtml ? `
-  <div class="section-heading">Featured Upcoming Releases</div>
-  <div class="featured-grid">
+  <h2 class="ed-sec" style="border-top:0;padding-top:22px">Featured upcoming releases</h2>
+  <div class="ed-poster-grid">
     ${featuredHtml}
   </div>` : ''}
   ${scheduleHtml}
-  <p class="updated-note">Updated nightly &middot; Data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></p>
+  <p class="ed-note">Updated nightly &middot; Data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></p>
 </main>
-${TOP_PAGE_FOOTER}
+${SITE_FOOTER}
 </body>
 </html>`;
 }
@@ -1965,40 +1765,39 @@ function buildReleasesIndexPage(countryCounts) {
     ],
   });
 
-  const cardsHtml = [...SUPPORTED_COUNTRIES]
-    .sort((a, b) => (COUNTRY_NAMES[a] || a).localeCompare(COUNTRY_NAMES[b] || b))
-    .map(cc => `
-    <a href="/releases/${countrySlug(cc)}/" class="country-card">
-      <span class="cc-name">${escHtml(COUNTRY_NAMES[cc] || cc)}</span>
-      <span class="cc-count">${countryCounts[cc] || 0} upcoming</span>
-    </a>`).join('\n');
+  const REGIONS = [
+    ['Europe', cc => !['BR', 'CA', 'US', 'AU', 'CN', 'IN', 'JP', 'KR'].includes(cc)],
+    ['Americas', cc => ['BR', 'CA', 'US'].includes(cc)],
+    ['Asia-Pacific', cc => ['AU', 'CN', 'IN', 'JP', 'KR'].includes(cc)],
+  ];
+  const byName = [...SUPPORTED_COUNTRIES].sort((a, b) => (COUNTRY_NAMES[a] || a).localeCompare(COUNTRY_NAMES[b] || b));
+  const regionsHtml = REGIONS.map(([region, test], i) => {
+    const list = byName.filter(test);
+    return `<section class="cty-region ed-reveal" style="--i:${i}">
+    <div class="cty-region-head"><h2 class="ed-sec" style="border:0;padding:0">${region}</h2><span class="cty-count">${list.length} countries</span></div>
+    <div class="cty-grid">
+      ${list.map(cc => `<a href="/releases/${countrySlug(cc)}/" class="cty-link"><span class="cty-name">${escHtml(COUNTRY_NAMES[cc] || cc)}</span><span class="cty-count">${countryCounts[cc] || 0} upcoming &#8594;</span></a>`).join('\n      ')}
+    </div>
+  </section>`;
+  }).join('\n  ');
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   ${hubHead(pageTitle, metaDesc, canonicalUrl, '', schema)}
-  <style>${TOP_SHARED_CSS}${HUB_CSS}
-    .countries-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 0.9rem; }
-    .country-card { display: flex; flex-direction: column; gap: 0.3rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 1rem; text-decoration: none; transition: border-color 0.15s, background 0.15s; }
-    .country-card:hover { border-color: rgba(233,69,96,0.4); background: rgba(233,69,96,0.05); }
-    .cc-name { font-size: 0.95rem; font-weight: 700; color: #fff; }
-    .cc-count { font-size: 0.75rem; color: #666; }
-  </style>
+  ${THEME_HEAD}
 </head>
-<body>
+<body class="ed">
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3BJFZSV" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-${TOP_PAGE_HEADER}
-<main class="hub-page">
-  <div class="page-header">
-    <h1>${escHtml(pageTitle)}</h1>
-    <p class="intro">Movies rarely open everywhere on the same day. Pick a country to see its local theatrical release calendar — every date below is tracked per country and refreshed nightly.</p>
-  </div>
-  <div class="countries-grid">
-    ${cardsHtml}
-  </div>
-  <p class="updated-note">Updated nightly &middot; Data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></p>
+${siteHeader()}
+<main class="ed-wrap" style="padding-top:34px">
+  <span class="ed-kicker">${SUPPORTED_COUNTRIES.length} countries</span>
+  <h1 class="ed-display ed-reveal" style="margin-top:8px">Release dates <span class="ed-light">by country</span></h1>
+  <p class="ed-lede" style="margin-top:18px">Movies rarely open everywhere on the same day. Pick a country to see its local theatrical release calendar — every date below is tracked per country and refreshed nightly.</p>
+  ${regionsHtml}
+  <p class="ed-note">Updated nightly &middot; Data from <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a></p>
 </main>
-${TOP_PAGE_FOOTER}
+${SITE_FOOTER}
 </body>
 </html>`;
 }
@@ -2067,40 +1866,40 @@ function injectHomepage(allMovies, globalHitIds, hubMonths) {
 
   const cards = featured.map(m => {
     const poster = m.poster_path ? `${IMG_BASE}w185${m.poster_path}` : '';
-    return `    <a class="hf-card" href="/movie/${m.slug}/">
-      ${poster ? `<img src="${poster}" alt="${escHtml(m.title)} poster" loading="lazy" width="105" height="158" />` : `<div class="hf-noposter"><span>${escHtml(m.title)}</span></div>`}
-      <span class="hf-title">${escHtml(m.title)}</span>
-      ${m.release_date ? `<span class="hf-date">${fmtShort(m.release_date)}</span>` : ''}
+    return `    <a class="ed-poster hf-card" href="/movie/${m.slug}/">
+      ${poster ? `<img src="${poster}" alt="${escHtml(m.title)} poster" loading="lazy" width="132" height="198" />` : `<span class="ed-noposter">${escHtml(m.title)}</span>`}
+      <span class="ed-poster-title">${escHtml(m.title)}</span>
+      ${m.release_date ? `<span class="ed-poster-date">${fmtShort(m.release_date)}</span>` : ''}
     </a>`;
   }).join('\n');
 
-  const featuredSection = featured.length ? `<section class="home-featured">
-  <h2 class="home-sec-title">Featured Movies This Month</h2>
+  const featuredSection = featured.length ? `<section class="home-featured ed-wrap">
+  <h2 class="ed-sec">Featured movies this month</h2>
   <p class="home-sec-sub">The most popular ${escHtml(label)} releases &mdash; <a href="/calendar/${currentYm}/">see the full ${escHtml(label)} release calendar</a>.</p>
-  <div class="home-featured-grid">
+  <div class="ed-poster-grid">
 ${cards}
   </div>
 </section>` : '';
 
   const monthLinks = hubMonths.map(ym =>
-    `<a href="/calendar/${ym}/">${escHtml(monthLabel(ym))}</a>`).join('\n      ');
+    `<a class="ed-chip" href="/calendar/${ym}/">${escHtml(monthLabel(ym))}</a>`).join('\n      ');
   const countryLinks = [...SUPPORTED_COUNTRIES]
     .sort((a, b) => (COUNTRY_NAMES[a] || a).localeCompare(COUNTRY_NAMES[b] || b))
-    .map(cc => `<a href="/releases/${countrySlug(cc)}/">${escHtml(COUNTRY_NAMES[cc] || cc)}</a>`).join('\n      ');
+    .map(cc => `<a class="ed-chip" href="/releases/${countrySlug(cc)}/">${escHtml(COUNTRY_NAMES[cc] || cc)}</a>`).join('\n      ');
 
-  const browseSection = `<section class="home-browse">
-  <h2 class="home-sec-title">Browse Release Calendars</h2>
+  const browseSection = `<section class="home-browse ed-wrap">
+  <h2 class="ed-sec">Browse release calendars</h2>
   <div class="home-browse-group">
-    <h3>By month</h3>
-    <div class="home-links">
+    <h3 class="ed-kicker">By month</h3>
+    <div class="ed-links">
       ${monthLinks}
     </div>
   </div>
   <div class="home-browse-group">
-    <h3>By country</h3>
-    <div class="home-links">
+    <h3 class="ed-kicker">By country</h3>
+    <div class="ed-links">
       ${countryLinks}
-      <a href="/releases/">All countries &#8594;</a>
+      <a class="ed-chip ed-chip-accent" href="/releases/">All countries &#8594;</a>
     </div>
   </div>
 </section>`;

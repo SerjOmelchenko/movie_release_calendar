@@ -21,8 +21,8 @@ function dom(html,url='https://moviereleaseradar.com/'){
 const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 test('shared URL wins over browser preferences; no automatic tour or date shortcuts',async()=>{
   const {page,w,errors,el}=dom(source,'https://moviereleaseradar.com/?country=NL&month=2026-10&view=list&genre=27');w.eval(mainScript);await w.radarReady;
-  assert.equal(el('region-select').value,'NL');assert.equal(el('genre-select').value,'27');assert(el('month-label').textContent.includes('October'));assert(el('view-toggle-track').classList.contains('on'));assert(!el('onboarding-overlay'));assert(!w.document.querySelector('[data-range]'));assert(!w.document.body.textContent.includes('Weekly digest'));
-  el('share-view').click();assert(el('shared-url').value.includes('country=NL'));el('close-share').click();assert(!el('shared-url'));assert.equal(errors.length,0);page.window.close();
+  assert.equal(el('region-select').value,'NL');assert.equal(el('genre-select').value,'27');assert(el('month-label').textContent.includes('October'));assert.equal(el('view-list').getAttribute('aria-pressed'),'true');assert(!el('onboarding-overlay'));assert(!w.document.querySelector('[data-range]'));assert(!w.document.body.textContent.includes('Weekly digest'));
+  assert(!el('share-view'));assert(w.location.search.includes('country=NL'));assert(w.location.search.includes('view=list'));assert.equal(errors.length,0);page.window.close();
 });
 test('search finds a different month and a non-featured movie; clear restores calendar',async()=>{
   const {page,w,errors,el}=dom(source,'https://moviereleaseradar.com/?country=NL');w.eval(mainScript);await w.radarReady;
@@ -49,7 +49,7 @@ test('genre filters expose non-featured matches without duplicating Other releas
   const {page,w,el}=dom(source,'https://moviereleaseradar.com/?country=NL');const original=w.fetch;
   w.fetch=async url=>String(url).includes('/calendar/')?{ok:true,json:async()=>[{id:3,title:'Small horror film',release_date:'2026-09-24',countryReleases:{NL:'2026-09-24'},genre_ids:[27],isHit:false,popularity:1}]}:original(url);
   w.eval(mainScript);await w.radarReady;el('genre-select').value='27';el('genre-select').dispatchEvent(new w.Event('change'));
-  const cell=w.document.querySelector('.day-cell[data-date="2026-09-24"]');assert(cell.textContent.includes('Small horror film'));assert(!cell.querySelector('.other-releases-pill'));page.window.close();
+  const cell=w.document.querySelector('.ed-cell[data-date="2026-09-24"]');assert(cell.textContent.includes('Small horror film'));assert(!cell.querySelector('.ed-other'));page.window.close();
 });
 test('a slow search response cannot overwrite a newer query or a cleared search',async()=>{
   const {page,w,el}=dom(source,'https://moviereleaseradar.com/?country=NL');const original=w.fetch;let release;
@@ -58,7 +58,7 @@ test('a slow search response cannot overwrite a newer query or a cleared search'
   el('search-input').value='Digger';el('search-input').dispatchEvent(new w.Event('input'));await wait(180);
   el('search-input').value='September';el('search-input').dispatchEvent(new w.Event('input'));await wait(180);release({movies});await wait(20);
   assert(el('calendar').textContent.includes('September Film'));assert(!el('calendar').textContent.includes('Digger'));
-  el('search-input').value='Digger';el('search-input').dispatchEvent(new w.Event('input'));el('search-input').value='';el('search-input').dispatchEvent(new w.Event('input'));await wait(180);assert(w.document.querySelector('.calendar-grid'));page.window.close();
+  el('search-input').value='Digger';el('search-input').dispatchEvent(new w.Event('input'));el('search-input').value='';el('search-input').dispatchEvent(new w.Event('input'));await wait(180);assert(w.document.querySelector('.ed-grid'));page.window.close();
 });
 test('movie JSON escapes script-breaking titles',()=>{
   const html=buildMoviePage({...movies[0],title:'</script><script>alert(1)</script>'});const data=html.match(/id="radar-movie-data">([\s\S]*?)<\/script>/)[1];assert.equal(JSON.parse(data).title,'</script><script>alert(1)</script>');assert(!data.includes('</script>'));
@@ -91,7 +91,7 @@ test('rank badges distinguish all tiers on single and grouped posters without ex
   assert(!el('calendar').querySelector('.hit-reason'));
   assert(!el('calendar').textContent.includes('FEATURED RELEASES'));
   assert(!el('calendar').textContent.includes('MOST ANTICIPATED'));
-  el('view-toggle-track').click();
+  el('view-list').click();
   assert.equal(el('calendar').querySelectorAll('.rank-chip').length,9);
   assert(!el('calendar').querySelector('.list-card-reason'));
   assert(!el('calendar').textContent.includes('MOST ANTICIPATED'));

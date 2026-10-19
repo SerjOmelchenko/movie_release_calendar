@@ -7,7 +7,6 @@
   function init(adapter){
     app=adapter;
     const state=app.state();U.setCountry(state.country);
-    const share=document.createElement('button');share.id='share-view';share.className='radar-btn';share.textContent='↗ Share this view';share.onclick=openShare;document.querySelector('.filters-bar').append(share);
     window.addEventListener('radar:country',event=>{app.changeCountry(event.detail);syncUrl();showCountryHint();if(panelOpen)openWatchlist();});
     window.addEventListener('radar:watchlist',()=>{app.refreshWatchlist();document.querySelectorAll('[data-save]').forEach(button=>{const saved=U.watchlist().includes(Number(button.dataset.save));button.textContent=saved?'♥ Saved':'♡ Save';button.setAttribute('aria-pressed',String(saved));const title=(button.getAttribute('aria-label')||'movie').replace(/^(Save |Remove )/,'');button.setAttribute('aria-label',(saved?'Remove ':'Save ')+title);});if(panelOpen)openWatchlist();});
     window.addEventListener('popstate',()=>app.applyUrl(C.parseView(location.search)));
@@ -52,12 +51,6 @@
   function focusDialog(dialog,close,returnTo){
     const keydown=event=>{if(event.key==='Escape'){event.preventDefault();close();return;}if(event.key!=='Tab')return;const items=[...dialog.querySelectorAll('button:not(:disabled),a[href],input,select')].filter(e=>!e.hidden&&e.getClientRects().length);const first=items[0],last=items.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus();}};
     dialog.addEventListener('keydown',keydown);dialog.querySelector('button,input,select,a[href]')?.focus();return()=>{dialog.removeEventListener('keydown',keydown);returnTo?.focus();};
-  }
-  function openShare(){
-    const state=app.state();syncUrl();const url='https://moviereleaseradar.com/'+C.viewQuery(state),returnTo=document.activeElement;
-    const overlay=document.createElement('div');overlay.className='radar-share-overlay';overlay.innerHTML='<div class="radar-share-box" role="dialog" aria-modal="true" aria-labelledby="share-title"><div class="radar-kicker">Share your selection</div><h2 id="share-title">Share this view</h2><p class="radar-small">'+C.countries[state.country]+' · '+U.esc(state.month)+' · '+state.view+' view</p><label class="radar-small" for="shared-url">Link</label><input id="shared-url" readonly value="'+U.esc(url)+'"><div class="radar-actions"><button class="radar-btn primary" id="copy-shared-url">Copy link</button><button class="radar-btn" id="close-share">Done</button></div><p id="copy-result" class="radar-small" role="status"></p></div>';
-    document.body.append(overlay);const previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';let cleanup=()=>{};const close=()=>{overlay.remove();document.body.style.overflow=previousOverflow;cleanup();};cleanup=focusDialog(overlay.querySelector('[role=dialog]'),close,returnTo);$('close-share').onclick=close;overlay.onclick=e=>{if(e.target===overlay)close();};
-    $('copy-shared-url').onclick=async()=>{try{await navigator.clipboard.writeText(url);$('copy-result').textContent='Link copied.';}catch{$('shared-url').focus();$('shared-url').select();$('copy-result').textContent='Press Ctrl+C or ⌘C to copy the selected link.';}};
   }
   let panelCleanup=()=>{};
   async function openWatchlist(){
