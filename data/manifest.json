@@ -3315,6 +3315,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "54560": {
+    "title": "Directed by Andrei Tarkovsky",
+    "slug": "directed-by-andrei-tarkovsky",
+    "previousSlugs": [],
+    "certification": null
+  },
   "55301": {
     "title": "Alvin and the Chipmunks: Chipwrecked",
     "slug": "alvin-and-the-chipmunks-chipwrecked",
@@ -4906,6 +4912,12 @@
   "294793": {
     "title": "All the Old Knives",
     "slug": "all-the-old-knives",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "296011": {
+    "title": "November Cats",
+    "slug": "november-cats",
     "previousSlugs": [],
     "certification": null
   },
@@ -18762,6 +18774,12 @@
     ],
     "certification": null
   },
+  "1280095": {
+    "title": "Satan's Slaves 3: Origin",
+    "slug": "satan-s-slaves-3-origin",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1280115": {
     "title": "Way of the Warrior Kid",
     "slug": "way-of-the-warrior-kid",
@@ -20933,6 +20951,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1314764": {
+    "title": "All Quiet at Sunrise",
+    "slug": "all-quiet-at-sunrise",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1314786": {
     "title": "Agent Zeta",
     "slug": "agent-zeta",
@@ -22731,6 +22755,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1352423": {
+    "title": "A Song River",
+    "slug": "a-song-river",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1352526": {
     "title": "Bayaan",
     "slug": "bayaan",
@@ -24394,6 +24424,12 @@
   "1375646": {
     "title": "Colony",
     "slug": "colony",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1375748": {
+    "title": "The Swamp",
+    "slug": "the-swamp",
     "previousSlugs": [],
     "certification": null
   },
@@ -26877,6 +26913,12 @@
   "1405748": {
     "title": "The Big Johnson",
     "slug": "the-big-johnson",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1405753": {
+    "title": "American Theater",
+    "slug": "american-theater",
     "previousSlugs": [],
     "certification": null
   },
@@ -37510,6 +37552,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1509355": {
+    "title": "Jackie",
+    "slug": "jackie",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1509364": {
     "title": "The Montenegro Affair",
     "slug": "the-montenegro-affair",
@@ -39368,9 +39416,11 @@
     "certification": null
   },
   "1522435": {
-    "title": "മെറി ബോയ്സ്",
-    "slug": "movie-1522435",
-    "previousSlugs": [],
+    "title": "Merri Boys",
+    "slug": "merri-boys",
+    "previousSlugs": [
+      "movie-1522435"
+    ],
     "certification": null
   },
   "1522574": {
@@ -49564,6 +49614,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1591487": {
+    "title": "Die Kinder von Bulldogs Bank",
+    "slug": "die-kinder-von-bulldogs-bank",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1591522": {
     "title": "The Eken: Kerala-e Kurukshetra",
     "slug": "the-eken-kerala-e-kurukshetra",
@@ -52143,6 +52199,12 @@
   "1602570": {
     "title": "Walking Red Flag",
     "slug": "walking-red-flag",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1602642": {
+    "title": "Corpi Viola",
+    "slug": "corpi-viola",
     "previousSlugs": [],
     "certification": null
   },
@@ -67927,6 +67989,12 @@
   "1644085": {
     "title": "The Ultimate Linemarker",
     "slug": "the-ultimate-linemarker",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1644086": {
+    "title": "Enzo: The Mafias Boxer",
+    "slug": "enzo-the-mafias-boxer",
     "previousSlugs": [],
     "certification": null
   },
@@ -108586,6 +108654,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1730216": {
+    "title": "Untitled project",
+    "slug": "untitled-project-2027",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1730230": {
     "title": "Nero: Made Men",
     "slug": "nero-made-men",
@@ -111728,6 +111802,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1737773": {
+    "title": "Srimathi",
+    "slug": "srimathi",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1737802": {
     "title": "Stolen Birthday",
     "slug": "stolen-birthday",
@@ -113008,6 +113088,12 @@
   "1740501": {
     "title": "Elise's Dream",
     "slug": "elise-s-dream",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1740520": {
+    "title": "Life Is About Losing Everything",
+    "slug": "life-is-about-losing-everything",
     "previousSlugs": [],
     "certification": null
   },
@@ -117380,6 +117466,12 @@
   "1749082": {
     "title": "A Cada Maré",
     "slug": "a-cada-mare",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1749111": {
+    "title": "Turtle Island Rap",
+    "slug": "turtle-island-rap",
     "previousSlugs": [],
     "certification": null
   },
@@ -124102,6 +124194,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1765044": {
+    "title": "RWOAAAR",
+    "slug": "rwoaaar",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1765049": {
     "title": "The Young Nation Short Film",
     "slug": "the-young-nation-short-film",
@@ -124432,6 +124530,12 @@
     "previousSlugs": [
       "explosion-mental"
     ],
+    "certification": null
+  },
+  "1765853": {
+    "title": "Diana dactilar (dactilismos)",
+    "slug": "diana-dactilar-dactilismos",
+    "previousSlugs": [],
     "certification": null
   },
   "1765875": {
@@ -126699,6 +126803,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1770825": {
+    "title": "Parky",
+    "slug": "parky",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1770836": {
     "title": "Border Diaries",
     "slug": "border-diaries",
@@ -128325,9 +128435,11 @@
     "certification": null
   },
   "1774011": {
-    "title": "A Christmas Rescue",
-    "slug": "a-christmas-rescue",
-    "previousSlugs": [],
+    "title": "A Rescue Dog for Christmas",
+    "slug": "a-rescue-dog-for-christmas",
+    "previousSlugs": [
+      "a-christmas-rescue"
+    ],
     "certification": null
   },
   "1774017": {
@@ -130832,6 +130944,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1781297": {
+    "title": "無題のスーパー8フィルム",
+    "slug": "8-2027",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1781304": {
     "title": "Twilight (But Worse Than Better)",
     "slug": "twilight-but-worse-than-better",
@@ -133065,6 +133183,12 @@
     ],
     "certification": null
   },
+  "1787199": {
+    "title": "Three Blue Boats",
+    "slug": "three-blue-boats",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1787209": {
     "title": "Panata",
     "slug": "panata",
@@ -134411,6 +134535,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1790559": {
+    "title": "Alpha Alice",
+    "slug": "alpha-alice",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1790560": {
     "title": "Happy Ending",
     "slug": "happy-ending",
@@ -134470,6 +134600,12 @@
   "1790612": {
     "title": "Distant Shores",
     "slug": "distant-shores",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1790656": {
+    "title": "Jingle Bells, Wedding Bells",
+    "slug": "jingle-bells-wedding-bells",
     "previousSlugs": [],
     "certification": null
   },
@@ -135307,6 +135443,12 @@
   "1792558": {
     "title": "Trash Magnet",
     "slug": "trash-magnet",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1792577": {
+    "title": "Kapan Punya Anak?",
+    "slug": "kapan-punya-anak",
     "previousSlugs": [],
     "certification": null
   },
@@ -139857,6 +139999,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1803978": {
+    "title": "Nothing arrives, Nothing departs",
+    "slug": "nothing-arrives-nothing-departs",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1803994": {
     "title": "Ada",
     "slug": "ada",
@@ -139960,9 +140108,21 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1804303": {
+    "title": "Insha'Allah",
+    "slug": "insha-allah",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1804306": {
     "title": "Ghosted",
     "slug": "ghosted-2027",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1804312": {
+    "title": "Remnant",
+    "slug": "remnant-1804312",
     "previousSlugs": [],
     "certification": null
   },
@@ -140218,6 +140378,12 @@
   "1805276": {
     "title": "No Trees, No Seas",
     "slug": "no-trees-no-seas",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1805281": {
+    "title": "Kamen Rider Shinobi: Final NinPOW!!!",
+    "slug": "kamen-rider-shinobi-final-ninpow",
     "previousSlugs": [],
     "certification": null
   },
@@ -144301,6 +144467,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1819442": {
+    "title": "55,433",
+    "slug": "55-433",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1819477": {
     "title": "Otra Mujer Sin Filtro",
     "slug": "otra-mujer-sin-filtro",
@@ -144913,6 +145085,12 @@
     ],
     "certification": null
   },
+  "1820950": {
+    "title": "Bruce Springsteen and the E Street Band: Land of Hope and Dreams American Tour (Philadelphia Freedom Cut): Part Four",
+    "slug": "bruce-springsteen-and-the-e-street-band-land-of-hope-and-dreams-american-tour-philadelphia-freedom-cut-part-four",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1820980": {
     "title": "Saheb's stolen Redmi",
     "slug": "saheb-s-stolen-redmi",
@@ -144998,6 +145176,12 @@
   "1821180": {
     "title": "El Arroyo de la Miel",
     "slug": "el-arroyo-de-la-miel",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1821216": {
+    "title": "Gofrodita",
+    "slug": "gofrodita",
     "previousSlugs": [],
     "certification": null
   },
@@ -145130,6 +145314,12 @@
   "1821802": {
     "title": "FYRE 2: The Billy McFarland Story",
     "slug": "fyre-2-the-billy-mcfarland-story",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1821807": {
+    "title": "Dinner at One",
+    "slug": "dinner-at-one",
     "previousSlugs": [],
     "certification": null
   },
@@ -146081,6 +146271,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1824922": {
+    "title": "Elders extreme damage",
+    "slug": "elders-extreme-damage",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1824940": {
     "title": "KERES",
     "slug": "keres",
@@ -146925,6 +147121,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1828693": {
+    "title": "Black Clover: Spade Kingdom Raid Arc",
+    "slug": "black-clover-spade-kingdom-raid-arc",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1828708": {
     "title": "The Detached",
     "slug": "the-detached",
@@ -147059,6 +147261,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1829142": {
+    "title": "Kamusta, Mahal?",
+    "slug": "kamusta-mahal",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1829201": {
     "title": "Mère Terre",
     "slug": "mere-terre",
@@ -147152,6 +147360,12 @@
   "1829844": {
     "title": "Surōkukkā",
     "slug": "surokukka",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1829943": {
+    "title": "Numbers Numbers Numbers",
+    "slug": "numbers-numbers-numbers",
     "previousSlugs": [],
     "certification": null
   },
@@ -147303,6 +147517,12 @@
     "previousSlugs": [],
     "certification": null
   },
+  "1832527": {
+    "title": "RAYE: This Symphony May Contain Hope.",
+    "slug": "raye-this-symphony-may-contain-hope",
+    "previousSlugs": [],
+    "certification": null
+  },
   "1832582": {
     "title": "Sleep work",
     "slug": "sleep-work",
@@ -147378,6 +147598,144 @@
   "1834142": {
     "title": "Madalena",
     "slug": "madalena",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1835035": {
+    "title": "An Elephant",
+    "slug": "an-elephant",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1835565": {
+    "title": "De Materie",
+    "slug": "de-materie",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1836007": {
+    "title": "Este No Era El Plan",
+    "slug": "este-no-era-el-plan",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1836066": {
+    "title": "Nanhey Dil",
+    "slug": "nanhey-dil",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1836128": {
+    "title": "Consolar",
+    "slug": "consolar",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1836302": {
+    "title": "SHIKAR",
+    "slug": "shikar-2027",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1836606": {
+    "title": "Concrete Nature",
+    "slug": "concrete-nature",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1836608": {
+    "title": "Face to Face",
+    "slug": "face-to-face",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1836750": {
+    "title": "The Screen of Our Childhood",
+    "slug": "the-screen-of-our-childhood",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1836867": {
+    "title": "The Christmas Rewrite",
+    "slug": "the-christmas-rewrite",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1837004": {
+    "title": "Ear of Missing Out",
+    "slug": "ear-of-missing-out",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1837082": {
+    "title": "NO MERCY",
+    "slug": "no-mercy-2027",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1837119": {
+    "title": "Insufficient Funs - RoJa",
+    "slug": "insufficient-funs-roja",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1837131": {
+    "title": "Love that Remains",
+    "slug": "love-that-remains",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1837137": {
+    "title": "Little Feet",
+    "slug": "little-feet-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1837161": {
+    "title": "Seen",
+    "slug": "seen",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1837208": {
+    "title": "背水一战",
+    "slug": "movie-1837208",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1837209": {
+    "title": "超ときめき♡宣伝部のきみのハートにロックオンTOUR 2026 ～夢見てるからずっとかわいいでしょ！～アリーナファイナル at 有明アリーナ",
+    "slug": "tour-2026-at",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1837212": {
+    "title": "Lakshmiputhra",
+    "slug": "lakshmiputhra",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1837221": {
+    "title": "ラブル＆クルー IN シアター 2026",
+    "slug": "in-2026",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1837228": {
+    "title": "Navu Tumba Olleyavaru",
+    "slug": "navu-tumba-olleyavaru",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1837272": {
+    "title": "Black Tiger",
+    "slug": "black-tiger",
+    "previousSlugs": [],
+    "certification": null
+  },
+  "1837576": {
+    "title": "劇場版 アイドルマスター SideM F＠NTASTIC BATTLE FES ～Who goes first～",
+    "slug": "sidem-f-ntastic-battle-fes-who-goes-first",
     "previousSlugs": [],
     "certification": null
   }
